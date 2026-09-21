@@ -2,49 +2,81 @@
 
 # Be Your Eye
 
-### Give your spare Android phone something to watch.
+### Stop checking. Let a spare phone watch.
 
-Point it at a display. Set a condition. Let it tell you when the number gets there.
-
-[中文](README.zh-CN.md) · [Build it](docs/community/BUILD.md) · [How it works](USER_MANUAL.md) · [Contribute](CONTRIBUTING.md)
+[中文](README.zh-CN.md) · [Build it](docs/community/BUILD.md) · [User guide](USER_MANUAL.md) · [Contribute](CONTRIBUTING.md)
 
 </div>
 
-Some things have a screen, but no way to tell you when they need your attention. You walk over, check the number, walk away—and come back to check it again.
+<table>
+<tr><th>A number crosses the line</th><th>Someone enters the scene</th><th>Your pictures become a target</th></tr>
+<tr>
+<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4"><img width="250" src="docs/community/demos/numeric.gif" alt="The Android app reading a real power-supply display and recording a threshold event"></a></td>
+<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/person.mp4"><img width="250" src="docs/community/demos/person.gif" alt="The Android app detecting pedestrians in street footage"></a></td>
+<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/reference.mp4"><img width="250" src="docs/community/demos/reference.gif" alt="The Android app matching an illustrated reference target"></a></td>
+</tr>
+<tr><td>A camera becomes a reading.</td><td>A supported target becomes a monitor.</td><td>Three pictures. One thing to watch for.</td></tr>
+</table>
 
-**Be Your Eye turns the camera into that missing connection.** Fix an Android phone in place, point it at the display, and choose what should trigger an alert. Recognition runs on the phone; the alert and event history stay there too.
+<sub>Actual Community app recordings on Android emulator. The first two use real video as camera input; the third uses an illustrated test target. Tap a clip to download the full-size video. [Sources, setup and results](docs/community/demos/SOURCES.md).</sub>
 
-No account. No subscription. No API key. No server to set up.
+| What you keep checking | What you give it | What it watches for |
+| --- | --- | --- |
+| A meter or display | A visible number | A value crossing your threshold |
+| A doorway or work area | A supported target, such as “person” | The target appearing in the frame |
+| A particular object | 3–20 reference pictures | A visual match to your pictures |
 
-<p align="center">
-  <img src="docs/community/images/home.png" width="240" alt="Be Your Eye Community home screen">
-  <br><sub>Current Community home screen · Android emulator</sub>
-</p>
+**No account. No subscription. No API key. Recognition runs on the phone.**
 
-## Point. Set. Watch.
+## From a glance to a record
 
-1. Open **Numeric reading** and point the camera at the reading. Let it find the number, or draw a box around it.
-2. Confirm the baseline and set a condition, such as going above a value for a few seconds.
-3. Start monitoring. When the condition holds, the phone records the event and gives a local alert.
+Fix the phone in place, choose what matters, and start monitoring. When your condition holds, the app records the event and can alert you on that phone.
 
-There are two other ways to set up a monitor: give it **3–20 reference pictures**, or choose a **supported visible object** by description. Both are experimental. Descriptions match a defined catalog of targets; they are not an open-ended AI prompt.
+<table>
+<tr><th>1 · Choose what to watch</th><th>2 · Set the condition</th><th>3 · Check what happened</th></tr>
+<tr>
+<td width="33%"><img width="250" src="docs/community/images/home.png" alt="Three creation routes on the home screen"></td>
+<td width="33%"><img width="250" src="docs/community/demos/condition.png" alt="A threshold configured in the Android app"></td>
+<td width="33%"><img width="250" src="docs/community/demos/history.png" alt="Actual local events recorded during the camera replay"></td>
+</tr>
+</table>
 
-## Try the developer preview
+## Try it
 
-The source is open under **Apache-2.0**. There is no public APK release yet: physical-device, natural-scene and extended-run acceptance are still in progress. The current build and emulator checks are documented in [device support](docs/community/DEVICE_SUPPORT.md).
+This is an **open-source developer preview**. Build the Community app with the [build guide](docs/community/BUILD.md); there is no public APK release yet.
 
-Start with the [build guide](docs/community/BUILD.md). Community builds work without maintainer credentials; recognition models download separately with your confirmation. Once verified and installed, those models can be reused offline. The bundled model catalog is dated **September 21, 2026** and admits new downloads for seven days; the guide explains refreshing signed metadata for an independent build.
+| Bring | Keep in mind |
+| --- | --- |
+| Android 8+, arm64, 8 GB RAM | Keep the phone fixed, powered and the app visible |
+| An internet connection for the first model download | Installed, verified models can be reused offline |
+| A scene you can try safely | Test recognition on your own scene before relying on it |
 
-You'll need **Android 8+, arm64 and 8 GB RAM** for the current models. Keep the phone fixed, powered and the app visible. The in-app dark screen keeps monitoring active; switching apps or locking the phone stops it. One monitor runs at a time, and notifications arrive **on that phone**. Remote alerts are not part of Community.
+<details>
+<summary><b>What works, what is still experimental</b></summary>
 
-Use “Test recognition” on your own scene first. Glare, tiny digits and movement matter. This is an early tool for everyday checking, not a safety alarm.
+Numeric reading is the main route. Reference matching and catalog-based object detection are experimental. A description searches a finite catalog; it is not an open-ended AI prompt. “Person” means person presence, not facial identity.
 
-## Have something you keep checking?
+One monitor runs at a time. In-app dark-screen mode keeps it running; switching apps or locking the phone stops it. Community notifications and history stay on the monitoring phone. There are no remote alerts in this edition.
 
-Tell us what it is, what you're waiting for, and what would make an alert useful. A concrete task—or a case where recognition fails—is a great place to start an [issue](https://github.com/Munable/be-your-eye/issues). Please keep private photos and credentials out of reports.
+These selected replay clips show the app processing controlled inputs. They do not establish natural-scene accuracy, reliable detection of every frame, phone performance or extended-run reliability. Physical-device and natural-scene acceptance remain open. See [device support](docs/community/DEVICE_SUPPORT.md) and [current evidence](evidence/current/05-release.json). This is an early tool for everyday checking, not a safety alarm.
 
-For code contributions, see [CONTRIBUTING](CONTRIBUTING.md). The app is Kotlin and Jetpack Compose, with four modules separating UI, domain rules, storage and vision. [Architecture](docs/ARCHITECTURE.md) explains the boundaries; [Community checks](tools/ci/run-community.sh) is the local verification entry point. The retained connected-service source is optional and is not activated by Community.
+</details>
 
----
+<details>
+<summary><b>Models, builds and privacy</b></summary>
 
-First-party code: [Apache-2.0](LICENSE). Models and dependencies keep their own licenses: [model sources](docs/community/MODELS.md), [third-party notices](THIRD_PARTY_NOTICES.md). [Report a security issue privately](SECURITY.md).
+Community builds require no maintainer credentials or server. Models download separately after showing their size and asking for confirmation. The bundled signed catalog is dated September 21, 2026 and admits new downloads for seven days; the [build guide](docs/community/BUILD.md) explains refreshing signed metadata for an independent distribution.
+
+Recognition runs locally. Ordinary camera frames stay in memory. Reference pictures and any saved trigger image stay in the app's private storage. The retained connected-service source is optional and is not activated by Community.
+
+The app uses Kotlin and Jetpack Compose, with four modules separating UI, domain rules, storage and vision. Start with [architecture](docs/ARCHITECTURE.md) and [Community checks](tools/ci/run-community.sh).
+
+</details>
+
+## What would you point it at?
+
+A display you walk over to check? Something you are waiting to arrive? [Tell us the scene](https://github.com/Munable/be-your-eye/issues), the condition, and what happened when you tried it. A small, repeatable failure is especially useful. Please leave private photos and credentials out of reports.
+
+[Contributions welcome](CONTRIBUTING.md) · [Report a security issue privately](SECURITY.md)
+
+First-party code: [Apache-2.0](LICENSE). [Models](docs/community/MODELS.md), [demo footage](docs/community/demos/SOURCES.md) and [dependencies](THIRD_PARTY_NOTICES.md) retain their own licenses.

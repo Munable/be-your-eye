@@ -58,7 +58,113 @@
       "artifact_full_get": "all 8 artifacts, 98762965 bytes, downloaded independently from public URLs and verified against signed manifest SHA-256 and size"
     },
     "physical_acceptance": "open; phone install error -99",
-    "real_demo": "open; no fabricated video",
+    "real_demo": {
+      "status": "passed controlled Android emulator camera replay; physical natural-scene gate remains open",
+      "recorded_on": "2026-09-21",
+      "application_id": "app.beyoureyes.monitor.community.debug",
+      "apk_sha256": "de1e709ce487c954af4f380ed230a0859315f402a3aa8057a220b548b503f8c0",
+      "environment": "API 36 arm64, 8 GB configured RAM, 540x1200 display, host graphics; video-file rear camera",
+      "runtime_changes": false,
+      "observation_or_event_injection": false,
+      "numeric": {
+        "threshold": "above 8 for 1 second",
+        "baseline": "03.2",
+        "recorded_value": "08.8",
+        "counter": "0 to 1",
+        "local_notification": "observed in recording and runtime delivery evidence"
+      },
+      "person": {
+        "target": "person",
+        "counter": "1 to 2 after restart",
+        "input": "Pexels 5044656, repeated real footage",
+        "claim": "category presence only"
+      },
+      "reference": {
+        "inputs": "three first-party illustrated reference-camera-target PNGs",
+        "counter": "1 to 2 after restart",
+        "trigger_image": "verified in app history"
+      },
+      "room_verification": {
+        "numeric_threshold_events": 1,
+        "person_appearance_events": 2,
+        "reference_appearance_events": 2,
+        "episode_close_markers": 4,
+        "read_only_after_stop": true
+      },
+      "provenance": "docs/community/demos/SOURCES.md",
+      "limits": [
+        "selected controlled replay clips, not natural-object accuracy",
+        "plain lead-ins are unavailable, not absence; no re-entry or dwell-time accuracy claim",
+        "initial overloaded emulator startup had unresponsive UI; no physical performance claim"
+      ],
+      "public_media": {
+        "condition.png": {
+          "sha256": "62f365571e759f4d719ff80efcb825a7dadcd3a9179ecf1ce27f057f88cfd1f4",
+          "bytes": 358203
+        },
+        "history.png": {
+          "sha256": "1bb0b6e90b386b33641a7490107f922ceb575efaa78b1ae4ecb217225521c8e5",
+          "bytes": 184432
+        },
+        "numeric.gif": {
+          "sha256": "f2dc99800094a14f87898d695ed67e3b8aaf9efd4a85db906442b5fb708a4c1f",
+          "bytes": 2410895
+        },
+        "numeric.mp4": {
+          "sha256": "208d049d165d03352f694315d508df558ecd7a94b1584d993b12e6e6f619cd8e",
+          "bytes": 702335
+        },
+        "person-setup.png": {
+          "sha256": "633924c6c3e2c60f0f52bded0e6d2881c06bfbeb69077251dbf63d730288048d",
+          "bytes": 93411
+        },
+        "person.gif": {
+          "sha256": "be6a8953d1b9756ec962de50e444d183d0ef7d6e45320e73cb109af91603557d",
+          "bytes": 2779768
+        },
+        "person.mp4": {
+          "sha256": "fba18934b3b597e13a9e38b37a1905b4e26d7d711e864880a272692c0c468f3f",
+          "bytes": 980693
+        },
+        "reference-setup.png": {
+          "sha256": "89a0cebfe44af5b91d4eb3f1bd943a4a062495ccba215a86628cf0b7f617cade",
+          "bytes": 146845
+        },
+        "reference.gif": {
+          "sha256": "a7c369366c652ebabcb2116b6bc4609d91823a44c40227a521918fd4a94d3bd5",
+          "bytes": 116648
+        },
+        "reference.mp4": {
+          "sha256": "6dc3c9e479f55706d5cbfa7c52433c80cf3f023b1672a894b0c762a3157cc8bc",
+          "bytes": 71436
+        }
+      },
+      "cleanup": {
+        "deleted_task_relative_paths": [
+          "inspection",
+          "emulator.log",
+          "emulator-swiftshader.log",
+          "emulator-host.log",
+          "person-raw.mp4",
+          "reference-first-raw.mp4",
+          "input/numeric-reel.mp4",
+          "input/person-clear.mp4",
+          "input/voltage.mp4",
+          "input/person-sequence.mp4",
+          "input/reference-sequence.mp4",
+          "input/person-centered.mp4",
+          "input/reference-centered.mp4",
+          "input/reference.mp4",
+          "input/person.mp4",
+          "input/big-city-life.webm",
+          "input/person-clear-sequence.mp4"
+        ],
+        "allocated_file_bytes_removed": 63430656,
+        "volume_free_bytes_change_immediate": 63639552,
+        "retained": "Three uncut final screen recordings, original Pexels pedestrian source and read-only Room snapshot in the existing repository-external local demo work directory; original voltage source retained in its existing location. Shared dependencies and other emulators untouched.",
+        "note": "Allocation deduplicates hard links. APFS free-space delta is an immediate observation, not a guaranteed space saving."
+      }
+    },
     "website": "local candidate HTML, privacy and terms updated; not deployed",
     "cleanup": {
       "deleted_task_relative_paths": [
