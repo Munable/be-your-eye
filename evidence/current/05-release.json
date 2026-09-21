@@ -46,7 +46,7 @@
       "old_production_binding": "replaced with example values",
       "unreviewed_store_assets": "excluded",
       "public_remote_created": true,
-      "public_remote_visibility": "private while source review finishes"
+      "public_remote_visibility": "public"
     },
     "rights_holder_grant": "Apache-2.0 first-party source publication explicitly authorized by project owner on 2026-09-21",
     "repository_name": "Munable/be-your-eye; owner inventory confirms singular name is a redirect, not a separate repository",
@@ -152,6 +152,15 @@
           "skipped": 0
         }
       }
+    },
+    "source_publication": {
+      "status": "public",
+      "repository": "https://github.com/Munable/be-your-eye",
+      "initial_public_commit": "0c1f589c7a3699475d19f1cc3859ee8c0a8d8bbd",
+      "license": "Apache-2.0",
+      "old_repository": "retained private; old history not imported",
+      "hosted_ci": "first run failed before build because sdkmanager was not in PATH; use the runner-provided ANDROID_HOME path and rerun",
+      "apk_published": false
     }
   },
   "detail": "Private historical evidence excluded. Only the current sanitized Community scope is included; open gates remain open."

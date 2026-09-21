@@ -21,5 +21,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: '24.16.0'
-      - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - name: Install Android SDK packages
+        run: |
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.0.0'
       - run: bash tools/ci/run-community.sh
