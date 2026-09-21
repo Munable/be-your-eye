@@ -23,7 +23,7 @@ No account. No subscription. No API key. No server to set up.
 
 ## Point. Set. Watch.
 
-1. Open **Numbers** and point the camera at the reading. Let it find the number, or draw a box around it.
+1. Open **Numeric reading** and point the camera at the reading. Let it find the number, or draw a box around it.
 2. Confirm the baseline and set a condition, such as going above a value for a few seconds.
 3. Start monitoring. When the condition holds, the phone records the event and gives a local alert.
 

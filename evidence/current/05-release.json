@@ -39,7 +39,7 @@
       }
     },
     "source_export": {
-      "status": "prepared_and_clean_build_passed",
+      "status": "published clean source snapshot; local and hosted checks passed",
       "included_files": 673,
       "excluded_files": 23,
       "old_git_history": false,
@@ -159,8 +159,40 @@
       "initial_public_commit": "0c1f589c7a3699475d19f1cc3859ee8c0a8d8bbd",
       "license": "Apache-2.0",
       "old_repository": "retained private; old history not imported",
-      "hosted_ci": "first run failed before build because sdkmanager was not in PATH; use the runner-provided ANDROID_HOME path and rerun",
-      "apk_published": false
+      "hosted_ci": {
+        "status": "passed",
+        "url": "https://github.com/Munable/be-your-eye/actions/runs/35576092751",
+        "tested_commit": "cf0ceaa005099a98b9e2b752828a14accd364a6b",
+        "scope": "clean GitHub Ubuntu runner: policy, model/service tests, all four Android module unit suites, Community debug lint and build",
+        "resolved_issue": "sdkmanager was outside PATH; use ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+      },
+      "apk_published": false,
+      "cleanup": {
+        "temporary_export_directories_removed": [
+          "community-public-candidate",
+          "community-publication-20260921",
+          "community-open-source"
+        ],
+        "allocated_bytes_removed": 32391168,
+        "immediate_volume_free_delta_bytes": 33959936,
+        "retained": "current source at its original path, local private-history refs and private remote, prior signed APK/SBOM/scanner evidence, active Gradle dependencies and builds; supplied handoff preserved and locally ignored",
+        "temporary_work_files_removed": [
+          "prepare-open-source.py",
+          "finalize-source-docs.py",
+          "seven-view.png"
+        ],
+        "transient_ci_watch_log_removed": true
+      },
+      "anonymous_verification": {
+        "repository_http": 200,
+        "readme_http": 200,
+        "license_http": 200,
+        "detected_license": "Apache-2.0",
+        "private_vulnerability_reporting": true,
+        "public_tree_private_content_check": "passed",
+        "public_git_history": "clean initial root; no private ancestors"
+      },
+      "working_copy": "original workspace now tracks public origin/main; private-history remote and pre-public branches retained locally"
     }
   },
   "detail": "Private historical evidence excluded. Only the current sanitized Community scope is included; open gates remain open."
