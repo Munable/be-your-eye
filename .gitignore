@@ -1,0 +1,121 @@
+# macOS / editors
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+local.properties
+.railway/
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+secrets/
+/release/google-play/release.env
+
+# Repository-local scratch and generated release inspection outputs
+/.local/
+/work/
+
+# Provider CLI state and local mobile-cloud credentials
+.wrangler/
+.firebase/
+firebase-debug.log
+/supabase/.temp/
+android/app/google-services.json
+firebase-service-account.local.json
+
+# Android / Gradle
+.gradle/
+**/.gradle/
+**/.kotlin/
+**/build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# JavaScript / TypeScript
+node_modules/
+**/node_modules/
+coverage/
+**/coverage/
+dist/
+**/dist/
+*.tsbuildinfo
+
+# Generated models and runtime data
+*.tflite
+*.task
+*.onnx
+*.bin
+*.part
+*.download
+models/cache/
+
+# Local model-package inspection output stays outside Git
+model-tools/v3/downloads/
+model-tools/v3/local/
+model-tools/v3/reports/
+
+# Evidence generated locally; reviewed summaries and hashes stay tracked
+evidence/raw/
+evidence/local/
+evidence/**/*.apk
+evidence/**/*.aab
+evidence/**/*.log
+evidence/**/*.mp4
+evidence/**/*.zip
+evidence/**/*.xml
+evidence/**/*.pb
+evidence/**/*.npy
+evidence/**/*.npz
+evidence/**/*.textproto
+evidence/**/*.sarif
+evidence/**/*.jpg
+evidence/**/*.jpeg
+evidence/**/*.png
+evidence/**/*.webm
+evidence/**/*.ogv
+evidence/**/results/
+evidence/**/raw-test-results/
+evidence/**/logcat/
+evidence/**/*logcat*.txt
+evidence/**/cpuinfo
+evidence/**/meminfo
+evidence/**/aapt.*.ok.txt
+evidence/**/instrumentation.txt
+evidence/**/output.txt
+evidence/**/runner-output.txt
+evidence/**/command.txt
+evidence/**/commands.txt
+evidence/**/source-review/
+evidence/**/source-snapshots/
+evidence/**/raw-observations.json
+evidence/**/raw-outputs.json
+evidence/**/search-report.json
+evidence/**/tuning-report.json
+evidence/**/runtime-report.json
+evidence/**/*media-inventory.json
+
+# Generated internal-evaluation release outputs are reproducible; retain only templates and reviewed summaries
+model-tools/v3/releases/internal-evaluation-*/output*/
+
+# Supabase local tests
+supabase/tests/node_modules/
+
+# Generated SBOMs are CI artifacts unless explicitly reviewed for a release
+sbom/generated/
+
+# Test reports
+test-results/
+reports/
+
+# Agent UX-review scratch (screenshots, walkthrough dumps)
+/tmp/
+/ux-review/

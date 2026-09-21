@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.beyoureyes.app/v3/event.schema.json",
+  "title": "Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "event_id", "task_id", "task_revision", "episode_id",
+    "source_sequence", "occurred_at", "payload"
+  ],
+  "properties": {
+    "schema_version": { "const": "3.0" },
+    "event_id": { "$ref": "common.schema.json#/$defs/uuidv7" },
+    "task_id": { "$ref": "common.schema.json#/$defs/uuidv7" },
+    "task_revision": { "type": "integer", "minimum": 1 },
+    "episode_id": { "$ref": "common.schema.json#/$defs/uuidv7" },
+    "source_sequence": { "type": "integer", "minimum": 0 },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "payload": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "target_id", "condition", "duration_ms", "count"],
+          "properties": {
+            "type": { "const": "object_episode" },
+            "target_id": { "type": "string", "minLength": 1 },
+            "condition": { "enum": ["appeared", "disappeared", "count_matched"] },
+            "duration_ms": { "type": "integer", "minimum": 0 },
+            "count": { "type": "integer", "minimum": 0 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "target_id", "condition", "duration_ms"],
+          "properties": {
+            "type": { "const": "visual_condition_met" },
+            "target_id": { "type": "string", "minLength": 1 },
+            "condition": { "enum": ["present_for_duration", "absent_for_duration"] },
+            "duration_ms": { "type": "integer", "minimum": 1 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "reading", "operator", "threshold_decimal"],
+          "properties": {
+            "type": { "const": "reading_threshold_crossed" },
+            "reading": { "$ref": "common.schema.json#/$defs/structuredReading" },
+            "operator": { "enum": ["gt", "gte", "lt", "lte", "eq"] },
+            "threshold_decimal": { "$ref": "common.schema.json#/$defs/decimalString" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "reading", "operator", "lower_threshold_decimal", "upper_threshold_decimal"],
+          "properties": {
+            "type": { "const": "reading_threshold_crossed" },
+            "reading": { "$ref": "common.schema.json#/$defs/structuredReading" },
+            "operator": { "const": "outside" },
+            "lower_threshold_decimal": { "$ref": "common.schema.json#/$defs/decimalString" },
+            "upper_threshold_decimal": { "$ref": "common.schema.json#/$defs/decimalString" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "from_state", "to_state"],
+          "properties": {
+            "type": { "const": "state_transition" },
+            "from_state": { "type": "string", "minLength": 1 },
+            "to_state": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    }
+  }
+}

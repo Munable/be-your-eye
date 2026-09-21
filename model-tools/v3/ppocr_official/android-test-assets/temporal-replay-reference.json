@@ -1,0 +1,932 @@
+{
+  "android_runtime_contract": {
+    "adapter_id": "numeric_ctc_v1",
+    "candidate_specific_android_backend": false,
+    "input_shape": [
+      1,
+      3,
+      48,
+      320
+    ],
+    "model_or_vocabulary_shipped_in_production_apk": false,
+    "output_shape": [
+      1,
+      40,
+      18710
+    ],
+    "preprocess_id": "ppocr_rec_bgr_nchw_float32_minus1_1_v1",
+    "rule": {
+      "cooldown_ms": 0,
+      "hysteresis_decimal": "2.0",
+      "operator": "gt",
+      "stable_frames": 3,
+      "threshold_decimal": "100.0",
+      "type": "reading_threshold"
+    },
+    "runtime_family": "reading_pipeline_v1",
+    "sampling_interval_ms": 500,
+    "stable_frame_count": 3
+  },
+  "classification": "synthetic_pts_frame_sequence_generic_android_engineering_not_accuracy_tuning_selection_or_release",
+  "decode_parity_scope": {
+    "high_224_8": "fixed320 text exact; dynamic text exact",
+    "invalid_carrot": "fixed320 blank and Android unavailable versus official dynamic nonnumeric text; both are unavailable to the numeric contract",
+    "low_38_0": "fixed320 text exact; dynamic text exact",
+    "rearm_0_30": "fixed320 text 0.3 versus official dynamic text 0.30; numeric value is equal",
+    "separation": "decode parity is evaluated for the signed fixed320 recipe; event semantics are compared independently to the preregistered generic state-machine result"
+  },
+  "expected_summary": {
+    "adapter_unavailable": 1,
+    "conflict_resets": 3,
+    "event_source_sequences": [
+      22,
+      44
+    ],
+    "sampled_frames": 24,
+    "skipped_frames": 24,
+    "source_frames": 48,
+    "stabilized_candidate": 10,
+    "stabilized_stable": 10,
+    "stabilized_unavailable": 4,
+    "threshold_candidate_interruptions": 1,
+    "threshold_events": 2,
+    "threshold_rearms": 1
+  },
+  "host": {
+    "numpy": "2.3.5",
+    "onnxruntime": "1.21.1",
+    "opencv": "4.10.0",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "model": {
+    "artifact_hashes": {
+      "README.md": "7d46dbd183ac09bd5a2e6b4577dcb29240751b1c00eb6813eca308d529f86806",
+      "inference.json": "f0bf53c853937a917affdd74467472167727f8ab0f0f7bded01c4a16c27e46e6",
+      "inference.onnx": "5435fd747c9e0efe15a96d0b378d5bd157e9492ed8fd80edf08f30d02fa24634",
+      "inference.yml": "ab078671bb49f06228eadccd34f1bb501e157f7a047095ffb943ba81512c77d1"
+    },
+    "model_id": "PaddlePaddle/PP-OCRv6_small_rec_onnx",
+    "revision": "b8f84f0b80c529de40b4fbb3544b84fa7233a513",
+    "sha256": "5435fd747c9e0efe15a96d0b378d5bd157e9492ed8fd80edf08f30d02fa24634",
+    "size_bytes": 21159378,
+    "weights_modified": false
+  },
+  "pre_registered_android_comparison_limits": {
+    "derivation": "two normalized uint8 resize levels plus float margin; frozen before API36 run",
+    "event_semantics_exact": true,
+    "fixed320_decode_text_exact": true,
+    "fixed320_input_max_abs": 0.015687,
+    "fixed320_input_mean_abs": 0.001,
+    "pixel_decode_rgb_sha256_exact": true
+  },
+  "prohibited_interpretations": [
+    "model accuracy estimate",
+    "independent test",
+    "real-video evidence",
+    "parameter selection",
+    "release eligibility"
+  ],
+  "schema_version": "1.0",
+  "source": {
+    "crops": {
+      "high_224_8": {
+        "asset_name": "temporal-high-224-8.png",
+        "asset_png_sha256": "94e537b5dbb74aee354e16aa754caba5e444c0cc8c4654082b4c81bb39add65e",
+        "asset_png_size_bytes": 193010,
+        "crop_bgr_sha256": "fc6acdd540750d229ec81d6ff4a0aecd5878d1ee68f0a72680772e755cce5567",
+        "decoded_rgb_sha256": "c0ae23a9329d2ff9002cdfcbed5d2de315ec358797760478c1571c4bf1239a8c",
+        "expected_label_development_only": "224.8",
+        "fixed320_input_asset": "temporal-high-224-8.fixed320-input.f32le.bin",
+        "fixed320_input_sha256": "d27863aafeeeefc9792616ddd367c8bc5e0a04f207741dc42b0ed9f7b98c42ec",
+        "height": 250,
+        "license_id": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "official_dynamic_baseline": {
+          "confidence": 0.9995959997177124,
+          "input_shape": [
+            1,
+            3,
+            48,
+            128
+          ],
+          "numeric_grammar_valid": true,
+          "output_shape": [
+            1,
+            16,
+            18710
+          ],
+          "raw_decode": "224.8",
+          "value_decimal": "224.8"
+        },
+        "sample_id": "real_wall_power_224_8",
+        "signed_fixed320_android_recipe": {
+          "confidence": 0.9998630285263062,
+          "input_sha256": "d27863aafeeeefc9792616ddd367c8bc5e0a04f207741dc42b0ed9f7b98c42ec",
+          "numeric_grammar_valid": true,
+          "output_sha256": "c94f17c405bfc05eaeeca20ecac29dadb40532ceaa5dfbd2854275c3eb6dfd2b",
+          "raw_decode": "224.8",
+          "value_decimal": "224.8"
+        },
+        "source_download_sha256": "7d6613b2294d3c5fda738e5e5a0f9103872ff87e6659996a2eac8f65e661f44b",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Generic_Chinese_wall_power_meter_for_Schuko_plug_(1).jpg",
+        "width": 670
+      },
+      "invalid_carrot": {
+        "asset_name": "temporal-invalid-carrot.png",
+        "asset_png_sha256": "ef55bca29521c281b836802f4bc8df2bc181b247cade48ed076585fbbb1de3f3",
+        "asset_png_size_bytes": 34730,
+        "crop_bgr_sha256": "9849c743459eb98721335d8187ff8cffae47d1aba0cfe23ac5173840f5de8c1f",
+        "decoded_rgb_sha256": "2cf3fd4bd2f90a8a09641914b0b17bfe3867be753b351865468fb85cab776475",
+        "expected_label_development_only": "112",
+        "fixed320_input_asset": "temporal-invalid-carrot.fixed320-input.f32le.bin",
+        "fixed320_input_sha256": "7b023dcbf97a489099c75df48d145422728092c3728979c50a62ed37263a436c",
+        "height": 130,
+        "license_id": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "official_dynamic_baseline": {
+          "confidence": 0.08967266976833344,
+          "input_shape": [
+            1,
+            3,
+            48,
+            73
+          ],
+          "numeric_grammar_valid": false,
+          "output_shape": [
+            1,
+            9,
+            18710
+          ],
+          "raw_decode": "地",
+          "value_decimal": null
+        },
+        "sample_id": "real_carrot_scale_112",
+        "signed_fixed320_android_recipe": {
+          "confidence": 0.0,
+          "input_sha256": "7b023dcbf97a489099c75df48d145422728092c3728979c50a62ed37263a436c",
+          "numeric_grammar_valid": false,
+          "output_sha256": "36b325abe63937ca0fee6822d9f9b8adb6536f058a166c9f9ab55c7c3145f1c2",
+          "raw_decode": "",
+          "value_decimal": null
+        },
+        "source_download_sha256": "12419e5eb9d4c89ff1a4541c8a7000d8c821f0fc1ef9dc44da85f92b7510193c",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:2_carrots_on_a_digital_scale_measuring_112g.jpg",
+        "width": 200
+      },
+      "low_38_0": {
+        "asset_name": "temporal-low-38-0.png",
+        "asset_png_sha256": "18ae507c127c88a78a2aaead145e88ccd019d59c782a1291972a4295ea02c9e0",
+        "asset_png_size_bytes": 39831,
+        "crop_bgr_sha256": "77065c36cc0215e292ed4cac0c9a29365d33f858b43b96d8ea1276ee13011e54",
+        "decoded_rgb_sha256": "e2f882cef499ee7893902060758429f8a7e235e3768de9abe830852c789e9cfe",
+        "expected_label_development_only": "38.0",
+        "fixed320_input_asset": "temporal-low-38-0.fixed320-input.f32le.bin",
+        "fixed320_input_sha256": "c96545cca59d987e530eccd3b794c853b168669ca099e46b31a4777423131b86",
+        "height": 120,
+        "license_id": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "official_dynamic_baseline": {
+          "confidence": 0.9555270075798035,
+          "input_shape": [
+            1,
+            3,
+            48,
+            92
+          ],
+          "numeric_grammar_valid": true,
+          "output_shape": [
+            1,
+            11,
+            18710
+          ],
+          "raw_decode": "38.0",
+          "value_decimal": "38.0"
+        },
+        "sample_id": "real_ear_thermometer_38_0",
+        "signed_fixed320_android_recipe": {
+          "confidence": 0.9807097911834717,
+          "input_sha256": "c96545cca59d987e530eccd3b794c853b168669ca099e46b31a4777423131b86",
+          "numeric_grammar_valid": true,
+          "output_sha256": "1638d4441f582bc914d038ce2b109f03061de07deeafd2a77ce41ca78b04801f",
+          "raw_decode": "38.0",
+          "value_decimal": "38.0"
+        },
+        "source_download_sha256": "e227b9f510404c82c28b998fc206a5009afcc2673e4a2408d37dc83296eacb19",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Ohrthermometer.jpg",
+        "width": 230
+      },
+      "rearm_0_30": {
+        "asset_name": "temporal-rearm-0-30.png",
+        "asset_png_sha256": "877240af454bb0006eed542f82158e20da1d31e8120f84569fbed7b8ffef393b",
+        "asset_png_size_bytes": 112226,
+        "crop_bgr_sha256": "ec7f20088f959b56ade6e5bcdc3343e67246272b6410b146bc1c10dab5813b7d",
+        "decoded_rgb_sha256": "7d8d6497bab56635cff4ff5691e750e205c28928f5d6738d929fcd78756496ed",
+        "expected_label_development_only": "0.30",
+        "fixed320_input_asset": "temporal-rearm-0-30.fixed320-input.f32le.bin",
+        "fixed320_input_sha256": "4423ae692bcee639978164dd2fa325090f7ef072c04c1b9008d9a29a3c8a184e",
+        "height": 210,
+        "license_id": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "official_dynamic_baseline": {
+          "confidence": 0.9584839344024658,
+          "input_shape": [
+            1,
+            3,
+            48,
+            114
+          ],
+          "numeric_grammar_valid": true,
+          "output_shape": [
+            1,
+            14,
+            18710
+          ],
+          "raw_decode": "0.30",
+          "value_decimal": "0.30"
+        },
+        "sample_id": "real_wall_cost_0_30",
+        "signed_fixed320_android_recipe": {
+          "confidence": 0.9951242804527283,
+          "input_sha256": "4423ae692bcee639978164dd2fa325090f7ef072c04c1b9008d9a29a3c8a184e",
+          "numeric_grammar_valid": true,
+          "output_sha256": "f5635bf28ce3c93401feebcf1d948f96dd33051d55414e30586ffd0fcab082f3",
+          "raw_decode": "0.3",
+          "value_decimal": "0.3"
+        },
+        "source_download_sha256": "7d6613b2294d3c5fda738e5e5a0f9103872ff87e6659996a2eac8f65e661f44b",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Generic_Chinese_wall_power_meter_for_Schuko_plug_(1).jpg",
+        "width": 500
+      }
+    },
+    "kind": "lossless_png_pts_frame_sequence",
+    "prior_model_selection_use": true,
+    "source_independent": false
+  },
+  "timeline": [
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "38.0",
+        "value_decimal": "38.0"
+      },
+      "pts_ms": 0,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 0,
+      "source_alias": "low_38_0",
+      "source_sequence": 0,
+      "stability_action": "start_candidate"
+    },
+    {
+      "pts_ms": 250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 0,
+      "source_alias": "low_38_0",
+      "source_sequence": 1
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "38.0",
+        "value_decimal": "38.0"
+      },
+      "pts_ms": 500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 1,
+      "source_alias": "low_38_0",
+      "source_sequence": 2,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 1,
+      "source_alias": "low_38_0",
+      "source_sequence": 3
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "diagnostic_code": "reading_value_conflict",
+        "kind": "unavailable"
+      },
+      "pts_ms": 1000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 2,
+      "source_alias": "high_224_8",
+      "source_sequence": 4,
+      "stability_action": "reset_conflict_frame_unavailable"
+    },
+    {
+      "pts_ms": 1250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 2,
+      "source_alias": "high_224_8",
+      "source_sequence": 5
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 1500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 3,
+      "source_alias": "high_224_8",
+      "source_sequence": 6,
+      "stability_action": "start_candidate"
+    },
+    {
+      "pts_ms": 1750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 3,
+      "source_alias": "high_224_8",
+      "source_sequence": 7
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 2000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 4,
+      "source_alias": "high_224_8",
+      "source_sequence": 8,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 2250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 4,
+      "source_alias": "high_224_8",
+      "source_sequence": 9
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 2500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "threshold_candidate_started",
+      "sampled": true,
+      "slot_index": 5,
+      "source_alias": "high_224_8",
+      "source_sequence": 10,
+      "stability_action": "reached_stable"
+    },
+    {
+      "pts_ms": 2750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 5,
+      "source_alias": "high_224_8",
+      "source_sequence": 11
+    },
+    {
+      "adapter_kind": "unavailable",
+      "candidate_interrupted": true,
+      "event_episode": null,
+      "observation": {
+        "diagnostic_code": "numeric_decode_invalid",
+        "kind": "unavailable"
+      },
+      "pts_ms": 3000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "candidate_interrupted",
+      "sampled": true,
+      "slot_index": 6,
+      "source_alias": "invalid_carrot",
+      "source_sequence": 12,
+      "stability_action": "reset_unavailable"
+    },
+    {
+      "pts_ms": 3250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 6,
+      "source_alias": "invalid_carrot",
+      "source_sequence": 13
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 3500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 7,
+      "source_alias": "high_224_8",
+      "source_sequence": 14,
+      "stability_action": "start_candidate"
+    },
+    {
+      "pts_ms": 3750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 7,
+      "source_alias": "high_224_8",
+      "source_sequence": 15
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 4000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 8,
+      "source_alias": "high_224_8",
+      "source_sequence": 16,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 4250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 8,
+      "source_alias": "high_224_8",
+      "source_sequence": 17
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 4500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "threshold_candidate_started",
+      "sampled": true,
+      "slot_index": 9,
+      "source_alias": "high_224_8",
+      "source_sequence": 18,
+      "stability_action": "reached_stable"
+    },
+    {
+      "pts_ms": 4750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 9,
+      "source_alias": "high_224_8",
+      "source_sequence": 19
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 5000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "threshold_candidate_incremented",
+      "sampled": true,
+      "slot_index": 10,
+      "source_alias": "high_224_8",
+      "source_sequence": 20,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 5250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 10,
+      "source_alias": "high_224_8",
+      "source_sequence": 21
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": 1,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 5500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "triggered",
+      "sampled": true,
+      "slot_index": 11,
+      "source_alias": "high_224_8",
+      "source_sequence": 22,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 5750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 11,
+      "source_alias": "high_224_8",
+      "source_sequence": 23
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 6000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "latched_duplicate_suppressed",
+      "sampled": true,
+      "slot_index": 12,
+      "source_alias": "high_224_8",
+      "source_sequence": 24,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 6250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 12,
+      "source_alias": "high_224_8",
+      "source_sequence": 25
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "diagnostic_code": "reading_value_conflict",
+        "kind": "unavailable"
+      },
+      "pts_ms": 6500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 13,
+      "source_alias": "rearm_0_30",
+      "source_sequence": 26,
+      "stability_action": "reset_conflict_frame_unavailable"
+    },
+    {
+      "pts_ms": 6750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 13,
+      "source_alias": "rearm_0_30",
+      "source_sequence": 27
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "0.3",
+        "value_decimal": "0.3"
+      },
+      "pts_ms": 7000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 14,
+      "source_alias": "rearm_0_30",
+      "source_sequence": 28,
+      "stability_action": "start_candidate"
+    },
+    {
+      "pts_ms": 7250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 14,
+      "source_alias": "rearm_0_30",
+      "source_sequence": 29
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "0.3",
+        "value_decimal": "0.3"
+      },
+      "pts_ms": 7500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 15,
+      "source_alias": "rearm_0_30",
+      "source_sequence": 30,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 7750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 15,
+      "source_alias": "rearm_0_30",
+      "source_sequence": 31
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "0.3",
+        "value_decimal": "0.3"
+      },
+      "pts_ms": 8000,
+      "rearmed": true,
+      "repeat_index": 0,
+      "rule_action": "rearmed_by_hysteresis",
+      "sampled": true,
+      "slot_index": 16,
+      "source_alias": "rearm_0_30",
+      "source_sequence": 32,
+      "stability_action": "reached_stable"
+    },
+    {
+      "pts_ms": 8250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 16,
+      "source_alias": "rearm_0_30",
+      "source_sequence": 33
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "diagnostic_code": "reading_value_conflict",
+        "kind": "unavailable"
+      },
+      "pts_ms": 8500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 17,
+      "source_alias": "high_224_8",
+      "source_sequence": 34,
+      "stability_action": "reset_conflict_frame_unavailable"
+    },
+    {
+      "pts_ms": 8750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 17,
+      "source_alias": "high_224_8",
+      "source_sequence": 35
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 9000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 18,
+      "source_alias": "high_224_8",
+      "source_sequence": 36,
+      "stability_action": "start_candidate"
+    },
+    {
+      "pts_ms": 9250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 18,
+      "source_alias": "high_224_8",
+      "source_sequence": 37
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": false,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 9500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "nonstable_or_unavailable",
+      "sampled": true,
+      "slot_index": 19,
+      "source_alias": "high_224_8",
+      "source_sequence": 38,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 9750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 19,
+      "source_alias": "high_224_8",
+      "source_sequence": 39
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 10000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "threshold_candidate_started",
+      "sampled": true,
+      "slot_index": 20,
+      "source_alias": "high_224_8",
+      "source_sequence": 40,
+      "stability_action": "reached_stable"
+    },
+    {
+      "pts_ms": 10250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 20,
+      "source_alias": "high_224_8",
+      "source_sequence": 41
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 10500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "threshold_candidate_incremented",
+      "sampled": true,
+      "slot_index": 21,
+      "source_alias": "high_224_8",
+      "source_sequence": 42,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 10750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 21,
+      "source_alias": "high_224_8",
+      "source_sequence": 43
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": 2,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 11000,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "triggered",
+      "sampled": true,
+      "slot_index": 22,
+      "source_alias": "high_224_8",
+      "source_sequence": 44,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 11250,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 22,
+      "source_alias": "high_224_8",
+      "source_sequence": 45
+    },
+    {
+      "adapter_kind": "reading",
+      "candidate_interrupted": false,
+      "event_episode": null,
+      "observation": {
+        "kind": "reading",
+        "stable": true,
+        "text": "224.8",
+        "value_decimal": "224.8"
+      },
+      "pts_ms": 11500,
+      "rearmed": false,
+      "repeat_index": 0,
+      "rule_action": "latched_duplicate_suppressed",
+      "sampled": true,
+      "slot_index": 23,
+      "source_alias": "high_224_8",
+      "source_sequence": 46,
+      "stability_action": "continue_or_hold"
+    },
+    {
+      "pts_ms": 11750,
+      "repeat_index": 1,
+      "sampled": false,
+      "slot_index": 23,
+      "source_alias": "high_224_8",
+      "source_sequence": 47
+    }
+  ]
+}

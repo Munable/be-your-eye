@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.beyoureyes.app/v3/observation.schema.json",
+  "title": "Observation",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "kind", "source_sequence", "monotonic_time_ms", "captured_at", "detections"],
+      "properties": {
+        "schema_version": { "const": "3.0" },
+        "kind": { "const": "detections" },
+        "source_sequence": { "type": "integer", "minimum": 0 },
+        "monotonic_time_ms": { "type": "integer", "minimum": 0 },
+        "captured_at": { "type": "string", "format": "date-time" },
+        "detections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["target_id", "score", "box"],
+            "properties": {
+              "target_id": { "type": "string", "minLength": 1 },
+              "score": { "type": "number", "minimum": 0, "maximum": 1 },
+              "box": { "$ref": "common.schema.json#/$defs/normalizedRoi" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "kind", "source_sequence", "monotonic_time_ms", "captured_at", "reading"],
+      "properties": {
+        "schema_version": { "const": "3.0" },
+        "kind": { "const": "reading" },
+        "source_sequence": { "type": "integer", "minimum": 0 },
+        "monotonic_time_ms": { "type": "integer", "minimum": 0 },
+        "captured_at": { "type": "string", "format": "date-time" },
+        "reading": { "$ref": "common.schema.json#/$defs/structuredReading" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "kind", "source_sequence", "monotonic_time_ms", "captured_at", "state_id", "confidence", "stable_frames"],
+      "properties": {
+        "schema_version": { "const": "3.0" },
+        "kind": { "const": "state" },
+        "source_sequence": { "type": "integer", "minimum": 0 },
+        "monotonic_time_ms": { "type": "integer", "minimum": 0 },
+        "captured_at": { "type": "string", "format": "date-time" },
+        "state_id": { "type": "string", "minLength": 1 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "stable_frames": { "type": "integer", "minimum": 1 }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "kind", "source_sequence", "monotonic_time_ms", "captured_at", "reason", "retryable"],
+      "properties": {
+        "schema_version": { "const": "3.0" },
+        "kind": { "const": "unavailable" },
+        "source_sequence": { "type": "integer", "minimum": 0 },
+        "monotonic_time_ms": { "type": "integer", "minimum": 0 },
+        "captured_at": { "type": "string", "format": "date-time" },
+        "reason": { "enum": ["no_frame", "low_quality", "inference_error", "invalid_output", "thermal_paused", "camera_error"] },
+        "retryable": { "type": "boolean" }
+      }
+    }
+  ]
+}

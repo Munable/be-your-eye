@@ -1,0 +1,11 @@
+**
+!model-tools/
+model-tools/**
+!model-tools/catalog-validator/
+!model-tools/catalog-validator/**
+!contracts/
+contracts/**
+!contracts/schemas/
+!contracts/schemas/**
+model-tools/catalog-validator/node_modules/
+model-tools/catalog-validator/.npm/

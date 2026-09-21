@@ -1,0 +1,507 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.beyoureyes.app/v4/task-config.schema.json",
+  "title": "TaskConfig",
+  "type": "object",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "capability_id"
+        ],
+        "properties": {
+          "capability_id": {
+            "const": "structured_reading"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "target_definition": {
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "const": "none"
+              }
+            }
+          },
+          "rule": {
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "reading_threshold"
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "target_definition": {
+            "not": {
+              "required": [
+                "mode"
+              ],
+              "properties": {
+                "mode": {
+                  "const": "none"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "required": [
+    "schema_version",
+    "task_id",
+    "revision",
+    "catalog_version",
+    "capability_id",
+    "title",
+    "target_definition",
+    "monitoring_device_id",
+    "roi",
+    "sampling_policy",
+    "rule",
+    "route_binding",
+    "package_binding"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "4.0"
+    },
+    "task_id": {
+      "$ref": "common.schema.json#/$defs/uuidv7"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "catalog_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capability_id": {
+      "enum": [
+        "visual_target",
+        "visible_state",
+        "structured_reading"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "target_definition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "target_id",
+            "label_zh_cn",
+            "label_en"
+          ],
+          "properties": {
+            "mode": {
+              "const": "object_detection"
+            },
+            "target_id": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$"
+            },
+            "label_zh_cn": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            },
+            "label_en": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "const": "reference_images"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "confirmed_format"
+          ],
+          "properties": {
+            "mode": {
+              "const": "none"
+            },
+            "confirmed_format": {
+              "$ref": "common.schema.json#/$defs/confirmedReadingFormat"
+            }
+          }
+        }
+      ]
+    },
+    "route_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_profile_key",
+        "recipe_id",
+        "intent_key"
+      ],
+      "properties": {
+        "model_profile_key": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$"
+        },
+        "recipe_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$"
+        },
+        "intent_key": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*(?:\\.[a-z0-9][a-z0-9_-]*)*$"
+        }
+      }
+    },
+    "package_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package_id",
+        "package_version",
+        "manifest_sha256",
+        "artifact_identity_sha256"
+      ],
+      "properties": {
+        "package_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$"
+        },
+        "package_version": {
+          "$ref": "common.schema.json#/$defs/semver"
+        },
+        "manifest_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "artifact_identity_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      }
+    },
+    "monitoring_device_id": {
+      "$ref": "common.schema.json#/$defs/uuidv7"
+    },
+    "roi": {
+      "$ref": "common.schema.json#/$defs/normalizedRoi"
+    },
+    "sampling_policy": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "const": "package_default"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "interval_ms"
+          ],
+          "properties": {
+            "mode": {
+              "const": "fixed_interval"
+            },
+            "interval_ms": {
+              "type": "integer",
+              "minimum": 33,
+              "maximum": 10000
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "preferred_interval_ms"
+          ],
+          "properties": {
+            "mode": {
+              "const": "adaptive"
+            },
+            "preferred_interval_ms": {
+              "type": "integer",
+              "minimum": 33,
+              "maximum": 10000
+            }
+          }
+        }
+      ]
+    },
+    "rule": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "condition",
+            "duration_ms",
+            "min_positive_count",
+            "max_positive_gap_ms",
+            "rearm_absence_ms"
+          ],
+          "properties": {
+            "type": {
+              "const": "presence_duration"
+            },
+            "condition": {
+              "enum": [
+                "appears",
+                "remains"
+              ]
+            },
+            "duration_ms": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "min_positive_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_positive_gap_ms": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "rearm_absence_ms": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "condition",
+            "duration_ms",
+            "min_negative_count",
+            "max_observation_gap_ms",
+            "rearm_presence_ms"
+          ],
+          "properties": {
+            "type": {
+              "const": "absence_duration"
+            },
+            "condition": {
+              "const": "disappears"
+            },
+            "duration_ms": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "min_negative_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_observation_gap_ms": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "rearm_presence_ms": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "operator",
+            "count",
+            "duration_ms",
+            "cooldown_ms"
+          ],
+          "properties": {
+            "type": {
+              "const": "object_count"
+            },
+            "operator": {
+              "enum": [
+                "eq",
+                "gte",
+                "lte"
+              ]
+            },
+            "count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "duration_ms": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "cooldown_ms": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "operator",
+            "threshold_decimal",
+            "duration_ms",
+            "hysteresis_decimal",
+            "cooldown_ms"
+          ],
+          "properties": {
+            "type": {
+              "const": "reading_threshold"
+            },
+            "operator": {
+              "enum": [
+                "gt",
+                "gte",
+                "lt",
+                "lte",
+                "eq"
+              ]
+            },
+            "threshold_decimal": {
+              "$ref": "common.schema.json#/$defs/decimalString"
+            },
+            "duration_ms": {
+              "enum": [
+                1000,
+                3000,
+                5000,
+                10000,
+                30000,
+                60000
+              ]
+            },
+            "hysteresis_decimal": {
+              "$ref": "common.schema.json#/$defs/decimalString"
+            },
+            "cooldown_ms": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "operator",
+            "lower_threshold_decimal",
+            "upper_threshold_decimal",
+            "duration_ms",
+            "hysteresis_decimal",
+            "cooldown_ms"
+          ],
+          "properties": {
+            "type": {
+              "const": "reading_threshold"
+            },
+            "operator": {
+              "const": "outside"
+            },
+            "lower_threshold_decimal": {
+              "$ref": "common.schema.json#/$defs/decimalString"
+            },
+            "upper_threshold_decimal": {
+              "$ref": "common.schema.json#/$defs/decimalString"
+            },
+            "duration_ms": {
+              "enum": [
+                1000,
+                3000,
+                5000,
+                10000,
+                30000,
+                60000
+              ]
+            },
+            "hysteresis_decimal": {
+              "$ref": "common.schema.json#/$defs/decimalString"
+            },
+            "cooldown_ms": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "from_state",
+            "to_state",
+            "stable_frames",
+            "cooldown_ms"
+          ],
+          "properties": {
+            "type": {
+              "const": "state_transition"
+            },
+            "from_state": {
+              "type": "string",
+              "minLength": 1
+            },
+            "to_state": {
+              "type": "string",
+              "minLength": 1
+            },
+            "stable_frames": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "cooldown_ms": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      ]
+    }
+  }
+}

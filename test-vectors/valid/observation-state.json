@@ -1,0 +1,10 @@
+{
+  "schema_version": "3.0",
+  "kind": "state",
+  "source_sequence": 50,
+  "monotonic_time_ms": 14000,
+  "captured_at": "2026-08-02T00:02:02Z",
+  "state_id": "primary_target:present",
+  "confidence": 0.93,
+  "stable_frames": 3
+}

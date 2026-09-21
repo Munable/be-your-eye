@@ -1,0 +1,843 @@
+{
+  "schema_version": "4.0",
+  "package_id": "efficientdet_lite2_object_v1",
+  "package_version": "1.0.0-internal.1",
+  "runtime_family": "object_detection_v1",
+  "supported_tasks": [
+    "visual_target"
+  ],
+  "prompt_modes": [
+    "object_class"
+  ],
+  "model_source": {
+    "url": "https://www.kaggle.com/models/tensorflow/efficientdet/tfLite/lite2-detection-metadata/1",
+    "version": "TensorFlow EfficientDet-Lite2 COCO 2017, variation version 1"
+  },
+  "weights_source": {
+    "url": "https://www.kaggle.com/models/tensorflow/efficientdet/tfLite/lite2-detection-metadata/1",
+    "version": "sha256:6fd32c84ab1eb0f7e7f3a7a20a20d7df1530daa8378728f7c79571096286bd52"
+  },
+  "code_source": {
+    "url": "https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/android",
+    "version": "official-tensorflow-example"
+  },
+  "export_tool_source": {
+    "url": "https://www.kaggle.com/models/tensorflow/efficientdet/tfLite/lite2-detection-metadata/1",
+    "version": "published-prebuilt-export-tool-not-disclosed"
+  },
+  "license": {
+    "license_id": "Apache-2.0",
+    "license_text_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "review_status": "approved",
+    "reviewed_at": "2026-08-31T00:00:00Z",
+    "review_evidence_ref": "model-tools/v3/object-detection/efficientdet-lite2/LICENSE-REVIEW.md",
+    "commercial_use_allowed": true,
+    "redistribution_allowed": true,
+    "source_disclosure_required": false,
+    "license_grant_id": null,
+    "grant_expires_at": null,
+    "review_evidence_sha256": "7c93d024fff5a02abe803222e50f148128cb9a17072ffe6a5a21f1776d7fe668"
+  },
+  "artifacts": [
+    {
+      "role": "primary",
+      "runtime": "litert",
+      "media_type": "application/vnd.google.litert",
+      "url": "https://pub-a59bfd86a96840039bf5caa3ff8d254a.r2.dev/internal-evaluation/2026-08-31/be-your-eye-v1/artifacts/efficientdet_lite2_object_v1/efficientdet_lite2.tflite",
+      "sha256": "6fd32c84ab1eb0f7e7f3a7a20a20d7df1530daa8378728f7c79571096286bd52",
+      "size_bytes": 7557887
+    }
+  ],
+  "inputs": [
+    {
+      "role": "image",
+      "artifact_role": "primary",
+      "tensor_index": 0,
+      "tensor_name": "serving_default_images:0",
+      "dtype": "uint8",
+      "runtime_shape": [
+        1,
+        448,
+        448,
+        3
+      ],
+      "quantization": {
+        "mode": "per_tensor",
+        "scale": 0.0078125,
+        "zero_point": 127
+      },
+      "layout": "NHWC",
+      "color_space": "RGB"
+    }
+  ],
+  "outputs": [
+    {
+      "role": "detection_boxes",
+      "artifact_role": "primary",
+      "tensor_index": 782,
+      "tensor_name": "StatefulPartitionedCall:3",
+      "dtype": "float32",
+      "runtime_shape": [
+        1,
+        25,
+        4
+      ]
+    },
+    {
+      "role": "detection_classes",
+      "artifact_role": "primary",
+      "tensor_index": 783,
+      "tensor_name": "StatefulPartitionedCall:2",
+      "dtype": "float32",
+      "runtime_shape": [
+        1,
+        25
+      ]
+    },
+    {
+      "role": "detection_scores",
+      "artifact_role": "primary",
+      "tensor_index": 784,
+      "tensor_name": "StatefulPartitionedCall:1",
+      "dtype": "float32",
+      "runtime_shape": [
+        1,
+        25
+      ]
+    },
+    {
+      "role": "detection_count",
+      "artifact_role": "primary",
+      "tensor_index": 785,
+      "tensor_name": "StatefulPartitionedCall:0",
+      "dtype": "float32",
+      "runtime_shape": [
+        1
+      ]
+    }
+  ],
+  "bindings": [],
+  "adapter_contract": {
+    "schema_id": "object_detection_v1",
+    "class_map": {
+      "identity": "efficientdet-lite2-coco-2017-labelmap-en-v1",
+      "sha256": "f8803ef7900160c629d570848dfda4175e21667bf7b71f73f8ece4938c9f2bf2",
+      "class_id_base": 0,
+      "targets": [
+        {
+          "raw_class_id": 0,
+          "target_id": "person",
+          "label_zh_cn": "人",
+          "label_en": "person",
+          "aliases": [
+            "人物",
+            "people"
+          ]
+        },
+        {
+          "raw_class_id": 1,
+          "target_id": "bicycle",
+          "label_zh_cn": "自行车",
+          "label_en": "bicycle",
+          "aliases": [
+            "单车",
+            "bike"
+          ]
+        },
+        {
+          "raw_class_id": 2,
+          "target_id": "car",
+          "label_zh_cn": "汽车",
+          "label_en": "car",
+          "aliases": [
+            "车",
+            "auto"
+          ]
+        },
+        {
+          "raw_class_id": 3,
+          "target_id": "motorcycle",
+          "label_zh_cn": "摩托车",
+          "label_en": "motorcycle",
+          "aliases": [
+            "motorbike"
+          ]
+        },
+        {
+          "raw_class_id": 4,
+          "target_id": "airplane",
+          "label_zh_cn": "飞机",
+          "label_en": "airplane",
+          "aliases": [
+            "plane"
+          ]
+        },
+        {
+          "raw_class_id": 5,
+          "target_id": "bus",
+          "label_zh_cn": "公交车",
+          "label_en": "bus",
+          "aliases": [
+            "巴士"
+          ]
+        },
+        {
+          "raw_class_id": 6,
+          "target_id": "train",
+          "label_zh_cn": "火车",
+          "label_en": "train",
+          "aliases": [
+            "列车"
+          ]
+        },
+        {
+          "raw_class_id": 7,
+          "target_id": "truck",
+          "label_zh_cn": "卡车",
+          "label_en": "truck",
+          "aliases": [
+            "货车"
+          ]
+        },
+        {
+          "raw_class_id": 8,
+          "target_id": "boat",
+          "label_zh_cn": "船",
+          "label_en": "boat",
+          "aliases": [
+            "船只"
+          ]
+        },
+        {
+          "raw_class_id": 9,
+          "target_id": "traffic_light",
+          "label_zh_cn": "交通信号灯",
+          "label_en": "traffic light",
+          "aliases": [
+            "红绿灯",
+            "traffic signal"
+          ]
+        },
+        {
+          "raw_class_id": 10,
+          "target_id": "fire_hydrant",
+          "label_zh_cn": "消防栓",
+          "label_en": "fire hydrant",
+          "aliases": [
+            "消火栓"
+          ]
+        },
+        {
+          "raw_class_id": 12,
+          "target_id": "stop_sign",
+          "label_zh_cn": "停车标志",
+          "label_en": "stop sign",
+          "aliases": [
+            "停止标志"
+          ]
+        },
+        {
+          "raw_class_id": 13,
+          "target_id": "parking_meter",
+          "label_zh_cn": "停车计时器",
+          "label_en": "parking meter",
+          "aliases": [
+            "停车收费表"
+          ]
+        },
+        {
+          "raw_class_id": 14,
+          "target_id": "bench",
+          "label_zh_cn": "长椅",
+          "label_en": "bench",
+          "aliases": [
+            "长凳"
+          ]
+        },
+        {
+          "raw_class_id": 15,
+          "target_id": "bird",
+          "label_zh_cn": "鸟",
+          "label_en": "bird",
+          "aliases": [
+            "鸟类"
+          ]
+        },
+        {
+          "raw_class_id": 16,
+          "target_id": "cat",
+          "label_zh_cn": "猫",
+          "label_en": "cat",
+          "aliases": [
+            "小猫"
+          ]
+        },
+        {
+          "raw_class_id": 17,
+          "target_id": "dog",
+          "label_zh_cn": "狗",
+          "label_en": "dog",
+          "aliases": [
+            "小狗"
+          ]
+        },
+        {
+          "raw_class_id": 18,
+          "target_id": "horse",
+          "label_zh_cn": "马",
+          "label_en": "horse",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 19,
+          "target_id": "sheep",
+          "label_zh_cn": "羊",
+          "label_en": "sheep",
+          "aliases": [
+            "绵羊"
+          ]
+        },
+        {
+          "raw_class_id": 20,
+          "target_id": "cow",
+          "label_zh_cn": "牛",
+          "label_en": "cow",
+          "aliases": [
+            "奶牛"
+          ]
+        },
+        {
+          "raw_class_id": 21,
+          "target_id": "elephant",
+          "label_zh_cn": "大象",
+          "label_en": "elephant",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 22,
+          "target_id": "bear",
+          "label_zh_cn": "熊",
+          "label_en": "bear",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 23,
+          "target_id": "zebra",
+          "label_zh_cn": "斑马",
+          "label_en": "zebra",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 24,
+          "target_id": "giraffe",
+          "label_zh_cn": "长颈鹿",
+          "label_en": "giraffe",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 26,
+          "target_id": "backpack",
+          "label_zh_cn": "背包",
+          "label_en": "backpack",
+          "aliases": [
+            "双肩包"
+          ]
+        },
+        {
+          "raw_class_id": 27,
+          "target_id": "umbrella",
+          "label_zh_cn": "雨伞",
+          "label_en": "umbrella",
+          "aliases": [
+            "伞"
+          ]
+        },
+        {
+          "raw_class_id": 30,
+          "target_id": "handbag",
+          "label_zh_cn": "手提包",
+          "label_en": "handbag",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 31,
+          "target_id": "tie",
+          "label_zh_cn": "领带",
+          "label_en": "tie",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 32,
+          "target_id": "suitcase",
+          "label_zh_cn": "行李箱",
+          "label_en": "suitcase",
+          "aliases": [
+            "拉杆箱"
+          ]
+        },
+        {
+          "raw_class_id": 33,
+          "target_id": "frisbee",
+          "label_zh_cn": "飞盘",
+          "label_en": "frisbee",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 34,
+          "target_id": "skis",
+          "label_zh_cn": "双板滑雪板",
+          "label_en": "skis",
+          "aliases": [
+            "滑雪双板"
+          ]
+        },
+        {
+          "raw_class_id": 35,
+          "target_id": "snowboard",
+          "label_zh_cn": "单板滑雪板",
+          "label_en": "snowboard",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 36,
+          "target_id": "sports_ball",
+          "label_zh_cn": "运动球",
+          "label_en": "sports ball",
+          "aliases": [
+            "球"
+          ]
+        },
+        {
+          "raw_class_id": 37,
+          "target_id": "kite",
+          "label_zh_cn": "风筝",
+          "label_en": "kite",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 38,
+          "target_id": "baseball_bat",
+          "label_zh_cn": "棒球棒",
+          "label_en": "baseball bat",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 39,
+          "target_id": "baseball_glove",
+          "label_zh_cn": "棒球手套",
+          "label_en": "baseball glove",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 40,
+          "target_id": "skateboard",
+          "label_zh_cn": "滑板",
+          "label_en": "skateboard",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 41,
+          "target_id": "surfboard",
+          "label_zh_cn": "冲浪板",
+          "label_en": "surfboard",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 42,
+          "target_id": "tennis_racket",
+          "label_zh_cn": "网球拍",
+          "label_en": "tennis racket",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 43,
+          "target_id": "bottle",
+          "label_zh_cn": "瓶子",
+          "label_en": "bottle",
+          "aliases": [
+            "瓶"
+          ]
+        },
+        {
+          "raw_class_id": 45,
+          "target_id": "wine_glass",
+          "label_zh_cn": "酒杯",
+          "label_en": "wine glass",
+          "aliases": [
+            "高脚杯"
+          ]
+        },
+        {
+          "raw_class_id": 46,
+          "target_id": "cup",
+          "label_zh_cn": "杯子",
+          "label_en": "cup",
+          "aliases": [
+            "杯"
+          ]
+        },
+        {
+          "raw_class_id": 47,
+          "target_id": "fork",
+          "label_zh_cn": "叉子",
+          "label_en": "fork",
+          "aliases": [
+            "餐叉"
+          ]
+        },
+        {
+          "raw_class_id": 48,
+          "target_id": "knife",
+          "label_zh_cn": "刀",
+          "label_en": "knife",
+          "aliases": [
+            "刀具"
+          ]
+        },
+        {
+          "raw_class_id": 49,
+          "target_id": "spoon",
+          "label_zh_cn": "勺子",
+          "label_en": "spoon",
+          "aliases": [
+            "汤匙"
+          ]
+        },
+        {
+          "raw_class_id": 50,
+          "target_id": "bowl",
+          "label_zh_cn": "碗",
+          "label_en": "bowl",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 51,
+          "target_id": "banana",
+          "label_zh_cn": "香蕉",
+          "label_en": "banana",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 52,
+          "target_id": "apple",
+          "label_zh_cn": "苹果",
+          "label_en": "apple",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 53,
+          "target_id": "sandwich",
+          "label_zh_cn": "三明治",
+          "label_en": "sandwich",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 54,
+          "target_id": "orange",
+          "label_zh_cn": "橙子",
+          "label_en": "orange",
+          "aliases": [
+            "橙"
+          ]
+        },
+        {
+          "raw_class_id": 55,
+          "target_id": "broccoli",
+          "label_zh_cn": "西兰花",
+          "label_en": "broccoli",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 56,
+          "target_id": "carrot",
+          "label_zh_cn": "胡萝卜",
+          "label_en": "carrot",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 57,
+          "target_id": "hot_dog",
+          "label_zh_cn": "热狗",
+          "label_en": "hot dog",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 58,
+          "target_id": "pizza",
+          "label_zh_cn": "披萨",
+          "label_en": "pizza",
+          "aliases": [
+            "比萨"
+          ]
+        },
+        {
+          "raw_class_id": 59,
+          "target_id": "donut",
+          "label_zh_cn": "甜甜圈",
+          "label_en": "donut",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 60,
+          "target_id": "cake",
+          "label_zh_cn": "蛋糕",
+          "label_en": "cake",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 61,
+          "target_id": "chair",
+          "label_zh_cn": "椅子",
+          "label_en": "chair",
+          "aliases": [
+            "座椅"
+          ]
+        },
+        {
+          "raw_class_id": 62,
+          "target_id": "couch",
+          "label_zh_cn": "沙发",
+          "label_en": "couch",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 63,
+          "target_id": "potted_plant",
+          "label_zh_cn": "盆栽",
+          "label_en": "potted plant",
+          "aliases": [
+            "盆栽植物"
+          ]
+        },
+        {
+          "raw_class_id": 64,
+          "target_id": "bed",
+          "label_zh_cn": "床",
+          "label_en": "bed",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 66,
+          "target_id": "dining_table",
+          "label_zh_cn": "餐桌",
+          "label_en": "dining table",
+          "aliases": [
+            "饭桌"
+          ]
+        },
+        {
+          "raw_class_id": 69,
+          "target_id": "toilet",
+          "label_zh_cn": "马桶",
+          "label_en": "toilet",
+          "aliases": [
+            "坐便器"
+          ]
+        },
+        {
+          "raw_class_id": 71,
+          "target_id": "tv",
+          "label_zh_cn": "电视",
+          "label_en": "tv",
+          "aliases": [
+            "电视机",
+            "television"
+          ]
+        },
+        {
+          "raw_class_id": 72,
+          "target_id": "laptop",
+          "label_zh_cn": "笔记本电脑",
+          "label_en": "laptop",
+          "aliases": [
+            "笔记本"
+          ]
+        },
+        {
+          "raw_class_id": 73,
+          "target_id": "mouse",
+          "label_zh_cn": "鼠标",
+          "label_en": "mouse",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 74,
+          "target_id": "remote",
+          "label_zh_cn": "遥控器",
+          "label_en": "remote",
+          "aliases": [
+            "remote control"
+          ]
+        },
+        {
+          "raw_class_id": 75,
+          "target_id": "keyboard",
+          "label_zh_cn": "键盘",
+          "label_en": "keyboard",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 76,
+          "target_id": "cell_phone",
+          "label_zh_cn": "手机",
+          "label_en": "cell phone",
+          "aliases": [
+            "移动电话",
+            "phone"
+          ]
+        },
+        {
+          "raw_class_id": 77,
+          "target_id": "microwave",
+          "label_zh_cn": "微波炉",
+          "label_en": "microwave",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 78,
+          "target_id": "oven",
+          "label_zh_cn": "烤箱",
+          "label_en": "oven",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 79,
+          "target_id": "toaster",
+          "label_zh_cn": "烤面包机",
+          "label_en": "toaster",
+          "aliases": [
+            "吐司机"
+          ]
+        },
+        {
+          "raw_class_id": 80,
+          "target_id": "sink",
+          "label_zh_cn": "水槽",
+          "label_en": "sink",
+          "aliases": [
+            "洗手池"
+          ]
+        },
+        {
+          "raw_class_id": 81,
+          "target_id": "refrigerator",
+          "label_zh_cn": "冰箱",
+          "label_en": "refrigerator",
+          "aliases": [
+            "fridge"
+          ]
+        },
+        {
+          "raw_class_id": 83,
+          "target_id": "book",
+          "label_zh_cn": "书",
+          "label_en": "book",
+          "aliases": [
+            "书本"
+          ]
+        },
+        {
+          "raw_class_id": 84,
+          "target_id": "clock",
+          "label_zh_cn": "时钟",
+          "label_en": "clock",
+          "aliases": [
+            "钟"
+          ]
+        },
+        {
+          "raw_class_id": 85,
+          "target_id": "vase",
+          "label_zh_cn": "花瓶",
+          "label_en": "vase",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 86,
+          "target_id": "scissors",
+          "label_zh_cn": "剪刀",
+          "label_en": "scissors",
+          "aliases": []
+        },
+        {
+          "raw_class_id": 87,
+          "target_id": "teddy_bear",
+          "label_zh_cn": "泰迪熊",
+          "label_en": "teddy bear",
+          "aliases": [
+            "毛绒熊"
+          ]
+        },
+        {
+          "raw_class_id": 88,
+          "target_id": "hair_drier",
+          "label_zh_cn": "吹风机",
+          "label_en": "hair drier",
+          "aliases": [
+            "电吹风",
+            "hair dryer"
+          ]
+        },
+        {
+          "raw_class_id": 89,
+          "target_id": "toothbrush",
+          "label_zh_cn": "牙刷",
+          "label_en": "toothbrush",
+          "aliases": []
+        }
+      ]
+    },
+    "embedded_postprocess": {
+      "max_detections": 25,
+      "score_threshold": 0.5,
+      "nms_iou_threshold": 0.5
+    }
+  },
+  "preprocess_id": "object_rgb_uint8_v1",
+  "postprocess_id": "object_detection_v1",
+  "parameter_profile": {
+    "defaults": {
+      "score_threshold": 0.5,
+      "nms_iou_threshold": 0.5,
+      "max_detections": 25
+    },
+    "allowed_bounds": {
+      "score_threshold": {
+        "minimum": 0.1,
+        "maximum": 0.95
+      },
+      "nms_iou_threshold": {
+        "minimum": 0.1,
+        "maximum": 0.9
+      },
+      "max_detections": {
+        "minimum": 1,
+        "maximum": 25
+      }
+    },
+    "sampling_policy": {
+      "default_interval_ms": 500,
+      "min_interval_ms": 250,
+      "max_interval_ms": 2000,
+      "adaptive_allowed": true
+    }
+  },
+  "device_compatibility": {
+    "device_profile_ids": [
+      "android_arm64_8gb_launch_v1"
+    ],
+    "min_android_api": 26,
+    "max_android_api": null,
+    "abis": [
+      "arm64-v8a"
+    ],
+    "min_memory_mb": 8192,
+    "required_features": []
+  },
+  "signature": {
+    "canonicalization": "RFC8785",
+    "algorithm": "Ed25519",
+    "signing_key_id": "model-key-2026-a",
+    "value": "AA=="
+  }
+}

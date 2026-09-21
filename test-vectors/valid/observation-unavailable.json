@@ -1,0 +1,9 @@
+{
+  "schema_version": "3.0",
+  "kind": "unavailable",
+  "source_sequence": 43,
+  "monotonic_time_ms": 12500,
+  "captured_at": "2026-08-02T00:02:00.500Z",
+  "reason": "low_quality",
+  "retryable": true
+}

@@ -1,0 +1,309 @@
+{
+  "schema_version": "4.0",
+  "catalog_id": "be-your-eye-internal",
+  "catalog_version": "2026.08.18.1",
+  "build_channel": "internal-evaluation",
+  "issued_at": "2026-08-18T00:00:00Z",
+  "capabilities": [
+    {
+      "capability_id": "visual_target",
+      "display_name": "视觉目标",
+      "target_modes": [
+        "object_class",
+        "reference_images"
+      ],
+      "allowed_rule_types": [
+        "presence_duration",
+        "absence_duration"
+      ],
+      "recipe_ids": [
+        "object_detection_general_v1",
+        "reference_match_general_v1"
+      ]
+    },
+    {
+      "capability_id": "structured_reading",
+      "display_name": "结构化读数",
+      "target_modes": [
+        "none"
+      ],
+      "allowed_rule_types": [
+        "reading_threshold"
+      ],
+      "recipe_ids": [
+        "reading_pipeline_general_v1"
+      ]
+    }
+  ],
+  "operational_capabilities": [
+    {
+      "capability_key": "reference_object_matching",
+      "capability_id": "visual_target",
+      "recipe_id": "reference_match_general_v1",
+      "model_card": {
+        "provider_id": "google",
+        "provider_name": "Google",
+        "model_name": "Reference image embedder",
+        "model_home_url": "https://ai.google.dev/edge/mediapipe/solutions/vision/image_embedder/android",
+        "model_kind": "general"
+      },
+      "intent_patterns": [
+        "visual.reference.*"
+      ],
+      "professional_domain": "固定机位参考外观匹配",
+      "display_name": "参考图片",
+      "status": "internal-evaluation",
+      "applicable_scenarios": [
+        "固定机位本地 Internal 验证"
+      ],
+      "inapplicable_scenarios": [
+        "尚未完成的真机质量门和专业判断"
+      ],
+      "input_requirements": [
+        "固定机位",
+        "用户现场确认"
+      ],
+      "device_profile_ids": [
+        "android_arm64_8gb_launch_v1"
+      ],
+      "package_ids": [
+        "reference_match_target_v1"
+      ],
+      "human_review": {
+        "reviewed_at": "2026-08-18T00:00:00Z",
+        "license_conclusion": "approved-for-internal-evaluation",
+        "evidence_refs": [
+          "model-tools/v3/reviews/localized-reference-matcher-0.1.0-internal.15-2026-08-24.md"
+        ]
+      }
+    },
+    {
+      "capability_key": "common_objects_tensorflow_efficientdet_lite2",
+      "capability_id": "visual_target",
+      "recipe_id": "object_detection_general_v1",
+      "model_card": {
+        "provider_id": "tensorflow",
+        "provider_name": "TensorFlow",
+        "model_name": "EfficientDet-Lite2 COCO",
+        "model_home_url": "https://www.kaggle.com/models/tensorflow/efficientdet/tfLite/lite2-detection-metadata/1",
+        "model_kind": "general"
+      },
+      "intent_patterns": [
+        "object.common.*"
+      ],
+      "professional_domain": "有限类别目标检测",
+      "display_name": "文字找目标",
+      "status": "internal-evaluation",
+      "applicable_scenarios": [
+        "固定机位本地 Internal 验证"
+      ],
+      "inapplicable_scenarios": [
+        "尚未完成的真机质量门和专业判断"
+      ],
+      "input_requirements": [
+        "固定机位",
+        "用户现场确认"
+      ],
+      "device_profile_ids": [
+        "android_arm64_8gb_launch_v1"
+      ],
+      "package_ids": [
+        "efficientdet_lite2_object_v1"
+      ],
+      "human_review": {
+        "reviewed_at": "2026-08-18T00:00:00Z",
+        "license_conclusion": "approved-for-internal-evaluation",
+        "evidence_refs": [
+          "model-tools/v3/object-detection/efficientdet-lite2/LICENSE-REVIEW.md"
+        ]
+      },
+      "target_ids": [
+        "person",
+        "bicycle",
+        "car",
+        "motorcycle",
+        "airplane",
+        "bus",
+        "train",
+        "truck",
+        "boat",
+        "traffic_light",
+        "fire_hydrant",
+        "stop_sign",
+        "parking_meter",
+        "bench",
+        "bird",
+        "cat",
+        "dog",
+        "horse",
+        "sheep",
+        "cow",
+        "elephant",
+        "bear",
+        "zebra",
+        "giraffe",
+        "backpack",
+        "umbrella",
+        "handbag",
+        "tie",
+        "suitcase",
+        "frisbee",
+        "skis",
+        "snowboard",
+        "sports_ball",
+        "kite",
+        "baseball_bat",
+        "baseball_glove",
+        "skateboard",
+        "surfboard",
+        "tennis_racket",
+        "bottle",
+        "wine_glass",
+        "cup",
+        "fork",
+        "knife",
+        "spoon",
+        "bowl",
+        "banana",
+        "apple",
+        "sandwich",
+        "orange",
+        "broccoli",
+        "carrot",
+        "hot_dog",
+        "pizza",
+        "donut",
+        "cake",
+        "chair",
+        "couch",
+        "potted_plant",
+        "bed",
+        "dining_table",
+        "toilet",
+        "tv",
+        "laptop",
+        "mouse",
+        "remote",
+        "keyboard",
+        "cell_phone",
+        "microwave",
+        "oven",
+        "toaster",
+        "sink",
+        "refrigerator",
+        "book",
+        "clock",
+        "vase",
+        "scissors",
+        "teddy_bear",
+        "hair_drier",
+        "toothbrush"
+      ]
+    },
+    {
+      "capability_key": "numeric_display_reading",
+      "capability_id": "structured_reading",
+      "recipe_id": "reading_pipeline_general_v1",
+      "model_card": {
+        "provider_id": "paddlepaddle",
+        "provider_name": "PaddlePaddle",
+        "model_name": "PP-OCRv6",
+        "model_home_url": "https://github.com/PaddlePaddle/PaddleOCR",
+        "model_kind": "specialist"
+      },
+      "intent_patterns": [
+        "reading.numeric.*"
+      ],
+      "professional_domain": "固定数字显示屏读取",
+      "display_name": "数字读数",
+      "status": "internal-evaluation",
+      "applicable_scenarios": [
+        "固定机位本地 Internal 验证"
+      ],
+      "inapplicable_scenarios": [
+        "尚未完成的真机质量门和专业判断"
+      ],
+      "input_requirements": [
+        "固定机位",
+        "用户现场确认"
+      ],
+      "device_profile_ids": [
+        "android_arm64_8gb_launch_v1"
+      ],
+      "package_ids": [
+        "reading_pipeline_a_v1"
+      ],
+      "human_review": {
+        "reviewed_at": "2026-08-18T00:00:00Z",
+        "license_conclusion": "approved-for-internal-evaluation",
+        "evidence_refs": [
+          "test-vectors/licenses/review-evidence.md"
+        ]
+      }
+    }
+  ],
+  "runtime_recipes": [
+    {
+      "recipe_id": "reference_match_general_v1",
+      "capability_id": "visual_target",
+      "runtime_family": "similarity_match_v1",
+      "prompt_modes": [
+        "reference_images"
+      ],
+      "candidate_package_ids": [
+        "reference_match_target_v1"
+      ]
+    },
+    {
+      "recipe_id": "object_detection_general_v1",
+      "capability_id": "visual_target",
+      "runtime_family": "object_detection_v1",
+      "prompt_modes": [
+        "object_class"
+      ],
+      "candidate_package_ids": [
+        "efficientdet_lite2_object_v1"
+      ]
+    },
+    {
+      "recipe_id": "reading_pipeline_general_v1",
+      "capability_id": "structured_reading",
+      "runtime_family": "reading_pipeline_v1",
+      "prompt_modes": [
+        "none"
+      ],
+      "candidate_package_ids": [
+        "reading_pipeline_a_v1"
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "package_id": "reference_match_target_v1",
+      "package_version": "1.0.0",
+      "manifest_url": "https://cdn.beyoureyes.app/models/reference_match_target_v1/1.0.0/manifest.json",
+      "manifest_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "status": "active"
+    },
+    {
+      "package_id": "efficientdet_lite2_object_v1",
+      "package_version": "1.0.0-internal.1",
+      "manifest_url": "https://cdn.beyoureyes.app/models/efficientdet_lite2_object_v1/1.0.0/manifest.json",
+      "manifest_sha256": "6f862fc30dd0eeca550f4cd86e01568208b1243bb6ef773a8399969952e7cb33",
+      "status": "active"
+    },
+    {
+      "package_id": "reading_pipeline_a_v1",
+      "package_version": "1.0.0",
+      "manifest_url": "https://cdn.beyoureyes.app/models/reading_pipeline_a_v1/1.0.0/manifest.json",
+      "manifest_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "status": "active"
+    }
+  ],
+  "signature": {
+    "canonicalization": "RFC8785",
+    "algorithm": "Ed25519",
+    "signing_key_id": "catalog-key-2026-a",
+    "value": "AA=="
+  }
+}

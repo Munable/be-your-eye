@@ -1,0 +1,213 @@
+{
+  "schema_version": "beyoureye.external-replay-suite.v1",
+  "suite_id": "external-replay-set-v1",
+  "catalog": {
+    "template_path": "model-tools/v3/releases/current-internal/templates/catalog.template.json",
+    "catalog_version": "2026.08.31.1",
+    "required_active_package_ids": [
+      "similarity_mediapipe_mobilenet_v3_large_v1",
+      "numeric_reader_ppocrv6_medium_v1",
+      "efficientdet_lite2_object_v1"
+    ]
+  },
+  "storage": {
+    "default_root": "/Volumes/DevDisk/DeveloperData/be-your-eyes/external-eval-cache",
+    "bundle_relative_path": "external-replay-set-v1/bundle",
+    "repository_media_allowed": false,
+    "tracked_outputs": "suite definition and one aggregate current result only",
+    "untracked_outputs": "source annotations, selected media, prepared bundle, and runner scratch"
+  },
+  "packages": [
+    {
+      "package_id": "similarity_mediapipe_mobilenet_v3_large_v1",
+      "package_version": "0.1.0-internal.15",
+      "manifest_template_path": "model-tools/v3/releases/current-internal/templates/reference.manifest.template.json",
+      "dataset_id": "objectron-v1",
+      "preparation": "automated_from_verified_external_manifest_v1",
+      "source": {
+        "home_url": "https://github.com/google-research-datasets/Objectron",
+        "publisher": "Google Research",
+        "media_scope": "verified six-identity subset from the official test indices",
+        "local_manifest_relative_path": "objectron/manifest.json",
+        "local_manifest_sha256": "5d9b4bc1491e561c877bc86c0c3c802fbaaad31ed8e90c52b795f941e4c37ba2"
+      },
+      "license": {
+        "dataset_license_id": "C-UDA-1.0",
+        "license_url": "https://github.com/google-research-datasets/Objectron/blob/master/LICENSE",
+        "handling": "computational-use evaluation only; keep media outside Git"
+      },
+      "selection": {
+        "categories": [
+          "book",
+          "bottle",
+          "cup"
+        ],
+        "object_identities_per_category": 2,
+        "reference_frames_per_identity": 3,
+        "later_positive_frames_per_identity": 2,
+        "same_category_hard_negatives_per_identity": 1,
+        "positive_relation": "later frames of the same object identity",
+        "hard_negative_relation": "a different object identity in the same category",
+        "parameter_policy": "frozen signed product defaults; no sweep"
+      },
+      "observation_contract": {
+        "purpose": "single-frame runtime wiring observation; not MonitoringSession, product Event, or accuracy evidence",
+        "runner_errors_maximum": 0,
+        "interpretation": "report all outcomes without an accuracy threshold"
+      }
+    },
+    {
+      "package_id": "numeric_reader_ppocrv6_medium_v1",
+      "package_version": "0.1.0-internal.14",
+      "manifest_template_path": "model-tools/v3/releases/current-internal/templates/reader.manifest.template.json",
+      "dataset_id": "mendeley-seven-segment-energy-meter-v1",
+      "preparation": "automated_v1",
+      "source": {
+        "home_url": "https://data.mendeley.com/datasets/fnn44p4mj8/1",
+        "publisher": "Mendeley Data",
+        "public_api_url": "https://data.mendeley.com/public-api/datasets/fnn44p4mj8/files?folder_id=root&version=1",
+        "media_scope": "169 numbered JPEG files in the archive; 168 have published digit annotations and enter the replay set",
+        "images_archive": {
+          "url": "https://data.mendeley.com/public-files/datasets/fnn44p4mj8/files/b5130583-7852-4995-8421-36bf7b2857b7/file_downloaded",
+          "sha256": "d4dadbd2e51a8e85809a035afa390e8312d6c9206ae6bcd98e094fa61f623529",
+          "size_bytes": 104176444
+        },
+        "annotations": {
+          "url": "https://data.mendeley.com/public-files/datasets/fnn44p4mj8/files/cb924bf8-101d-41f1-9206-4958a7f867ec/file_downloaded",
+          "sha256": "5b23d2380d433c218f2f26d800639c54dff51d74cb15ea9c842b0a552db3200b",
+          "size_bytes": 322934
+        }
+      },
+      "license": {
+        "dataset_license_id": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "handling": "evaluation media stays outside Git"
+      },
+      "selection": {
+        "full_frame_case_count": 168,
+        "images": "all 168 images carrying published digit annotations; archive image 97 is excluded because it has no annotation record",
+        "modes": [
+          "full_frame",
+          "manual_roi_diagnostic"
+        ],
+        "mapping": "anchored decimal file number at the end of each published image URL maps to the numbered archive JPEG",
+        "scoring": "read JPEG EXIF orientation, transform published boxes into upright normalized coordinates, sort by upright x, and compare expected_digits only; annotations contain no decimal-point truth",
+        "manual_roi_diagnostic": {
+          "file_numbers": [
+            1,
+            3,
+            6,
+            7,
+            8,
+            10,
+            11,
+            17,
+            21,
+            22,
+            54,
+            57,
+            58,
+            59,
+            72,
+            75,
+            83,
+            104,
+            106,
+            107,
+            117,
+            129,
+            159,
+            167
+          ],
+          "selection": "fixed reviewed v1 file-number cohort; construction uses only published truth, includes EXIF-orientation cases 075 and 117, and has no runtime-output dependency",
+          "crop": {
+            "source": "published_digit_boxes_union",
+            "coordinate_space": "normalized_source_image_v1",
+            "padding_normalized": 0.04,
+            "clamp": [
+              0,
+              1
+            ]
+          },
+          "media_policy": "reuse the original full-frame asset; do not generate cropped media"
+        },
+        "parameter_policy": "frozen signed product defaults; no sweep"
+      },
+      "observation_contract": {
+        "purpose": "full-frame and fixed manual-ROI runtime wiring observation; published annotations contain no decimal-point truth",
+        "runner_errors_maximum": 0,
+        "interpretation": "report all outcomes without an accuracy threshold or commercial claim"
+      }
+    },
+    {
+      "package_id": "efficientdet_lite2_object_v1",
+      "package_version": "1.0.0-internal.1",
+      "manifest_template_path": "model-tools/v3/releases/current-internal/templates/object.manifest.template.json",
+      "dataset_id": "coco-2017-val",
+      "preparation": "automated_v1",
+      "source": {
+        "home_url": "https://cocodataset.org/#download",
+        "annotations_url": "https://s3.amazonaws.com/images.cocodataset.org/annotations/annotations_trainval2017.zip",
+        "annotations_archive_sha256": "113a836d90195ee1f884e704da6304dfaaecff1f023f49b6ca93c4aaae470268",
+        "image_url_template": "https://s3.amazonaws.com/images.cocodataset.org/val2017/{file_name}",
+        "annotations_member": "annotations/instances_val2017.json",
+        "annotations_member_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f"
+      },
+      "license": {
+        "annotations_license_id": "CC-BY-4.0",
+        "annotations_license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "images": "per-image Creative Commons license recorded by COCO",
+        "handling": "preserve source identity and license metadata; do not commit or republish media"
+      },
+      "selection": {
+        "target_ids_source": "Catalog operational capability common_objects_tensorflow_efficientdet_lite2.target_ids",
+        "eligibility": {
+          "iscrowd": 0,
+          "minimum_bbox_side_pixels": 32,
+          "minimum_bbox_area_ratio": 0.01
+        },
+        "cross_target_image_reuse": "avoid for observational cases when another eligible image exists",
+        "parameter_policy": "frozen signed product defaults; no sweep",
+        "cases_per_target": {
+          "largest_bbox_anchor": 1,
+          "observational": 2
+        },
+        "largest_bbox_anchor_ranking": "maximum eligible target bbox area ratio, then numeric image_id ascending",
+        "largest_bbox_anchor_interpretation": "largest-bbox observational stratum only; not a manually reviewed clear-image or recognition-accuracy gate",
+        "observational_ranking": "sha256(external-replay-set-v1:coco-2017-val:target_id:image_id), ascending, excluding the largest-bbox anchor"
+      },
+      "observation_contract": {
+        "purpose": "external runtime wiring observation; not a supplier benchmark or product accuracy claim",
+        "runner_errors_maximum": 0,
+        "interpretation": "report stratified outcomes and IoU diagnostics without a recognition threshold"
+      }
+    }
+  ],
+  "camera_replay": {
+    "status": "declared_not_automated_v1",
+    "timeline_seconds": [
+      {
+        "phase": "negative",
+        "duration": 5
+      },
+      {
+        "phase": "present_first",
+        "duration": 7
+      },
+      {
+        "phase": "absent_rearm",
+        "duration": 6
+      },
+      {
+        "phase": "present_second",
+        "duration": 7
+      }
+    ],
+    "scope_note": "screen or emulator video replay validates camera and product rules; it is not an independent natural-scene accuracy claim",
+    "expected_event_shape": {
+      "events_per_present_phase": 1,
+      "events_per_negative_phase": 0,
+      "duplicate_notifications": 0
+    }
+  }
+}

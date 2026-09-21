@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.beyoureyes.app/v3/push-envelope.schema.json",
+  "title": "PushEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "cursor_hint"],
+  "properties": {
+    "schema_version": { "const": "3.0" },
+    "event_id": { "$ref": "common.schema.json#/$defs/uuidv7" },
+    "cursor_hint": { "type": "string", "minLength": 1 }
+  }
+}

@@ -1,0 +1,10 @@
+Be Your Eye / 帮你盯
+Copyright 2026 Be Your Eye contributors.
+
+First-party source is licensed under the Apache License, Version 2.0.
+Third-party works retain their original licenses and attribution.
+
+This product uses Google Mobile Object Localizer, MediaPipe MobileNetV3,
+TensorFlow EfficientDet-Lite2, and PaddlePaddle PP-OCRv6 pretrained models.
+See THIRD_PARTY_NOTICES.md and docs/community/MODELS.md for sources and terms.
+Names and logos do not imply endorsement by any model publisher.

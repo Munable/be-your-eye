@@ -1,0 +1,320 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.beyoureyes.app/assistant/v3/monitor-configuration-proposal.schema.json",
+  "title": "MonitorConfigurationProposal",
+  "description": "A side-effect-free, Catalog-bound proposal that must be revalidated by the Android client before opening the editable configuration UI.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/referenceImagesProposal"
+    },
+    {
+      "$ref": "#/$defs/visualDescriptionProposal"
+    },
+    {
+      "$ref": "#/$defs/structuredReadingProposal"
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,255}$"
+    },
+    "intentKey": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+      "maxLength": 160
+    },
+    "catalogBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalog_id",
+        "catalog_version",
+        "catalog_signed_payload_sha256"
+      ],
+      "properties": {
+        "catalog_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "catalog_version": {
+          "$ref": "#/$defs/identifier"
+        },
+        "catalog_signed_payload_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      }
+    },
+    "presenceRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "condition",
+        "duration_seconds"
+      ],
+      "properties": {
+        "type": {
+          "const": "target_presence"
+        },
+        "condition": {
+          "enum": [
+            "appears",
+            "remains",
+            "disappears"
+          ]
+        },
+        "duration_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60
+        }
+      }
+    },
+    "singleReadingRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "condition",
+        "threshold_decimal",
+        "duration_seconds"
+      ],
+      "properties": {
+        "type": {
+          "const": "reading_threshold"
+        },
+        "condition": {
+          "enum": [
+            "above",
+            "below"
+          ]
+        },
+        "threshold_decimal": {
+          "$ref": "common.schema.json#/$defs/decimalString"
+        },
+        "duration_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60
+        }
+      }
+    },
+    "outsideReadingRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "condition",
+        "lower_threshold_decimal",
+        "upper_threshold_decimal",
+        "duration_seconds"
+      ],
+      "properties": {
+        "type": {
+          "const": "reading_threshold"
+        },
+        "condition": {
+          "const": "outside"
+        },
+        "lower_threshold_decimal": {
+          "$ref": "common.schema.json#/$defs/decimalString"
+        },
+        "upper_threshold_decimal": {
+          "$ref": "common.schema.json#/$defs/decimalString"
+        },
+        "duration_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60
+        }
+      }
+    },
+    "referenceImagesProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "kind",
+        "title",
+        "catalog_binding",
+        "model_profile_key",
+        "package_id",
+        "intent_key",
+        "target",
+        "rule"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "3.0"
+        },
+        "kind": {
+          "const": "reference_images"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "catalog_binding": {
+          "$ref": "#/$defs/catalogBinding"
+        },
+        "model_profile_key": {
+          "$ref": "#/$defs/identifier"
+        },
+        "package_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "intent_key": {
+          "$ref": "#/$defs/intentKey"
+        },
+        "target": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "required_image_count"
+          ],
+          "properties": {
+            "mode": {
+              "const": "reference_images"
+            },
+            "required_image_count": {
+              "const": 3
+            }
+          }
+        },
+        "rule": {
+          "$ref": "#/$defs/presenceRule"
+        }
+      }
+    },
+    "visualDescriptionProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "kind",
+        "title",
+        "catalog_binding",
+        "model_profile_key",
+        "package_id",
+        "intent_key",
+        "target",
+        "rule"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "3.0"
+        },
+        "kind": {
+          "const": "visual_description"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "catalog_binding": {
+          "$ref": "#/$defs/catalogBinding"
+        },
+        "model_profile_key": {
+          "$ref": "#/$defs/identifier"
+        },
+        "package_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "intent_key": {
+          "$ref": "#/$defs/intentKey"
+        },
+        "target": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "target_id",
+            "display_text"
+          ],
+          "properties": {
+            "mode": {
+              "const": "visual_description"
+            },
+            "target_id": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$"
+            },
+            "display_text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          }
+        },
+        "rule": {
+          "$ref": "#/$defs/presenceRule"
+        }
+      }
+    },
+    "structuredReadingProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "kind",
+        "title",
+        "catalog_binding",
+        "model_profile_key",
+        "package_id",
+        "intent_key",
+        "target",
+        "rule"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "3.0"
+        },
+        "kind": {
+          "const": "structured_reading"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "catalog_binding": {
+          "$ref": "#/$defs/catalogBinding"
+        },
+        "model_profile_key": {
+          "$ref": "#/$defs/identifier"
+        },
+        "package_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "intent_key": {
+          "$ref": "#/$defs/intentKey"
+        },
+        "target": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "const": "structured_reading"
+            }
+          }
+        },
+        "rule": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/singleReadingRule"
+            },
+            {
+              "$ref": "#/$defs/outsideReadingRule"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

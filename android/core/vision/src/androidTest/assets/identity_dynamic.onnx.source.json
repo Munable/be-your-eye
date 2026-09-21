@@ -1,0 +1,18 @@
+{
+  "fixture": "identity_dynamic.ortfixture generic symbolic-shape Identity graph",
+  "producer": "be-your-eyes-test-fixture",
+  "generated_at": "2026-08-03T00:00:00Z",
+  "generator": {
+    "package": "onnx",
+    "version": "1.18.0",
+    "opset": 13,
+    "ir_version": 7
+  },
+  "graph": {
+    "operator": "Identity",
+    "input": {"name": "X", "type": "float32", "shape": ["batch", "width"]},
+    "output": {"name": "Y", "type": "float32", "shape": ["batch", "width"]}
+  },
+  "sha256": "4bd0d3736bdcfd4ff7c2ed7b4cae8b17e23035b1593a8c989e9d05f599c484be",
+  "size_bytes": 138
+}

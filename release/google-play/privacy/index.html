@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="帮你盯：让安卓手机盯住数字和支持的可见目标，达到条件后在本机提醒。Community Preview 准备中。">
+  <title>Be Your Eye / 帮你盯</title>
+  <style>
+    :root { color-scheme:dark; --bg:#0d1114; --surface:#151b20; --line:#2b363e; --text:#e8eef1; --muted:#a7b3ba; --cyan:#62cad6; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--text); font:16px/1.65 system-ui,-apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif; }
+    main { width:min(720px,calc(100% - 32px)); margin:40px auto; padding:34px; border:1px solid var(--line); border-radius:20px; background:var(--surface); }
+    h1 { margin:0 0 6px; font-size:clamp(34px,8vw,56px); line-height:1.08; }
+    h2 { margin:0 0 26px; color:var(--muted); font-size:20px; font-weight:500; }
+    p { color:var(--muted); }
+    .status { padding:12px 16px; border-left:3px solid var(--cyan); background:var(--bg); }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; }
+    button { padding:13px 15px; border:1px solid var(--line); border-radius:12px; background:transparent; color:var(--muted); font:inherit; }
+    h3 { margin-top:28px; }
+    li { color:var(--muted); margin:8px 0; }
+    nav { display:grid; gap:10px; margin-top:28px; }
+    a { display:block; padding:13px 15px; border:1px solid var(--line); border-radius:12px; color:var(--cyan); text-decoration:none; }
+    a:hover, a:focus-visible { border-color:var(--cyan); outline:none; }
+  </style>
+</head>
+<body>
+<!--email_off-->
+<main>
+  <h1>Be Your Eye</h1>
+  <h2>帮你盯</h2>
+  <p>让安卓手机替你盯数字和支持的可见目标，达到条件后在本机提醒。<br>A local visual sensor for Android: watch a display or supported target and get notified when your condition is met.</p>
+  <p class="status">Community Preview 正在验证，尚未公开下载。实物演示和测试范围将在验收后公布。</p>
+  <div class="actions" aria-label="发行状态">
+    <button type="button" disabled>下载本地版 · 尚未发布</button>
+    <button type="button" disabled>阅读源码 · 待公开</button>
+  </div>
+  <h3>怎样使用</h3>
+  <ol>
+    <li>固定手机，连接电源，让后置相机正对需要观察的画面。</li>
+    <li>选择数字、参考图片或支持的目标；按需确认下载识别文件，再设置条件。</li>
+    <li>保持 App 可见，在本机查看提醒与记录。</li>
+  </ol>
+  <h3>使用前请了解</h3>
+  <p>Community 的本地功能无需注册或订阅。首次准备识别文件需要联网；已验证安装的文件可供后续离线使用。当前候选的完整离线监控、实物识别与持续运行仍待真机验收。</p>
+  <p>目前安装要求 Android 8 或更高、arm64；候选模型设有 8 GB 内存准入要求，低内存设备尚未验证。一次只能运行一个监控。切到桌面、其他 App 或锁屏会停止监控；返回不会自动开始。App 内黑屏不等于系统锁屏。</p>
+  <p>适用于非关键的数字显示和受支持目标，不承诺任意场景识别，也不能用作人身、医疗或工业安全报警。远程提醒、账号同步和 AI 助手不属于 Community 本地版。</p>
+  <nav aria-label="Product links">
+    <a href="/company/">公司与产品 / Company &amp; Products</a>
+    <a href="/privacy/">隐私政策 / Privacy Policy</a>
+    <a href="/terms/">使用与付款条款 / Terms of Use &amp; Payment</a>
+    <a href="mailto:support@beyoureye.com">产品支持 / Support</a>
+    <a href="/security/">安全报告 / Security</a>
+  </nav>
+</main>
+<!--/email_off-->
+</body>
+</html>

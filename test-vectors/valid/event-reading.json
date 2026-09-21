@@ -1,0 +1,31 @@
+{
+  "schema_version": "3.0",
+  "event_id": "0198f000-0000-7000-8000-000000000015",
+  "task_id": "0198f000-0000-7000-8000-000000000011",
+  "task_revision": 2,
+  "episode_id": "0198f000-0000-7000-8000-000000000016",
+  "source_sequence": 49,
+  "occurred_at": "2026-08-02T00:02:01.500Z",
+  "payload": {
+    "type": "reading_threshold_crossed",
+    "reading": {
+      "type": "structured_reading",
+      "status": "stable",
+      "display_text": "123.40kPa",
+      "value_decimal": "123.40",
+      "format": {
+        "profile_id": "confirmed_reading_format_v2",
+        "kind": "decimal",
+        "fractional_digits": 2,
+        "time_segments": null,
+        "unit": "kPa"
+      },
+      "unit": "kPa",
+      "confidence": 0.98,
+      "source_kind": "digital_display",
+      "observed_at": "2026-08-02T00:02:01.500Z"
+    },
+    "operator": "gte",
+    "threshold_decimal": "120.00"
+  }
+}

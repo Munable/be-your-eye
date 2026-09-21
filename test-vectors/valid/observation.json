@@ -1,0 +1,14 @@
+{
+  "schema_version": "3.0",
+  "kind": "detections",
+  "source_sequence": 42,
+  "monotonic_time_ms": 12000,
+  "captured_at": "2026-08-02T00:02:00Z",
+  "detections": [
+    {
+      "target_id": "primary_target",
+      "score": 0.91,
+      "box": { "left": 0.2, "top": 0.2, "right": 0.5, "bottom": 0.8 }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+<resources>
+    <string name="community_about">本地监控无需账号或订阅。识别文件经你确认后才下载，相机画面留在本机。请固定手机、持续供电并保持 App 可见；切出或锁屏会停止监控。Community 不提供云同步、远程提醒和 AI。此预览版不能作为安全报警器。</string>
+    <string name="community_notices">第三方许可</string>
+    <string name="community_back">返回</string>
+    <string name="community_tab">关于</string>
+    <string name="community_catalog_expired">识别文件目录已过期，已安装的文件仍可使用。请更新 Community 后再准备新的识别文件。</string>
+</resources>

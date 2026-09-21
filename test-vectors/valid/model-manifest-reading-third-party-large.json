@@ -1,0 +1,220 @@
+{
+  "schema_version": "4.0",
+  "package_id": "reading_pipeline_third_party_large_v1",
+  "package_version": "1.0.0",
+  "runtime_family": "reading_pipeline_v1",
+  "supported_tasks": [
+    "structured_reading"
+  ],
+  "prompt_modes": [
+    "none"
+  ],
+  "model_source": {
+    "url": "https://example.com/third-party/large-ctc-reader",
+    "version": "1.0.0-contract-fixture"
+  },
+  "weights_source": {
+    "url": "https://example.com/third-party/large-ctc-reader/model.tflite",
+    "version": "1.0.0-contract-fixture"
+  },
+  "code_source": {
+    "url": "https://example.com/third-party/large-ctc-reader/source",
+    "version": "commit-contract-fixture"
+  },
+  "export_tool_source": {
+    "url": "https://example.com/third-party/large-ctc-reader/export",
+    "version": "1.0.0-contract-fixture"
+  },
+  "license": {
+    "license_id": "Apache-2.0",
+    "license_text_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "review_status": "approved",
+    "reviewed_at": "2026-08-01T10:00:00Z",
+    "review_evidence_ref": "test-vectors/licenses/review-evidence.md",
+    "commercial_use_allowed": true,
+    "redistribution_allowed": true,
+    "source_disclosure_required": false,
+    "license_grant_id": null,
+    "grant_expires_at": null,
+    "review_evidence_sha256": "ca7bcc12ec1a6c2c4d33d6a607b0ac4b2ff85c42b137196f1520bebc9428fd4a"
+  },
+  "artifacts": [
+    {
+      "role": "primary",
+      "runtime": "litert",
+      "media_type": "application/vnd.google.litert",
+      "url": "https://cdn.beyoureyes.app/test-fixtures/reading_pipeline_third_party_large_v1/1.0.0/model.tflite",
+      "sha256": "d9dc333c9c7b042c6dffb8e33d72b6f65c9c1d463d0a3c2f78174fea55e94752",
+      "size_bytes": 84503027
+    },
+    {
+      "role": "locator",
+      "runtime": "onnx",
+      "media_type": "application/onnx",
+      "url": "https://cdn.beyoureyes.app/test-fixtures/reading_pipeline_third_party_large_v1/1.0.0/locator.onnx",
+      "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "size_bytes": 1780590
+    },
+    {
+      "role": "vocabulary",
+      "runtime": "ctc_vocabulary",
+      "media_type": "application/vnd.beyoureyes.ctc-vocabulary+json",
+      "url": "https://cdn.beyoureyes.app/test-fixtures/reading_pipeline_third_party_large_v1/1.0.0/vocabulary.json",
+      "sha256": "0c32f37afc680e826e72e4ee0b1a4781601849f2041a703083a3512e5f98b2f5",
+      "size_bytes": 114240
+    }
+  ],
+  "inputs": [
+    {
+      "role": "image",
+      "artifact_role": "primary",
+      "tensor_index": 0,
+      "tensor_name": "serving_default_images:0",
+      "dtype": "float32",
+      "runtime_shape": [
+        1,
+        3,
+        48,
+        320
+      ],
+      "quantization": {
+        "mode": "none"
+      },
+      "layout": "NCHW",
+      "color_space": "BGR"
+    },
+    {
+      "role": "image",
+      "artifact_role": "locator",
+      "tensor_index": 0,
+      "tensor_name": "x",
+      "dtype": "float32",
+      "runtime_shape": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "quantization": {
+        "mode": "none"
+      },
+      "layout": "NCHW",
+      "color_space": "BGR"
+    }
+  ],
+  "outputs": [
+    {
+      "role": "ctc_logits",
+      "artifact_role": "primary",
+      "tensor_index": 0,
+      "tensor_name": "fetch_name_0",
+      "dtype": "float32",
+      "runtime_shape": [
+        1,
+        54,
+        18710
+      ]
+    },
+    {
+      "role": "text_probability_map",
+      "artifact_role": "locator",
+      "tensor_index": 0,
+      "tensor_name": "fetch_name_0",
+      "dtype": "float32",
+      "runtime_shape": [
+        1,
+        1,
+        640,
+        640
+      ]
+    }
+  ],
+  "bindings": [],
+  "adapter_contract": {
+    "schema_id": "structured_reading_v2",
+    "class_map": null,
+    "embedded_postprocess": null
+  },
+  "preprocess_id": "ppocr_det_rec_bgr_nchw_float32_v1",
+  "postprocess_id": "structured_reading_ctc_v2",
+  "parameter_profile": {
+    "defaults": {
+      "minimum_confidence": 0.8,
+      "locator_pixel_threshold": 0.2,
+      "locator_box_threshold": 0.4,
+      "locator_unclip_ratio": 1.4,
+      "locator_max_candidates": 3000
+    },
+    "allowed_bounds": {
+      "minimum_confidence": {
+        "minimum": 0,
+        "maximum": 1
+      },
+      "locator_pixel_threshold": {
+        "minimum": 0,
+        "maximum": 1
+      },
+      "locator_box_threshold": {
+        "minimum": 0,
+        "maximum": 1
+      },
+      "locator_unclip_ratio": {
+        "minimum": 1,
+        "maximum": 3
+      },
+      "locator_max_candidates": {
+        "minimum": 1,
+        "maximum": 3000
+      }
+    },
+    "sampling_policy": {
+      "default_interval_ms": 33,
+      "min_interval_ms": 33,
+      "max_interval_ms": 1500,
+      "adaptive_allowed": true
+    }
+  },
+  "device_compatibility": {
+    "device_profile_ids": [
+      "android_arm64_8gb_launch_v1"
+    ],
+    "min_android_api": 26,
+    "max_android_api": null,
+    "abis": [
+      "arm64-v8a"
+    ],
+    "min_memory_mb": 8192,
+    "required_features": []
+  },
+  "signature": {
+    "canonicalization": "RFC8785",
+    "algorithm": "Ed25519",
+    "signing_key_id": "model-key-2026-a",
+    "value": "AA=="
+  },
+  "ctc_decoding": {
+    "vocabulary_artifact_role": "vocabulary",
+    "blank_index": 0,
+    "index_semantics": "zero_based_token_order_v1",
+    "collapse_semantics": "ctc_greedy_argmax_v1",
+    "score_semantics": "probabilities_v1"
+  },
+  "self_test": {
+    "schema_id": "reading_known_answer_v1",
+    "artifact_role": "primary",
+    "artifact_sha256": "d9dc333c9c7b042c6dffb8e33d72b6f65c9c1d463d0a3c2f78174fea55e94752",
+    "input": {
+      "encoding": "rgb888_base64_v1",
+      "width": 2,
+      "height": 1,
+      "rgb888_base64": "AAAA////",
+      "sha256": "69e4feee9a9dde3fea79f57bf1ac68614581c26bc7562a37ffafce61095e7f61"
+    },
+    "expected": {
+      "text": "12.3",
+      "value_decimal": "12.3",
+      "unit": null,
+      "minimum_confidence": 0.75
+    }
+  }
+}

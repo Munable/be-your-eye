@@ -1,0 +1,47 @@
+{
+  "schema_version": "4.0",
+  "task_id": "0198f000-0000-7000-8000-000000000011",
+  "revision": 1,
+  "catalog_version": "2026.08.18.1",
+  "capability_id": "structured_reading",
+  "title": "数字读数",
+  "target_definition": {
+    "mode": "none",
+    "confirmed_format": {
+      "profile_id": "confirmed_reading_format_v2",
+      "kind": "decimal",
+      "fractional_digits": 0,
+      "time_segments": null,
+      "unit": null
+    }
+  },
+  "monitoring_device_id": "0198f000-0000-7000-8000-000000000002",
+  "roi": {
+    "left": 0.0,
+    "top": 0.0,
+    "right": 1.0,
+    "bottom": 1.0
+  },
+  "sampling_policy": {
+    "mode": "package_default"
+  },
+  "route_binding": {
+    "model_profile_key": "numeric_display_reading",
+    "recipe_id": "reading_pipeline_general_v1",
+    "intent_key": "reading.numeric.display"
+  },
+  "package_binding": {
+    "package_id": "reading_pipeline_a_v1",
+    "package_version": "1.0.0",
+    "manifest_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+    "artifact_identity_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "rule": {
+    "type": "reading_threshold",
+    "operator": "gte",
+    "threshold_decimal": "100",
+    "duration_ms": 3000,
+    "hysteresis_decimal": "1",
+    "cooldown_ms": 3000
+  }
+}

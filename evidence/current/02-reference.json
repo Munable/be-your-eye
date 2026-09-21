@@ -1,0 +1,16 @@
+{
+  "source_commit": "f432771314692fe1b80e8a641fc56b2ca549ef57",
+  "scope": "Community developer source preview",
+  "release_quality_ready": false,
+  "public_release_authorized": false,
+  "source_publication_authorized": true,
+  "status": "open",
+  "community": {
+    "status": "open",
+    "channel": "community",
+    "model_license": "exact redistributed artifacts and review references in docs/community/MODELS.md",
+    "natural_reference_scene": "open; old connected results not promoted",
+    "recorded_at": "2026-09-21T07:12:17.086757+00:00"
+  },
+  "detail": "Private historical evidence excluded. Only the current sanitized Community scope is included; open gates remain open."
+}

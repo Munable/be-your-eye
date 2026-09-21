@@ -1,0 +1,40 @@
+// Applied only by tools/sbom/generate.sh. The application build does not gain a
+// publishing plugin or a mutable plugin version from this file.
+initscript {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.cyclonedx:cyclonedx-gradle-plugin:3.3.0"
+    }
+}
+
+gradle.beforeProject { project ->
+    if (project == gradle.rootProject) {
+        project.pluginManager.apply(org.cyclonedx.gradle.CyclonedxPlugin)
+    }
+}
+
+gradle.projectsEvaluated {
+    def androidConfiguration = System.getenv("BEYOUREYES_SBOM_ANDROID_CONFIGURATION")
+    if (androidConfiguration == null || androidConfiguration.isBlank()) {
+        androidConfiguration = "releaseRuntimeClasspath"
+    }
+    gradle.rootProject.allprojects { project ->
+        project.tasks.withType(org.cyclonedx.gradle.CyclonedxDirectTask).configureEach { task ->
+            // Only :app has the website build type. Its project dependencies
+            // resolve the libraries' release variant through matchingFallbacks.
+            task.includeConfigs.set([
+                project.path == ":app" ? androidConfiguration : "releaseRuntimeClasspath"
+            ])
+            task.skipConfigs.set([])
+            task.includeBomSerialNumber.set(false)
+            task.includeLicenseText.set(false)
+        }
+        project.tasks.withType(org.cyclonedx.gradle.BaseCyclonedxTask).configureEach { task ->
+            task.includeBomSerialNumber.set(false)
+            task.includeLicenseText.set(false)
+        }
+    }
+}

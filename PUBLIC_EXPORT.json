@@ -1,0 +1,3476 @@
+{
+  "source_commit": "f432771314692fe1b80e8a641fc56b2ca549ef57",
+  "has_git_history": false,
+  "scope": "source snapshot; no APK publication",
+  "included": [
+    {
+      "path": ".dockerignore",
+      "bytes": 245,
+      "sha256": "e7b438cee26741e03f672be10c67382b56c3e13929b02c8926dcc7e009385e78"
+    },
+    {
+      "path": ".editorconfig",
+      "bytes": 249,
+      "sha256": "aeeaef4471070dfb607d728a024b0bc0439913776d27460e5dc0b0c50d70bad2"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug.yml",
+      "bytes": 567,
+      "sha256": "8e996e0a69426518b8a56242f91ce1a2b012fe1e8b329101227f614e478d5156"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/task.yml",
+      "bytes": 564,
+      "sha256": "374a27f0ea3f4bbcbdef83821c0ec24001c4f0af744606eb5f0a6f510ac9aaf0"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "bytes": 806,
+      "sha256": "253b72678e12035248408957cb787cd9119b3ee52ba7a1e7e0bbf53ab8bf766d"
+    },
+    {
+      "path": ".github/scripts/check-repo-policy.mjs",
+      "bytes": 11470,
+      "sha256": "36a3ef35c3f6b310eb55bc83f0bd608c429d512fdd80fd8a41a65d29652bf7e9"
+    },
+    {
+      "path": ".github/scripts/check-repo-policy.test.mjs",
+      "bytes": 5787,
+      "sha256": "87654d66c959c029c61bc4bc3f0b00acd546c1ed3c42708d2196595751810952"
+    },
+    {
+      "path": ".github/scripts/repo-policy-rules.mjs",
+      "bytes": 5877,
+      "sha256": "745513e3779471e0747c746fa3c5a055576c6518c2fcae41cf7a44efc9a3c145"
+    },
+    {
+      "path": ".github/workflows/community.yml",
+      "bytes": 710,
+      "sha256": "b353b17d95861a805e1bb030c1a1608ba981f7aa71186a73795801924816aa54"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 2305,
+      "sha256": "ee001892762c30ccef4505997df4ae180e3e9fbb349da58105bac35209a8c18e"
+    },
+    {
+      "path": ".node-version",
+      "bytes": 8,
+      "sha256": "2722b61f414f07f08be7f1f1316012813818f26f1c40d6a24a748686cec7d2ff"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 7412,
+      "sha256": "31e0edfebedd149813d8432f8040616808461a39dc219edf522390c972f8fbf5"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 1230,
+      "sha256": "9cbb1e63ffbcece9664150116b4b2d0b955587eb0b84c27fbe48ddf3ab5e6348"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 496,
+      "sha256": "e39cdda9f0d2ae37d282f469b84da738d87313412781968bf63b2f50d9e85139"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3690,
+      "sha256": "886cdb2b67a48b962b37a054203bb186eb15de49e1fd80b42b7a905809f1f7a0"
+    },
+    {
+      "path": "README.zh-CN.md",
+      "bytes": 3491,
+      "sha256": "a2cc2c8b96e9093a4aeb8e16b56c3d2d12e2b328c5c37bc77bf0bbdf1226cc28"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 1927,
+      "sha256": "7b189c26d74c4c0e4529964f536a08f62e2c980187b6977717a9dd61c937902d"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 3765,
+      "sha256": "59b85b74fc089f22ae22947600154506208982452d3ec0a1307fa4480588d82d"
+    },
+    {
+      "path": "USER_MANUAL.md",
+      "bytes": 14258,
+      "sha256": "5277c6201a81b033928fdbb950d5116ecdc926b82ee2667b532beb342a44d68b"
+    },
+    {
+      "path": "android/app/build.gradle.kts",
+      "bytes": 27872,
+      "sha256": "c4897f84ab583bb0e6abb81a10d016104312871ee2471dd0677ec378a78d51fb"
+    },
+    {
+      "path": "android/app/proguard-rules.pro",
+      "bytes": 94,
+      "sha256": "c315aa356c6d2ea186e9da6d2d73a3076ab4bfea9272869eee9b78172b8f527d"
+    },
+    {
+      "path": "android/app/src/androidTest/assets/reading-known-answer-123.png",
+      "bytes": 2157,
+      "sha256": "5b6b5a5ce6bd7e93e5015f7c949f96f53279f251c4fcfa37fbe6f14ff7e03819"
+    },
+    {
+      "path": "android/app/src/androidTest/assets/reading-known-answer-333.png",
+      "bytes": 767,
+      "sha256": "5f1a969575e5bee236862622808d2ab4fde7ef109671b4c0137f08276cb96abc"
+    },
+    {
+      "path": "android/app/src/androidTest/assets/reference-camera-target-1.png",
+      "bytes": 25746,
+      "sha256": "a12a5eba8935aa01455cebb4a63924436e8c80e7f0653de6d25c8b79ff1bad74"
+    },
+    {
+      "path": "android/app/src/androidTest/assets/reference-camera-target-2.png",
+      "bytes": 25819,
+      "sha256": "7c0bf8ff7b07b18f9e0a1a88b40ace38c593c3ecc5d6f8a49e8a8a940f39820f"
+    },
+    {
+      "path": "android/app/src/androidTest/assets/reference-camera-target-3.png",
+      "bytes": 25843,
+      "sha256": "65634e203c08efde7281c0d423555cc384fc8f7d35165804745be7bdbe40e084"
+    },
+    {
+      "path": "android/app/src/androidTest/assets/reference-fixtures/seven.heic",
+      "bytes": 14060,
+      "sha256": "ff7359b2f529e309e221d2bda321ca883200e4100ec0b48122b6fb4ae268fa6f"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/AssistantAccessUiInstrumentedTest.kt",
+      "bytes": 910,
+      "sha256": "2fbae3acab81c2c7aa0273fd0f09ba0b5b0fa233d8a93241221b16f3b27ce2fd"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/AssistantVoiceHoldUiInstrumentedTest.kt",
+      "bytes": 3544,
+      "sha256": "3aad1c2c5f05eb4c264582594ae91f882e235a3b74028d6e6c1bc9ea622e51d5"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/CloudForegroundSyncInstrumentedTest.kt",
+      "bytes": 1410,
+      "sha256": "5128c6efe425fa4e250d4cc9edaf638555a6256f76625cc2abb5aeaa252c30b8"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/DirectStartDownloadInstrumentedTest.kt",
+      "bytes": 2854,
+      "sha256": "d73796f20ac26ad5385f33a35cb2cfebc106ac8544ee16386cb83e858c29fa48"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ExternalVisionReplayInstrumentedTest.kt",
+      "bytes": 43991,
+      "sha256": "71d3e3ed59f2d2cbf27f3364f495ec2bcb5122448a80ef013c0a36f50b68d635"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/FirebaseInstallationIdModeInstrumentedTest.kt",
+      "bytes": 1083,
+      "sha256": "b2a992ec8a78db8f259bf3b039e42662027592de1d02f4eb8d9a347f81bc0694"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/HostedPushAcceptanceInstrumentedTest.kt",
+      "bytes": 16153,
+      "sha256": "4ec6232b5de30508af6fa4df9e165be85a1c9bf66c86abba758e1f14d8ff170d"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/HostedSnapshotRelayAcceptanceInstrumentedTest.kt",
+      "bytes": 14748,
+      "sha256": "a38348a49ef2f61a6769d2879320a0bdda6f44d5e095e17aa8cabebb67bb9dce"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/LiveConnectivityInstrumentedTest.kt",
+      "bytes": 8823,
+      "sha256": "bcd33a5631d742f0ceb699039189dae650380acb85650bdfc151da91db23b3df"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/LiveR2ReadingPackageInstrumentedTest.kt",
+      "bytes": 6544,
+      "sha256": "2af4ccb47dd205ff5ffb71e7395fbbf7d35bcdcbd7da1d24a64c55aefc48a3bc"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/LocalOnlyCloudBootInstrumentedTest.kt",
+      "bytes": 1127,
+      "sha256": "7267c6c685ad3f708980c8a57bccbde828d946b9c61a6a8b06f436f35ab502d4"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ModelDownloadFlowInstrumentedTest.kt",
+      "bytes": 8762,
+      "sha256": "35ab98509f7e2611700cc481f118a585981f1188ceb26f46c003f3417aab0b2a"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/NetworkSecurityManifestInstrumentedTest.kt",
+      "bytes": 1016,
+      "sha256": "5d67a184f11738dd466a85818a44cd86f58c729a00b11a75cfea67a67f411f5b"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/NotificationChannelsInstrumentedTest.kt",
+      "bytes": 2230,
+      "sha256": "90068cee6f71838a2011d33a0634b0e2400984c02292ad71be622aa40c6240f9"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/NumericReadingCameraFlowInstrumentedTest.kt",
+      "bytes": 15241,
+      "sha256": "7716e99ebbc028f01815fa53c234622bdad2f2055430ff9537ffe5e12ce3a503"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ObjectDetectionCameraFlowInstrumentedTest.kt",
+      "bytes": 6464,
+      "sha256": "eb260718e33fad5ac4ac58e9ec159bf5dae2a466076906ff175967f859ff4320"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/OfflineProductPackageSeedInstrumentedTest.kt",
+      "bytes": 22861,
+      "sha256": "b8b77f47a1673aad13f052933a7708c6b21c7c760a90ad24cd1854c4dd3b76ef"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ProductSwitchAccessibilityInstrumentedTest.kt",
+      "bytes": 1196,
+      "sha256": "99a6d23cccd39627eeadb1665daa0448e2302c14f8692539b7e1ba3049e15ad4"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ReadingRoiOverlayInstrumentedTest.kt",
+      "bytes": 7162,
+      "sha256": "58fd2beec66e68fc8329f21ebe9efa89300bcd9207c15bf6ca66d8753c5bb05a"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/RealSignedReadingPackageInstrumentedTest.kt",
+      "bytes": 16527,
+      "sha256": "d24afcf2b2768ddaa30229dc8a9338910006f605c61bfed2ed79431c860c92e6"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/RealSignedReferencePackageInstrumentedTest.kt",
+      "bytes": 19228,
+      "sha256": "360f5e454fc6a233dacff45009bc5e3ceaed86d103d6b549dd98e2c85829b972"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ReferenceCameraFlowInstrumentedTest.kt",
+      "bytes": 10685,
+      "sha256": "619ad9b849ea1629de177038b3801e8cbf63e2fb548b3c1c93940118d8a6a83c"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ReferenceCreationBackNavigationInstrumentedTest.kt",
+      "bytes": 1498,
+      "sha256": "b439ea90c056fe3ccc5257a63c0e61d1c6c425bc130c4da41f5c86e8c4f36345"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ReferenceCreationDraftRecoveryInstrumentedTest.kt",
+      "bytes": 6867,
+      "sha256": "85466197d8cc9491233746993974e65bca9bca23b2702ef15d6faf9383bcf933"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ReferenceImageQualityInstrumentedTest.kt",
+      "bytes": 9454,
+      "sha256": "0a0be3af16419279295e0e8ae56ed28f6f2cc82f8e95fa58a174bb2433e06762"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/ResponsiveRuleControlsInstrumentedTest.kt",
+      "bytes": 3301,
+      "sha256": "afe099e8f3e68977f699a53ee632433eb867bf4314727e20c469ae2cadf7edb6"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/SecureEntitlementLeaseStoreInstrumentedTest.kt",
+      "bytes": 1517,
+      "sha256": "0f1f07357c9cc41f4cfef3a8023976f169b8f92d18a7a6b01a94cc16d15faf98"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/SignedObjectPackageSanityInstrumentedTest.kt",
+      "bytes": 6548,
+      "sha256": "c91c76edfbcb331df47c7e88d6a6d9c24bd24cb31efaf03f7a4540ea2d60cef3"
+    },
+    {
+      "path": "android/app/src/androidTest/java/app/beyoureyes/monitor/TargetDetectionOverlayInstrumentedTest.kt",
+      "bytes": 1880,
+      "sha256": "dfeea13c298f0537c9dd3bf4d662630c5d2d0e4df875e86e69d2fb5be2c111d5"
+    },
+    {
+      "path": "android/app/src/community/AndroidManifest.xml",
+      "bytes": 220,
+      "sha256": "b76c63e7bb39bb230f2099af036ebb270971143ead8c835aaa7249877d611485"
+    },
+    {
+      "path": "android/app/src/community/assets/community-models/catalog.json",
+      "bytes": 6658,
+      "sha256": "e7f499fa6323896dd481051aa4e84db1add5076505aeb79dbe99cc4695c8b2ba"
+    },
+    {
+      "path": "android/app/src/community/assets/community-models/manifests/efficientdet_lite2_object_v1.json",
+      "bytes": 12333,
+      "sha256": "47d9e5fa594663168c4b6fe1e4ef9bfabff19c9a5f48e1293a9c66250c5c463c"
+    },
+    {
+      "path": "android/app/src/community/assets/community-models/manifests/numeric_reader_ppocrv6_medium_v1.json",
+      "bytes": 66427,
+      "sha256": "488f51c26d47be3a19c1bb50c2576978cf9b1e62df788f2e121e159fd5bff51e"
+    },
+    {
+      "path": "android/app/src/community/assets/community-models/manifests/similarity_mediapipe_mobilenet_v3_large_v1.json",
+      "bytes": 7955,
+      "sha256": "d1152331bdc3d2673a2d9be3490658fc5c76fb7c4fd56c63dac230a2a8113719"
+    },
+    {
+      "path": "android/app/src/community/java/app/beyoureyes/monitor/FirebasePlatform.kt",
+      "bytes": 509,
+      "sha256": "fa6bd5a83b779ec6c12f85eb7044aa04f32262e4f4ab75ffa5074a6811695c48"
+    },
+    {
+      "path": "android/app/src/community/java/app/beyoureyes/monitor/feature/subscription/PlaySubscriptionController.kt",
+      "bytes": 1218,
+      "sha256": "860970d893897119c8b584d4f495fbc2ad350df58fdf0b0d4776328e7daa8433"
+    },
+    {
+      "path": "android/app/src/communityAndroidTest/java/app/beyoureyes/monitor/CommunityDownloadInstrumentedTest.kt",
+      "bytes": 8940,
+      "sha256": "43748b0b7e2dda08315a7a15f680a16c6a60d289b91814838e1bb9f704dc759f"
+    },
+    {
+      "path": "android/app/src/communityAndroidTest/java/app/beyoureyes/monitor/CommunityStartupInstrumentedTest.kt",
+      "bytes": 1256,
+      "sha256": "f6985b2630c8b4498e21759e9579e81bcf170322d0dc3eebbd448e15194a5fdb"
+    },
+    {
+      "path": "android/app/src/connected/AndroidManifest.xml",
+      "bytes": 1359,
+      "sha256": "f715f4099ea7f88dc219624cc764dae7fd918463af66553f14a73d8d362b7441"
+    },
+    {
+      "path": "android/app/src/connected/java/app/beyoureyes/monitor/BeYourEyeFirebaseMessagingService.kt",
+      "bytes": 1119,
+      "sha256": "da8b526b518f00acd4387149f649f0ca11af2fdcfb0a19a5612d19d63621c90b"
+    },
+    {
+      "path": "android/app/src/connected/java/app/beyoureyes/monitor/FirebasePlatform.kt",
+      "bytes": 1641,
+      "sha256": "80a79cd7539343982958c26de5adc9f493e1e3d2588292999448b7457c659bfe"
+    },
+    {
+      "path": "android/app/src/connected/java/app/beyoureyes/monitor/feature/subscription/PlaySubscriptionController.kt",
+      "bytes": 22063,
+      "sha256": "7e37009b90b55053bdbe44bb9ba2b0bfc125fa9c651d14283558d39e51c53f95"
+    },
+    {
+      "path": "android/app/src/main/AndroidManifest.xml",
+      "bytes": 2001,
+      "sha256": "5cef51610a3274b72cbe4dae5466e6063ffa0231d72a080de806a951fce6b885"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/AppContainer.kt",
+      "bytes": 7275,
+      "sha256": "e094b9227b529a6e2dc91afee4400db8cb86f05cf458bc85dc8d2e8264e0e23c"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/BeYourEyeApplication.kt",
+      "bytes": 3276,
+      "sha256": "18ce1daf0a720afddb656ca3b55b19ed2346dcbdc0c52c8523885c66c10488ca"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/BeYourEyeTheme.kt",
+      "bytes": 5654,
+      "sha256": "672e0bd4095eae0636d9304d57337fb7c9da312885308f6028053988516c5511"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/CameraOrientation.kt",
+      "bytes": 1371,
+      "sha256": "2165449f8aec822f30b0f1377e290ef977b031a028376df856a9b06bc3c35f23"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/CloudBootstrap.kt",
+      "bytes": 14010,
+      "sha256": "2b261b4eca7c682161020a414418206bf072d34089b98332f6989a08925f02bb"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/CloudWorkScheduler.kt",
+      "bytes": 6328,
+      "sha256": "51fde768f66f27efa05a6ffde13fe4601d762ccf144a1fa3a93783e7174c6fc5"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/CommunityModelMetadata.kt",
+      "bytes": 838,
+      "sha256": "30cbb282c922084869a4102e81f5aad16c60f142e1fcf2bb795de05c7c005261"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/EventNotificationCoordinator.kt",
+      "bytes": 8988,
+      "sha256": "40732f9337a29d475898ffdb6a7b453bdaa29a82213ec11521b95942083b087f"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/GenericMonitoringRuntimeBridge.kt",
+      "bytes": 7491,
+      "sha256": "773aa0a9853ef62c294bdef010a928dc915c4ee42ffdbf39391573b55c82ab6f"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/LocalNotificationWorkScheduler.kt",
+      "bytes": 3326,
+      "sha256": "9dc0b9b5300948c2e7044808800d407d48dfb2d413d31809040bb5edcc2c0aff"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/MainActivity.kt",
+      "bytes": 7725,
+      "sha256": "0df4a1188862338965a231a92839f9dba2acf0ebb5c382abb2755ee49e4465f0"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/ModelDownloadRequest.kt",
+      "bytes": 527,
+      "sha256": "d56a8f92a9940b028259ce0d87983f5d161f39967dabd5e43c6c71eb2465b0e9"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/ModelPackageEligibility.kt",
+      "bytes": 13511,
+      "sha256": "5a38b1e537e34d7d6dc4d9502c29bf732c632f88a7f738af2dad4ce6640c2bae"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/ModelPreparationCoordinator.kt",
+      "bytes": 64040,
+      "sha256": "6e2a6e863b21d552bffc33edadf8b992803940eb9a96eeebbf70d95bbca37319"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/MonitoringRuntimeSnapshot.kt",
+      "bytes": 10791,
+      "sha256": "b5a0e0aa4a2c13d0215e5ed3a4c8e9ba1ea0f99533f923d8567227c4d1e4dd0e"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/MonitoringRuntimeState.kt",
+      "bytes": 10376,
+      "sha256": "9fd47e1159f38b50d4a1427d3fbe6cb0eeb387585929e8b24f4a5f26444f32c9"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/MonitoringRuntimeSupport.kt",
+      "bytes": 2720,
+      "sha256": "5d4f5375b58dd2827d6693526b94121292d1b1c542bc4034013f732b11d870ac"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/NotificationChannels.kt",
+      "bytes": 9518,
+      "sha256": "4e8dcfc62c08750ef719323480aba7fe0a1347a8aaf014492f76cc1c233b5c6f"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/ReadingSetupPreview.kt",
+      "bytes": 29490,
+      "sha256": "67b6a798bbe6ec51910c9c57440dd2afef8e64c8ed25bc9d4170215a695b8e77"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/RuntimeEventNotificationText.kt",
+      "bytes": 3044,
+      "sha256": "f2cd0001569e4fc690745119b97e51a50697e6740b76cc916d062d0ffa091a02"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/RuntimePackageBindingMutex.kt",
+      "bytes": 240,
+      "sha256": "73894653cec7be12c34995a4d6636f515a86d1db225cba89bed942e4edad0a58"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/RuntimeRoiFrameNormalizer.kt",
+      "bytes": 1854,
+      "sha256": "672ccdc47c559a6d296b74500b636e3c8b5057d3ccfa0ed176761413669d10b6"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/RuntimeTaskConfiguration.kt",
+      "bytes": 8688,
+      "sha256": "ac2c33cbc29e4f13249d8f3f6a94f3c7b2c89ff79636e94615efddfcdc9c439c"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/RuntimeThermalCadenceController.kt",
+      "bytes": 11487,
+      "sha256": "e4a9c6fe6264e493b757101fcd2d350c415aa218de124378ff2853e4a68b4381"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/SetupCameraSession.kt",
+      "bytes": 56646,
+      "sha256": "108d374f583ec08cfe4cb93d0f2e50ec3b118a1a1da88764b003252e1abbcc68"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/SetupFieldValidation.kt",
+      "bytes": 11875,
+      "sha256": "d477f249f3e5a29e4393ff48124fc483a62e264f284e5a519b4097533d64e6c7"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/SimilarityFieldValidationCoordinator.kt",
+      "bytes": 23259,
+      "sha256": "51a66bbd4142886f3ea52fea5069d6f26b3c9a80de49758cf87d79fe8b712a6f"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/SimilarityFieldValidationReducer.kt",
+      "bytes": 15796,
+      "sha256": "aab3279eec2637f2d0e4cdc0cce329c03e6421d57eebe30e408fbaafc576ce02"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/TaskBoundSamplingConfigResolver.kt",
+      "bytes": 18625,
+      "sha256": "03fbfc79b5f738f52019c43857f618327256d5d73f4aa9c0d3d45ceb1c70a6df"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/app/navigation/BeYourEyeApp.kt",
+      "bytes": 56632,
+      "sha256": "543804cb964d3853aaf9dc5d8d6891c0f0699bba5d2feed7a458254f0906b797"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/app/navigation/MainTabScaffold.kt",
+      "bytes": 2947,
+      "sha256": "65772b9238840efb2442830c90b6dc522420de42fb57fdaae39b2ddf8805a64c"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/app/navigation/ViewModelFactory.kt",
+      "bytes": 491,
+      "sha256": "5480c583f69ba8af4d9af712e11f45b14a5598e63b307c5298371aa237b7fcd8"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/design/ObjectLabel.kt",
+      "bytes": 351,
+      "sha256": "0a1dfbc0f80d64bb023c611c77d42c2b42b2716d0378b82d0402c27122d3ef1c"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/design/ProductComponents.kt",
+      "bytes": 12638,
+      "sha256": "667d48287f0f279b6a00611ace76d9f1eebad198cf75e4adb6c22d9d24a7b148"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/design/ProductDurationChips.kt",
+      "bytes": 4911,
+      "sha256": "0efaf298d7eb363b6eb3a1c35db87cf69dae973dfdcc5d38196044ab0cde416b"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/design/ProductMotion.kt",
+      "bytes": 922,
+      "sha256": "4a923dfd0ff9260a55e0ea4e9bd88b23860bf3f76b8a64df0303656483cfa9b0"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/design/SetupInstructions.kt",
+      "bytes": 2032,
+      "sha256": "bbdc8869ccc2f033837721ceab653d4f658df4c4e015125292b498fdd3c70eaa"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/design/UiText.kt",
+      "bytes": 1776,
+      "sha256": "cc70527b43e58e651a6baf1d4671d988fb2db1d25179cafe0ce1f9e22bc69ce2"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/diagnostics/MonitoringHeartbeatStore.kt",
+      "bytes": 5701,
+      "sha256": "5199d14a6694db2c32f237b2eced629112fa4f67cad94c60f2ef08b4b280f370"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/diagnostics/RuntimeDiagnostics.kt",
+      "bytes": 6418,
+      "sha256": "5fc647c2810b1f21be761e00f8a2eb728aa09d90a796d9a0d7e79b9c5a64f21d"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/account/AccountScreen.kt",
+      "bytes": 59806,
+      "sha256": "f250ec92a9874bc14db2bb38bef46baa76ede939fd5444890e2ca362f3c0c153"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/account/CommunityAboutScreen.kt",
+      "bytes": 1864,
+      "sha256": "1db3b1ac71b5331f95e4a9e62e525fcbc8572b68720a3a8356d48e97238e6c27"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/AssistantGateway.kt",
+      "bytes": 34619,
+      "sha256": "db1d8e46b32367b827685cc44037e2fc08a46ee3e0c372c1919ef18b5910b633"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/AssistantModels.kt",
+      "bytes": 14636,
+      "sha256": "b3f59031c51fb72b9466b5fb1dcd71a1314046e25d3c620e8c2ec153605ce416"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/AssistantProposalSavedState.kt",
+      "bytes": 15508,
+      "sha256": "407570819402cd879680ba88c2535af85f81c07940a460a3892b94520412c2f1"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/AssistantScreen.kt",
+      "bytes": 45687,
+      "sha256": "80f20d7065021c8dc82c0e05675a67b4d5194b1bdefb9c70478cb52507680fce"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/AssistantViewModel.kt",
+      "bytes": 17659,
+      "sha256": "a44f6ed367a1deac50f52c806e8eba168c7e65fd31c32380c02dfcbd46dbbd2d"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/AssistantVoiceRecorder.kt",
+      "bytes": 3891,
+      "sha256": "54faf8d01d713e56bdc0378ceb1b10a2a676ac5345fc74472232cdd49d50f23a"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/VoiceTranscriptionGateway.kt",
+      "bytes": 12747,
+      "sha256": "61d4974174d743fefa84ebcb951dda95fc5bec2bb7cf7093cd6a0511bfedc144"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/history/EventHistoryScreen.kt",
+      "bytes": 26159,
+      "sha256": "377d5b73e60d5e6b61cbb69b3aeace059454adca7bb0cf5c83dfceb6ad89d6ac"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/history/EventPresentation.kt",
+      "bytes": 4283,
+      "sha256": "732e469573c5a198a024217dad9ae6d670bb50969bbd5a76845448df20c3c903"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/history/ObservationDiary.kt",
+      "bytes": 7035,
+      "sha256": "d4112f5887a27635d3a5d585814fd5f3f90771e5ec7fe0d0b56d33f6cea79ac1"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/home/HomeScreen.kt",
+      "bytes": 28065,
+      "sha256": "e0d58fda7e8d334d53fc4f5fe401fdaaaf5e3260623eb461e6ed317500f1e2ec"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/home/HomeViewModel.kt",
+      "bytes": 1510,
+      "sha256": "2e07eba0bf5d12e591540bea0cc1c6104b9193f467e167db666655d749c2dfa7"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/DirectStartScreen.kt",
+      "bytes": 13356,
+      "sha256": "e77a0011689565f031d54e238c43056a9e5ae9f8d4fdcc514f5ed6a24894f43d"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/LocalNotificationSetupPanel.kt",
+      "bytes": 2444,
+      "sha256": "762872b28cae0d45eafdd7306c6f0f0367c057980cdae1e61f97caa0c8cfa8fd"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/ModelPreparationContent.kt",
+      "bytes": 6468,
+      "sha256": "c0ea0c814c1f10a8d963e7da9dd60404174754d3bdf44b178a5e450dcb601dd2"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/MonitorCameraScreen.kt",
+      "bytes": 122810,
+      "sha256": "91e39d3e9adcf391285215747c70c03a846088e181698878e0792ac339dd8b96"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/MonitorCameraViewModel.kt",
+      "bytes": 19189,
+      "sha256": "4fbe500771befb0f50a1aa6a1e2cf25cd70bc158936c8a3130971b66a96b26e4"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/MonitorDetailScreen.kt",
+      "bytes": 53806,
+      "sha256": "4462bdab255f3ccbf5b17d98173d1fb9e62357ded07a6e917460a3e12e0a2d64"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/MonitorDetailViewModel.kt",
+      "bytes": 12621,
+      "sha256": "3587a8cd936e584d8b8ae145d9d1e272c79d88b1644a0074b6dd08acfc704d08"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/ReadingRoiEducation.kt",
+      "bytes": 2879,
+      "sha256": "30f379d4029c1156506764b7a983a00c82c2874a0d3e899922b711419a3174c4"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/TargetPresenceRuleControls.kt",
+      "bytes": 3704,
+      "sha256": "096163ae38b4d7b21e24630889e80dffb8ef95d3ea79aa106e897efeee1eb397"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/monitoring/TargetPresenceRuleCopy.kt",
+      "bytes": 3150,
+      "sha256": "286ebd2288b55e7211e9be3d9f1a43e0cdfc9cf7cacbe858461eca233a7e85da"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/objectdetection/ObjectDetectionCreationScreen.kt",
+      "bytes": 15115,
+      "sha256": "f345e9ef87ca349d4d4abbf81d5f64561f2d67bc90870a224590e431d5027780"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/objectdetection/ObjectDetectionCreationViewModel.kt",
+      "bytes": 9229,
+      "sha256": "92380473a75e59a8ef82c35e5563ee06a22727a09105cf5af6dbaffc1e911d1a"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/objectdetection/ObjectDetectionSetupViewModel.kt",
+      "bytes": 8234,
+      "sha256": "65de9b6d640ec24b8f611043d7125ed66ef609a144bf66652e65b02ae1ca25db"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/reading/ReadingConditionContract.kt",
+      "bytes": 6382,
+      "sha256": "6f5eaa568a126d8bb5e31cc864519e32f95524ca0ca9d900d47efe5edd791916"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/reading/ReadingConditionControls.kt",
+      "bytes": 23525,
+      "sha256": "a109aaa105bbc1917ba1b0e49ed1185b63b7aef8f937bb36641f00b8ec5d6fa2"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/reading/TransientReadingSetupViewModel.kt",
+      "bytes": 12968,
+      "sha256": "0ef27c7cc89908f01ebc96b703210cf80388e7f5c490b54fa1f9b2cf324d8335"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/reference/ReferenceCreationScreen.kt",
+      "bytes": 24443,
+      "sha256": "85a52072dec86c9a5ace41775a7a0320e910cfb6b0d6df03217c12ad59dce45c"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/reference/ReferenceCreationViewModel.kt",
+      "bytes": 11205,
+      "sha256": "18aa9e9e45dcf1ce7fc4f3ef21e69f4dec9f257e750ad257841d9d058a7dcd8d"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/reference/ReferenceSetupViewModel.kt",
+      "bytes": 10345,
+      "sha256": "7eb1511a851bb057749a7074628a44d5518075917fc9680ea0decdc9f2ff91c9"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/subscription/LocalUseAccess.kt",
+      "bytes": 447,
+      "sha256": "111b03135e34fa6846a4258da9374d2bb1601c3a68ceea6cb185daa7c7722858"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/subscription/ProductAccessDecision.kt",
+      "bytes": 1639,
+      "sha256": "43a2a47e0a89293f5a991fc33c65fc980d310cb48a8cc7f2da72e92e0270f962"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/subscription/ProductAccessState.kt",
+      "bytes": 4196,
+      "sha256": "b12eeacd8019228eb605214120f79390d3e0f5aeabf671807cd1e5ff36b72a75"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/subscription/SecureEntitlementLeaseStore.kt",
+      "bytes": 6486,
+      "sha256": "951331a4a6382c6b1b6fb6e5a9edf2624992770b2d4c2a6be3903e2125caf943"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/subscription/SubscriptionEntitlementGateway.kt",
+      "bytes": 10844,
+      "sha256": "99bcec0ff46c2aa91966e0690b94fc9c128b487319f9f810c0e9ff9e809e223a"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/subscription/SubscriptionTypes.kt",
+      "bytes": 1582,
+      "sha256": "1d5c2ccbae952ffadbc8ec144d5a7565321dc4946d22d79c6a716f770e9399dc"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/subscription/SubscriptionWallScreen.kt",
+      "bytes": 17484,
+      "sha256": "e09fc8f7ddb429497dad26c27e9be6f03ed1fdb9a4252a8061ab1135dfcf652e"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/feature/subscription/WebsiteAccessWallScreen.kt",
+      "bytes": 4379,
+      "sha256": "56eb84146ed7405e53961806f5bc3a48cd49e67fc932d172d8a2fc7ceb5236e2"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/service/monitoring/MonitoringCameraPreview.kt",
+      "bytes": 1559,
+      "sha256": "df64654ac32104b570532f2e339796abb6d314783d376df57dcc0cb1f96fa3d4"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/service/monitoring/MonitoringService.kt",
+      "bytes": 52596,
+      "sha256": "322927990b1d01a762f2421359f80ade386075fe587c96519a8eeb28b65d9408"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/service/monitoring/MonitoringSession.kt",
+      "bytes": 29812,
+      "sha256": "3cce40fbd30385df30cec57427804982b3e49c4beff3fb613b091d5d68768828"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/service/monitoring/NoHitReminder.kt",
+      "bytes": 1757,
+      "sha256": "833ed4c02add85c60c686aff10356646e18ad495cc731139604f98947d18e087"
+    },
+    {
+      "path": "android/app/src/main/java/app/beyoureyes/monitor/service/monitoring/ReadingBaselinePromptStore.kt",
+      "bytes": 939,
+      "sha256": "61f4edf57e36ab8f1471cdb31ec556c7d09d87ddaa6f7c4941e1b3ff162e1e0b"
+    },
+    {
+      "path": "android/app/src/main/res/drawable-nodpi/home_reading_scene.webp",
+      "bytes": 5768,
+      "sha256": "7a600a9c59d413ee83e1f882730dd240b38dcc2854939d2df187c85c113cdafd"
+    },
+    {
+      "path": "android/app/src/main/res/drawable-nodpi/home_reference_scene.webp",
+      "bytes": 5098,
+      "sha256": "644c17f011020275e8eefd9aa0f36bedc27aba7c7d3484310a1683a555739a12"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/ic_launcher_foreground.xml",
+      "bytes": 970,
+      "sha256": "673aab0b506b5286a07e5e3b158ad83c2b371321b77096fc61f13ed614f62511"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/ic_launcher_monochrome.xml",
+      "bytes": 727,
+      "sha256": "ecfcd01907066c69d2798085b63c17d20770e596044e83b1a8b5d1af18cd4185"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "bytes": 270,
+      "sha256": "32715ff646f6b9fef7c321138e4a14556c4a1f98a87b06070b56f41643dad718"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml",
+      "bytes": 270,
+      "sha256": "32715ff646f6b9fef7c321138e4a14556c4a1f98a87b06070b56f41643dad718"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v33/ic_launcher.xml",
+      "bytes": 341,
+      "sha256": "bbaf996b7b1356da55819d20c1920c34e20b1288fe7cec441aefeda5ea53d24a"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v33/ic_launcher_round.xml",
+      "bytes": 341,
+      "sha256": "bbaf996b7b1356da55819d20c1920c34e20b1288fe7cec441aefeda5ea53d24a"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi/ic_launcher.xml",
+      "bytes": 1114,
+      "sha256": "fed1558ce89751390e84e9cff2fe46a4acb5e0bb348f1191bc3b99014dacf0c9"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi/ic_launcher_round.xml",
+      "bytes": 948,
+      "sha256": "0ad76f62f595fd6601bf31f19e98a3e11b826dec0c71d7abd0f8d2b8319a48ad"
+    },
+    {
+      "path": "android/app/src/main/res/raw/third_party_licenses.txt",
+      "bytes": 14359,
+      "sha256": "c251b212022b5ee45ba964f6ee24d6e696f5f29f8f8ab091f2de59839a3217ab"
+    },
+    {
+      "path": "android/app/src/main/res/values-zh-rCN/community.xml",
+      "bytes": 684,
+      "sha256": "4ca2989ab80607449a42c75346f315e3a36792a6dee4b0365b8abf64ef870933"
+    },
+    {
+      "path": "android/app/src/main/res/values-zh-rCN/strings.xml",
+      "bytes": 73429,
+      "sha256": "73414252ea5bd56da100de5898297a33af65f61d66592577274263d87b713fde"
+    },
+    {
+      "path": "android/app/src/main/res/values/colors.xml",
+      "bytes": 121,
+      "sha256": "ef44a908fa553305fa3d5edbd40f47989643f53ec1e4ec0f91dc911beb9917d6"
+    },
+    {
+      "path": "android/app/src/main/res/values/community.xml",
+      "bytes": 740,
+      "sha256": "9885ea3e605fa7688d7ca08edf0323aa5ccc34533a61420fd393dbc58f653651"
+    },
+    {
+      "path": "android/app/src/main/res/values/strings.xml",
+      "bytes": 77223,
+      "sha256": "4d8297e9d65ddfba8c300d515f3ca96396a5550281e8d15a0ba860e28641eded"
+    },
+    {
+      "path": "android/app/src/main/res/values/themes.xml",
+      "bytes": 520,
+      "sha256": "ab0e03ab5b138bd12c933a4148f9dd078b6451df90b091e5294bbba7648ebf24"
+    },
+    {
+      "path": "android/app/src/main/res/xml/backup_rules.xml",
+      "bytes": 293,
+      "sha256": "2c5c697984f4c52b526337ab61113f5843e0bfc6af4722374916ffe6da38dd9a"
+    },
+    {
+      "path": "android/app/src/main/res/xml/data_extraction_rules.xml",
+      "bytes": 1050,
+      "sha256": "cb029b35db0e976c087100424e16e14a6256b46962398887520e51508c3b5842"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/CloudNetworkActivationPolicyTest.kt",
+      "bytes": 4903,
+      "sha256": "a5052b963fcb13990a36d76984e97dc394aff7b7b34d975219fd9d6083a7b377"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/EventNotificationCoordinatorTest.kt",
+      "bytes": 12080,
+      "sha256": "4a440361c1f788104ecfff1c7664a8c8a0ad458182ee0230db377a1eae5d6dca"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/GenericMonitoringRuntimeBridgeTest.kt",
+      "bytes": 22259,
+      "sha256": "53b13ceb74452bc213db0e9913ee2d1b17afd3ac679515b492b2299efdc2005d"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/ManifestKnownAnswerSelfTestRunnerTest.kt",
+      "bytes": 12964,
+      "sha256": "3690bfd4683dacdd7bbe929291f0a9fb762d3760cfcd6be117901b9ad0d1ee3e"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/ModelDownloadRequestTest.kt",
+      "bytes": 1645,
+      "sha256": "9e1ad3472b248abf8c78b3ece041aaaa8688415974591b8577a0a339da836168"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/ModelPreparationPolicyTest.kt",
+      "bytes": 16309,
+      "sha256": "018f0023a3a6b930dc6be08a42fab318c0f83b19aed40eb0b27f1151c5563aa4"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/MonitoringRuntimeSnapshotTest.kt",
+      "bytes": 5380,
+      "sha256": "a555a3af93e94ae64ca78db7d176db936d9d74bd218086ae668b6246e865dc89"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/MonitoringRuntimeStateTest.kt",
+      "bytes": 9098,
+      "sha256": "3e363ec31bd0f766066102e072a309fb31c20b92f11f82293ddbb9f60306a5d4"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/ProductStateMachineTest.kt",
+      "bytes": 4948,
+      "sha256": "f42fe54d00d94bcdbeb7e0ee5880ea6be478f4434d111d49267aac3ef995a245"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/ReadingSetupPreviewTest.kt",
+      "bytes": 24911,
+      "sha256": "64a6d2670e73933ea6ecc586ed81c18a1a087b9716b1aea3f0d53948b258846d"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/ReadingViewportRoiTest.kt",
+      "bytes": 4439,
+      "sha256": "1291fb8a4ec40b68cf22b774d5ca225837da83d549d6dc471fe2ec85744232df"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/RuntimeCameraConfigTest.kt",
+      "bytes": 3900,
+      "sha256": "b51845a9bc6ef87ec199678d48927d71d51481dc6571969f358bbd5968509023"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/RuntimeTaskReferencePathTest.kt",
+      "bytes": 1973,
+      "sha256": "d070d8521e03d3290f2b70e88ccc57b08eb958cd17195ac43ed4a9136f30aade"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/RuntimeTaskRuleMappingTest.kt",
+      "bytes": 2850,
+      "sha256": "e24db8800be85ddc50ac1c716edb9b90ae19d9fda1517aca11b421e042a1bd83"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/RuntimeThermalCadenceControllerTest.kt",
+      "bytes": 7722,
+      "sha256": "214d7684c38e0c6fbdd29b8e7f64c06a485f1b1f00b4225153b3374336050bcf"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/SetupCameraHandoffTest.kt",
+      "bytes": 4265,
+      "sha256": "2e8800293297bcafcd9ed275f877e14bf2d4778ae18c082481daed1f0a0afaf3"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/SetupFieldValidationTest.kt",
+      "bytes": 9521,
+      "sha256": "b33b1d130bb6f42b370a22b50e7c1b8b14dcee42d1ad4ecd9def96ece4fa635c"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/SimilarityFieldValidationCoordinatorTest.kt",
+      "bytes": 19920,
+      "sha256": "827b9b27bbad967da019a3c8251820c2a9c593bbee231f7056b6e2cd0fc6d729"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/SimilarityFieldValidationReducerTest.kt",
+      "bytes": 15649,
+      "sha256": "64e36a5d4a80d13a6c8886eea4d9b203ccbe0aec1d7af84a8f1ce66d99374de0"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/TaskBoundSamplingConfigResolverTest.kt",
+      "bytes": 7736,
+      "sha256": "d2fd8b7190bac0af1601be31f367bde8a421b0b26d76f714334bee545fa871ed"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/diagnostics/MonitoringHeartbeatStoreTest.kt",
+      "bytes": 2811,
+      "sha256": "429bffebdfcf109c75d852aab42603dabf7daf3ab153b0ce79b7e81b2de5b1c8"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/diagnostics/RuntimeDiagnosticsTest.kt",
+      "bytes": 2643,
+      "sha256": "40ba971c0715176091d57772fe599e045807ab5d0583a934febdc3f2ab1c9215"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/account/AccountCredentialDraftTest.kt",
+      "bytes": 1656,
+      "sha256": "4cd662abf63bb40aa458efe27de89e0a2aac4f877ada98676087b88c5270bfda"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/assistant/AssistantGatewayTest.kt",
+      "bytes": 14034,
+      "sha256": "43a301f8c85d2077e269cb7038d9d2263d1118659313d9cd1b5c8ce886e70757"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/assistant/AssistantPrefillTest.kt",
+      "bytes": 1689,
+      "sha256": "0474dfbe6b069efe6f37201a20bb1838a3344acd51763faba0b186909cdbaa4d"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/assistant/AssistantPresentationTest.kt",
+      "bytes": 1374,
+      "sha256": "a651c805fd3d923bbfedf8c339231efabcf9a261e431e85b190834a369a83f37"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/assistant/AssistantProposalSavedStateTest.kt",
+      "bytes": 14076,
+      "sha256": "1026a3d4d3be3a480d65cc2dacfc80c5766791fbd8e1fa235d0ced1a29e0a8d0"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/assistant/AssistantTestFixtures.kt",
+      "bytes": 2868,
+      "sha256": "9bb03f4d15ddcb9b175af9c54ccfa590ca62fa0976593e9fbe2c38a4c0d87971"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/assistant/AssistantViewModelTest.kt",
+      "bytes": 21669,
+      "sha256": "aa25a03b7a63fe20086fcc2cddad814d03db786475f96d60bbe6deded1108d38"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/assistant/VoiceTranscriptionGatewayTest.kt",
+      "bytes": 7149,
+      "sha256": "a0900349b39635fa055be88c976b0beef2e7622dcdcdd8a7b386ede3131b4d95"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/history/ObservationDiaryTest.kt",
+      "bytes": 9230,
+      "sha256": "8047650ddfc761a309deb6064dafbb962edd8c625f707a3baf3a498c51aa5548"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/history/ScopedHistoryTest.kt",
+      "bytes": 2286,
+      "sha256": "990d37bc26e50fc871c7a858e8a7c35bf9b5dae9f0439f5d4a11aa6eaf7f1be3"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/home/HomeHealthPresentationTest.kt",
+      "bytes": 1407,
+      "sha256": "1486f06ab13d15912779566d7ba37bcb7719a6f5916121ca86ef5b343063b5b6"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/monitoring/ActiveMonitoringSnapshotTest.kt",
+      "bytes": 6574,
+      "sha256": "f02b1ded1af92a2ca5ca1f56c58550a38e8945c0a080ab24f1bc682a56e99936"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/monitoring/MonitorCameraStateTest.kt",
+      "bytes": 15292,
+      "sha256": "772cdf2635385bf4c7be45af0fa5a4092557adc662c7479ed118113594deffb7"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/monitoring/MonitorDetailContractTest.kt",
+      "bytes": 10189,
+      "sha256": "30ec6987cc3d018c103a001570b958e2ed67e971c67ba4dd73ae160329b1c7c8"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/monitoring/TargetDetectionOverlayTest.kt",
+      "bytes": 2006,
+      "sha256": "f8e5b7245a34ad570dd05087b5d7d73a91fdfcd7477be09a185d64eb8314e3e4"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/monitoring/TargetPresenceRuleCopyTest.kt",
+      "bytes": 921,
+      "sha256": "d922f5d1974458124b8f199f8061e0f275e19c742efb7f24611fa2c1186e99d1"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/objectdetection/ObjectDetectionCreationViewModelTest.kt",
+      "bytes": 9486,
+      "sha256": "efa01efd96035a1decdde8a32080be2a78afbeea89f2224c4d6d486c22e60e1a"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/reading/ReadingConditionControlsTest.kt",
+      "bytes": 8280,
+      "sha256": "d4ef24c16e7de57ed27f1ea83ff8e7793cce29cec3a001fef210abc5cbe8072c"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/reading/TransientReadingSetupViewModelTest.kt",
+      "bytes": 12852,
+      "sha256": "5f12b4a2fc05c43747af15871b0623778bc4ced08387ecc9212bdc7e7057860b"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/subscription/LocalUseAccessTest.kt",
+      "bytes": 988,
+      "sha256": "e9a7b0a9adb226128ed925b9e8713b6fb758ddbfa56f75ebdc0dcb2673271187"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/subscription/ProductAccessDecisionTest.kt",
+      "bytes": 1264,
+      "sha256": "1e52e475df912dc2e1806de89e47e52d7767e450f088594f3c78a8a4fe85922b"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/subscription/ProductAccessStateTest.kt",
+      "bytes": 3783,
+      "sha256": "d67f4de2182f3985155cdb002049d01cba87c71d187e22917720524b6496bb88"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/feature/subscription/SubscriptionEntitlementGatewayTest.kt",
+      "bytes": 3471,
+      "sha256": "eb96fe21d6e0143768fcaa32570bb083b8660384b31ff0e944fed2228c7d0437"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/service/monitoring/MonitoringRuleFamilyCompatibilityTest.kt",
+      "bytes": 2185,
+      "sha256": "634e2422253cb205e987a1ee19ed56e02c96341fe09f6e35d3834f649b7a86c3"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/service/monitoring/MonitoringServiceLifecycleTest.kt",
+      "bytes": 2861,
+      "sha256": "7c8ced36c5695d9ddc62bac3dcc7f7dc5129a152a503ef03915cbd58e52eb783"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/service/monitoring/NoHitReminderTest.kt",
+      "bytes": 2450,
+      "sha256": "8052118c68a865ef1f842d4ce6793fc39bad10b04e61d46d53a40e4f4a20e234"
+    },
+    {
+      "path": "android/app/src/test/java/app/beyoureyes/monitor/service/monitoring/ReadingBaselinePromptStoreTest.kt",
+      "bytes": 1142,
+      "sha256": "70cf7c5e6048cb899fee0d9b6dd7d9fd8dc84458c2db778416ca9d85d448f1d0"
+    },
+    {
+      "path": "android/app/src/testConnected/java/app/beyoureyes/monitor/GooglePlayAvailabilityTest.kt",
+      "bytes": 684,
+      "sha256": "b246863e7cb170bd59143e792c9c42bc37ec025ebdb5353c5ab129d37ac06d3d"
+    },
+    {
+      "path": "android/app/src/testConnected/java/app/beyoureyes/monitor/OptionalFirebaseConfigurationTest.kt",
+      "bytes": 953,
+      "sha256": "476c897b75f3a9928eb357ca437e64b0e255fec2276b000cce7025dddc276f58"
+    },
+    {
+      "path": "android/app/src/testConnected/java/app/beyoureyes/monitor/feature/subscription/PlaySubscriptionControllerTest.kt",
+      "bytes": 6804,
+      "sha256": "ce5055ea321dd9794f4c20864b19f0c620365b869972a97ae68e3102153479d2"
+    },
+    {
+      "path": "android/build.gradle.kts",
+      "bytes": 478,
+      "sha256": "41efbe5b385a1c1414fb78d82096a970e0f168d4a8a96b5d9ee14c546fea32cd"
+    },
+    {
+      "path": "android/core/data/build.gradle.kts",
+      "bytes": 2386,
+      "sha256": "91847cff9d4c353c97da84cd45ae9ba909992dbdce550abac5f926430408d21e"
+    },
+    {
+      "path": "android/core/data/consumer-rules.pro",
+      "bytes": 58,
+      "sha256": "f01597b2cfcb733cff1247487320c7a06d13edd7a67603f7d3997cb1af2b5b15"
+    },
+    {
+      "path": "android/core/data/schemas/.gitkeep",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "android/core/data/schemas/app.beyoureyes.core.data.MonitorDatabase/1.json",
+      "bytes": 15285,
+      "sha256": "27cfbb0c53e1abdcc7bcde04690642a1e0763469056da7e3652c29a8b601d21c"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/ModelArtifactStoreInstrumentedTest.kt",
+      "bytes": 7396,
+      "sha256": "e0170e607b3f56206ebe4c6ff665a6d3f0952085e09160138e77df7e6ac40f74"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/MonitoringPreferencesInstrumentedTest.kt",
+      "bytes": 2710,
+      "sha256": "1d8572860a97f097e2137f0b4c30f62524f9392dd069fd7338a18f43ea1879ba"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/ReferenceEventSnapshotStoreInstrumentedTest.kt",
+      "bytes": 3696,
+      "sha256": "ab6310606dddb6b2ad1dc14c6170109e96523b50d72e669f6d5809daf73f5d50"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/RemoteEventSnapshotCacheInstrumentedTest.kt",
+      "bytes": 2029,
+      "sha256": "3a1318295521947156339bcacdc843ad1841ccfe58116bc8d9d754a2dc99ce91"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/RoomEventRepositoryInstrumentedTest.kt",
+      "bytes": 13658,
+      "sha256": "2239e4e6c6487347b8eea48429ff8c8a47328296ecaf77fb06c5eddb81695b9c"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/RoomLatestTaskReadingStoreInstrumentedTest.kt",
+      "bytes": 5787,
+      "sha256": "1b497d914cd10e599de292a495c9de333f2306e94e0da1ed9f4b0b2d870a30de"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/RoomMonitorStoreInstrumentedTest.kt",
+      "bytes": 28474,
+      "sha256": "72914c5ec2ebbe1b1f134c1c1b12d0df9633cfc093bde008ef04a876a0169edf"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/SignedMetadataCryptoInstrumentedTest.kt",
+      "bytes": 1618,
+      "sha256": "fc85b20edcca6c7a84147730f89f4c4cdb56c804d98ac9719b25b5f3b8a12cd8"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/cloud/DataStoreCloudLocalStateStoreInstrumentedTest.kt",
+      "bytes": 3121,
+      "sha256": "9143902ab5e3af40fffa443cd9f7f5ffcb4a648aaefcd52b4d1ba8a7e8371d47"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/cloud/RemoteSnapshotTransferControllerInstrumentedTest.kt",
+      "bytes": 13549,
+      "sha256": "d3a797975b7124487511efa6bbc3f3d7fa18aec16299e8abe1744836a15cd518"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/cloud/RoomCloudBridgeInstrumentedTest.kt",
+      "bytes": 30109,
+      "sha256": "b361401edfc7a68ab91c09a99a631f4268a3f69dc5fbe55407264ee9a84257fe"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/cloud/SecureSupabaseSessionManagerInstrumentedTest.kt",
+      "bytes": 2247,
+      "sha256": "87ff4d2bbb26a613794ced2769b0c602bff50b72efaa7d0e5b4c4e0fb5af68a0"
+    },
+    {
+      "path": "android/core/data/src/androidTest/java/app/beyoureyes/core/data/reference/ReferenceImageGenerationInstrumentedTest.kt",
+      "bytes": 8187,
+      "sha256": "54550fe56bb6fd36b990c24c81b8bfe59b516520e0533a379254a265bafeab73"
+    },
+    {
+      "path": "android/core/data/src/main/AndroidManifest.xml",
+      "bytes": 52,
+      "sha256": "daa0fb1f32ba7ea85a07ef6302ab3d58c3407d7fd2aa03ec132cb9e38e8d9849"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/EventEntity.java",
+      "bytes": 2536,
+      "sha256": "50e55866b20d0607ca808294a4a5d188f9aeb6e730d62768a131a7731a3be4a0"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/EventSink.kt",
+      "bytes": 20282,
+      "sha256": "2559f042178f95e56e078c3abb6da3de8145076d006cdf170af9c8b35a31bb00"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/EventUploadWorker.kt",
+      "bytes": 485,
+      "sha256": "0daed5ab85c8d9531db513a0d75ee081c0f4dfc27bea5dca78ed0049ecd08fe1"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/LatestTaskReadingEntity.java",
+      "bytes": 2037,
+      "sha256": "0f19ffc3b580cdd7a046c983948e86d051b5485c9a3bdda7583cbe17c5193663"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/LatestTaskReadingStore.kt",
+      "bytes": 4620,
+      "sha256": "c4110b99e1a8c04cc66e3429c2c2afdedf4deffd28839e3df0783fd2db6958dc"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/LocalTaskEntity.java",
+      "bytes": 2474,
+      "sha256": "47c87bafe31872ce7149a87a85144dcfabd82d4b1524cf0d0ed2cd86a685fb96"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/ModelArtifactStore.kt",
+      "bytes": 58441,
+      "sha256": "efe4d358d9bb9bda87794f5ad7ef4ac4653026cd089df987bd55b3bda187a8fa"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/ModelPackageDelivery.kt",
+      "bytes": 25818,
+      "sha256": "bb124914f3601180274c5bd56500c002ab29a1eaa478176bae346e6988310810"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/ModelPackageStores.kt",
+      "bytes": 951,
+      "sha256": "9cb2afe95f0954f8e0fb31c88f71df06f974463478498f15a7eda20589307d90"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/MonitorDatabase.java",
+      "bytes": 552,
+      "sha256": "b0941f20680068d3d31410abe427e2b4c20c377e564b85ad92c42d6ea7d7645e"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/MonitorDatabaseFactory.kt",
+      "bytes": 544,
+      "sha256": "dd7a2671fc5cbe8ac4a6a2fb078649c9896ddb573649a6c28df533474b919f10"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/MonitorPreferencesProvider.kt",
+      "bytes": 481,
+      "sha256": "f4029c77a26fd50b864747ebbc07f5b305eaf4551aed48a4f7a96b2e68f97f97"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/MonitorRepository.kt",
+      "bytes": 52941,
+      "sha256": "402d207022e91517d119480f89bd60ac91d356e7c7007e10168be396e85b402f"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/MonitorStore.kt",
+      "bytes": 19422,
+      "sha256": "fdfad6fe7846c1032015e4b96948c7b040b29184a4163a5ada6e88ef36bc902f"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/MonitoringDao.java",
+      "bytes": 28009,
+      "sha256": "4636aab3a1c73abf3b969fdf9e4f73fe12938f792cf7d0251532df6c512e903b"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/MonitoringPreferences.kt",
+      "bytes": 2742,
+      "sha256": "769e7213366990e0e944ef9b323e1a9370a5ae045e614d6b4725d7d46a2d9437"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/OutboxEntity.java",
+      "bytes": 1071,
+      "sha256": "46dbcdb9151f14fa1672ec52a1d8d5019bec94d89b5e2f8255df04f38096bd44"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/ReferenceEventSnapshotStore.kt",
+      "bytes": 9780,
+      "sha256": "a11d56243ea2a4958685d65a278e5332e3a52727421e7bd5a36861f3a2ca1767"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/RemoteEventSnapshotCache.kt",
+      "bytes": 3699,
+      "sha256": "343db320eb3838408ee6c1104f7e52cc24b1409eab71b740665d0f1879d7f85e"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/ResolvedSamplingConfig.kt",
+      "bytes": 12469,
+      "sha256": "0c12cbbaa4acb8405371f873d84993fc5d4ef033d3c51f9dec89184f88f5adee"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/ResolvedSamplingConfigEntity.java",
+      "bytes": 3921,
+      "sha256": "b4f45e7d8d937e27aa4da936ef3652f6a0ca650a2a38727e6fbb882c910a16d9"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/SignedMetadataCodec.kt",
+      "bytes": 68864,
+      "sha256": "bdedff6e69b76fd45ce48fece87ccfff95b593b20f11754e6351830b1af5696b"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/StrictSignedJson.kt",
+      "bytes": 17385,
+      "sha256": "64ec2599316f9dac105afd23b28b511a8e63749ace406c9753c816cff8ec6e4b"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/TaskEntity.java",
+      "bytes": 905,
+      "sha256": "469ab9ad76313ec8e119807f6c4669cfdcb19a17fce9fbff2dc1a2226953253d"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/TimelineEventRecord.java",
+      "bytes": 722,
+      "sha256": "4d32f8855b0dbf86b005232a74a0d6f51d5a0d1265e5be1489411a9314ab836a"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/UuidV7.kt",
+      "bytes": 1209,
+      "sha256": "9c9c17632b23eebba4ccf742443369a3296a0c25f0675c06a8c85cb4af7e6ce6"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/VerifiedCatalogCache.kt",
+      "bytes": 2816,
+      "sha256": "dc4e5a765b843e1d0aee6038b4f958e21aacfa8038d2e1f1af3431863ad64459"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/VerifiedManifestCache.kt",
+      "bytes": 3502,
+      "sha256": "032d313d0462faeb72ca39ccd12132ee2fef35141f9d8964238a2b6e94161a06"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/CloudAccountController.kt",
+      "bytes": 10540,
+      "sha256": "f0639f0b1cbb1537eb669dd99f68294037aab81c1962730db9ff4221e9587901"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/CloudContracts.kt",
+      "bytes": 9829,
+      "sha256": "1c730c4af7911dd5ed08464c8e778a4244c8f893bb599782bab06940cbee7eaa"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/CloudLocalStateStore.kt",
+      "bytes": 9361,
+      "sha256": "b2a4e6ffaeb56c7062382e116272882c69a88ffe7eb5984bb68dd7d4ed62251e"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/CloudNotificationText.kt",
+      "bytes": 3911,
+      "sha256": "1a80cc4f756d18f9b7fa305b40eb871ccbae77dd3aaa3b2fc68fd37e6e8e8a86"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/CloudSyncCoordinator.kt",
+      "bytes": 16620,
+      "sha256": "309952d79f7d3dd1290e85f641c77b6bb354b6b1be913467f8494991a09674ef"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/PasswordRecovery.kt",
+      "bytes": 3058,
+      "sha256": "a3c15c6af6022082652366f957351a838befb357fe03d8b8a4bc5942ae65cb4d"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/PushEnvelope.kt",
+      "bytes": 1083,
+      "sha256": "8b8041eaeb351a1eeb0c181af7dcbb17ac832da7dbf066e76a9bd401007c76d3"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/RemoteSnapshotCrypto.kt",
+      "bytes": 2775,
+      "sha256": "3acb90dc3c5715a55752b5ce1a7b9823d1c2b2722a16eaaaf438afd5d18af3cd"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/RemoteSnapshotRelay.kt",
+      "bytes": 3588,
+      "sha256": "d5bd7d35943b0d7165433e269c68c84bc151b558d7e7248ec29c2eb55daf6cdb"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/RemoteSnapshotTransferController.kt",
+      "bytes": 17766,
+      "sha256": "d733c4d37d01fa8c2e92ba1b3d3885540e177a48f5d7275c4b015a4f14b8cb17"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/RoomCloudBridge.kt",
+      "bytes": 27657,
+      "sha256": "af7a24fbec827fd4114a93530286c37c972861c692224b67a0196fc2a4e1e59f"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/SecureSupabaseSessionManager.kt",
+      "bytes": 6126,
+      "sha256": "e7b13d24e5b81dcc369c93a739152730f54c31c950f719c5e58898f3d8f2b39d"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/SupabaseCloudClient.kt",
+      "bytes": 21401,
+      "sha256": "902d81aebf251111202072a748f056278a020d9b0ce69ba9d9eda80861d15b7a"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/cloud/SupabaseRemoteSnapshotRelay.kt",
+      "bytes": 5163,
+      "sha256": "8d54618c60e78900733ba6c1f0e639bb5f332e079b447a253ba3f61ee9b760b8"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/reference/PrivateReferenceImageProvider.kt",
+      "bytes": 9925,
+      "sha256": "f17f410ff5e9b4cdfa3af90ab7c47fd4ac7603ee8025f376ed0665569e954f13"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/reference/ReferenceDeletionJournal.kt",
+      "bytes": 4898,
+      "sha256": "aade5ca9733217fd5ccb216e9dc8aa7350f61f8a3f42c335ab0ec5316b567387"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/reference/ReferenceDraftStore.kt",
+      "bytes": 19702,
+      "sha256": "e407336a826d3143cf85180a823da2169b3af5d8fda85a91168d3606d683fe54"
+    },
+    {
+      "path": "android/core/data/src/main/java/app/beyoureyes/core/data/reference/ReferenceImageRepository.kt",
+      "bytes": 19804,
+      "sha256": "04a5b17afef7d051840161a013731d720db0034e1b5c4df5f61bc7fe01feea19"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/AtomicConfiguredReadingInsertTest.kt",
+      "bytes": 3938,
+      "sha256": "1fdb429979d9c6d174f53b9f7b808cccb8d7556f40d6d543b46a6e14664f01c8"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/CommunityMetadataTest.kt",
+      "bytes": 4240,
+      "sha256": "cbfc82ce3fa2490cc793a391b69c0dbcf2cfac2022ffdacfa3e1187c87c7bb9b"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/ModelArtifactStoreTest.kt",
+      "bytes": 36760,
+      "sha256": "477c48db5975da225b3299ee9a435f06a06b52f910f14be87c2304dcfcc036cc"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/MonitorEventFactJsonTest.kt",
+      "bytes": 7675,
+      "sha256": "04d727dd799e0cf1b2f9d135eff61dc00b62713e8eca3247d47dd5a6b9665013"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/MonitorStorageCodecTest.kt",
+      "bytes": 1972,
+      "sha256": "e4dcd1e1da0c6eb43f2b3af386a872117e5a576dd463762e891c430a48088daa"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/MonitoringPreferenceDefaultsTest.kt",
+      "bytes": 382,
+      "sha256": "96a87e2510679aa9022c5eb27ce4785ec4704ab322b698b60038e0eb646516aa"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/ReferenceEventSnapshotStoreTest.kt",
+      "bytes": 1619,
+      "sha256": "ab967d2a6a098fab7bc0eaef5dcf27591b4b563eb1278f7fb9c2e6d42e8257de"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/ResolvedSamplingConfigTest.kt",
+      "bytes": 9441,
+      "sha256": "9b2da2633f04a6d364ab1191be38ea3ef00d65acb4a2d99c181540a4a4fc09bd"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/RestrictedEventPayloadJsonTest.kt",
+      "bytes": 4718,
+      "sha256": "7462ea995c2e72c7e6f0c045800b7ed27abc3d836e95c228f217f26a3a90b179"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/SignedMetadataCodecTest.kt",
+      "bytes": 6429,
+      "sha256": "d163c0a600f44130a97f878c1391cbac13871bb53c8cb808e760fba3f2db3ac5"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/UuidV7Test.kt",
+      "bytes": 1266,
+      "sha256": "3efe7c4d3c5676aa43d975ebca2f6ad0fe8410177cd264fa79e8bf7e44c1d583"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/VerifiedManifestCacheTest.kt",
+      "bytes": 3773,
+      "sha256": "d9bd0a2c2aacceb680c7adb8f2e9aabd36074e48f9ade5baeba7fcfb3292b757"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/cloud/CloudConfigurationTest.kt",
+      "bytes": 2000,
+      "sha256": "8d36beaefb90675dcadbefef51b2724419e2b41de42effe580ffa6b3022685aa"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/cloud/CloudNotificationTextTest.kt",
+      "bytes": 4435,
+      "sha256": "69de7a6c21b308eeef17536b87a0c7d1973ee6575ee8a75215c6d98e055ae27e"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/cloud/CloudSyncCoordinatorTest.kt",
+      "bytes": 43507,
+      "sha256": "e38b1722a61645119cd1febc2250c0aa44e930e198f12c95a12f187a2f3ed11c"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/cloud/CloudWireSerializationTest.kt",
+      "bytes": 4736,
+      "sha256": "f9c27668bc550c98e88e7dc1eccca9dbc844aa535abe8e11cbe143b6f88c4969"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/cloud/EncryptedSessionPayloadStoreTest.kt",
+      "bytes": 1595,
+      "sha256": "3e141497b0fa4b7346c0dbc979ad4d5ee2d45d1007a2e7d9a9f2a632ce2c3c39"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/cloud/PasswordRecoveryTest.kt",
+      "bytes": 2803,
+      "sha256": "1718c2fc7e1494329ac89e0e060c805fb4152e616c99639f5d63b862559a0e20"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/cloud/PushEnvelopeTest.kt",
+      "bytes": 1792,
+      "sha256": "e11684fc9aeabe0d97b7be2104fb99e44d777258f365ebf3641a4e0c742b439c"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/cloud/RemoteSnapshotCryptoTest.kt",
+      "bytes": 2434,
+      "sha256": "11b2a19e683633abf0c790f1568f99d0f7c6d0a02d2d2a1a19289f30606a2cbc"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/reference/ReferenceDeletionJournalTest.kt",
+      "bytes": 3213,
+      "sha256": "dfed410c307d4a5c02d399ad8f78b35f21238f550581e83d6754aa6273118ab6"
+    },
+    {
+      "path": "android/core/data/src/test/java/app/beyoureyes/core/data/reference/ReferenceInputLimitTest.kt",
+      "bytes": 1651,
+      "sha256": "63d8af7309f9d51367e968f557624e6d69ee6852a6f38cc9f3fad199e4c16684"
+    },
+    {
+      "path": "android/core/domain/build.gradle.kts",
+      "bytes": 632,
+      "sha256": "54b49f3a4f5c30cc33f0e19853e69f836e36c7f40249df8ffc8ae011c2428267"
+    },
+    {
+      "path": "android/core/domain/consumer-rules.pro",
+      "bytes": 81,
+      "sha256": "b766af749f47c6b56a57779ed965d6bff8efa9a274adc7204114ef11be9cf29d"
+    },
+    {
+      "path": "android/core/domain/src/main/AndroidManifest.xml",
+      "bytes": 52,
+      "sha256": "daa0fb1f32ba7ea85a07ef6302ab3d58c3407d7fd2aa03ec132cb9e38e8d9849"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/EventPayload.kt",
+      "bytes": 4462,
+      "sha256": "1283a901e605fabb988ff5f2f6ba88c8a6070b349063b546683d1db362a55b07"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/GenericObservationRuleEngine.kt",
+      "bytes": 31315,
+      "sha256": "6ab20f07a5b76de40647b85a26a2aad53b70cf998631201a315c94b21fd3845b"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/Monitor.kt",
+      "bytes": 12246,
+      "sha256": "73d2416e9b25b6ac0de6b2c19b014f6a613a42d5ab79fddc65d85aeda459e877"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/NumericDisplayFormat.kt",
+      "bytes": 13732,
+      "sha256": "fd9bb80e208859d19eaa78d150f437b2c4b1a2260d6881a387d9bd6c4fa6f7fc"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/NumericReading.kt",
+      "bytes": 1953,
+      "sha256": "36e77b8c427b01f7efb34eaa4ff05785e6b693534d88990de7da3be25bc7a9d2"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/ObjectClassCatalog.kt",
+      "bytes": 5807,
+      "sha256": "18c421e2552ceb7d7332d8986a10ba1675e2c3999e6e737c14a53420a7793a15"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/Observation.kt",
+      "bytes": 4192,
+      "sha256": "04f7545da69c65e9184136030ef9ea625bd8aa4f1211ec202c1a507fe636a68b"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/ObservationRuleEngine.kt",
+      "bytes": 2202,
+      "sha256": "698c2b9c34feffae5dd66529a30a83231662b927ddce9d54d46fa84f38242063"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/ReadingTemporalEvidenceTracker.kt",
+      "bytes": 7981,
+      "sha256": "674bae286282467d0619e7f622eea0183f3de8ba49d14a7705fbfd77ce67b805"
+    },
+    {
+      "path": "android/core/domain/src/main/java/app/beyoureyes/core/domain/RuntimeMonitorRule.kt",
+      "bytes": 9351,
+      "sha256": "5a641489be7bc6af6cc8a47586b24f3a86cccd470919833594ed4fa1dcdba68f"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/AdaptiveVisualRuleEngineTest.kt",
+      "bytes": 3207,
+      "sha256": "0237b7e4d324eab2393487791fe5e583d507b864b3a6d86ab5aedf5b457527fd"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/GenericObservationRuleEngineTest.kt",
+      "bytes": 24428,
+      "sha256": "6cc91c974d9105c99dd507497bca84bb4bf237cac1f6b2716e77a602a52f29bf"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/MonitorEventFactTest.kt",
+      "bytes": 2022,
+      "sha256": "374e2d9cad4ecec7cad6768c4836c13c06ff91303b9568feee9adeb2fd8e3c73"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/MonitorNamingTest.kt",
+      "bytes": 515,
+      "sha256": "3438dc6b8dca60f4e486d56b4bdfc147cf30f5443f6099f7b6590a8e1a3d0ce7"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/MonitorRuleTest.kt",
+      "bytes": 2339,
+      "sha256": "cb40dbeef424c55cd6906f64f9c1f0e3c9730a27b58476bb3f4e96a8be5a731c"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/NormalizedRectTest.kt",
+      "bytes": 545,
+      "sha256": "da73e81a14c302da99e93497948e153740e832e9c1f8fe331861678e58bfb46b"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/NumericDisplayFormatTest.kt",
+      "bytes": 5232,
+      "sha256": "eb2ace264bd19e46be10e5e30e2e94a771b35f34e94228979869a91331f17e65"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/NumericReadingTest.kt",
+      "bytes": 1993,
+      "sha256": "daff63a781bb76c6293a79c4c55980aafb97d06ac338a3b315ba917b434a2e8f"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/ObjectClassCatalogTest.kt",
+      "bytes": 2930,
+      "sha256": "f8cf4321d920221504f381ae3ebb3721fbe65ee6cb3fa4ebd698955461f45de5"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/ReadingTemporalEvidenceTrackerTest.kt",
+      "bytes": 5408,
+      "sha256": "8c92b03ab95791966c16d98ccd70058069a837c0641d4ae97bee64861d67245b"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/ReferenceMaterialDeduplicatorTest.kt",
+      "bytes": 1052,
+      "sha256": "d620d5dc6c73096339b00c3d9513657a8290eb1b855d7f737df67ebf8fb3fa8b"
+    },
+    {
+      "path": "android/core/domain/src/test/java/app/beyoureyes/core/domain/VisualSamplingDerivationTest.kt",
+      "bytes": 2402,
+      "sha256": "bee173f220594025242690f54b5eea2bd888a30147766366e6b9da6b7b97b587"
+    },
+    {
+      "path": "android/core/vision/build.gradle.kts",
+      "bytes": 1740,
+      "sha256": "7f6f1315284aa362b1513cfe8c0d207f66807d857f923a817c9c43b47affb10e"
+    },
+    {
+      "path": "android/core/vision/consumer-rules.pro",
+      "bytes": 61,
+      "sha256": "0773bfd27902ce3ffbd65193f61dba2450774812d0f7c6d88a8db49293616c4a"
+    },
+    {
+      "path": "android/core/vision/src/androidTest/assets/identity_dynamic.onnx.source.json",
+      "bytes": 576,
+      "sha256": "0fc60c16b02fcd77fa6c5d2b1e247d0745ce6779e25fac0669ce9938e4fa72bb"
+    },
+    {
+      "path": "android/core/vision/src/androidTest/assets/identity_dynamic.ortfixture",
+      "bytes": 138,
+      "sha256": "4bd0d3736bdcfd4ff7c2ed7b4cae8b17e23035b1593a8c989e9d05f599c484be"
+    },
+    {
+      "path": "android/core/vision/src/androidTest/assets/mul_1.onnx.source.json",
+      "bytes": 299,
+      "sha256": "14374774e52dbf8421e94c53be44f93aa419455b26342e6dee23399db18cb169"
+    },
+    {
+      "path": "android/core/vision/src/androidTest/java/app/beyoureyes/core/vision/NeuralReferenceRuntimeInstrumentedTest.kt",
+      "bytes": 1113,
+      "sha256": "f695a2b10e098542f827d27b1b0a10dd761c94c838d202eb91ebd48be6769e5f"
+    },
+    {
+      "path": "android/core/vision/src/androidTest/java/app/beyoureyes/core/vision/OnnxArtifactSessionInstrumentedTest.kt",
+      "bytes": 8212,
+      "sha256": "ba530a2ebd52b0e6aa14b8d0d6cbb37471fa4f9f4eccf54e03d161e3589fc84e"
+    },
+    {
+      "path": "android/core/vision/src/androidTest/java/app/beyoureyes/core/vision/PpOcrV6SmallParityInstrumentedTest.kt",
+      "bytes": 20829,
+      "sha256": "a8dcf0d96cd20af3a27245420dba8bb1cdbf08baae9c748ed15cd656c4028a31"
+    },
+    {
+      "path": "android/core/vision/src/androidTest/java/app/beyoureyes/core/vision/PpOcrV6SmallTemporalReplayInstrumentedTest.kt",
+      "bytes": 21927,
+      "sha256": "aab54b312d5a7e65e4bb7ae005f02d714c71e31f7049de24ede86b28d43dcaea"
+    },
+    {
+      "path": "android/core/vision/src/main/AndroidManifest.xml",
+      "bytes": 52,
+      "sha256": "daa0fb1f32ba7ea85a07ef6302ab3d58c3407d7fd2aa03ec132cb9e38e8d9849"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/CtcVocabulary.kt",
+      "bytes": 6684,
+      "sha256": "bdb3f1db90a2c23f03762a78ebff323a51b0ed22764bd6ec913decc122f55287"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/InferenceBackend.kt",
+      "bytes": 6525,
+      "sha256": "dc73278db2602664d9c7ba12c8c4c2bbb2dd493671a00e8326998e901c74e4e2"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/LiteRtArtifactSession.kt",
+      "bytes": 6544,
+      "sha256": "c5c622ba2c6fe8754535d163dc97afe0ea23300e434310855599b8b5fd2a715c"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ManifestExecutionGraph.kt",
+      "bytes": 17498,
+      "sha256": "3e98a30c2eec98e2e22a41060b2784f797d0844b89189ed28105493a01e85b76"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ManifestFrameQualityGate.kt",
+      "bytes": 6514,
+      "sha256": "f5696fdd98f9080b293dfa7456dc94c1e4af71d3d8ea7d6b05b4b5d9669a4d01"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ManifestKnownAnswerSelfTest.kt",
+      "bytes": 5089,
+      "sha256": "bb393ce2e6d5d005ebecf7b29f9115fc2b3981f8ff70898bf51f86bcc6c62cda"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ManifestRuntimeComponents.kt",
+      "bytes": 45997,
+      "sha256": "2fe788d460215e677e7013e9391554b439a5e8f9b1f59ad7dadba13c77e3fc53"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ModelManifest.kt",
+      "bytes": 49833,
+      "sha256": "bce7756a703bff843e7bf33bac88737728d3942c33e7ee4378ca0607956d6bbf"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ModelPackageRuntime.kt",
+      "bytes": 35573,
+      "sha256": "dde343410c7437c0a17d44b3e632496b6c562f6121aa828db830dde3690dcd6e"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/NeuralReferenceMatcher.kt",
+      "bytes": 46554,
+      "sha256": "4d724d99f62a8bfba09fa2e45979c12e42125f74689ab820474a050f0a8f7a43"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ObjectDetectionClassMap.kt",
+      "bytes": 1729,
+      "sha256": "60093b25f6c95bbee963074135c12b719b4879550331e4c783684f083248b29a"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ObservationPipeline.kt",
+      "bytes": 8143,
+      "sha256": "dad69ad0b3f2c804c87e0b7dcd75db5e83c921d4f680de74fc6d59eca7d0f1a8"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/OnnxArtifactSession.kt",
+      "bytes": 10058,
+      "sha256": "9eb8957692917744e6d0075a5e8c917920049b85b44fbf266b317867c4fd92b6"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/PpOcrDetectionPreprocessor.kt",
+      "bytes": 4831,
+      "sha256": "358dea9770f0536441c648ebf3a8c1f74184ae18911bf0ff265145fab043b4d6"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/PpOcrRecognitionPreprocessor.kt",
+      "bytes": 6539,
+      "sha256": "b30d87e061dd6ffe4b2cbc2c5425d81ac6a7f6f78c69c1b7ccd533dc9821cc07"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ReadingAutoLocatePipeline.kt",
+      "bytes": 28721,
+      "sha256": "a2357f91a1af80b45c3e2d4f4b2ff8b965e9ea738d1ccff677807f44a25ba917"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ReferenceEnrollment.kt",
+      "bytes": 2179,
+      "sha256": "6670c7b8b124b45e71888bea261565dfbd896e5631a9050b72635ea4f83e8aaa"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/ReplayBenchmarkRunner.kt",
+      "bytes": 2202,
+      "sha256": "835d9b4ff6f3a6bde2062fb7b5547a439ef218565775603cdce3dfe861fa22a0"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/RoiCoordinateMapper.kt",
+      "bytes": 4427,
+      "sha256": "c4c85da707a819641904ef41a5eaa2a7f2457a9a4e3b3f8eeefcd041611afd56"
+    },
+    {
+      "path": "android/core/vision/src/main/java/app/beyoureyes/core/vision/Yuv420FrameNormalizer.kt",
+      "bytes": 13181,
+      "sha256": "77efc1517dcff53dbfbd3690d3127094ef4e4876757ca484d7f0caf7a9c98ddc"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/CtcVocabularyCodecTest.kt",
+      "bytes": 4526,
+      "sha256": "87b79f3b77556e9fef801e2099d1cf39c9b74dd5aa7bebb7544142f51ad30524"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/LiteRtArtifactSessionTest.kt",
+      "bytes": 1253,
+      "sha256": "1a64363bdc99e4d4ab3f8a84641be522f69d13a26a27434b92d189a32c8d56aa"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/ManifestFrameQualityGateTest.kt",
+      "bytes": 8306,
+      "sha256": "4208fed5e2ec910c9a2f7e6695e214f7605f9e51680c847d8e080afecf377a4c"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/ManifestRuntimeComponentsTest.kt",
+      "bytes": 7347,
+      "sha256": "469fb2641d7577bea0ad4ae88f61a39173ddf7299a2ee60629c4a5c4f6eddef3"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/ManifestSsdDetectionAdapterTest.kt",
+      "bytes": 8938,
+      "sha256": "1824b7b69ac212b3480d3b855af4d64164d57c706f1ec0e17f54a0479cd3ba00"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/NeuralReferenceMatcherTest.kt",
+      "bytes": 30416,
+      "sha256": "f257c9d71597d0b73b3c2ad6bf9810b47c19ae7e533b442c826e4a70b17be4af"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/ObjectDetectionClassMapTest.kt",
+      "bytes": 6334,
+      "sha256": "1fd2ce2ee4d87e745932a7a782acae491bdaeefaeb7fd0f154f6a20bbf0436fd"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/ObservationPipelineTest.kt",
+      "bytes": 9366,
+      "sha256": "537108398795183472d8e4eaccf6dda0593bdbb21b39588bb0b4be967bae0480"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/OnnxArtifactSessionContractTest.kt",
+      "bytes": 2287,
+      "sha256": "d74931e16f6257b865bc6ae2b6eeb0b62329bf81b75bf0b26b18e29bd3368e9c"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/PpOcrDbTextLineLocatorTest.kt",
+      "bytes": 2589,
+      "sha256": "b641d0c218d0ed73a172b23e1189a726c1efab9f0a417288c01aad00b46c4efb"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/PpOcrRecognitionPreprocessorTest.kt",
+      "bytes": 5466,
+      "sha256": "5fa21458a89ee2bf78fed773958bde10a0d62c33f725ff0e9601a4c87467d601"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/ReadingAutoLocatePipelineTest.kt",
+      "bytes": 17452,
+      "sha256": "7fb3a5c14851a872962a2c1b59051447e3519043d0f135f2d2c33d4ae62d44fc"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/ReplayBenchmarkRunnerTest.kt",
+      "bytes": 2143,
+      "sha256": "294690522143d52310009746098367905a8b4ae208eb4b01ed2c3ae819fcf629"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/RoiCoordinateMapperTest.kt",
+      "bytes": 2258,
+      "sha256": "cc0898db0d015342661bcbd8d3490948b8ed116019ea2d1ad4c2f114c8ccffb5"
+    },
+    {
+      "path": "android/core/vision/src/test/java/app/beyoureyes/core/vision/Yuv420FrameNormalizerTest.kt",
+      "bytes": 10103,
+      "sha256": "9f6b0fd2c1f0e4066638f41e10e0b088dd43e9ae76a3f7049736848efa328f83"
+    },
+    {
+      "path": "android/gradle.properties",
+      "bytes": 183,
+      "sha256": "43981fc7a0f95932be6cd57aa950e7e4170ef20346fa7314362ff820eb489ebe"
+    },
+    {
+      "path": "android/gradle/libs.versions.toml",
+      "bytes": 4838,
+      "sha256": "84641a96722c24cfef59b14fbb26ccfa48ef04e752be65f853245ba4967305c6"
+    },
+    {
+      "path": "android/gradle/wrapper/gradle-wrapper.jar",
+      "bytes": 48462,
+      "sha256": "497c8c2a7e5031f6aa847f88104aa80a93532ec32ee17bdb8d1d2f67a194a9c7"
+    },
+    {
+      "path": "android/gradle/wrapper/gradle-wrapper.properties",
+      "bytes": 339,
+      "sha256": "93b4f2c5ddcfc9e6f630fc7e004b31b389695cd0228be6da42e196e5d4af7acb"
+    },
+    {
+      "path": "android/gradlew",
+      "bytes": 530,
+      "sha256": "0b925828d98bf17a25afae32122cb6f6ffeb40a41a966fed2b5cba25794d8a30"
+    },
+    {
+      "path": "android/gradlew.bat",
+      "bytes": 635,
+      "sha256": "9b2fe5741128bcf80132a8fe6f03962f1656aba3cf9e2205a00a930208369201"
+    },
+    {
+      "path": "android/settings.gradle.kts",
+      "bytes": 410,
+      "sha256": "93cb45ebb3e7df174cc318555a38258b46693d97bdf934652bc2971255109f37"
+    },
+    {
+      "path": "contracts/DATA-DICTIONARY.md",
+      "bytes": 1350,
+      "sha256": "d356b34cd5dc29e843420fcc599ed822cd5020c259dc288e6fe41058297e22de"
+    },
+    {
+      "path": "contracts/README.md",
+      "bytes": 3611,
+      "sha256": "6960877e366769d87818fb482243ac646309538841fe55221a6d220f35efeb22"
+    },
+    {
+      "path": "contracts/SUPABASE-DATA-PLANE.md",
+      "bytes": 1190,
+      "sha256": "b30942da83b1ed5c0b507c60ed7912990923cb53801603ee11cd94c7e827d678"
+    },
+    {
+      "path": "contracts/schema-index.json",
+      "bytes": 636,
+      "sha256": "8f71664b29a5d24e422ec8a6431ab3e849ac15982b7103aa3bf470ed18ae9ce3"
+    },
+    {
+      "path": "contracts/schemas/capability-catalog.schema.json",
+      "bytes": 12040,
+      "sha256": "262af5cba3501c8f81cbbaf71bbc1f5178f7ce73abdb5deb66b6b7c68c11d262"
+    },
+    {
+      "path": "contracts/schemas/common.schema.json",
+      "bytes": 4999,
+      "sha256": "4b538010c06d9fb3e80154bf6b8ca5510f5624ae2d25b763277dac711f14bacf"
+    },
+    {
+      "path": "contracts/schemas/device.schema.json",
+      "bytes": 1153,
+      "sha256": "456957060cbc8d8b0c2422667120fe289ab0395d45d7916438a1bae9a46145a0"
+    },
+    {
+      "path": "contracts/schemas/event.schema.json",
+      "bytes": 3316,
+      "sha256": "0bcc9b4596e2203b8331e63b8140aacda9e571743d499e575c2a9f27281ab641"
+    },
+    {
+      "path": "contracts/schemas/model-manifest.schema.json",
+      "bytes": 21758,
+      "sha256": "e2c7d5fdd2b2e1c500c4c0d45c1e4e9bd9d3b3232e3967b76f02a2c953cc15b2"
+    },
+    {
+      "path": "contracts/schemas/monitor-configuration-proposal.schema.json",
+      "bytes": 7573,
+      "sha256": "aaeec3ac6a123c4d4e73df625f7f48cbc4506724d7695b69fb0cbdbe4b67bd2c"
+    },
+    {
+      "path": "contracts/schemas/observation.schema.json",
+      "bytes": 3147,
+      "sha256": "fc0ce843adcf58411e8e2ac21d42eaf9848bc2c41868c2fc985bcc6051c8d8d9"
+    },
+    {
+      "path": "contracts/schemas/push-envelope.schema.json",
+      "bytes": 462,
+      "sha256": "78cdacfc4830a79c007575b39592edda2ba1c9d0359012b19adcb75b69b07a1e"
+    },
+    {
+      "path": "contracts/schemas/sync-event-upsert.schema.json",
+      "bytes": 3438,
+      "sha256": "13d4f21b0945eeb97e5ce455c463cf895d1707dd8016b9a7bb125174119e06a4"
+    },
+    {
+      "path": "contracts/schemas/sync.schema.json",
+      "bytes": 2651,
+      "sha256": "0a41296b6feddb0c0a3e9ef12e98a5896804a0aac132a7fd1a5d98d894484f1a"
+    },
+    {
+      "path": "contracts/schemas/task-config.schema.json",
+      "bytes": 12036,
+      "sha256": "958780705c60d1b79984f76d3c8fae5c07032b908f269664b698b60e0a547ee6"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "bytes": 16494,
+      "sha256": "20b314e8e06d5db45b59b69d676a4923958df0426c91f603f727c3a52db57e7e"
+    },
+    {
+      "path": "docs/DEVELOPMENT.md",
+      "bytes": 19129,
+      "sha256": "d24b0ac6ab9ad0a5a165242c862474f9b84f9d431ec155f7ebf519c76b89366d"
+    },
+    {
+      "path": "docs/PRODUCT.md",
+      "bytes": 22280,
+      "sha256": "ac8dadbc436660fcbcdcb7f341762fff2c673ba3f08e0e1de1cc2d2c1c0970fa"
+    },
+    {
+      "path": "docs/RELEASE.md",
+      "bytes": 12841,
+      "sha256": "029d29f6ea6209c8962af8cb90d6d0ce180c069edefad0856f9e0ddef3e5b82c"
+    },
+    {
+      "path": "docs/community/BUILD.md",
+      "bytes": 5130,
+      "sha256": "343edf2fb28b854a6c97278467f3ce920bb91f9e59cccba07c5ad07feba3bc19"
+    },
+    {
+      "path": "docs/community/DEVICE_SUPPORT.md",
+      "bytes": 1206,
+      "sha256": "9129877704f742a4b60a74ca52be4e0daa20e34355931f79e30d002bdb7d7fa3"
+    },
+    {
+      "path": "docs/community/MODELS.md",
+      "bytes": 7080,
+      "sha256": "da511605bcf8e4b3949244556fa44542bf75f5176962d94bd4b424afb915b4ea"
+    },
+    {
+      "path": "docs/community/images/home.png",
+      "bytes": 180848,
+      "sha256": "3f5601dc0edd7e27dfade718def4b97578aef04b3f95b3de55dae185f845e850"
+    },
+    {
+      "path": "evidence/README.md",
+      "bytes": 837,
+      "sha256": "110e6b9ea6039da62e316bf4d6e8f472c4a164498979ff75830cff8700914c88"
+    },
+    {
+      "path": "model-tools/catalog-validator/.npmrc",
+      "bytes": 19,
+      "sha256": "7151cf397def0c2cb0ab65643701d27d335a72c90f775675b5f826bc7005818a"
+    },
+    {
+      "path": "model-tools/catalog-validator/README.md",
+      "bytes": 1472,
+      "sha256": "ac99ed4811bc36e96c14405acf64814e132ae5483764718fce28b837d8978419"
+    },
+    {
+      "path": "model-tools/catalog-validator/package-lock.json",
+      "bytes": 276,
+      "sha256": "3e475563df165a89cb791c74794628f8ab85ef03fc54a59157082716fa1542d9"
+    },
+    {
+      "path": "model-tools/catalog-validator/package.json",
+      "bytes": 367,
+      "sha256": "77f404b9a0de2d5789b7ad92bf8f71bb2181c428d68ec049ccdc91c4215ec6f4"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/cli.mjs",
+      "bytes": 772,
+      "sha256": "f070009c1d6f2d4ed267f7223fba5c5557427c1acdf0e73cea218b0a609a7de1"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/commercial-release-freezer-cli.mjs",
+      "bytes": 3256,
+      "sha256": "64034609e6b03bc9085feacc9d2b4e6b9fef5640bce6d76b41399f48c8541c71"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/commercial-release-freezer.mjs",
+      "bytes": 34499,
+      "sha256": "5e13b202f1f8017e0461de0367efd2649573ff49e7a3d83a64cc7815426fbcab"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/contracts.mjs",
+      "bytes": 75785,
+      "sha256": "48443880d8028c4fa4e1c61c21ede408b1a1c4c3a036e7963824ab41c5aa9ec9"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/index.mjs",
+      "bytes": 610,
+      "sha256": "b5cdac1df064aae63dcdef3298cd128e18f8b4224d7b5a0802e832103c771678"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/integrity.mjs",
+      "bytes": 3569,
+      "sha256": "88c55ee9fa2c1707ebb0a83bc1245cc0bcb6b5ec596941f3ba8977edcc751929"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/release-builder-cli.mjs",
+      "bytes": 853,
+      "sha256": "619fda3b44c03e121072020455ff044c3f2683b59e742c3e2767b50492734a10"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/release-builder.mjs",
+      "bytes": 16133,
+      "sha256": "ec5121e73f996d6986454c03a4107ea859d51c5ffa50083fd293a98a7b9257a8"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/release-public-keys.mjs",
+      "bytes": 841,
+      "sha256": "f12981ba847892ef53ddc08fc9554c97c3c4d1dcd4cda39fd214873506cb046d"
+    },
+    {
+      "path": "model-tools/catalog-validator/src/schema-validator.mjs",
+      "bytes": 7664,
+      "sha256": "01ffd77381152781a434a9aa2c97f01ed454bc99fe1f358edc265a27aec6ade5"
+    },
+    {
+      "path": "model-tools/catalog-validator/test/catalog-access.test.mjs",
+      "bytes": 2299,
+      "sha256": "b354c49ee65214c50527cb8bfc9bd783b6848195a4adcc67bbf4dd738a8bc346"
+    },
+    {
+      "path": "model-tools/catalog-validator/test/commercial-release-freezer.test.mjs",
+      "bytes": 2797,
+      "sha256": "324e980d9891dd77310a7daf98659dd90f241cab3e387eec7ca2f5b3e4795ef5"
+    },
+    {
+      "path": "model-tools/catalog-validator/test/contract-boundaries.test.mjs",
+      "bytes": 4411,
+      "sha256": "12ee4a7e6fb171f5ff71a2565cf2e7d7c29219fdd71b2642bbd9d7510c19c8c1"
+    },
+    {
+      "path": "model-tools/catalog-validator/test/fixtures/release-public-keys/catalog-2026-a.public.txt",
+      "bytes": 113,
+      "sha256": "51c35effd6f0ea4b51a8ef04d6c4826d9d78d0dfa92c001cfc67c2e76dc9a190"
+    },
+    {
+      "path": "model-tools/catalog-validator/test/fixtures/release-public-keys/manifest-2026-a.public.txt",
+      "bytes": 113,
+      "sha256": "b076f5098e6d1847821109b2c35e697ed308919f5a118ba29ae793e7fb9ec862"
+    },
+    {
+      "path": "model-tools/catalog-validator/test/integrity.test.mjs",
+      "bytes": 3656,
+      "sha256": "57e4fd0ee80539dea96192fda41dbbcfe8bdbe75fe3e16d59a6906b5d8318d8e"
+    },
+    {
+      "path": "model-tools/catalog-validator/test/internal-reference-fixture.test.mjs",
+      "bytes": 16948,
+      "sha256": "2ced07a25b3d6ca230763df596d1b8d158f70c8d845b462d17dfefefead37601"
+    },
+    {
+      "path": "model-tools/catalog-validator/test/monitor-configuration-proposal.test.mjs",
+      "bytes": 3878,
+      "sha256": "f1fe925680f5e51e4572c799f8cc2e6275d1d7df76e2e07e4bae365192e105bd"
+    },
+    {
+      "path": "model-tools/catalog-validator/test/object-detection.test.mjs",
+      "bytes": 8429,
+      "sha256": "bc172db17c9be41eb668c96f52b8de7718810e90b503f0605bbba5a95450b9a4"
+    },
+    {
+      "path": "model-tools/v3/.gitignore",
+      "bytes": 39,
+      "sha256": "37a5005cc666fea1f486dcc531d68f659151fbe24042eb69f161c42c1721c360"
+    },
+    {
+      "path": "model-tools/v3/evaluation/external-replay-set-v1.json",
+      "bytes": 9353,
+      "sha256": "52501dac973d9f6e61588bf86f734a80fee2782719575d2375cc7a7c7d5f2dfc"
+    },
+    {
+      "path": "model-tools/v3/fetch_reviewed_candidate.py",
+      "bytes": 7119,
+      "sha256": "9dc06652d723837e165c75b127b08dbc797aa90efcf520e179de82c77d6a1401"
+    },
+    {
+      "path": "model-tools/v3/internal-evaluation/artifacts/l2-prototype-cosine-candidates-v2.json",
+      "bytes": 78,
+      "sha256": "b999d1d9bfb302494fecd6d3f856d621dbb298bd66839d7a82483a508a28ee1b"
+    },
+    {
+      "path": "model-tools/v3/internal-evaluation/artifacts/prominent-object-candidates-v2.json",
+      "bytes": 215,
+      "sha256": "632fb7f5a7bb7d9fb0ce5bbe6de3b702713fe7ce429e19a7d4b1c9fd65315fd1"
+    },
+    {
+      "path": "model-tools/v3/licenses/Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "model-tools/v3/licenses/PaddleOCR-Apache-2.0-2661c7c0.txt",
+      "bytes": 11376,
+      "sha256": "3840c5c0c61c294264d2dd77b8777be6ddd90121ef4e0e64abcd22edea581d6e"
+    },
+    {
+      "path": "model-tools/v3/object-detection/efficientdet-lite2/LICENSE-REVIEW.md",
+      "bytes": 1278,
+      "sha256": "7c93d024fff5a02abe803222e50f148128cb9a17072ffe6a5a21f1776d7fe668"
+    },
+    {
+      "path": "model-tools/v3/object-detection/efficientdet-lite2/README.md",
+      "bytes": 1282,
+      "sha256": "d4eb001b6a98ca3ffab5c11543c5c190dc42fe958a82e55abedab4152c289020"
+    },
+    {
+      "path": "model-tools/v3/ppocr_official/android-test-assets/.gitignore",
+      "bytes": 132,
+      "sha256": "523032859900a9bbcce0fe4867329fc0563245b838b1e47259307f11aaf086ee"
+    },
+    {
+      "path": "model-tools/v3/ppocr_official/android-test-assets/ctc-vocabulary.json",
+      "bytes": 112437,
+      "sha256": "684a00dd6ca9dd491468412c305aee6a450f69a2800108ddb23837c15fbcaf49"
+    },
+    {
+      "path": "model-tools/v3/ppocr_official/android-test-assets/fixed320-numeric.png",
+      "bytes": 2231,
+      "sha256": "0836dd109552ea6fcb5436f357409bb1b5e55743f83893fb288e4804168940b9"
+    },
+    {
+      "path": "model-tools/v3/ppocr_official/android-test-assets/fixed320-reference.json",
+      "bytes": 2674,
+      "sha256": "cbb2f142734047020a2d6f12634262dc5c271276fbf92cd079c032a7ae24d487"
+    },
+    {
+      "path": "model-tools/v3/ppocr_official/android-test-assets/temporal-high-224-8.png",
+      "bytes": 193010,
+      "sha256": "94e537b5dbb74aee354e16aa754caba5e444c0cc8c4654082b4c81bb39add65e"
+    },
+    {
+      "path": "model-tools/v3/ppocr_official/android-test-assets/temporal-invalid-carrot.png",
+      "bytes": 34730,
+      "sha256": "ef55bca29521c281b836802f4bc8df2bc181b247cade48ed076585fbbb1de3f3"
+    },
+    {
+      "path": "model-tools/v3/ppocr_official/android-test-assets/temporal-low-38-0.png",
+      "bytes": 39831,
+      "sha256": "18ae507c127c88a78a2aaead145e88ccd019d59c782a1291972a4295ea02c9e0"
+    },
+    {
+      "path": "model-tools/v3/ppocr_official/android-test-assets/temporal-rearm-0-30.png",
+      "bytes": 112226,
+      "sha256": "877240af454bb0006eed542f82158e20da1d31e8120f84569fbed7b8ffef393b"
+    },
+    {
+      "path": "model-tools/v3/ppocr_official/android-test-assets/temporal-replay-reference.json",
+      "bytes": 27468,
+      "sha256": "3bf42bc0160abba48a7dfdae50383818be64828c1410fdc21ac4b799315170b6"
+    },
+    {
+      "path": "model-tools/v3/releases/community/templates/catalog.template.json",
+      "bytes": 8954,
+      "sha256": "b21935aab2b3b0bea9a451b6b2d15a6d7400588c2b596ad9a352ce6cda471115"
+    },
+    {
+      "path": "model-tools/v3/releases/community/templates/object.manifest.template.json",
+      "bytes": 20730,
+      "sha256": "cec64a52ab5f83f4a2d56f8bc67647a7ed64a2f20811d0a772c6e214731436f4"
+    },
+    {
+      "path": "model-tools/v3/releases/community/templates/reader.manifest.template.json",
+      "bytes": 67633,
+      "sha256": "9e4cfd096174d044216aeb8d6d52a0e619245efb319aa24b128c5f1c1574b8f6"
+    },
+    {
+      "path": "model-tools/v3/releases/community/templates/reference.manifest.template.json",
+      "bytes": 10526,
+      "sha256": "e840b17ea2355450b98d4955971283c52eed2cca342efa092ff91e9b74cecb6b"
+    },
+    {
+      "path": "model-tools/v3/releases/community/templates/release-build-input.json",
+      "bytes": 2033,
+      "sha256": "b1ca94b1819f3404158b443bd8ffa475650178e925499bae05ea0b5baa6ee014"
+    },
+    {
+      "path": "model-tools/v3/releases/current-internal/README.md",
+      "bytes": 2112,
+      "sha256": "02bd86fa007302f2d2dca67be057d3cbdfe2e791559a38c17007cb1962894035"
+    },
+    {
+      "path": "model-tools/v3/releases/current-internal/templates/catalog.template.json",
+      "bytes": 9329,
+      "sha256": "e72da1fe2684f373365674a1fd776af711fec5d966c301af1cc0cafddaa886be"
+    },
+    {
+      "path": "model-tools/v3/releases/current-internal/templates/object.manifest.template.json",
+      "bytes": 20752,
+      "sha256": "65d4f54b9ce30f84a33c558eea219b49fa7ae9a806c7e387e89de21477b686c8"
+    },
+    {
+      "path": "model-tools/v3/releases/current-internal/templates/reader.manifest.template.json",
+      "bytes": 67702,
+      "sha256": "47542aa3e84509991b540e419a3193462f40e53891b392908de690be69d4c7a8"
+    },
+    {
+      "path": "model-tools/v3/releases/current-internal/templates/reference.manifest.template.json",
+      "bytes": 10636,
+      "sha256": "5675cb17631b916e7993c271bc97caa49413c7782fff8ede8ceb7f0c1ef33fc4"
+    },
+    {
+      "path": "model-tools/v3/releases/current-internal/templates/release-build-input.json",
+      "bytes": 1653,
+      "sha256": "c7d6477d05479b512701442402872b9dd8c87060f379078e4f7e79b3a03fcc6d"
+    },
+    {
+      "path": "model-tools/v3/releases/website-2026-09-18/README.md",
+      "bytes": 2207,
+      "sha256": "a4b79b113ebb8aa966e9027f7026b9a2c7264cf7cc64b027e0baa48a8235226c"
+    },
+    {
+      "path": "model-tools/v3/releases/website-2026-09-18/templates/catalog.template.json",
+      "bytes": 9045,
+      "sha256": "fb27cbff22c3516003c0fee2570d57e55739bce578fd918c9546fdb67352a3ab"
+    },
+    {
+      "path": "model-tools/v3/releases/website-2026-09-18/templates/object.manifest.template.json",
+      "bytes": 20728,
+      "sha256": "daa4e63118be2bc6560f87356f9d595b528601e66a42ff52c8cd51748bc3b690"
+    },
+    {
+      "path": "model-tools/v3/releases/website-2026-09-18/templates/reader.manifest.template.json",
+      "bytes": 67631,
+      "sha256": "eaa3f6b9e38f7b75222706489a241ba338c48c2d74bdc514917280297d8ae58b"
+    },
+    {
+      "path": "model-tools/v3/releases/website-2026-09-18/templates/reference.manifest.template.json",
+      "bytes": 10524,
+      "sha256": "b82eeac9636ac2b15a0657b710562afa31e3d16130c371c757a97cae345b4b7d"
+    },
+    {
+      "path": "model-tools/v3/releases/website-2026-09-18/templates/release-build-input.json",
+      "bytes": 2033,
+      "sha256": "b1ca94b1819f3404158b443bd8ffa475650178e925499bae05ea0b5baa6ee014"
+    },
+    {
+      "path": "model-tools/v3/releases/website-2026-09-18/templates/rollback.catalog.template.json",
+      "bytes": 9045,
+      "sha256": "95d9be2c4dc9e3a9eaccff21a0ef9cf8b9301f135db207031ee9f120a514ead8"
+    },
+    {
+      "path": "model-tools/v3/releases/website-2026-09-18/templates/rollback.release-build-input.json",
+      "bytes": 2042,
+      "sha256": "941d089cabc518c80620a78f14932f45db027ed4dc5af6ada7e4232c9a2ae2d7"
+    },
+    {
+      "path": "model-tools/v3/reviews/localized-reference-matcher-0.1.0-internal.15-2026-08-24.md",
+      "bytes": 1946,
+      "sha256": "1e72158b85e55b652e984d0e56215e5cede6b876723656a9aee85f9d6c5d7b26"
+    },
+    {
+      "path": "model-tools/v3/reviews/ppocrv6-tiny-det-medium-rec-composite-0.1.0-internal.13-2026-08-24.md",
+      "bytes": 3974,
+      "sha256": "3d27a895b1e045d264181a9f0e49ee92a4bd0e8a978cfc3db628871dc840cba1"
+    },
+    {
+      "path": "model-tools/v3/reviews/reference-publisher-license-2026-09-18.md",
+      "bytes": 4211,
+      "sha256": "70aaa38310376e42237a05b9f829e5d62e394230d678eaf03e750143e8815946"
+    },
+    {
+      "path": "model-tools/v3/test_fetch_reviewed_candidate.py",
+      "bytes": 2581,
+      "sha256": "3d58b7d9c625d17dd4f89f4592ae2ad52b21d50614b6808d7a4c4a4c2999eb51"
+    },
+    {
+      "path": "release/community/RELEASE_CHECKLIST.md",
+      "bytes": 3067,
+      "sha256": "fd75e6b455aa36af5ac1ce5eb63b11c3e4b7c15197b3e8d846577baeb580e3b7"
+    },
+    {
+      "path": "release/google-play/README.md",
+      "bytes": 14529,
+      "sha256": "de4ca22d95ba6e584dca0d92a1ebfc84a80e049b0b8932c9e024e0911b766907"
+    },
+    {
+      "path": "release/google-play/assetlinks.json.template",
+      "bytes": 270,
+      "sha256": "cddb3421c81fa7c18ff8a99e25f45c5629e5cf28c3d13c044f405310e9775a62"
+    },
+    {
+      "path": "release/google-play/brand-screening-2026-08-15.md",
+      "bytes": 2676,
+      "sha256": "8ae97807ade0d942338703131eada6eaedbba507e974f23e3bac7c7c5cf6bd44"
+    },
+    {
+      "path": "release/google-play/data-safety-draft.md",
+      "bytes": 8800,
+      "sha256": "cca2f6dd7591589b85c1f1d6c45ec94c98c5522538c9219b20955c6b577d1e0e"
+    },
+    {
+      "path": "release/google-play/foreground-service-declaration.md",
+      "bytes": 1925,
+      "sha256": "d1aef3dfe0db815c51345d51b1d8a4b9a93ea43117f9399c79c33af594aeb78a"
+    },
+    {
+      "path": "release/google-play/listings/en-US/contact.template.txt",
+      "bytes": 286,
+      "sha256": "99b565f3cbf539d598b462c6b80c1b4dc4e3a1048745c210911102d8d84b5029"
+    },
+    {
+      "path": "release/google-play/listings/en-US/full-description.txt",
+      "bytes": 2894,
+      "sha256": "c506dead5d5ecb7842306634e48b76cd91ad7511b59e418a233b3d5e61e838f1"
+    },
+    {
+      "path": "release/google-play/listings/en-US/short-description.txt",
+      "bytes": 76,
+      "sha256": "a59dca10788294c6b50316094df5b641f5b8dccb5c0f6243af84e5c287cc0ba7"
+    },
+    {
+      "path": "release/google-play/listings/en-US/title.txt",
+      "bytes": 12,
+      "sha256": "ae161034b738eaa4f81812dbbba5a36e55d6ee9688232e81ee37b23646da2f78"
+    },
+    {
+      "path": "release/google-play/listings/zh-CN/contact.template.txt",
+      "bytes": 274,
+      "sha256": "3f360049c662154a53ebb1618d738e215f822005e5a5de05ef8b6e7fa889f0a5"
+    },
+    {
+      "path": "release/google-play/listings/zh-CN/full-description.txt",
+      "bytes": 2431,
+      "sha256": "b7773bf1ac2afeb78fd05cb14cc2ca079418f692e8c9434a55796c80fc4a46fb"
+    },
+    {
+      "path": "release/google-play/listings/zh-CN/short-description.txt",
+      "bytes": 85,
+      "sha256": "4747993b574ae5fe85e105afd026be203f6b9151c9666a2e7f5f825cc4e69c3a"
+    },
+    {
+      "path": "release/google-play/listings/zh-CN/title.txt",
+      "bytes": 10,
+      "sha256": "48f0ac2991c91e653e0b064439dd3e28ed864663d63371d93c5bbd26d2144a10"
+    },
+    {
+      "path": "release/google-play/privacy/.well-known/assetlinks.json",
+      "bytes": 797,
+      "sha256": "464bb4b71aa59f87b2947a90e67fc06d16cf0221a88aab32dc8c0a36847d0bc2"
+    },
+    {
+      "path": "release/google-play/privacy/404.html",
+      "bytes": 978,
+      "sha256": "7a082a099e77f84b88a378bd62ad91dd7859bbdd790fbbb1de14c361fd3c86d3"
+    },
+    {
+      "path": "release/google-play/privacy/_headers",
+      "bytes": 2171,
+      "sha256": "a6e17882470e49e52e54ef0a1492d5fb753c3cdbbeec3922ff757fd660a4d83d",
+      "transformation": "production CSP binding replaced with example"
+    },
+    {
+      "path": "release/google-play/privacy/account/account.js",
+      "bytes": 7005,
+      "sha256": "4ba83bc38af8cf3b6562f894026f5b4423954d9ff9b747d2664c58a45c2301aa"
+    },
+    {
+      "path": "release/google-play/privacy/account/auth.js",
+      "bytes": 2797,
+      "sha256": "a509ca993bc5c255ee6389844ef513cc68c00fb7eca7cb0c0c007f3537c9cd7d"
+    },
+    {
+      "path": "release/google-play/privacy/account/index.html",
+      "bytes": 3293,
+      "sha256": "b3076d8e964fd3be0d4c8cbb11d6d2daccd4d4285da836da4b23dce2a17a5f94"
+    },
+    {
+      "path": "release/google-play/privacy/account/style.css",
+      "bytes": 2190,
+      "sha256": "0995b94b3490dffd0f3240fbb9265c0e8d87607ba761bfcc2cb96b4861aa1638"
+    },
+    {
+      "path": "release/google-play/privacy/auth/callback.html",
+      "bytes": 1763,
+      "sha256": "0d129867c47eed67d78c02de1ccf41995f5c94cbf26aeae05fe54a614053ceb8"
+    },
+    {
+      "path": "release/google-play/privacy/auth/callback.js",
+      "bytes": 3254,
+      "sha256": "a9f8ed217d326fa68c09077dcc7bd5761df86561993bddc473dae2f286d49b1c"
+    },
+    {
+      "path": "release/google-play/privacy/company/index.html",
+      "bytes": 11276,
+      "sha256": "6602ab8aa088417b063beaf5b2c41ccb6fed74d2f0abff086e0a044d56d6ecd3"
+    },
+    {
+      "path": "release/google-play/privacy/index.html",
+      "bytes": 3873,
+      "sha256": "069b33bc76dd519e273bcefeb9bf8c8568f389936e50953f171930d920679e76"
+    },
+    {
+      "path": "release/google-play/privacy/privacy/index.html",
+      "bytes": 18242,
+      "sha256": "3c0c8a18709e62dd72ff902765f782ab7c049ae12358f9ac2aff03684002ec6b"
+    },
+    {
+      "path": "release/google-play/privacy/security/index.html",
+      "bytes": 1340,
+      "sha256": "9e000abaec2bd46c90a404c0fb3d0e77aaa9870f965a28bf1a5a3a98c9a945f7"
+    },
+    {
+      "path": "release/google-play/privacy/terms/index.html",
+      "bytes": 10702,
+      "sha256": "25e6c6d22647e38ed88ada91c8a5de90903ddc42d4a287e6e069e8afa860b124"
+    },
+    {
+      "path": "release/google-play/reference-publisher-signoff-request.md",
+      "bytes": 3030,
+      "sha256": "4edd18cd8d949c99624ad1479644944a39737f4aa977320ecf641b327f6ad336"
+    },
+    {
+      "path": "release/google-play/release.env.example",
+      "bytes": 1309,
+      "sha256": "b132dfe79fb72f4b67689c68dbae43782612a039d6c41a7c59c3e882908b2aff"
+    },
+    {
+      "path": "release/google-play/supabase-auth-config.public.json",
+      "bytes": 3027,
+      "sha256": "5001b3197d25ebbae75c27bc501f7fedf682cb8ebb2321beb23d0c4fcd4ebd1c"
+    },
+    {
+      "path": "release/website/README.md",
+      "bytes": 16474,
+      "sha256": "247dd94d4a6fbe3ad65031e51ca31dfb5497f78237db4db0540878c65280dd87"
+    },
+    {
+      "path": "sbom/README.md",
+      "bytes": 1616,
+      "sha256": "8f9224f8c2f5fb86cef831533c12994d7862479edd4b04584a1b7e307c13a046"
+    },
+    {
+      "path": "supabase/.gitignore",
+      "bytes": 72,
+      "sha256": "507699eb91144818edf61d3a079212cacf31d8db520eae428e3b48fcf0d6919c"
+    },
+    {
+      "path": "supabase/config.toml",
+      "bytes": 15988,
+      "sha256": "8e8b6436801921223f7549a853f5d01ffc67f38182e9dbaf4dfa9478cae011aa"
+    },
+    {
+      "path": "supabase/functions/_shared/bailian.ts",
+      "bytes": 2096,
+      "sha256": "f9529c77dc4d2179a83b9e86e4e083e2cd318922cdcf41a3be550215f8f38bae"
+    },
+    {
+      "path": "supabase/functions/_shared/entitlement.ts",
+      "bytes": 534,
+      "sha256": "d2d833ae51d210114343dfbe3ee1c59d939f3549916c5d43eb8cae5fe5db1d4c"
+    },
+    {
+      "path": "supabase/functions/_shared/google_oidc.ts",
+      "bytes": 8121,
+      "sha256": "c711df6ccd4dfaa7b9aa4b26d2a88f6d7bb654ec73182d339a9f793a8f521d60"
+    },
+    {
+      "path": "supabase/functions/_shared/stripe.ts",
+      "bytes": 3643,
+      "sha256": "2d8d64068d0a9ea565855d9a8673116f4f77e5e83e6cb9dbc0d7ad476a88b3bb"
+    },
+    {
+      "path": "supabase/functions/_shared/website.ts",
+      "bytes": 2481,
+      "sha256": "293512f73f1f75429e29ee9ad41169efb00d2c29f7f0889cba0044b27d789838"
+    },
+    {
+      "path": "supabase/functions/delete-account/README.md",
+      "bytes": 597,
+      "sha256": "1eaa6d7c6f8d066ccfe6989f7632700d41d7576feb1caa4a7974111077434177"
+    },
+    {
+      "path": "supabase/functions/delete-account/index.ts",
+      "bytes": 1583,
+      "sha256": "e019186a88faaa252cf8247e74ed6ce84c1e9e395d31c8971ea7250167b517c2"
+    },
+    {
+      "path": "supabase/functions/monitor-assistant/core.ts",
+      "bytes": 35488,
+      "sha256": "73bd01ca3c599f1655555959ed0238ab7141cce053851bbe063dcca85aad5eff"
+    },
+    {
+      "path": "supabase/functions/monitor-assistant/core_test.ts",
+      "bytes": 20496,
+      "sha256": "cfc5b84185224d41803082c7c8f6210973df119f6d6739aacbeccb0162883b89"
+    },
+    {
+      "path": "supabase/functions/monitor-assistant/deno.json",
+      "bytes": 50,
+      "sha256": "fc9fc38c21441b7f67a91280ed28b8ca4ad67fc69d713db441f5c0fd9a6abf9f"
+    },
+    {
+      "path": "supabase/functions/monitor-assistant/deno.lock",
+      "bytes": 2027,
+      "sha256": "0f1b853b380a752072d13b336aa4d1cd9ac94ed53fcf57e62d5fce33639fdf5b"
+    },
+    {
+      "path": "supabase/functions/monitor-assistant/index.ts",
+      "bytes": 1892,
+      "sha256": "6a71521633747bfa0d190bc891e4a4ffa5cc619bb15ac5cbe10ef115cd443c3b"
+    },
+    {
+      "path": "supabase/functions/play-entitlement/core.ts",
+      "bytes": 10902,
+      "sha256": "bcfd81b914b82a250cfc86b669164c5df818b146d798d8f288a77f5b7f787b17"
+    },
+    {
+      "path": "supabase/functions/play-entitlement/core_test.ts",
+      "bytes": 11762,
+      "sha256": "219bca152b1cb5ebb0b5cde35994b7f07f5db4d89f5fc74b5c92ed5959281056"
+    },
+    {
+      "path": "supabase/functions/play-entitlement/deno.json",
+      "bytes": 78,
+      "sha256": "6c014ab8f805902e87da43f59fcbe850b976431504d651963265194c13d39674"
+    },
+    {
+      "path": "supabase/functions/play-entitlement/deno.lock",
+      "bytes": 2027,
+      "sha256": "0f1b853b380a752072d13b336aa4d1cd9ac94ed53fcf57e62d5fce33639fdf5b"
+    },
+    {
+      "path": "supabase/functions/play-entitlement/google_play.ts",
+      "bytes": 11658,
+      "sha256": "b0ec295c30cbe852bd5e9099157a45919c5557b62d6f2c88e1e688207216fe6a"
+    },
+    {
+      "path": "supabase/functions/play-entitlement/google_play_test.ts",
+      "bytes": 6480,
+      "sha256": "b441926e4ab4871cd95a22bf000b4893df982b3fcc9600dcd5e8a57de4f3017a"
+    },
+    {
+      "path": "supabase/functions/play-entitlement/index.ts",
+      "bytes": 4587,
+      "sha256": "650cec3956796ad5adcf5305fd903a74c5b0bb698ac35f97f57a867955dfc66b"
+    },
+    {
+      "path": "supabase/functions/play-rtdn/core.ts",
+      "bytes": 9740,
+      "sha256": "200d3944780f8fae5f5d8218bee7e456dbac78fda4bfb992cad1b95f285942ef"
+    },
+    {
+      "path": "supabase/functions/play-rtdn/core_test.ts",
+      "bytes": 10066,
+      "sha256": "723bdc03f503f5e675fdd134fdd8312b33c08ac39f6e0307849ee9e89a59e49e"
+    },
+    {
+      "path": "supabase/functions/play-rtdn/deno.json",
+      "bytes": 78,
+      "sha256": "6c014ab8f805902e87da43f59fcbe850b976431504d651963265194c13d39674"
+    },
+    {
+      "path": "supabase/functions/play-rtdn/deno.lock",
+      "bytes": 2027,
+      "sha256": "0f1b853b380a752072d13b336aa4d1cd9ac94ed53fcf57e62d5fce33639fdf5b"
+    },
+    {
+      "path": "supabase/functions/play-rtdn/google_oidc_test.ts",
+      "bytes": 4471,
+      "sha256": "cc15b58c8a23724106f43be889319a0f16d583fa19c829a70b6227a013f65a53"
+    },
+    {
+      "path": "supabase/functions/play-rtdn/index.ts",
+      "bytes": 3004,
+      "sha256": "54d63aa1c1b483e722d76d5628a7423a879e1e2c47f3df4332031e9d37370f06"
+    },
+    {
+      "path": "supabase/functions/product-entitlement/deno.json",
+      "bytes": 110,
+      "sha256": "6efb394c341bf51568775c7881fc9e565f31efb6dc75fd9c8ba7b7a9f7a7e80c"
+    },
+    {
+      "path": "supabase/functions/product-entitlement/index.ts",
+      "bytes": 1069,
+      "sha256": "41f04206dd2d4075d84397905b8976253c5bdf4abff3af8e50986bf890d46f7e"
+    },
+    {
+      "path": "supabase/functions/push-dispatch/core.ts",
+      "bytes": 8690,
+      "sha256": "ed52a8398705641993e909a7965cb23a6596642317a7e0ce71e62fc4b2f4e4ba"
+    },
+    {
+      "path": "supabase/functions/push-dispatch/core_test.ts",
+      "bytes": 4126,
+      "sha256": "d031d2503a29ef02f71c5454a6fd781e97ffa634ccc66049e6d0b9a205ea8782"
+    },
+    {
+      "path": "supabase/functions/push-dispatch/deno.json",
+      "bytes": 50,
+      "sha256": "fc9fc38c21441b7f67a91280ed28b8ca4ad67fc69d713db441f5c0fd9a6abf9f"
+    },
+    {
+      "path": "supabase/functions/push-dispatch/deno.lock",
+      "bytes": 6668,
+      "sha256": "41c3bd8f0d32762b94ee29fde3ea199a387199870e4160203c996d4b9b6844ac"
+    },
+    {
+      "path": "supabase/functions/push-dispatch/index.ts",
+      "bytes": 5102,
+      "sha256": "31136472ecdcaf010c64f1f1bc888dd2d78325c588cdfdf426c2295c6fd3caa7"
+    },
+    {
+      "path": "supabase/functions/stripe-webhook/deno.json",
+      "bytes": 110,
+      "sha256": "6efb394c341bf51568775c7881fc9e565f31efb6dc75fd9c8ba7b7a9f7a7e80c"
+    },
+    {
+      "path": "supabase/functions/stripe-webhook/index.ts",
+      "bytes": 2749,
+      "sha256": "94f6930627105ccc52b313f176b0bba305c3f30912ba1b95040190002039ce80"
+    },
+    {
+      "path": "supabase/functions/voice-transcription/core.ts",
+      "bytes": 12333,
+      "sha256": "1f3d159f1815eb76cacb3092e4045313a14448151de0edcb21c4bdddf8b7a4cd"
+    },
+    {
+      "path": "supabase/functions/voice-transcription/core_test.ts",
+      "bytes": 6159,
+      "sha256": "b65943e5e7a5d3595df35d62c7253e62ce7bf2018ebb16f4e854d4005cd7ec4a"
+    },
+    {
+      "path": "supabase/functions/voice-transcription/deno.json",
+      "bytes": 50,
+      "sha256": "fc9fc38c21441b7f67a91280ed28b8ca4ad67fc69d713db441f5c0fd9a6abf9f"
+    },
+    {
+      "path": "supabase/functions/voice-transcription/deno.lock",
+      "bytes": 2027,
+      "sha256": "0f1b853b380a752072d13b336aa4d1cd9ac94ed53fcf57e62d5fce33639fdf5b"
+    },
+    {
+      "path": "supabase/functions/voice-transcription/index.ts",
+      "bytes": 1876,
+      "sha256": "725dafae5ffcd798a57645e821b9c1fbf978243e6d19c15ef4017b43df843a33"
+    },
+    {
+      "path": "supabase/functions/website-billing/core_test.ts",
+      "bytes": 5682,
+      "sha256": "9aea502a3f122e338b5f7e8bfa02056f644776c585a47c546ee74b5978660031"
+    },
+    {
+      "path": "supabase/functions/website-billing/deno.json",
+      "bytes": 68,
+      "sha256": "77ccb602c437808cc2d5fc5133b1a92fd578454e8bb4d75fb1cf0dabe27b19c1"
+    },
+    {
+      "path": "supabase/functions/website-billing/deno.lock",
+      "bytes": 2209,
+      "sha256": "38be8c87f18a17d4654985756315e5a67f816cd75d915d460bb9b652da9d52aa"
+    },
+    {
+      "path": "supabase/functions/website-billing/index.ts",
+      "bytes": 5724,
+      "sha256": "91e00d5a165add0beeedf9b424c29fcc061618fddd30daffd9484014c8a0a156"
+    },
+    {
+      "path": "supabase/migrations/202608020001_core.sql",
+      "bytes": 4002,
+      "sha256": "33c795b1d2a1602e614b708bc584782f722aaa75209f6994e449328ba4a269df"
+    },
+    {
+      "path": "supabase/migrations/202608020002_durable_store.sql",
+      "bytes": 16500,
+      "sha256": "98f373ac04e93d3db886fec476e7a088f9310a8f2f2023a5919962f45741c99c"
+    },
+    {
+      "path": "supabase/migrations/202608030001_client_data_plane.sql",
+      "bytes": 10524,
+      "sha256": "0a1ad44cde6b0e44eb1b1d50ef461d025d062ac9032902fe11f7adbdef69e722"
+    },
+    {
+      "path": "supabase/migrations/202608030002_push_delivery.sql",
+      "bytes": 12435,
+      "sha256": "dc01e02b2996acd3c4cb63ba9cf965702c139458ea658dbb2a10ea485303b659"
+    },
+    {
+      "path": "supabase/migrations/202608030003_event_payload_contract.sql",
+      "bytes": 9034,
+      "sha256": "b258713dc2b99b70799600de070a7f44cd875d63c304143b1b146a08c01cc51b"
+    },
+    {
+      "path": "supabase/migrations/202608030004_event_retention.sql",
+      "bytes": 11409,
+      "sha256": "a0714eef35e5aa9b68cb0d63810b2573ad7e125a08265202d3364e3bffdf803d"
+    },
+    {
+      "path": "supabase/migrations/202608030005_client_upsert_privileges.sql",
+      "bytes": 462,
+      "sha256": "64edf7b54d7acaa0652d483ffa54f57c53142d4645382f5d27e1d9adf0e8c6df"
+    },
+    {
+      "path": "supabase/migrations/202608030006_task_revision_batch_rpc.sql",
+      "bytes": 22114,
+      "sha256": "59a147acaeb47856eb965a4c77ffef70d1340e3c20b9eaafd32130d520a32f7a"
+    },
+    {
+      "path": "supabase/migrations/202608040001_device_revocation.sql",
+      "bytes": 5690,
+      "sha256": "eade5c48b3cfcb4b5c907d2d80058a5501d0d750bb412bba85e0648c028ad71d"
+    },
+    {
+      "path": "supabase/migrations/202608090001_edge_push_dispatch.sql",
+      "bytes": 4218,
+      "sha256": "dc1f4257491ce28a520d413697ec2158e645f035947f60cc5b915bcbb97fd384"
+    },
+    {
+      "path": "supabase/migrations/202608090002_edge_push_readiness.sql",
+      "bytes": 1735,
+      "sha256": "fbdb5a03739173643ccdcc1f11b5dcc7d76a80a02dd34a72e95b768157f12ea6"
+    },
+    {
+      "path": "supabase/migrations/202608130001_structured_reading_v2.sql",
+      "bytes": 13491,
+      "sha256": "8f405369b92fc8fcfc68a4927218a070556833c853941c95fd94b31010d98cc1"
+    },
+    {
+      "path": "supabase/migrations/202608130002_private_snapshot_relay.sql",
+      "bytes": 2394,
+      "sha256": "39950b8340641dcbed24469901b6c4f2160727b7cb53961d16bde94e4935648c"
+    },
+    {
+      "path": "supabase/migrations/202608200001_event_sync_privacy_readiness.sql",
+      "bytes": 8482,
+      "sha256": "955242619d97c0a1114fa53758dfde2a6b59486cf47fba09cb45e9f395ed7120"
+    },
+    {
+      "path": "supabase/migrations/202608230001_play_entitlements.sql",
+      "bytes": 1672,
+      "sha256": "3b40317c2b2168258a6c483d808d4b26bd80132d6c457a1d5946027fa32f4cbe"
+    },
+    {
+      "path": "supabase/migrations/202608270001_current_task_event_contract.sql",
+      "bytes": 30315,
+      "sha256": "be76f5884cbed6e15c318c4e168d395f02cd0deda15597d76c90ceb71a92af47"
+    },
+    {
+      "path": "supabase/migrations/202608270002_realtime_acl_readiness.sql",
+      "bytes": 320,
+      "sha256": "6240039bdc9909a5c54b6bfce89123714b557b398014ee299dda417b18d343e5"
+    },
+    {
+      "path": "supabase/migrations/202608270003_realtime_policy_readiness.sql",
+      "bytes": 6616,
+      "sha256": "adabdbc0ad3cf02b20b5801b0b1b5edbc4ca1a0f14def692da8ebb995f3034a2"
+    },
+    {
+      "path": "supabase/migrations/202608270004_task_title_schema_alignment.sql",
+      "bytes": 9169,
+      "sha256": "aa0ddae4ff4d8ab13bd2fcbd7412a4c7b94718e27edba2cefcd3571e8bb9718f"
+    },
+    {
+      "path": "supabase/migrations/202608310001_dynamic_entitlement_leases.sql",
+      "bytes": 520,
+      "sha256": "70eaeb1c2a932acb5794a65bc817e78e69bdd9b67adc45f519c29934201f5e90"
+    },
+    {
+      "path": "supabase/migrations/202608310002_product_access_boundary.sql",
+      "bytes": 15093,
+      "sha256": "4d15277c5ea63879962e049f9dc8246cbb89605ce363c3219269517d61dba73e"
+    },
+    {
+      "path": "supabase/migrations/202608310003_task_config_v4.sql",
+      "bytes": 4406,
+      "sha256": "017c7cb4e195b76905e85d926f4c8600d2205447db6f91dba5f15889cb8210b0"
+    },
+    {
+      "path": "supabase/migrations/202609170001_website_payments.sql",
+      "bytes": 7031,
+      "sha256": "c51dc82fab201ebe7502984753bfce28cc5ccc6cdf84b18b5a9f0423e8567d3e"
+    },
+    {
+      "path": "supabase/migrations/202609170002_website_payment_terms.sql",
+      "bytes": 4175,
+      "sha256": "8182fb3ddfb151dcd8a2c5e7e857bd4a9b294cdf5d9e96d5af39f86a6a2ee5ca"
+    },
+    {
+      "path": "supabase/tests/catalog-validator.d.ts",
+      "bytes": 349,
+      "sha256": "5f99f3d5db874b62a8fb854063906408b1e96d407fa8fc3ec6bf759c75b52a83"
+    },
+    {
+      "path": "supabase/tests/package-lock.json",
+      "bytes": 17573,
+      "sha256": "3b6864274a0b3e71b6d144f079f72df3787dae290cda83899d9b02de54a858d2"
+    },
+    {
+      "path": "supabase/tests/package.json",
+      "bytes": 506,
+      "sha256": "a2f3e6c0728a6ff31979445e34f578dee40a61fbf91bb22d3dbbb71a292d2914"
+    },
+    {
+      "path": "supabase/tests/postgres-migration.integration.test.ts",
+      "bytes": 73218,
+      "sha256": "8085b8b39da901ff5d0587d2ab6339b3179e0cf8631521ed212d06bd3ba08b4b"
+    },
+    {
+      "path": "supabase/tests/schema-policy.test.ts",
+      "bytes": 23450,
+      "sha256": "bf1edbd3674a73a44b1be67b21712beabf8cccf085e342600e088e4e227a203f"
+    },
+    {
+      "path": "supabase/tests/support.ts",
+      "bytes": 507,
+      "sha256": "0910e5e567559847d2d0aea6b653601e699694c14f11cfaf7f379f730a547d70"
+    },
+    {
+      "path": "supabase/tests/tsconfig.json",
+      "bytes": 372,
+      "sha256": "188beeb2691fdd5ea704f1db8322c749fbc2b4bbb20c274b1127f9ce5a55c120"
+    },
+    {
+      "path": "test-vectors/README.md",
+      "bytes": 1821,
+      "sha256": "ec1ebd611143752e8921d608782689dec42fa70822552699d48adb28831d2e04"
+    },
+    {
+      "path": "test-vectors/licenses/review-evidence.md",
+      "bytes": 217,
+      "sha256": "ca7bcc12ec1a6c2c4d33d6a607b0ac4b2ff85c42b137196f1520bebc9428fd4a"
+    },
+    {
+      "path": "test-vectors/model-packages/neural-reference-third-v3/README.md",
+      "bytes": 589,
+      "sha256": "3482e125967924310f5d3644d4fd8e94bc07d6d81fe96e7b743b1849d47c090b"
+    },
+    {
+      "path": "test-vectors/model-packages/neural-reference-third-v3/artifacts/embedder.fixture",
+      "bytes": 44,
+      "sha256": "1b7bcb5984f115ee1e635fe4bd619b8ac3cfa34a829a37f906a811892f09ce6c"
+    },
+    {
+      "path": "test-vectors/model-packages/neural-reference-third-v3/artifacts/object-crop.json",
+      "bytes": 215,
+      "sha256": "632fb7f5a7bb7d9fb0ce5bbe6de3b702713fe7ce429e19a7d4b1c9fd65315fd1"
+    },
+    {
+      "path": "test-vectors/model-packages/neural-reference-third-v3/artifacts/primary.fixture",
+      "bytes": 55,
+      "sha256": "b3019ba78558a32fc9c0b705de1e5e9e6df27b2daeda7eac9351950cb5447a55"
+    },
+    {
+      "path": "test-vectors/model-packages/neural-reference-third-v3/artifacts/similarity-head.json",
+      "bytes": 78,
+      "sha256": "b999d1d9bfb302494fecd6d3f856d621dbb298bd66839d7a82483a508a28ee1b"
+    },
+    {
+      "path": "test-vectors/model-packages/neural-reference-third-v3/manifest.json",
+      "bytes": 10188,
+      "sha256": "3b40818c4cf8b5c3a3ceb7bf6c875a5ca6cccdcc7a9c181b65c500ae5eb0b174"
+    },
+    {
+      "path": "test-vectors/valid/capability-catalog.json",
+      "bytes": 8424,
+      "sha256": "e51885ce9e16efb8dc6715885137572cffa38b4803d55bf54e964bda447a4ee5"
+    },
+    {
+      "path": "test-vectors/valid/ctc-vocabulary-numeric-13.json",
+      "bytes": 197,
+      "sha256": "37e837b998ae35b7ead2acb8b49ab4fab8c475c80ac3331bfa225174c2c4c1ef"
+    },
+    {
+      "path": "test-vectors/valid/ctc-vocabulary-third-party-18710.json",
+      "bytes": 114240,
+      "sha256": "0c32f37afc680e826e72e4ee0b1a4781601849f2041a703083a3512e5f98b2f5"
+    },
+    {
+      "path": "test-vectors/valid/device.json",
+      "bytes": 387,
+      "sha256": "62b3fb8c0867e60539618db0322a2edf7f9f2b2246cb1977b2171cc4d802e5db"
+    },
+    {
+      "path": "test-vectors/valid/event-reading.json",
+      "bytes": 884,
+      "sha256": "f71459429be9f2466655931c414560b9ab63c2fe450a538e69d2d5e2f5def6db"
+    },
+    {
+      "path": "test-vectors/valid/event.json",
+      "bytes": 435,
+      "sha256": "c4de7e6744e4c2779315844d84c3e5d8c40964f1be972b4389772a77fc93e4bb"
+    },
+    {
+      "path": "test-vectors/valid/model-manifest-object-detection.json",
+      "bytes": 20899,
+      "sha256": "ccf194a7b72b75a081ee6f00e3a598268f9bb0fa3a699f18c7f22e351fb66e6b"
+    },
+    {
+      "path": "test-vectors/valid/model-manifest-reading-third-party-large.json",
+      "bytes": 5912,
+      "sha256": "56f70b1043bdb8f6c08e0bf381a1ac0f396d8da58e23183314fd4debdf3b72e7"
+    },
+    {
+      "path": "test-vectors/valid/model-manifest-reading.json",
+      "bytes": 5686,
+      "sha256": "0dba5ba993f5a51b1a7cad45efa6b42f8e3af8f0279a348a98ec81fa8529c3c1"
+    },
+    {
+      "path": "test-vectors/valid/model-manifest-reference-target.json",
+      "bytes": 10744,
+      "sha256": "1a0089699dcd611695f7e90adcd40515a4d53a04ed04ba0d6b4087a97ec0005e"
+    },
+    {
+      "path": "test-vectors/valid/observation-reading.json",
+      "bytes": 598,
+      "sha256": "f155c31c5adf1a050e4b729660ddafae058c9bd0f720c3b3c7aa90b2c5cedbe7"
+    },
+    {
+      "path": "test-vectors/valid/observation-state.json",
+      "bytes": 229,
+      "sha256": "f5ce676ea161b049ef52242ebdde00def9ed870a26e14f2f0949e3b353e9ef80"
+    },
+    {
+      "path": "test-vectors/valid/observation-unavailable.json",
+      "bytes": 203,
+      "sha256": "e8ac4b27bbfe48c0bd8d7353be1fa6934b3cb2aceb8d5036d9bf64d551dad62e"
+    },
+    {
+      "path": "test-vectors/valid/observation.json",
+      "bytes": 313,
+      "sha256": "2dc3ecc9143e136415bb467a7794ba19651a70f2dfdeae2a404913cbd34c822b"
+    },
+    {
+      "path": "test-vectors/valid/push-envelope.json",
+      "bytes": 118,
+      "sha256": "8a3b78f6a4e30c396d94645b4f89a14650e378ccacc8ff6cf84c7a4966b484ea"
+    },
+    {
+      "path": "test-vectors/valid/sync.json",
+      "bytes": 267,
+      "sha256": "1666da183a6161d479577164aa1588d55708e2a45d42b74f1349a10a6d32f099"
+    },
+    {
+      "path": "test-vectors/valid/task-config-reading.json",
+      "bytes": 1298,
+      "sha256": "b3396772bdcd2c69f0447532a18f8441fe7990a439b46eb7499013b2de12052d"
+    },
+    {
+      "path": "test-vectors/valid/task-config.json",
+      "bytes": 1219,
+      "sha256": "a38a4ec1635040badd40292ad983e9562fc6c8ecbb89fdee9d3cb376a7e5654d"
+    },
+    {
+      "path": "tools/ci/build-current-internal-candidate.sh",
+      "bytes": 2635,
+      "sha256": "24c78d06cc1a07102f6111ca292f67fa97ee5522dc78c04aaf06691756f36dfa"
+    },
+    {
+      "path": "tools/ci/check-current-evidence.mjs",
+      "bytes": 14770,
+      "sha256": "90b441e16b45fb3ad8f0473795de17ed28c3f1db491f07f3b29695b9f9274465"
+    },
+    {
+      "path": "tools/ci/check-current-evidence.test.mjs",
+      "bytes": 12689,
+      "sha256": "0c4a65f92abd26f5103249e300c0c13269413c4d1f27955c5fa97f96730c0d03"
+    },
+    {
+      "path": "tools/ci/check-current-internal-built-manifests.mjs",
+      "bytes": 7725,
+      "sha256": "ff9ecb92b3924ba3459a04a4440c25cb42474ed9200ca8cf5e851cd5f4df5c7d"
+    },
+    {
+      "path": "tools/ci/check-current-model-quality.mjs",
+      "bytes": 10718,
+      "sha256": "d2f2cc478c772db07826cb57ba8fd4d5da09048970b2e79c1c90ee98353cd391"
+    },
+    {
+      "path": "tools/ci/check-current-model-quality.test.mjs",
+      "bytes": 4886,
+      "sha256": "81999053e54877f3ac77780a33d4efe221301cd9c84cb2b4ca0885e26b33ea13"
+    },
+    {
+      "path": "tools/ci/community-policy.mjs",
+      "bytes": 677,
+      "sha256": "4179ca872a00404aee426f1bdb3654b9ae0eeb89a69de9e387d59250ebe582cc"
+    },
+    {
+      "path": "tools/ci/community-policy.test.mjs",
+      "bytes": 748,
+      "sha256": "5da03956ac2212c21c7fcc332bc7baaf19309484086b27b43d822a0fc0e97e74"
+    },
+    {
+      "path": "tools/ci/hosted-test-account.sh",
+      "bytes": 4333,
+      "sha256": "e32f1684edf6d13f999257ff29604b357f7490cac778a28da4de1ee973478c63"
+    },
+    {
+      "path": "tools/ci/install-android-apk.sh",
+      "bytes": 2235,
+      "sha256": "e28eeb203ddb88b2e5c02e9841223013dc9e3fd73c057c4cb3750fae880fc286"
+    },
+    {
+      "path": "tools/ci/prepare-functional-fixtures.sh",
+      "bytes": 6827,
+      "sha256": "e97b67692dfa364ab71b3c2aa0086b8a6265e1f99df107ead7325b95e9ddbe73"
+    },
+    {
+      "path": "tools/ci/run-community.sh",
+      "bytes": 906,
+      "sha256": "f7cf453cff3a410a890c4ed66e847b97c0d6012cb7e3eb04060a00217eb64c23"
+    },
+    {
+      "path": "tools/ci/run-functional-camera.sh",
+      "bytes": 23397,
+      "sha256": "f85c42053e9b48855933bc3ac9fc0b71865ff94d57b3598e3a43a21c7359b8f4"
+    },
+    {
+      "path": "tools/ci/run-hosted-cloud.sh",
+      "bytes": 9021,
+      "sha256": "d445632ea66f1f8cd7a3c780230bcb92cd776234118e87fda2b963a5ae66867f"
+    },
+    {
+      "path": "tools/ci/run-hosted-snapshot-relay.sh",
+      "bytes": 7202,
+      "sha256": "c3021dc7b299dfed4b58ba4e03cfacac9eb7df57a9c4c6e7f7ad3d8ddf3ac035"
+    },
+    {
+      "path": "tools/ci/run-local.sh",
+      "bytes": 11912,
+      "sha256": "b4718fd93f2c7a94b03bbd1d80ff34529ffbd8ac55364f59e7c2a607e30cfba4"
+    },
+    {
+      "path": "tools/ci/website-auth.test.mjs",
+      "bytes": 4110,
+      "sha256": "3a17694e1f75ce2f7e1776bd976e7acde38a05eb5745c024baa9f11e3f167dba"
+    },
+    {
+      "path": "tools/device-evidence/install-internal.sh",
+      "bytes": 8031,
+      "sha256": "ff44287376a2a6c9fbd6e889fffd228a8ba4e8b4c25b670ad7e60f68f9e96f55"
+    },
+    {
+      "path": "tools/device-evidence/test-install-internal.sh",
+      "bytes": 4975,
+      "sha256": "d41b841b1cba8cb59c08006856a20715d4bc099acc8421fa02b59ca3a3ef59fb"
+    },
+    {
+      "path": "tools/release/build-community.sh",
+      "bytes": 3786,
+      "sha256": "a9e78ee60c63a59f88f80f95b6aa0529bed97d420c72b8cfbe41ffe780197881"
+    },
+    {
+      "path": "tools/release/build-google-play-bundle.sh",
+      "bytes": 14796,
+      "sha256": "8b3a02371959d37da95eac6e29e4bb8ff51d96bc4e20151f0e70ca562e6c1113"
+    },
+    {
+      "path": "tools/release/build-universal-apk-from-aab.sh",
+      "bytes": 2198,
+      "sha256": "a5554c41bcbb9b9a13a5c06356eb5c9379489d33e1873d643de57d0244bfe8e6"
+    },
+    {
+      "path": "tools/release/build-website-apk.sh",
+      "bytes": 5146,
+      "sha256": "b484a57007f62d1601fe20efa907d7a24993a84ecd72e1603f0cda66804cc5c6"
+    },
+    {
+      "path": "tools/release/check-secret-hygiene.sh",
+      "bytes": 4111,
+      "sha256": "9713141d5d68c195987708e2549232eab17054bdee65bcd901cec71b5d0109d2"
+    },
+    {
+      "path": "tools/release/prepare-community-model-input.mjs",
+      "bytes": 2164,
+      "sha256": "746011186fa67f11610d7dc49b6fdb58dd94eea67384454804369df9a0715977"
+    },
+    {
+      "path": "tools/release/prepare-google-play-upload-key.sh",
+      "bytes": 2827,
+      "sha256": "fafd94d4effef81f5b505d749cc8dc0829bfbea1d55a3747a5622973e7974f1b"
+    },
+    {
+      "path": "tools/release/prepare-public-export.mjs",
+      "bytes": 5197,
+      "sha256": "67a8be9d6e6b077b839735c19b1afebe779f182745ec6bb5f2635cbb0e7bf7bb"
+    },
+    {
+      "path": "tools/release/prepare-public-export.sh",
+      "bytes": 256,
+      "sha256": "151094783439b383e6ac72a66b5666c772a445bc657f3a1833208954d54afa30"
+    },
+    {
+      "path": "tools/release/prepare-website-signing-key.sh",
+      "bytes": 2363,
+      "sha256": "63d01eaaa028b3a68e0cc4533bb61fa03af9c0534180688a703a5e53ef34528c"
+    },
+    {
+      "path": "tools/release/require-clean-git-checkout.sh",
+      "bytes": 2175,
+      "sha256": "2f5115ff2999ffc8f303e239f244deeade1667445a257ecee0a18eafbf6f0c62"
+    },
+    {
+      "path": "tools/release/resolve-bundletool.sh",
+      "bytes": 1276,
+      "sha256": "53304e4ccc4ae22f645f8485b48ab8bc255b92832c7c68473854cf04b882b9da"
+    },
+    {
+      "path": "tools/release/resolve-osv-scanner.sh",
+      "bytes": 1593,
+      "sha256": "6c55719c3a43ab0beb0992df4266060c06b30b1d881cea4df8c2324763b9349e"
+    },
+    {
+      "path": "tools/release/scan-sbom-vulnerabilities.sh",
+      "bytes": 1646,
+      "sha256": "f1d6e4026b62a0efa71d67a420ff96bfc94fc48c169068a006634ac7224e3a19"
+    },
+    {
+      "path": "tools/release/smoke-install-google-play-apk.sh",
+      "bytes": 4770,
+      "sha256": "aa83da982104008755126c00e5aad18562226143e33419200a585d9a90973c85"
+    },
+    {
+      "path": "tools/release/test-check-secret-hygiene.sh",
+      "bytes": 4062,
+      "sha256": "1289d2d457bd5aadf7749cce3b8d4d074e058b2adf902d47d14754dee8e264f9"
+    },
+    {
+      "path": "tools/release/test-clean-git-checkout-gate.sh",
+      "bytes": 4436,
+      "sha256": "1376c953722c1a8090705c08ffa5e347e1ab3f1a91458be07719b7da30bb0b5c"
+    },
+    {
+      "path": "tools/release/test-prepare-google-play-upload-key.sh",
+      "bytes": 1772,
+      "sha256": "2baf8254369efe8a3e4eee58ceb2a2b36c1c1ea9be5b3e7d6b959dff0d36d822"
+    },
+    {
+      "path": "tools/release/test-public-service-inputs.sh",
+      "bytes": 1375,
+      "sha256": "54c8a68944038c632b9199941d457b75a59710aa080b6a06cd12aa97bf4e3afd"
+    },
+    {
+      "path": "tools/release/test-scan-sbom-vulnerabilities.sh",
+      "bytes": 788,
+      "sha256": "90f761a36202d59ea5448f7f54fee669e45c3310a82b1cb268694155708c95a4"
+    },
+    {
+      "path": "tools/release/test-smoke-install-google-play-apk.sh",
+      "bytes": 6441,
+      "sha256": "03080ce2d2593a8813d8d36c0ce3be1e823c9974db8509059d46ab751942b555"
+    },
+    {
+      "path": "tools/release/validate-public-service-inputs.sh",
+      "bytes": 829,
+      "sha256": "155075492dc9280c6dbb76cb304fde8c2910c20634d947cef4764e67e6f38dc0"
+    },
+    {
+      "path": "tools/research/README.md",
+      "bytes": 4068,
+      "sha256": "9cd7c3082a65b8ce732fb8a048cb630ece6d40e49699fac7444cbbed26b7cd96"
+    },
+    {
+      "path": "tools/research/freeze-execution.mjs",
+      "bytes": 52066,
+      "sha256": "bc6175cc33e8df6f3fa511ce33d444f6553c12502748a9925ec766906c18c226"
+    },
+    {
+      "path": "tools/research/freeze-execution.test.mjs",
+      "bytes": 21133,
+      "sha256": "756f65bed8f5bbea3a13e15a12fb11ae8ae0e9e153dbee7d6fa4072c47c240a3"
+    },
+    {
+      "path": "tools/sbom/android-cyclonedx.init.gradle",
+      "bytes": 1539,
+      "sha256": "e509ab900216cfd82859d1bdba25562539c863097e8b36c9f94c3c9f5209f513"
+    },
+    {
+      "path": "tools/sbom/deno-lock-to-cyclonedx.mjs",
+      "bytes": 3670,
+      "sha256": "db6570980e3b8252290a97a6a76e205e9c8c60be6dbefdecacc4e715751f731e"
+    },
+    {
+      "path": "tools/sbom/generate.sh",
+      "bytes": 10489,
+      "sha256": "3147f89094b7ae354e9a55671659194cda8f1a04313b812122c8aa4e2e6df520"
+    },
+    {
+      "path": "tools/sbom/test-deno-lock-to-cyclonedx.mjs",
+      "bytes": 1656,
+      "sha256": "ffa3e638c5737a4cdc294a650bad43d9463c96ff08dbd2204bcaec7e732996ab"
+    },
+    {
+      "path": "tools/sbom/verify.sh",
+      "bytes": 9850,
+      "sha256": "16427795d7bb6a5d7060827c98bf27b5d48ea7f240b33f9ff58f49e95668e176"
+    },
+    {
+      "path": "tools/vision-eval/README.md",
+      "bytes": 7818,
+      "sha256": "a6768251375589dff3dd7b89202b892af55991d80a41a3447d022c176428a654"
+    },
+    {
+      "path": "tools/vision-eval/prepare_external_replay_set.py",
+      "bytes": 56983,
+      "sha256": "437efe3be4f46031af994867e4393c3831ad75187c26bfe40b919e2c4027295b"
+    },
+    {
+      "path": "tools/vision-eval/reel.py",
+      "bytes": 12703,
+      "sha256": "8a8b1d215100b694d2831d5e6c2a847437769c5f04a7e908de0a55360cf5f406"
+    },
+    {
+      "path": "tools/vision-eval/run-camera-replay.sh",
+      "bytes": 4809,
+      "sha256": "3f1c768c90917d3b730cc1a9918afbf0fe4438d933e735cc24304ab600ae1956"
+    },
+    {
+      "path": "tools/vision-eval/run-signed-replay.sh",
+      "bytes": 25091,
+      "sha256": "95575300f83239f2d620779c756ae6d6aeb27e01515b6c332d4507dbe6df9430"
+    },
+    {
+      "path": "tools/vision-eval/score_signed_replay.py",
+      "bytes": 29116,
+      "sha256": "4ac61bf8b05557feea222d00761789c8607e24144e340be2533c34d26c7a2f98"
+    },
+    {
+      "path": "tools/vision-eval/test_prepare_external_replay_set.py",
+      "bytes": 25710,
+      "sha256": "cd82a3c92d950c005890e5024b55d27d73ac60f3459e9925fe872a46200c524a"
+    },
+    {
+      "path": "tools/vision-eval/test_reel.py",
+      "bytes": 3014,
+      "sha256": "344c075fd8ea19ff1a53b379d206f29b2e6cdc306281207cc7b71e1a5715345f"
+    },
+    {
+      "path": "tools/vision-eval/test_score_signed_replay.py",
+      "bytes": 15465,
+      "sha256": "daf8319e806514089fb7934fc24a732100d98e16f9e30f26923432c84ea3c9f8"
+    }
+  ],
+  "excluded": [
+    {
+      "path": "evidence/current/01-foundation.json",
+      "reason": "private historical execution evidence replaced with candidate scope"
+    },
+    {
+      "path": "evidence/current/02-reference.json",
+      "reason": "private historical execution evidence replaced with candidate scope"
+    },
+    {
+      "path": "evidence/current/03-reading.json",
+      "reason": "private historical execution evidence replaced with candidate scope"
+    },
+    {
+      "path": "evidence/current/04-cloud.json",
+      "reason": "private historical execution evidence replaced with candidate scope"
+    },
+    {
+      "path": "evidence/current/05-release.json",
+      "reason": "private historical execution evidence replaced with candidate scope"
+    },
+    {
+      "path": "evidence/releases/2026.09.07.1.json",
+      "reason": "private historical execution evidence replaced with candidate scope"
+    },
+    {
+      "path": "evidence/releases/2026.09.15.1.json",
+      "reason": "private historical execution evidence replaced with candidate scope"
+    },
+    {
+      "path": "release/community/launch/CHANNELS.md",
+      "reason": "unpublished site and outreach drafts"
+    },
+    {
+      "path": "release/community/launch/DEMO_AND_FEEDBACK.md",
+      "reason": "unpublished site and outreach drafts"
+    },
+    {
+      "path": "release/community/launch/SITE_CHANGE.md",
+      "reason": "unpublished site and outreach drafts"
+    },
+    {
+      "path": "release/google-play/assets/alt-text.txt",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/assets/feature-graphic-en-US.png",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/assets/feature-graphic-en-US.svg",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/assets/feature-graphic-zh-CN.png",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/assets/feature-graphic-zh-CN.svg",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/assets/store-icon-512.png",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/assets/store-icon-512.svg",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/privacy/account/config.json",
+      "reason": "production client project binding"
+    },
+    {
+      "path": "release/google-play/ready-to-upload/README.md",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/screenshots/03-reference-setup-candidate.png",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/screenshots/04-reading-camera-candidate.png",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/screenshots/06-account-privacy-candidate.png",
+      "reason": "unreviewed publishing assets"
+    },
+    {
+      "path": "release/google-play/screenshots/README.md",
+      "reason": "unreviewed publishing assets"
+    }
+  ],
+  "generated": [
+    "PUBLIC_EXPORT.json",
+    "evidence/current/01-foundation.json",
+    "evidence/current/02-reference.json",
+    "evidence/current/03-reading.json",
+    "evidence/current/04-cloud.json",
+    "evidence/current/05-release.json",
+    "release/google-play/privacy/account/config.json"
+  ]
+}

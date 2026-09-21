@@ -1,0 +1,43 @@
+{
+  "schema_version": "4.0",
+  "task_id": "0198f000-0000-7000-8000-000000000001",
+  "revision": 1,
+  "catalog_version": "2026.08.18.1",
+  "capability_id": "visual_target",
+  "title": "找猫",
+  "target_definition": {
+    "mode": "object_detection",
+    "target_id": "cat",
+    "label_zh_cn": "猫",
+    "label_en": "cat"
+  },
+  "monitoring_device_id": "0198f000-0000-7000-8000-000000000002",
+  "roi": {
+    "left": 0,
+    "top": 0,
+    "right": 1,
+    "bottom": 1
+  },
+  "sampling_policy": {
+    "mode": "package_default"
+  },
+  "route_binding": {
+    "model_profile_key": "common_objects_tensorflow_efficientdet_lite2",
+    "recipe_id": "object_detection_general_v1",
+    "intent_key": "object.common.cat"
+  },
+  "package_binding": {
+    "package_id": "efficientdet_lite2_object_v1",
+    "package_version": "1.0.0-internal.1",
+    "manifest_sha256": "6f862fc30dd0eeca550f4cd86e01568208b1243bb6ef773a8399969952e7cb33",
+    "artifact_identity_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "rule": {
+    "type": "presence_duration",
+    "condition": "remains",
+    "duration_ms": 3000,
+    "min_positive_count": 5,
+    "max_positive_gap_ms": 1000,
+    "rearm_absence_ms": 3000
+  }
+}

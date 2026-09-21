@@ -1,0 +1,15 @@
+name: Bug report
+description: Report a failure in a concrete task
+body:
+  - type: textarea
+    attributes:
+      label: Version and device
+      description: App version, Android version, model and memory. Never include serial numbers or account details.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Task and steps
+      description: Expected and observed behavior; download, setup, recognition or notification stage. Images and logs are optional; remove private content and credentials.
+    validations:
+      required: true

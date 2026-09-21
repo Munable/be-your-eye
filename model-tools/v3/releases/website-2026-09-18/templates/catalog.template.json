@@ -1,0 +1,311 @@
+{
+  "build_channel": "commercial",
+  "capabilities": [
+    {
+      "allowed_rule_types": [
+        "presence_duration",
+        "absence_duration"
+      ],
+      "capability_id": "visual_target",
+      "display_name": "参考图片识别",
+      "recipe_ids": [
+        "neural_reference_target_v1",
+        "object_detection_general_v1"
+      ],
+      "target_modes": [
+        "reference_images",
+        "object_class"
+      ]
+    },
+    {
+      "allowed_rule_types": [
+        "reading_threshold"
+      ],
+      "capability_id": "structured_reading",
+      "display_name": "自动数字读数",
+      "recipe_ids": [
+        "reading_pipeline_general_v1"
+      ],
+      "target_modes": [
+        "none"
+      ]
+    }
+  ],
+  "catalog_id": "be-your-eye-website-v1",
+  "catalog_version": "2026.09.18.1",
+  "issued_at": "2026-09-18T12:49:39Z",
+  "operational_capabilities": [
+    {
+      "capability_key": "reference_object_matching",
+      "capability_id": "visual_target",
+      "recipe_id": "neural_reference_target_v1",
+      "model_card": {
+        "provider_id": "google",
+        "provider_name": "Google",
+        "model_name": "MediaPipe MobileNetV3 Large Image Embedder",
+        "model_home_url": "https://ai.google.dev/edge/mediapipe/solutions/vision/image_embedder/android",
+        "model_kind": "general"
+      },
+      "intent_patterns": [
+        "visual.reference.*"
+      ],
+      "professional_domain": "固定机位参考外观匹配",
+      "display_name": "参考图片匹配",
+      "status": "commercial",
+      "applicable_scenarios": [
+        "同一固定场景中与3至20张参考图片外观相近的显著目标"
+      ],
+      "inapplicable_scenarios": [
+        "开放词汇识别",
+        "多目标跟踪",
+        "专业缺陷诊断"
+      ],
+      "input_requirements": [
+        "3至20张去重参考图片",
+        "完整目标清晰可见",
+        "纵向后摄固定机位"
+      ],
+      "device_profile_ids": [
+        "android_arm64_8gb_launch_v1"
+      ],
+      "package_ids": [
+        "similarity_mediapipe_mobilenet_v3_large_v1"
+      ],
+      "human_review": {
+        "evidence_refs": [
+          "model-tools/v3/reviews/reference-publisher-license-2026-09-18.md"
+        ],
+        "license_conclusion": "approved-for-commercial",
+        "reviewed_at": "2026-09-18T12:49:39Z"
+      }
+    },
+    {
+      "capability_key": "common_objects_tensorflow_efficientdet_lite2",
+      "capability_id": "visual_target",
+      "recipe_id": "object_detection_general_v1",
+      "model_card": {
+        "provider_id": "tensorflow",
+        "provider_name": "TensorFlow",
+        "model_name": "EfficientDet-Lite2 COCO",
+        "model_home_url": "https://www.kaggle.com/models/tensorflow/efficientdet/tfLite/lite2-detection-metadata/1",
+        "model_kind": "general"
+      },
+      "intent_patterns": [
+        "object.common.*"
+      ],
+      "professional_domain": "有限类别目标检测",
+      "display_name": "常见物体检测",
+      "status": "commercial",
+      "applicable_scenarios": [
+        "签名 COCO 有限类别中的常见物体，固定机位本机运行"
+      ],
+      "inapplicable_scenarios": [
+        "任意描述检测",
+        "多目标跟踪",
+        "专业安全或缺陷判断"
+      ],
+      "input_requirements": [
+        "签名类别名或别名精确选择",
+        "固定机位"
+      ],
+      "device_profile_ids": [
+        "android_arm64_8gb_launch_v1"
+      ],
+      "package_ids": [
+        "efficientdet_lite2_object_v1"
+      ],
+      "human_review": {
+        "reviewed_at": "2026-09-18T12:49:39Z",
+        "license_conclusion": "approved-for-commercial",
+        "evidence_refs": [
+          "model-tools/v3/object-detection/efficientdet-lite2/LICENSE-REVIEW.md"
+        ]
+      },
+      "target_ids": [
+        "person",
+        "bicycle",
+        "car",
+        "motorcycle",
+        "airplane",
+        "bus",
+        "train",
+        "truck",
+        "boat",
+        "traffic_light",
+        "fire_hydrant",
+        "stop_sign",
+        "parking_meter",
+        "bench",
+        "bird",
+        "cat",
+        "dog",
+        "horse",
+        "sheep",
+        "cow",
+        "elephant",
+        "bear",
+        "zebra",
+        "giraffe",
+        "backpack",
+        "umbrella",
+        "handbag",
+        "tie",
+        "suitcase",
+        "frisbee",
+        "skis",
+        "snowboard",
+        "sports_ball",
+        "kite",
+        "baseball_bat",
+        "baseball_glove",
+        "skateboard",
+        "surfboard",
+        "tennis_racket",
+        "bottle",
+        "wine_glass",
+        "cup",
+        "fork",
+        "knife",
+        "spoon",
+        "bowl",
+        "banana",
+        "apple",
+        "sandwich",
+        "orange",
+        "broccoli",
+        "carrot",
+        "hot_dog",
+        "pizza",
+        "donut",
+        "cake",
+        "chair",
+        "couch",
+        "potted_plant",
+        "bed",
+        "dining_table",
+        "toilet",
+        "tv",
+        "laptop",
+        "mouse",
+        "remote",
+        "keyboard",
+        "cell_phone",
+        "microwave",
+        "oven",
+        "toaster",
+        "sink",
+        "refrigerator",
+        "book",
+        "clock",
+        "vase",
+        "scissors",
+        "teddy_bear",
+        "hair_drier",
+        "toothbrush"
+      ]
+    },
+    {
+      "capability_key": "numeric_display_reading",
+      "capability_id": "structured_reading",
+      "recipe_id": "reading_pipeline_general_v1",
+      "model_card": {
+        "provider_id": "paddlepaddle",
+        "provider_name": "PaddlePaddle",
+        "model_name": "PP-OCRv6",
+        "model_home_url": "https://github.com/PaddlePaddle/PaddleOCR",
+        "model_kind": "specialist"
+      },
+      "intent_patterns": [
+        "reading.numeric.*"
+      ],
+      "professional_domain": "固定机位自动数字显示屏读取",
+      "display_name": "自动数字读数",
+      "status": "commercial",
+      "applicable_scenarios": [
+        "纵向可见画面中的单行结构化读数，包括时间、金额、百分比、科学计数和短单位"
+      ],
+      "inapplicable_scenarios": [
+        "模拟表盘",
+        "画面中没有完整读数",
+        "机位或目标布局持续移动"
+      ],
+      "input_requirements": [
+        "画面内清晰单行读数；多数字场景建议使用手动识别范围",
+        "固定位置和同一格式的稳定数据流与用户确认",
+        "纵向后摄固定机位"
+      ],
+      "device_profile_ids": [
+        "android_arm64_8gb_launch_v1"
+      ],
+      "package_ids": [
+        "numeric_reader_ppocrv6_medium_v1"
+      ],
+      "human_review": {
+        "evidence_refs": [
+          "model-tools/v3/reviews/ppocrv6-tiny-det-medium-rec-composite-0.1.0-internal.13-2026-08-24.md"
+        ],
+        "license_conclusion": "approved-for-commercial",
+        "reviewed_at": "2026-09-18T12:49:39Z"
+      }
+    }
+  ],
+  "packages": [
+    {
+      "manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "manifest_url": "https://models.beyoureye.com/commercial/2026-09-18/be-your-eye-v1/manifests/similarity_mediapipe_mobilenet_v3_large_v1/1.0.0-website.1.json",
+      "package_id": "similarity_mediapipe_mobilenet_v3_large_v1",
+      "package_version": "1.0.0-website.1",
+      "status": "active"
+    },
+    {
+      "manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "manifest_url": "https://models.beyoureye.com/commercial/2026-09-18/be-your-eye-v1/manifests/numeric_reader_ppocrv6_medium_v1/1.0.0-website.1.json",
+      "package_id": "numeric_reader_ppocrv6_medium_v1",
+      "package_version": "1.0.0-website.1",
+      "status": "active"
+    },
+    {
+      "package_id": "efficientdet_lite2_object_v1",
+      "package_version": "1.0.0-website.1",
+      "manifest_url": "https://models.beyoureye.com/commercial/2026-09-18/be-your-eye-v1/manifests/efficientdet_lite2_object_v1/1.0.0-website.1.json",
+      "manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "status": "active"
+    }
+  ],
+  "runtime_recipes": [
+    {
+      "candidate_package_ids": [
+        "similarity_mediapipe_mobilenet_v3_large_v1"
+      ],
+      "capability_id": "visual_target",
+      "prompt_modes": [
+        "reference_images"
+      ],
+      "recipe_id": "neural_reference_target_v1",
+      "runtime_family": "similarity_match_v1"
+    },
+    {
+      "recipe_id": "object_detection_general_v1",
+      "capability_id": "visual_target",
+      "runtime_family": "object_detection_v1",
+      "prompt_modes": [
+        "object_class"
+      ],
+      "candidate_package_ids": [
+        "efficientdet_lite2_object_v1"
+      ]
+    },
+    {
+      "candidate_package_ids": [
+        "numeric_reader_ppocrv6_medium_v1"
+      ],
+      "capability_id": "structured_reading",
+      "prompt_modes": [
+        "none"
+      ],
+      "recipe_id": "reading_pipeline_general_v1",
+      "runtime_family": "reading_pipeline_v1"
+    }
+  ],
+  "schema_version": "4.0"
+}

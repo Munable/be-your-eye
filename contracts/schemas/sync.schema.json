@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.beyoureyes.app/v3/sync.schema.json",
+  "title": "SyncResponse",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "cursor", "has_more", "changes"],
+  "properties": {
+    "schema_version": { "const": "3.0" },
+    "cursor": { "type": "string", "minLength": 1 },
+    "has_more": { "type": "boolean" },
+    "changes": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["change_id", "entity_type", "operation", "updated_at", "entity"],
+            "properties": {
+              "change_id": { "type": "string", "minLength": 1 },
+              "entity_type": { "const": "task" },
+              "operation": { "enum": ["upsert", "delete"] },
+              "updated_at": { "type": "string", "format": "date-time" },
+              "entity": { "type": ["object", "null"] }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["change_id", "entity_type", "operation", "updated_at", "entity"],
+            "properties": {
+              "change_id": { "type": "string", "minLength": 1 },
+              "entity_type": { "const": "device" },
+              "operation": { "enum": ["upsert", "delete"] },
+              "updated_at": { "type": "string", "format": "date-time" },
+              "entity": { "type": ["object", "null"] }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["change_id", "entity_type", "operation", "updated_at", "entity"],
+            "properties": {
+              "change_id": { "type": "string", "minLength": 1 },
+              "entity_type": { "const": "event" },
+              "operation": { "const": "upsert" },
+              "updated_at": { "type": "string", "format": "date-time" },
+              "entity": { "$ref": "sync-event-upsert.schema.json" }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["change_id", "entity_type", "operation", "updated_at", "entity"],
+            "properties": {
+              "change_id": { "type": "string", "minLength": 1 },
+              "entity_type": { "const": "event" },
+              "operation": { "const": "delete" },
+              "updated_at": { "type": "string", "format": "date-time" },
+              "entity": { "const": null }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

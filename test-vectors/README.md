@@ -1,0 +1,9 @@
+# Shared contract test vectors
+
+`valid/` contains accepted v3 Catalog, Manifest, TaskConfig, Observation and Event documents shared by current Android and Node tests. Negative cases live beside their validators; static signatures are shape placeholders only.
+
+The visual families are `similarity_match_v1` with `reference_images` and `object_detection_v1` with signed `object_class` target coverage. Object task documents use `target_definition.mode=object_detection`; a user description of a visible object or phenomenon must resolve to an exact active package and target ID in the same signed Catalog before it reaches this runtime boundary. Reading documents use `target_definition.mode=none` and the existing typed known-answer contract.
+
+Contract vectors cover the arm64/8 GB launch profile, exact package/version/hash/device binding and signed sampling bounds. Package preparation uses the one Catalog/Manifest path plus a focused load/inference sanity check; there is no second benchmark selector. A professional target without an exact active, licensed and device-compatible package is a rejection case; tests must not route it to a similar or general-purpose package.
+
+The current product also has one DeepSeek multi-turn configuration assistant boundary: a concise reply or one `propose_monitor_configuration` proposal. Proposal vectors stay separate from model-output quality vectors and cover only the three existing routes, strict Catalog rebinding, no-side-effect handoff, and existing trigger `duration_seconds`; they do not introduce daily scheduling. Foreground-only hold-to-talk records one bounded AAC and uses the authenticated, Pro-gated Qwen ASR route. User audio is ephemeral and never added to this committed vector set; request parsing and provider contracts stay in Android and Edge unit tests.

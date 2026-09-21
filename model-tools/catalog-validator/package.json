@@ -1,0 +1,15 @@
+{
+  "name": "@be-your-eyes/catalog-validator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test",
+    "validate": "node src/cli.mjs",
+    "build-release": "node src/release-builder-cli.mjs",
+    "freeze-commercial-release": "node src/commercial-release-freezer-cli.mjs"
+  }
+}

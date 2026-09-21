@@ -1,0 +1,27 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.beyoureyes.monitor.internal",
+      "sha256_cert_fingerprints": [
+        "C3:89:65:DA:40:F3:EE:48:1C:27:CD:4D:47:E8:C0:48:49:74:20:CF:83:F9:D9:0A:5A:75:42:2A:3D:1C:8D:DD"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.beyoureyes.monitor",
+      "sha256_cert_fingerprints": [
+        "D9:E1:64:69:09:53:76:7F:DA:49:82:71:39:94:30:C5:CC:C9:12:E3:FB:2A:BA:B6:09:EC:59:40:55:0A:B3:A1",
+        "A4:51:BA:73:21:1A:81:3D:50:99:74:25:75:24:0B:E5:6D:7B:19:C8:40:2C:A5:68:04:CB:1F:52:D9:14:80:9B"
+      ]
+    }
+  }
+]

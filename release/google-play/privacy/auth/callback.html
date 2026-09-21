@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark"><meta name="robots" content="noindex">
+  <title>确认账号 · Be Your Eye</title>
+  <link rel="stylesheet" href="/account/style.css">
+  <script type="module" src="/auth/callback.js"></script>
+</head>
+<body><main>
+  <a class="brand" href="/">Be Your Eye <span>帮你盯</span></a>
+  <h1 id="title">正在确认账号…</h1>
+  <p id="message" role="status" aria-live="polite">请稍候。Please wait.</p>
+  <section id="recovery-panel" hidden>
+    <p id="account-email"></p>
+    <form id="recovery-form" method="post">
+      <label for="password">新密码 / New password</label>
+      <input id="password" name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128">
+      <label for="password-again">再次输入 / Confirm password</label>
+      <input id="password-again" name="password-again" type="password" autocomplete="new-password" required minlength="8" maxlength="128">
+      <p class="small">至少 8 位，包含字母和数字。Use at least 8 characters, including letters and numbers.</p>
+      <button id="save-password" type="submit">保存新密码 / Save password</button>
+    </form>
+  </section>
+  <a id="continue" href="/account/">前往账号页面 / Open account</a>
+  <p class="small">已经在手机 App 中完成？可以关闭此页。You may close this page if you have already continued in the app.</p>
+  <noscript><p>请启用 JavaScript，或在最新版 App 中重新打开邮件链接。</p></noscript>
+  <footer><a href="mailto:support@beyoureye.com">产品支持 / Support</a></footer>
+</main></body></html>

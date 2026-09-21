@@ -1,0 +1,483 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.beyoureyes.app/v4/capability-catalog.schema.json",
+  "title": "CapabilityCatalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "catalog_id",
+    "catalog_version",
+    "build_channel",
+    "issued_at",
+    "capabilities",
+    "operational_capabilities",
+    "runtime_recipes",
+    "packages",
+    "signature"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "4.0"
+    },
+    "catalog_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "catalog_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "build_channel": {
+      "enum": [
+        "community",
+        "commercial",
+        "internal-evaluation",
+        "development-no-model"
+      ]
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "capability_id"
+              ],
+              "properties": {
+                "capability_id": {
+                  "const": "structured_reading"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "target_modes": {
+                  "const": [
+                    "none"
+                  ]
+                },
+                "allowed_rule_types": {
+                  "const": [
+                    "reading_threshold"
+                  ]
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "target_modes": {
+                  "not": {
+                    "contains": {
+                      "const": "none"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "required": [
+          "capability_id",
+          "display_name",
+          "target_modes",
+          "allowed_rule_types",
+          "recipe_ids"
+        ],
+        "properties": {
+          "capability_id": {
+            "enum": [
+              "visual_target",
+              "visible_state",
+              "structured_reading"
+            ]
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_modes": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "object_class",
+                "reference_images",
+                "none"
+              ]
+            }
+          },
+          "allowed_rule_types": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "presence_duration",
+                "absence_duration",
+                "object_count",
+                "reading_threshold",
+                "state_transition"
+              ]
+            }
+          },
+          "recipe_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "operational_capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "capability_key",
+          "capability_id",
+          "recipe_id",
+          "model_card",
+          "intent_patterns",
+          "professional_domain",
+          "display_name",
+          "status",
+          "applicable_scenarios",
+          "inapplicable_scenarios",
+          "input_requirements",
+          "device_profile_ids",
+          "package_ids",
+          "human_review"
+        ],
+        "properties": {
+          "capability_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "capability_id": {
+            "enum": [
+              "visual_target",
+              "visible_state",
+              "structured_reading"
+            ]
+          },
+          "recipe_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "model_card": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "provider_id",
+              "provider_name",
+              "model_name",
+              "model_home_url",
+              "model_kind"
+            ],
+            "properties": {
+              "provider_id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$"
+              },
+              "provider_name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "model_name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "model_home_url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "model_kind": {
+                "enum": [
+                  "general",
+                  "specialist"
+                ]
+              }
+            }
+          },
+          "intent_patterns": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9_-]*(?:\\.[a-z0-9][a-z0-9_-]*)*(?:\\.\\*)?$"
+            }
+          },
+          "target_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$"
+            }
+          },
+          "professional_domain": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "internal-evaluation",
+              "commercial",
+              "community"
+            ]
+          },
+          "applicable_scenarios": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "inapplicable_scenarios": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "input_requirements": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "device_profile_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "package_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "human_review": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "reviewed_at",
+              "license_conclusion",
+              "evidence_refs"
+            ],
+            "properties": {
+              "reviewed_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "license_conclusion": {
+                "enum": [
+                  "approved-for-internal-evaluation",
+                  "approved-for-commercial",
+                  "approved-for-community"
+                ]
+              },
+              "evidence_refs": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "runtime_recipes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "runtime_family"
+              ],
+              "properties": {
+                "runtime_family": {
+                  "const": "reading_pipeline_v1"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "prompt_modes": {
+                  "const": [
+                    "none"
+                  ]
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "prompt_modes": {
+                  "not": {
+                    "contains": {
+                      "const": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "runtime_family"
+              ],
+              "properties": {
+                "runtime_family": {
+                  "const": "object_detection_v1"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "prompt_modes": {
+                  "const": [
+                    "object_class"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "required": [
+          "recipe_id",
+          "capability_id",
+          "runtime_family",
+          "prompt_modes",
+          "candidate_package_ids"
+        ],
+        "properties": {
+          "recipe_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "capability_id": {
+            "enum": [
+              "visual_target",
+              "visible_state",
+              "structured_reading"
+            ]
+          },
+          "runtime_family": {
+            "enum": [
+              "object_detection_v1",
+              "similarity_match_v1",
+              "reading_pipeline_v1"
+            ]
+          },
+          "prompt_modes": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "object_class",
+                "reference_images",
+                "none"
+              ]
+            }
+          },
+          "candidate_package_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "packages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "package_id",
+          "package_version",
+          "manifest_url",
+          "manifest_sha256",
+          "status"
+        ],
+        "properties": {
+          "package_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "package_version": {
+            "$ref": "common.schema.json#/$defs/semver"
+          },
+          "manifest_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "manifest_sha256": {
+            "$ref": "common.schema.json#/$defs/sha256"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "withdrawn"
+            ]
+          }
+        }
+      }
+    },
+    "signature": {
+      "$ref": "common.schema.json#/$defs/signature"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "source_commit": "f432771314692fe1b80e8a641fc56b2ca549ef57",
+  "scope": "Community developer source preview",
+  "release_quality_ready": false,
+  "public_release_authorized": false,
+  "source_publication_authorized": true,
+  "status": "open",
+  "community": {
+    "status": "local_checks_passed",
+    "unit_tests": {
+      "app": {
+        "tests": 290,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "core/domain": {
+        "tests": 60,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "core/data": {
+        "tests": 130,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "core/vision": {
+        "tests": 80,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "policy_contract_service_checks": "passed",
+    "lint": "communityDebug passed",
+    "emulator_startup": {
+      "status": "passed",
+      "tests": 1,
+      "device": "sdk_gphone64_arm64 API 36",
+      "scope": "fresh Community debug install, home/manual entry visible, no cloud grant, no AI entry",
+      "signed_release": "installed separately and cold-launched successfully; UI screenshot inspected"
+    },
+    "connected_regression": "functional unit tests and website Kotlin compilation passed",
+    "clean_public_build": {
+      "status": "passed",
+      "source_snapshot": "1060454e4ae1cfccf10da4928b4e40534267a9c9",
+      "local_export_commit": "103855ade99b3edde4ac3f583e72e3285d105a87",
+      "environment": "empty environment except standard tool/cache paths; no private Gradle properties/init scripts, .env, server config or signing keys; existing public dependency caches reused",
+      "node": "24.16.0",
+      "jdk": "Temurin 25.0.4",
+      "checks": "policy, 8 policy tests, 35 model tests, 23 service-source tests, 560 Android unit tests, lint, debug APK and unsigned release APK passed",
+      "limits": "local macOS clean source build; hosted GitHub Actions and physical public-model runtime not run"
+    },
+    "recorded_at": "2026-09-21T07:12:17.086757+00:00"
+  },
+  "detail": "Private historical evidence excluded. Only the current sanitized Community scope is included; open gates remain open."
+}

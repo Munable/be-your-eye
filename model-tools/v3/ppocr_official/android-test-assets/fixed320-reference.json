@@ -1,0 +1,93 @@
+{
+  "android_comparison_limits": {
+    "decoded_text_exact": true,
+    "input_max_abs": 0.0,
+    "output_max_abs": 0.0001,
+    "output_mean_abs": 1e-06
+  },
+  "ctc_vocabulary": {
+    "last_token": " ",
+    "sha256": "684a00dd6ca9dd491468412c305aee6a450f69a2800108ddb23837c15fbcaf49",
+    "size_bytes": 112437,
+    "token_zero": "",
+    "tokens": 18710
+  },
+  "decode": {
+    "blank_index": 0,
+    "score": 0.973425030708313,
+    "score_semantics": "probabilities_v1",
+    "text": "-12.3",
+    "value_decimal": "-12.3"
+  },
+  "host": {
+    "numpy": "2.3.5",
+    "onnxruntime": "1.21.1",
+    "opencv": "4.10.0",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "input": {
+    "dtype": "float32_little_endian",
+    "sha256": "2a3095a1071f34455459c9826afd9ff3fdd8e2b1aee76c6e3906c59398b13777",
+    "shape": [
+      1,
+      3,
+      48,
+      320
+    ],
+    "size_bytes": 184320
+  },
+  "license": {
+    "commercial_use_allowed": true,
+    "license_id": "Apache-2.0",
+    "license_text_sha256": "3840c5c0c61c294264d2dd77b8777be6ddd90121ef4e0e64abcd22edea581d6e",
+    "redistribution_allowed": false,
+    "review_status": "approved",
+    "source_disclosure_required": false
+  },
+  "model": {
+    "repository_id": "PaddlePaddle/PP-OCRv6_small_rec_onnx",
+    "revision": "b8f84f0b80c529de40b4fbb3544b84fa7233a513",
+    "sha256": "5435fd747c9e0efe15a96d0b378d5bd157e9492ed8fd80edf08f30d02fa24634",
+    "size_bytes": 21159378,
+    "variant": "small",
+    "weights_modified": false
+  },
+  "output": {
+    "absolute_value_p99": 3.5881041071661457e-07,
+    "dtype": "float32_little_endian_probabilities",
+    "maximum": 0.9999796152114868,
+    "minimum": 1.1076308225651501e-17,
+    "sha256": "b1cbb40c54ac399bd98b0f57febb8ab54e95ea64dd303c770f392b0223bdfd48",
+    "shape": [
+      1,
+      40,
+      18710
+    ],
+    "size_bytes": 2993600,
+    "timestep_sum_maximum": 1.0000836849212646,
+    "timestep_sum_minimum": 1.0000001192092896
+  },
+  "recipe": {
+    "color_order": "BGR",
+    "height": 48,
+    "methodology_stage": "development",
+    "preprocess_id": "ppocr_rec_bgr_nchw_float32_minus1_1_v1",
+    "sampling_or_threshold_claim": false,
+    "signed_width": 320,
+    "width_rule": "floor_then_clamp_and_right_pad"
+  },
+  "schema_version": "1.0",
+  "scope": "local isolated Android parity for one fixed-width development recipe; not accuracy or release evidence",
+  "source_image": {
+    "generator": "OpenCV FONT_HERSHEY_SIMPLEX deterministic synthetic crop",
+    "known_text": "-12.3",
+    "sha256": "0836dd109552ea6fcb5436f357409bb1b5e55743f83893fb288e4804168940b9",
+    "shape_hwc": [
+      48,
+      320,
+      3
+    ],
+    "size_bytes": 2231
+  }
+}

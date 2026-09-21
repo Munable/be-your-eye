@@ -1,0 +1,3 @@
+# Large runtime bytes stay local. The reproducible metadata, synthetic crop, and vocabulary are tracked.
+inference.onnx
+*.f32le.bin

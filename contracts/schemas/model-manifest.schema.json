@@ -1,0 +1,956 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.beyoureyes.app/v4/model-manifest.schema.json",
+  "title": "ModelPackageManifest",
+  "$comment": "Manifest validation binds object_class to a signed finite bilingual class table; no text tensor or cloud model route is accepted.",
+  "type": "object",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "runtime_family"
+        ],
+        "properties": {
+          "runtime_family": {
+            "const": "reading_pipeline_v1"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "ctc_decoding",
+          "self_test"
+        ],
+        "properties": {
+          "ctc_decoding": {
+            "$ref": "#/$defs/ctcDecoding"
+          },
+          "self_test": {
+            "$ref": "#/$defs/readingKnownAnswerSelfTest"
+          },
+          "artifacts": {
+            "contains": {
+              "type": "object",
+              "required": [
+                "role",
+                "runtime"
+              ],
+              "properties": {
+                "role": {
+                  "const": "primary"
+                },
+                "runtime": {
+                  "enum": [
+                    "litert",
+                    "onnx"
+                  ]
+                }
+              }
+            },
+            "minContains": 1,
+            "maxContains": 1
+          },
+          "prompt_modes": {
+            "const": [
+              "none"
+            ]
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "ctc_decoding"
+              ]
+            },
+            {
+              "required": [
+                "self_test"
+              ]
+            }
+          ]
+        },
+        "properties": {
+          "prompt_modes": {
+            "not": {
+              "type": "array",
+              "contains": {
+                "const": "none"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "runtime_family"
+        ],
+        "properties": {
+          "runtime_family": {
+            "const": "object_detection_v1"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "prompt_modes": {
+            "const": [
+              "object_class"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "required": [
+    "schema_version",
+    "package_id",
+    "package_version",
+    "runtime_family",
+    "supported_tasks",
+    "prompt_modes",
+    "model_source",
+    "weights_source",
+    "code_source",
+    "export_tool_source",
+    "license",
+    "artifacts",
+    "inputs",
+    "outputs",
+    "bindings",
+    "adapter_contract",
+    "preprocess_id",
+    "postprocess_id",
+    "parameter_profile",
+    "device_compatibility",
+    "signature"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "4.0"
+    },
+    "package_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "package_version": {
+      "$ref": "common.schema.json#/$defs/semver"
+    },
+    "runtime_family": {
+      "enum": [
+        "object_detection_v1",
+        "similarity_match_v1",
+        "reading_pipeline_v1"
+      ]
+    },
+    "supported_tasks": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "visual_target",
+          "visible_state",
+          "structured_reading"
+        ]
+      }
+    },
+    "prompt_modes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "object_class",
+          "reference_images",
+          "none"
+        ]
+      }
+    },
+    "model_source": {
+      "$ref": "common.schema.json#/$defs/source"
+    },
+    "weights_source": {
+      "$ref": "common.schema.json#/$defs/source"
+    },
+    "code_source": {
+      "$ref": "common.schema.json#/$defs/source"
+    },
+    "export_tool_source": {
+      "$ref": "common.schema.json#/$defs/source",
+      "description": "Exact export-tool source, or the pinned publisher model/weights publication when version is published-prebuilt-export-tool-not-disclosed. The semantic validators enforce URL identity and reject other unknown markers."
+    },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "license_id",
+        "license_text_sha256",
+        "review_status",
+        "reviewed_at",
+        "review_evidence_ref",
+        "commercial_use_allowed",
+        "redistribution_allowed",
+        "source_disclosure_required",
+        "license_grant_id",
+        "grant_expires_at"
+      ],
+      "properties": {
+        "license_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license_text_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "review_status": {
+          "enum": [
+            "pending_review",
+            "approved",
+            "rejected",
+            "excluded_by_license",
+            "withdrawn"
+          ]
+        },
+        "reviewed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "review_evidence_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "review_evidence_sha256": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/sha256"
+            }
+          ],
+          "description": "Optional for internal evaluation; required by the commercial package policy."
+        },
+        "commercial_use_allowed": {
+          "type": "boolean"
+        },
+        "redistribution_allowed": {
+          "type": "boolean"
+        },
+        "source_disclosure_required": {
+          "type": "boolean"
+        },
+        "license_grant_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grant_expires_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/artifactComponent"
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/inputComponent"
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/outputComponent"
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tensorBinding"
+      }
+    },
+    "adapter_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_id",
+        "class_map",
+        "embedded_postprocess"
+      ],
+      "properties": {
+        "schema_id": {
+          "enum": [
+            "object_detection_v1",
+            "similarity_match_v1",
+            "structured_reading_v2"
+          ]
+        },
+        "class_map": {
+          "$ref": "#/$defs/classMap"
+        },
+        "embedded_postprocess": {
+          "$ref": "#/$defs/embeddedPostprocess"
+        }
+      }
+    },
+    "preprocess_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "postprocess_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parameter_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "defaults",
+        "allowed_bounds",
+        "sampling_policy"
+      ],
+      "properties": {
+        "defaults": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "allowed_bounds": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/parameterBound"
+          }
+        },
+        "sampling_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "default_interval_ms",
+            "min_interval_ms",
+            "max_interval_ms",
+            "adaptive_allowed"
+          ],
+          "properties": {
+            "default_interval_ms": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 33,
+              "maximum": 10000
+            },
+            "min_interval_ms": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 33,
+              "maximum": 10000
+            },
+            "max_interval_ms": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 33,
+              "maximum": 10000
+            },
+            "adaptive_allowed": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "device_compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "device_profile_ids",
+        "min_android_api",
+        "max_android_api",
+        "abis",
+        "min_memory_mb",
+        "required_features"
+      ],
+      "properties": {
+        "device_profile_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "const": "android_arm64_8gb_launch_v1"
+          }
+        },
+        "min_android_api": {
+          "type": "integer",
+          "minimum": 26
+        },
+        "max_android_api": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 26
+        },
+        "abis": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "const": "arm64-v8a"
+          }
+        },
+        "min_memory_mb": {
+          "type": "integer",
+          "minimum": 8192
+        },
+        "required_features": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "signature": {
+      "$ref": "common.schema.json#/$defs/signature"
+    },
+    "ctc_decoding": {
+      "$ref": "#/$defs/ctcDecoding"
+    },
+    "self_test": {
+      "$ref": "#/$defs/readingKnownAnswerSelfTest"
+    }
+  },
+  "$defs": {
+    "artifactComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "runtime",
+        "media_type",
+        "url",
+        "sha256",
+        "size_bytes"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "runtime": {
+          "enum": [
+            "litert",
+            "onnx",
+            "classic_vision",
+            "ctc_vocabulary"
+          ]
+        },
+        "media_type": {
+          "enum": [
+            "application/vnd.google.litert",
+            "application/onnx",
+            "application/vnd.beyoureyes.classic-vision+json",
+            "application/vnd.beyoureyes.ctc-vocabulary+json"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "inputComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "artifact_role",
+        "tensor_index",
+        "tensor_name",
+        "dtype",
+        "layout",
+        "color_space",
+        "runtime_shape",
+        "quantization"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "image",
+            "image_tensor",
+            "image_features",
+            "reference_images",
+            "reference_features",
+            "reading_task_spec",
+            "detection_boxes",
+            "detection_classes",
+            "detection_scores",
+            "detection_count"
+          ]
+        },
+        "artifact_role": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "tensor_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tensor_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dtype": {
+          "enum": [
+            "uint8",
+            "int8",
+            "int32",
+            "int64",
+            "float16",
+            "float32"
+          ]
+        },
+        "layout": {
+          "enum": [
+            "NHWC",
+            "NCHW",
+            null
+          ]
+        },
+        "color_space": {
+          "enum": [
+            "RGB",
+            "BGR",
+            "GRAY",
+            null
+          ]
+        },
+        "runtime_shape": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "quantization": {
+          "$ref": "#/$defs/quantization"
+        }
+      }
+    },
+    "outputComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "artifact_role",
+        "tensor_index",
+        "tensor_name",
+        "dtype",
+        "runtime_shape"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "image_tensor",
+            "image_features",
+            "reference_features",
+            "detection_boxes",
+            "detection_classes",
+            "detection_scores",
+            "detection_count",
+            "ctc_logits",
+            "similarity_scores",
+            "text_probability_map"
+          ]
+        },
+        "artifact_role": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "tensor_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tensor_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dtype": {
+          "enum": [
+            "uint8",
+            "int8",
+            "int32",
+            "int64",
+            "float16",
+            "float32"
+          ]
+        },
+        "runtime_shape": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "tensorBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_artifact_role",
+        "source_tensor_name",
+        "target_artifact_role",
+        "target_tensor_name"
+      ],
+      "properties": {
+        "source_artifact_role": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "source_tensor_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_artifact_role": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "target_tensor_name": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "quantization": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "scale",
+            "zero_point"
+          ],
+          "properties": {
+            "mode": {
+              "const": "per_tensor"
+            },
+            "scale": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "zero_point": {
+              "type": "integer"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "const": "none"
+            }
+          }
+        }
+      ]
+    },
+    "parameterBound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum",
+        "maximum"
+      ],
+      "properties": {
+        "minimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        }
+      }
+    },
+    "classMap": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "identity",
+        "sha256",
+        "class_id_base",
+        "targets"
+      ],
+      "properties": {
+        "identity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "class_id_base": {
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "targets": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/classMapTarget"
+          }
+        }
+      }
+    },
+    "embeddedPostprocess": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "max_detections",
+        "score_threshold",
+        "nms_iou_threshold"
+      ],
+      "properties": {
+        "max_detections": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "score_threshold": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "nms_iou_threshold": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "ctcDecoding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vocabulary_artifact_role",
+        "blank_index",
+        "index_semantics",
+        "collapse_semantics",
+        "score_semantics"
+      ],
+      "properties": {
+        "vocabulary_artifact_role": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "blank_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "index_semantics": {
+          "const": "zero_based_token_order_v1"
+        },
+        "collapse_semantics": {
+          "const": "ctc_greedy_argmax_v1"
+        },
+        "score_semantics": {
+          "enum": [
+            "probabilities_v1",
+            "unnormalized_logits_softmax_v1"
+          ]
+        }
+      }
+    },
+    "readingKnownAnswerSelfTest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_id",
+        "artifact_role",
+        "artifact_sha256",
+        "input",
+        "expected"
+      ],
+      "properties": {
+        "schema_id": {
+          "const": "reading_known_answer_v1"
+        },
+        "artifact_role": {
+          "const": "primary"
+        },
+        "artifact_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "input": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "encoding",
+            "width",
+            "height",
+            "rgb888_base64",
+            "sha256"
+          ],
+          "properties": {
+            "encoding": {
+              "const": "rgb888_base64_v1"
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096
+            },
+            "rgb888_base64": {
+              "type": "string",
+              "minLength": 4
+            },
+            "sha256": {
+              "$ref": "common.schema.json#/$defs/sha256"
+            }
+          }
+        },
+        "expected": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "text",
+            "value_decimal",
+            "unit",
+            "minimum_confidence"
+          ],
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "value_decimal": {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$"
+            },
+            "unit": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1,
+              "maxLength": 32
+            },
+            "minimum_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        }
+      }
+    },
+    "classMapTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_class_id",
+        "target_id",
+        "label_zh_cn",
+        "label_en",
+        "aliases"
+      ],
+      "properties": {
+        "raw_class_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_.-]{0,63}$"
+        },
+        "label_zh_cn": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "label_en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "aliases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          }
+        }
+      }
+    }
+  }
+}

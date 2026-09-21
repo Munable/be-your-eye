@@ -1,0 +1,158 @@
+{
+  "source_commit": "f432771314692fe1b80e8a641fc56b2ca549ef57",
+  "scope": "Community developer source preview",
+  "release_quality_ready": false,
+  "public_release_authorized": false,
+  "source_publication_authorized": true,
+  "status": "open",
+  "community": {
+    "status": "open",
+    "release_quality_ready": false,
+    "public_release_authorized": false,
+    "baseline_commit": "00ee62bd2b38ae29a808b770dc6dcc3530e918ea",
+    "scope": "Community source publication authorized; APK, hosted deployment and promotional posts are separate",
+    "source_commit": "1060454e4ae1cfccf10da4928b4e40534267a9c9",
+    "signed_apk": {
+      "source_commit": "1060454e4ae1cfccf10da4928b4e40534267a9c9",
+      "application_id": "app.beyoureyes.monitor.community",
+      "version_name": "0.3.0-community-preview",
+      "version_code": 26,
+      "apk_sha256": "5abf542e5fcc57d8ecf4f7d4a3ffed15f82f5e6a6149d2bf1d841017df62e3ea",
+      "apk_bytes": 36901075,
+      "signed": true,
+      "built_at": "2026-09-21T07:03:27.543366+00:00",
+      "release_quality_ready": false,
+      "public_release_authorized": false,
+      "certificate_sha256": "a451ba73211a813d5099742575240be56d7b19c8402ca56804cb1f52d914809b",
+      "signature": "APK v2 verified; stable repository-external RSA 4096 key"
+    },
+    "sbom": {
+      "status": "generated_and_verified",
+      "android_components": 256,
+      "binding": "exact signed APK SHA-256",
+      "runtime_cloud_sdks": "no Firebase, Billing or Google Play Services",
+      "osv": {
+        "version": "2.5.1",
+        "exit_code": 0,
+        "known_vulnerabilities_reported": 0,
+        "scope": "five source/runtime SBOMs"
+      }
+    },
+    "source_export": {
+      "status": "prepared_and_clean_build_passed",
+      "included_files": 673,
+      "excluded_files": 23,
+      "old_git_history": false,
+      "old_production_binding": "replaced with example values",
+      "unreviewed_store_assets": "excluded",
+      "public_remote_created": true,
+      "public_remote_visibility": "private while source review finishes"
+    },
+    "rights_holder_grant": "Apache-2.0 first-party source publication explicitly authorized by project owner on 2026-09-21",
+    "repository_name": "Munable/be-your-eye; owner inventory confirms singular name is a redirect, not a separate repository",
+    "model_delivery": {
+      "bundled_signed_metadata": "Community 2026.09.21.1",
+      "artifact_range_get": "all 8 exact immutable artifact URLs returned 206 in current Mac network",
+      "freshness": "new installation gated at 7 days; refresh candidate before public launch",
+      "overseas_and_unproxied_mainland": "unknown",
+      "artifact_full_get": "all 8 artifacts, 98762965 bytes, downloaded independently from public URLs and verified against signed manifest SHA-256 and size"
+    },
+    "physical_acceptance": "open; phone install error -99",
+    "real_demo": "open; no fabricated video",
+    "website": "local candidate HTML, privacy and terms updated; not deployed",
+    "cleanup": {
+      "deleted_task_relative_paths": [
+        "tmp/community-clean-gradle",
+        "tmp/community-public-model-cache",
+        "tmp/community-public-model-input.json",
+        "tmp/community-apk-readable",
+        "tmp/community-log-scan",
+        "tmp/community-clean-release",
+        "worktrees/community-public-candidate",
+        "toolchains/gitleaks-8.30.1/gitleaks.tar.gz"
+      ],
+      "allocated_file_bytes_removed": 1355730944,
+      "volume_free_bytes_change_immediate": 1100279808,
+      "retained": "signed APK, models metadata, SBOM, scanner tool/checksum/license, necessary redacted evidence; shared dependencies and other tasks untouched; Community debug APK/instrumentation and shared build outputs retained for pending physical acceptance",
+      "note": "APFS free-space delta is the immediate volume observation, not an allocation-size guarantee"
+    },
+    "recorded_at": "2026-09-21T07:12:17.086757+00:00",
+    "security_scan": {
+      "scanner": "Gitleaks 8.30.1 checksum-verified official binary",
+      "full_ref_history": {
+        "findings": 4,
+        "review": "public Supabase client configuration, one public test placeholder and two hex digests; no confirmed service secrets"
+      },
+      "public_snapshot": {
+        "findings": 1,
+        "review": "existing public-key test placeholder; production client binding excluded"
+      },
+      "apk_readable_content": {
+        "findings": 2,
+        "review": "ONNX runtime constants and kotlinx serialization verification properties; both byte-identical to resolved upstream AAR/JAR"
+      },
+      "logs": {
+        "findings": 0
+      },
+      "unresolved_findings": 0,
+      "limits": "bounded scanners plus manual classification, not a guarantee of absence"
+    },
+    "acceptance": {
+      "C01": "emulator passed, physical open (-99 installation refusal)",
+      "C02": "public downloads and integrity checked on host; physical UI consent/cancel/resume open",
+      "C03": "open: physical offline start/stop/history/relaunch",
+      "C04": "metadata and no-new-install expiry tests passed; installed physical runtime open",
+      "C05": "open: natural numeric display threshold events",
+      "C06": "existing uncertainty unit tests passed; current physical scene open",
+      "C07": "lifecycle unit tests passed; current physical transitions open",
+      "C08": "open: representative sustained real run",
+      "C09": "dependencies/config/merged manifest checked; physical traffic capture open",
+      "C10": "clean source/debug/unsigned release builds plus public artifact retrieval passed; physical model execution open",
+      "C11": "open: no previous official Community candidate with saved user data",
+      "C12": "local signed APK/commit/hash/certificate/model list/SBOM bound; public tag and distribution pending"
+    },
+    "source_publication_authorized": true,
+    "source_cleanup": {
+      "unknown_asset_provenance": "two files removed; object replay now requires tester-supplied image",
+      "first_party_artwork": "two retained home illustrations traced to project generation record; launcher geometric vectors authored in project",
+      "readme": "bilingual public introduction; no download, demo, user or physical acceptance invented",
+      "validation": {
+        "community_ci": "passed: policy 8, model 35, service 23; Android units, lint and debug build",
+        "object_replay_missing_input": "exit 2 before downloads or emulator setup",
+        "scope": "UI symbol/import cleanup and source licensing/export changes; not physical recognition",
+        "release_build": "passed: unsigned Community Release and lint",
+        "emulator": "updated Community debug installed and cold-launched; current homepage inspected and captured in docs/community/images/home.png",
+        "final_build": "passed: both Community debug/release builds and lints after in-app Apache-2.0 notice update",
+        "public_snapshot_scan": "Gitleaks 8.30.1: one synthetic publishable-key fixture, manually reviewed; no unresolved findings",
+        "public_links_and_inventory": "all public entry-point links and exported SHA-256/byte inventory matched"
+      },
+      "android_units": {
+        "app": {
+          "tests": 290,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "core/domain": {
+          "tests": 60,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "core/data": {
+          "tests": 130,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "core/vision": {
+          "tests": 80,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    }
+  },
+  "detail": "Private historical evidence excluded. Only the current sanitized Community scope is included; open gates remain open."
+}

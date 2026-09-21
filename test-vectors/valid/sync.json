@@ -1,0 +1,14 @@
+{
+  "schema_version": "3.0",
+  "cursor": "sync_00000042",
+  "has_more": false,
+  "changes": [
+    {
+      "change_id": "change_42",
+      "entity_type": "task",
+      "operation": "delete",
+      "updated_at": "2026-08-02T00:03:00Z",
+      "entity": null
+    }
+  ]
+}
