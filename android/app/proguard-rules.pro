@@ -1,1 +1,1 @@
-# Concrete model adapters add narrowly scoped rules when VM-005 activates a reviewed package.
+# Runtime libraries supply their consumer rules. Add only narrowly scoped app rules here.

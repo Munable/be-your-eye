@@ -243,7 +243,9 @@ android {
         debug { applicationIdSuffix = ".community.debug"; versionNameSuffix = "-debug" }
         release {
             applicationIdSuffix = ".community"
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             if (optionalConfig("COMMUNITY_SIGNED") == "true") {
                 require(releaseSigningComplete) { "Signed release requires external signing inputs" }
                 signingConfig = signingConfigs.getByName("community")
