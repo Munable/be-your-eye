@@ -301,5 +301,47 @@
       "working_copy": "original workspace now tracks public origin/main; private-history remote and pre-public branches retained locally"
     }
   },
+  "i18n_verification": {
+    "recorded_at": "2026-09-22",
+    "status": "structure_and_device_paths_passed; linguistic_hosted_and_api26_acceptance_open",
+    "working_tree": "uncommitted task changes; no release artifact or commit claimed",
+    "supported_locales": [
+      "en",
+      "zh-Hans",
+      "zh-Hant",
+      "ja",
+      "ko",
+      "es",
+      "fr",
+      "de",
+      "pt-BR"
+    ],
+    "static_checks": {
+      "check_i18n": "passed",
+      "check_i18n_tests": "4 passed",
+      "website_auth_tests": "6 passed",
+      "repository_policy": "passed",
+      "catalog_tests": "36 passed",
+      "supabase_tests": "23 passed",
+      "android_unit_and_compile": "passed"
+    },
+    "android_api36_device": {
+      "device": "OnePlus PJA110 / API 36 / arm64-v8a",
+      "picker": "all nine native language labels visible",
+      "explicit_german": "selected, persisted after force-stop and restart",
+      "traditional_chinese": "zh-Hant resource copy visible after reinstall",
+      "system_fallback": "cleared app choice and zh-CN system locale returned to Simplified Chinese",
+      "api26_or_older": "open"
+    },
+    "open": [
+      "human linguistic review and complete long-form translation of Android and legal/help copy",
+      "hosted Auth email, assistant, ASR, Stripe Checkout and payment/refund evidence",
+      "physical API 26 compatibility, large-text layout and offline monitoring acceptance"
+    ],
+    "community_ci": {
+      "full_entrypoint": "blocked by local JDK 17 / Android Lint runtime mismatch: java.util.List.removeLast()",
+      "no_lint_equivalent": "passed: communityDebug unit tests and assembleCommunityDebug"
+    }
+  },
   "detail": "Private historical evidence excluded. Only the current sanitized Community scope is included; open gates remain open."
 }

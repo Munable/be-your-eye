@@ -59,6 +59,7 @@ import app.beyoureyes.monitor.design.ProductTone
 import app.beyoureyes.monitor.design.durationSecondsLabel
 import app.beyoureyes.monitor.feature.monitoring.CameraTags
 import app.beyoureyes.monitor.feature.monitoring.LocalNotificationSetupPanel
+import java.util.Locale
 
 /** Reading-only confirmation and threshold controls; camera ownership stays in monitoring. */
 @Composable
@@ -85,6 +86,7 @@ internal fun ReadingConditionControls(
     onNotificationsChange: (Boolean) -> Unit,
     onCreatePending: (() -> Unit)? = null,
     pendingActionLabelRes: Int = R.string.reading_create_pending_action,
+    locale: Locale = Locale.ROOT,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         if (status !is ReadingPreviewStatus.Confirmed &&
@@ -122,6 +124,7 @@ internal fun ReadingConditionControls(
                 onDurationSecondsChange = onDurationSecondsChange,
                 onStart = onStart,
                 onNotificationsChange = onNotificationsChange,
+                locale = locale,
             )
 
             is ReadingPreviewStatus.Failed,
@@ -371,6 +374,7 @@ private fun ReadingThresholdControls(
     onDurationSecondsChange: (Int) -> Unit,
     onStart: () -> Unit,
     onNotificationsChange: (Boolean) -> Unit,
+    locale: Locale,
 ) {
     val focusManager = LocalFocusManager.current
     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -449,6 +453,7 @@ private fun ReadingThresholdControls(
                 upperThreshold,
                 status.confirmedFormat,
                 durationSeconds,
+                locale,
             ) == null
         ) {
             Text(stringResource(R.string.reading_error_invalid_range), color = ProductColors.Error)
@@ -518,6 +523,7 @@ private fun ReadingThresholdControls(
                 upperThreshold,
                 status.confirmedFormat,
                 durationSeconds,
+                locale,
             ) != null,
         ),
         leadingIcon = if (saving) null else Icons.Outlined.Visibility,

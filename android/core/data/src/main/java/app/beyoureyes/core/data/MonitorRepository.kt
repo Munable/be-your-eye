@@ -770,6 +770,9 @@ object MonitorStorageCodec {
                         .put("target_id", target.targetId)
                         .put("label_zh_cn", target.labelZhCn)
                         .put("label_en", target.labelEn)
+                        .apply {
+                            if (target.labels.isNotEmpty()) put("labels", JSONObject(target.labels))
+                        }
                         .toString()
                 }
                 is MonitorTarget.NumericReading -> encodeReadingTarget(
@@ -792,13 +795,18 @@ object MonitorStorageCodec {
                 MonitorTarget.ReferenceImages(references.size)
             }
             MonitorKind.OBJECT_DETECTION.wireValue -> {
-                val value = JSONObject(row.targetJson).requireExact("type", "target_id", "label_zh_cn", "label_en")
+                val value = JSONObject(row.targetJson)
+                require(value.keys().asSequence().toSet() == setOf("type", "target_id", "label_zh_cn", "label_en") ||
+                    value.keys().asSequence().toSet() == setOf("type", "target_id", "label_zh_cn", "label_en", "labels"))
                 require(value.getString("type") == MonitorKind.OBJECT_DETECTION.wireValue)
                 require(references.isEmpty())
                 MonitorTarget.ObjectClass(
                     targetId = value.getString("target_id"),
                     labelZhCn = value.getString("label_zh_cn"),
                     labelEn = value.getString("label_en"),
+                    labels = value.optJSONObject("labels")?.let { labels ->
+                        labels.keys().asSequence().associateWith(labels::getString)
+                    }.orEmpty(),
                 )
             }
             MonitorKind.READING.wireValue -> {

@@ -718,13 +718,19 @@ private fun ClassMapTarget.toAssistantTarget(): AssistantTargetDescriptor =
         labelZhCn = labelZhCn,
         labelEn = labelEn,
         aliases = aliases.sorted(),
+        labels = labels,
     )
 
 private fun AssistantTargetDescriptor.toJson(): JsonObject = JsonObject().apply {
     addProperty("target_id", targetId)
     addProperty("label_zh_cn", labelZhCn)
     addProperty("label_en", labelEn)
+    if (labels.isNotEmpty()) add("labels", labels.toJsonObject())
     add("aliases", aliases.toJsonArray())
+}
+
+private fun Map<String, String>.toJsonObject(): JsonObject = JsonObject().also { objectValue ->
+    forEach { (key, value) -> objectValue.addProperty(key, value) }
 }
 
 private fun List<String>.toJsonArray(): JsonArray = JsonArray().also { array ->

@@ -337,6 +337,7 @@ class RoomCloudBridge(
                 put("target_id", checkNotNull(rawTarget["target_id"]))
                 put("label_zh_cn", checkNotNull(rawTarget["label_zh_cn"]))
                 put("label_en", checkNotNull(rawTarget["label_en"]))
+                rawTarget["labels"]?.let { put("labels", it) }
             }
             else -> error("unsupported monitor target")
         }

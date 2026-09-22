@@ -1,6 +1,8 @@
 package app.beyoureyes.core.domain
 
 import java.math.BigDecimal
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 enum class ReadingFormatKind(val wireValue: String) {
     DECIMAL("decimal"),
@@ -58,8 +60,14 @@ data class ConfirmedReadingFormat(
     }
 
     /** Threshold inputs are human display values, not unscaled OCR digits. */
-    fun parseThreshold(input: String): StructuredReadingValue? {
-        val parsed = parseStructuredReadingInternal(input, requireWholeInput = true) ?: return null
+    fun parseThreshold(
+        input: String,
+        locale: Locale = Locale.ROOT,
+    ): StructuredReadingValue? {
+        val parsed = parseStructuredReadingInternal(
+            input.normalizeThresholdInput(locale),
+            requireWholeInput = true,
+        ) ?: return null
         val compatible = when (kind) {
             ReadingFormatKind.TIME -> parsed.takeIf {
                 it.format.kind == ReadingFormatKind.TIME && it.format.timeSegments == timeSegments
@@ -79,11 +87,17 @@ data class ConfirmedReadingFormat(
     }
 
     /** Converts a stored canonical comparison value back into the confirmed human display form. */
-    fun displayValue(valueDecimal: String): String? {
+    fun displayValue(
+        valueDecimal: String,
+        locale: Locale = Locale.ROOT,
+    ): String? {
         val canonical = runCatching { BigDecimal(valueDecimal).canonicalPlainString() }.getOrNull()
             ?: return null
         if (canonical != valueDecimal) return null
-        if (kind != ReadingFormatKind.TIME) return valueDecimal
+        if (kind != ReadingFormatKind.TIME) {
+            val decimalSeparator = DecimalFormatSymbols.getInstance(locale).decimalSeparator
+            return valueDecimal.replace('.', decimalSeparator)
+        }
         val totalSeconds = runCatching { BigDecimal(valueDecimal).longValueExact() }.getOrNull()
             ?.takeIf { it >= 0L } ?: return null
         val seconds = totalSeconds % 60L
@@ -105,7 +119,10 @@ data class ConfirmedReadingFormat(
     }
 
     /** Threshold fields use the same confirmed display form as live readings. */
-    fun displayThreshold(valueDecimal: String): String? = displayValue(valueDecimal)
+    fun displayThreshold(
+        valueDecimal: String,
+        locale: Locale = Locale.ROOT,
+    ): String? = displayValue(valueDecimal, locale)
 
     companion object {
         const val PROFILE_ID = "confirmed_reading_format_v2"
@@ -271,6 +288,15 @@ private fun String.decorateWith(unit: String?): String = when (unit) {
     null -> this
     "¥", "$", "€", "£" -> unit + this
     else -> this + unit
+}
+
+/** Converts a user-entered localized decimal/grouping form to the wire invariant. */
+private fun String.normalizeThresholdInput(locale: Locale): String {
+    val symbols = DecimalFormatSymbols.getInstance(locale)
+    if (symbols.decimalSeparator == '.') return this
+    return replace(symbols.groupingSeparator.toString(), "")
+        .replace('\u00a0', ' ')
+        .replace(symbols.decimalSeparator, '.')
 }
 
 private fun String.normalizeReadingCharacters(): String = buildString(length) {

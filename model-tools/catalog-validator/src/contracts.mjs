@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { validateAgainstSchema } from './schema-validator.mjs';
 
 const SHA_256 = /^[0-9a-f]{64}$/;
+const SUPPORTED_LOCALES = new Set(['en', 'zh-Hans', 'zh-Hant', 'ja', 'ko', 'es', 'fr', 'de', 'pt-BR']);
 const PUBLISHED_PREBUILT_EXPORT_TOOL_NOT_DISCLOSED =
   'published-prebuilt-export-tool-not-disclosed';
 const UNKNOWN_EXPORT_TOOL_MARKER =
@@ -518,7 +519,16 @@ function validateObjectClassMap(manifest) {
       errors.push(issue(`${path}/target_id`, 'object_detection_duplicate_target_id', 'target IDs must be unique'));
     }
     targetIds.add(target.target_id);
-    const values = [target.label_zh_cn, target.label_en, ...target.aliases];
+    const labels = target.labels ?? {};
+    for (const [locale, label] of Object.entries(labels)) {
+      if (!SUPPORTED_LOCALES.has(locale)) {
+        errors.push(issue(`${path}/labels/${locale}`, 'object_detection_label_locale_invalid', 'localized class-map labels must use one of the nine supported locale tags'));
+      }
+      if (typeof label !== 'string' || label.trim().length === 0 || label.length > 40) {
+        errors.push(issue(`${path}/labels/${locale}`, 'object_detection_label_invalid', 'localized class-map labels must be non-empty strings of at most 40 characters'));
+      }
+    }
+    const values = [target.label_zh_cn, target.label_en, ...Object.values(labels), ...target.aliases];
     for (const value of values) {
       const normalized = normalizeClassMapName(value);
       const previous = names.get(normalized);

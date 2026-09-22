@@ -27,7 +27,6 @@ import app.beyoureyes.core.data.cloud.DataStoreCloudLocalStateStore
 import app.beyoureyes.core.data.cloud.RoomCloudBridge
 import app.beyoureyes.core.data.cloud.RemoteSnapshotTransferController
 import app.beyoureyes.core.data.cloud.SupabaseCloudClientFactory
-import app.beyoureyes.core.data.cloud.displayText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -169,7 +168,7 @@ internal object CloudBootstrap {
                 publishCloudEventNotification(
                     context,
                     event.eventId,
-                    event.displayText(context.resources.configuration.locales[0].toLanguageTag()),
+                    cloudEventNotificationText(context, event),
                 )
             },
         )

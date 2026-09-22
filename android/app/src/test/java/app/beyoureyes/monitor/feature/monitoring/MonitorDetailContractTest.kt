@@ -18,6 +18,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.util.Locale
 
 class MonitorDetailContractTest {
     @Test
@@ -137,6 +138,25 @@ class MonitorDetailContractTest {
                 ) is ReadingConditionValidation.Invalid,
             )
         }
+    }
+
+    @Test
+    fun `comma decimal input follows the active locale`() {
+        val result = validateReadingCondition(
+            mode = ReadingConditionMode.ABOVE,
+            thresholdInput = "1,25",
+            lowerInput = "",
+            upperInput = "",
+            confirmedFormat = profile,
+            locale = Locale.GERMANY,
+        )
+
+        assertEquals(
+            "1.25",
+            (result as ReadingConditionValidation.Valid).rule.let {
+                (it as MonitorRule.ReadingThreshold.Single).thresholdDecimal
+            },
+        )
     }
 
     @Test

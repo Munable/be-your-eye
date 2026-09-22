@@ -15,7 +15,7 @@ class VoiceTranscriptionGatewayTest {
         val recording = CapturedVoiceRecording(File("missing-functional-voice.m4a"), 1_200)
         assertEquals(
             VoiceTranscriptionResult.Unavailable,
-            DisabledVoiceTranscriptionGateway.transcribe(recording, "zh-CN"),
+            DisabledVoiceTranscriptionGateway.transcribe(recording, "zh-Hans"),
         )
     }
 
@@ -56,7 +56,7 @@ class VoiceTranscriptionGatewayTest {
             },
         )
 
-        val result = gateway.transcribe(CapturedVoiceRecording(file, 1_200), "zh-CN")
+        val result = gateway.transcribe(CapturedVoiceRecording(file, 1_200), "zh-Hans")
 
         assertEquals(VoiceTranscriptionResult.Completed("苹果出现时提醒我"), result)
         assertEquals("access-token", captured?.accessToken)
@@ -84,7 +84,7 @@ class VoiceTranscriptionGatewayTest {
         val valid = createMp4File()
         assertEquals(
             VoiceTranscriptionResult.SignInRequired,
-            gateway.transcribe(CapturedVoiceRecording(valid, 1_200), "zh-CN"),
+            gateway.transcribe(CapturedVoiceRecording(valid, 1_200), "zh-Hans"),
         )
         assertEquals(0, transports)
         valid.delete()
@@ -100,7 +100,7 @@ class VoiceTranscriptionGatewayTest {
         )
         assertEquals(
             VoiceTranscriptionResult.InvalidRecording,
-            authenticated.transcribe(CapturedVoiceRecording(malformed, 1_200), "zh-CN"),
+            authenticated.transcribe(CapturedVoiceRecording(malformed, 1_200), "zh-Hans"),
         )
         malformed.delete()
         Unit
@@ -133,7 +133,7 @@ class VoiceTranscriptionGatewayTest {
 
             assertEquals(
                 VoiceTranscriptionResult.Unavailable,
-                gateway.transcribe(CapturedVoiceRecording(file, 1_200), "zh-CN"),
+                gateway.transcribe(CapturedVoiceRecording(file, 1_200), "zh-Hans"),
             )
             file.delete()
         }
@@ -156,7 +156,7 @@ class VoiceTranscriptionGatewayTest {
 
         assertEquals(
             VoiceTranscriptionResult.SubscriptionRequired,
-            gateway.transcribe(CapturedVoiceRecording(file, 1_200), "zh-CN"),
+            gateway.transcribe(CapturedVoiceRecording(file, 1_200), "zh-Hans"),
         )
         file.delete()
         Unit

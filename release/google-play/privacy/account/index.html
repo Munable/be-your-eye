@@ -1,37 +1,39 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="/i18n.js"></script>
   <meta name="color-scheme" content="dark"><meta name="robots" content="noindex">
-  <title>账号与使用权 · 帮你盯</title>
+  <title>Account and access · Be Your Eye</title>
   <link rel="stylesheet" href="/account/style.css">
+  <link rel="stylesheet" href="/account/i18n.css">
   <script type="module" src="/account/account.js"></script>
 </head>
 <body><main>
   <a class="brand" href="/">Be Your Eye <span>帮你盯</span></a>
-  <h1>把等待交给手机。</h1>
-  <p class="intro">官网与 App 共用一个账号。先完整试用，再决定是否购买。</p>
+  <h1 id="account-hero">Leave the waiting to your phone.</h1>
+  <p class="intro" id="account-intro">Use one account on the website and in the app. Try the full experience before you buy.</p>
   <section id="login-panel">
-    <h2>登录或注册</h2>
+    <h2 id="login-panel-title">Sign in or create an account</h2>
     <form id="auth-form" method="post">
-      <label for="email">邮箱</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254">
-      <label for="password">密码</label><input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128">
-      <p class="small">密码至少 8 位，包含字母和数字。注册即表示同意<a href="/terms/">使用条款</a>及<a href="/privacy/">隐私政策</a>。注册后请先通过邮件确认邮箱。</p>
-      <div class="actions"><button type="submit" name="mode" value="login">登录</button><button class="secondary" type="submit" name="mode" value="signup">创建账号</button></div>
-      <div class="actions"><button id="recover" class="text" type="button">忘记密码</button><button id="resend" class="text" type="button">重发确认邮件</button></div>
+      <label id="email-label" for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254">
+      <label id="password-label" for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128">
+      <p class="small"><span id="password-policy">At least 8 characters, including letters and numbers. </span><a id="terms-link" href="/terms/">Terms of Use</a><span id="policy-conjunction"> and </span><a id="privacy-link" href="/privacy/">Privacy Policy</a><span id="signup-confirm-hint">. After registration, confirm your email from the message.</span></p>
+      <div class="actions"><button type="submit" name="mode" value="login">Sign in</button><button class="secondary" type="submit" name="mode" value="signup">Create account</button></div>
+      <div class="actions"><button id="recover" class="text" type="button">Forgot password</button><button id="resend" class="text" type="button">Resend confirmation email</button></div>
     </form>
   </section>
   <section id="account-panel" hidden>
-    <div class="account-line"><h2>我的使用权</h2><button class="text" id="logout" type="button">退出登录</button></div>
-    <p id="account-email"></p><p id="access-status" class="access" aria-live="polite">正在核对账号权益…</p>
+    <div class="account-line"><h2 id="account-access-title">My access</h2><button class="text" id="logout" type="button">Sign out</button></div>
+    <p id="account-email"></p><p id="access-status" class="access" aria-live="polite">Checking account access…</p>
     <p id="expiry"></p>
-    <div class="plan"><div><h3>Pro · 30 天使用权</h3><p>全部监控功能、AI 配置助手与同账号设备同步。</p></div><strong id="price">正在读取价格…</strong></div>
-    <p class="small">一次付款，不会自动续费。重复购买的 30 天顺延至已有官网付费使用权结束之后。试用剩余时间不叠加。付款方式以 Stripe 收银台实际显示为准。</p>
-    <div class="actions"><button id="trial" hidden type="button">领取 3 天全功能试用</button><button id="buy" disabled type="button">购买 30 天使用权</button><button class="secondary" id="refresh" type="button">刷新权益</button></div>
-    <p id="billing-note" class="small">购买或领取试用后，在 App 登录此账号，点击“刷新权益”即可使用。</p>
-    <p class="small">删除账号：在 App 的账号页面选择“删除账号”。删除不会自动退款，也不会取消 Google Play 订阅；退款请联系下方支持邮箱。</p>
+    <div class="plan"><div><h3 id="plan-title">Pro · 30 days of access</h3><p id="plan-description">All monitoring features, the AI configuration assistant, and same-account device sync.</p></div><strong id="price">Reading price…</strong></div>
+    <p class="small" id="billing-terms">One-time payment with no automatic renewal. Repeat purchases extend existing website access. Unused trial time is not added. Stripe Checkout shows the final payment method and amount.</p>
+    <div class="actions"><button id="trial" hidden type="button">Start a 3-day full-feature trial</button><button id="buy" disabled type="button">Buy 30 days of access</button><button class="secondary" id="refresh" type="button">Refresh access</button></div>
+    <p id="billing-note" class="small">After buying or starting a trial, sign in with this account in the app and tap “Refresh access”.</p>
+    <p class="small" id="delete-account-hint">To delete your account, choose “Delete account” in the app. Deletion does not automatically refund a payment or cancel a Google Play subscription; contact support about refunds.</p>
   </section>
   <p id="message" role="status" aria-live="polite"></p>
-  <noscript><p>请启用 JavaScript 后再登录，或在 App 中管理账号。</p></noscript>
-  <footer><a href="/">返回官网</a><a href="/terms/">使用与退款条款</a><a href="mailto:support@beyoureye.com">付款遇到问题</a><p>由 Marine Mystique Solutions Limited 提供服务。</p></footer>
+  <noscript><p id="enable-javascript">Enable JavaScript to sign in, or manage your account in the app.</p></noscript>
+  <footer><a id="home-link" href="/"></a><a id="footer-terms-link" href="/terms/"></a><a id="support-link" href="mailto:support@beyoureye.com"></a><p id="company-provider">Service provided by Marine Mystique Solutions Limited.</p></footer>
 </main></body></html>

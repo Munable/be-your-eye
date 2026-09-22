@@ -64,7 +64,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.testTag
@@ -78,6 +77,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
+import app.beyoureyes.monitor.feature.account.currentAppLanguageTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
@@ -188,11 +188,7 @@ private fun AssistantConversationScreen(
         state.input.isBlank() && state.issue == null
     val starterText = stringResource(R.string.assistant_starter_reading)
     val targetStarterText = state.starterTarget?.let { target ->
-        val label = if (LocalConfiguration.current.locales[0].language == "zh") {
-            target.labelZhCn
-        } else {
-            target.labelEn
-        }
+        val label = target.localizedLabel(currentAppLanguageTag(LocalContext.current))
         stringResource(R.string.assistant_starter_target, label)
     }
     val issueVisible = state.issue != null && !(accessBlocked && state.issue in ASSISTANT_ACCESS_ISSUES)

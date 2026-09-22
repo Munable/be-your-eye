@@ -3,6 +3,7 @@ package app.beyoureyes.monitor
 import app.beyoureyes.core.domain.RuntimeMonitorRule
 import android.app.ActivityManager
 import android.content.Context
+import androidx.core.content.ContextCompat
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -539,7 +540,8 @@ internal class ModelPreparationCoordinator(
                         ) { identity ->
                             ReadingPreviewCoordinator.openAppPrivate(filesDir, identity)
                         },
-                        modelDisplayName = appContext.getString(R.string.model_display_reading),
+                        modelDisplayName = ContextCompat.getContextForLanguage(appContext)
+                            .getString(R.string.model_display_reading),
                     ),
                 )
             }
@@ -567,18 +569,21 @@ internal class ModelPreparationCoordinator(
             .getOrElse {
                 return TransientReferencePreparationResult.Unavailable(
                     ModelPreparationFailure.TASK_UNAVAILABLE,
-                    appContext.getString(R.string.model_reference_unreadable),
+                    ContextCompat.getContextForLanguage(appContext)
+                        .getString(R.string.model_reference_unreadable),
                 )
             }
         val profile = restored.targetProfile as? TargetProfile.ReferenceImages
             ?: return TransientReferencePreparationResult.Unavailable(
                 ModelPreparationFailure.TASK_UNAVAILABLE,
-                appContext.getString(R.string.model_reference_unreadable),
+                ContextCompat.getContextForLanguage(appContext)
+                    .getString(R.string.model_reference_unreadable),
             )
         val asset = restored.referenceImageProvider.load(profile.images.first())
             ?: return TransientReferencePreparationResult.Unavailable(
                 ModelPreparationFailure.TASK_UNAVAILABLE,
-                appContext.getString(R.string.model_reference_unreadable),
+                ContextCompat.getContextForLanguage(appContext)
+                    .getString(R.string.model_reference_unreadable),
             )
         var capturedConfig: ResolvedSamplingConfig? = null
         val result = prepareResolvedTask(
@@ -625,7 +630,8 @@ internal class ModelPreparationCoordinator(
                             profile,
                         ),
                         readingPreviewSpec = null,
-                        modelDisplayName = appContext.getString(R.string.model_display_reference),
+                        modelDisplayName = ContextCompat.getContextForLanguage(appContext)
+                            .getString(R.string.model_display_reference),
                     ),
                 )
             }
@@ -654,7 +660,8 @@ internal class ModelPreparationCoordinator(
         if (assistantBinding.any { it != null } && assistantBinding.any { it == null }) {
             return TransientObjectPreparationResult.Unavailable(
                 ModelPreparationFailure.NO_COMPATIBLE_PACKAGE,
-                appContext.getString(R.string.model_object_config_incomplete),
+                ContextCompat.getContextForLanguage(appContext)
+                    .getString(R.string.model_object_config_incomplete),
             )
         }
         var capturedConfig: ResolvedSamplingConfig? = null
@@ -694,7 +701,8 @@ internal class ModelPreparationCoordinator(
                             targetProfile = targetProfile,
                         ),
                         readingPreviewSpec = null,
-                        modelDisplayName = appContext.getString(R.string.model_display_object),
+                        modelDisplayName = ContextCompat.getContextForLanguage(appContext)
+                            .getString(R.string.model_display_object),
                     ),
                 )
             }
@@ -716,19 +724,19 @@ internal class ModelPreparationCoordinator(
         if (catalogUrl.isBlank()) {
             return@withContext unavailable(
                 ModelPreparationFailure.CATALOG_NOT_CONFIGURED,
-                appContext.getString(R.string.model_service_not_configured),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_service_not_configured),
             )
         }
         if (buildChannel == BuildChannel.DEVELOPMENT_NO_MODEL) {
             return@withContext unavailable(
                 ModelPreparationFailure.BUILD_CHANNEL_DISABLED,
-                appContext.getString(R.string.model_ui_only_build),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_ui_only_build),
             )
         }
         val target = targetOverride ?: runCatching { targetResolver.resolve(taskId) }.getOrNull()
             ?: return@withContext unavailable(
                 ModelPreparationFailure.TASK_UNAVAILABLE,
-                appContext.getString(R.string.model_reference_unreadable),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_reference_unreadable),
             )
         val now = nowEpochMillis()
         val shouldUseNetwork = runCatching(networkAvailable).getOrDefault(false)
@@ -739,13 +747,13 @@ internal class ModelPreparationCoordinator(
             is MetadataFetchResult.Fetched -> fetchedCatalog.bytes
             is MetadataFetchResult.Rejected -> return@withContext unavailable(
                 ModelPreparationFailure.CATALOG_REJECTED,
-                appContext.getString(R.string.model_security_check_failed),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_security_check_failed),
             )
             is MetadataFetchResult.Retryable,
             null,
             -> catalogCache.readBytesOrNull() ?: return@withContext unavailable(
                 ModelPreparationFailure.CATALOG_UNAVAILABLE,
-                appContext.getString(R.string.model_download_unavailable),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_download_unavailable),
             )
         }
         val catalog = try {
@@ -757,19 +765,19 @@ internal class ModelPreparationCoordinator(
         } catch (_: Exception) {
             return@withContext unavailable(
                 ModelPreparationFailure.CATALOG_REJECTED,
-                appContext.getString(R.string.model_security_check_retry),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_security_check_retry),
             )
         }
         if (fetchedCatalog is MetadataFetchResult.Fetched) catalogCache.write(catalog)
         if (catalog.catalog.buildChannel != buildChannel) {
             return@withContext unavailable(
                 ModelPreparationFailure.CATALOG_REJECTED,
-                appContext.getString(R.string.model_build_mismatch),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_build_mismatch),
             )
         }
         val productAccessDecision = productAccess()
         productAccessPreparationRejection(productAccessDecision) {
-            appContext.getString(productAccessDecision.messageResource())
+            ContextCompat.getContextForLanguage(appContext).getString(productAccessDecision.messageResource())
         }?.let { return@withContext it }
         val manifestSelection = when (
             val selection = selectManifest(catalog, target, now, allowNetwork = shouldUseNetwork)
@@ -777,15 +785,15 @@ internal class ModelPreparationCoordinator(
             is ManifestSelection.Selected -> selection
             ManifestSelection.Ambiguous -> return@withContext unavailable(
                 ModelPreparationFailure.NO_COMPATIBLE_PACKAGE,
-                appContext.getString(R.string.model_ambiguous_target),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_ambiguous_target),
             )
             ManifestSelection.NotFound -> return@withContext unavailable(
                 ModelPreparationFailure.NO_COMPATIBLE_PACKAGE,
-                appContext.getString(if (catalog.installedCommunityOnly) R.string.community_catalog_expired else R.string.model_device_unsupported),
+                ContextCompat.getContextForLanguage(appContext).getString(if (catalog.installedCommunityOnly) R.string.community_catalog_expired else R.string.model_device_unsupported),
             )
             ManifestSelection.Rejected -> return@withContext unavailable(
                 ModelPreparationFailure.CATALOG_REJECTED,
-                appContext.getString(R.string.model_security_check_retry),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_security_check_retry),
             )
         }
         val selected = manifestSelection.document
@@ -803,7 +811,7 @@ internal class ModelPreparationCoordinator(
         if (requiresDownload) {
             val request = ModelDownloadRequest(
                 modelName = modelName,
-                purpose = appContext.getString(when (target.targetProfile) {
+                purpose = ContextCompat.getContextForLanguage(appContext).getString(when (target.targetProfile) {
                     is TargetProfile.ReferenceImages -> R.string.model_download_reference_purpose
                     is TargetProfile.ObjectClass -> R.string.model_download_object_purpose
                     else -> R.string.model_download_reading_purpose
@@ -817,7 +825,7 @@ internal class ModelPreparationCoordinator(
             // Consent applies only to this exact signed package, and does not extend access.
             val accessAfterConfirmation = productAccess()
             productAccessPreparationRejection(accessAfterConfirmation) {
-                appContext.getString(accessAfterConfirmation.messageResource())
+                ContextCompat.getContextForLanguage(appContext).getString(accessAfterConfirmation.messageResource())
             }?.let { return@withContext it }
         } else {
             onProgress(ModelPreparationProgress.UsingDownloaded(modelName))
@@ -882,11 +890,11 @@ internal class ModelPreparationCoordinator(
                     ModelPreparationFailure.PACKAGE_DOWNLOAD_FAILED
                 },
                 if (monitoringActive) {
-                    appContext.getString(R.string.model_other_monitor_active)
+                    ContextCompat.getContextForLanguage(appContext).getString(R.string.model_other_monitor_active)
                 } else if (selfTestFailed) {
-                    appContext.getString(modelSelfTestFailureResource(selfTestActivationErrors))
+                    ContextCompat.getContextForLanguage(appContext).getString(modelSelfTestFailureResource(selfTestActivationErrors))
                 } else {
-                    appContext.getString(R.string.model_not_ready_retry)
+                    ContextCompat.getContextForLanguage(appContext).getString(R.string.model_not_ready_retry)
                 },
             )
         }
@@ -911,13 +919,13 @@ internal class ModelPreparationCoordinator(
             )
         }.getOrNull() ?: return@withContext unavailable(
             ModelPreparationFailure.ACTIVATION_FAILED,
-            appContext.getString(R.string.model_invalid_config),
+            ContextCompat.getContextForLanguage(appContext).getString(R.string.model_invalid_config),
         )
         return@withContext RuntimePackageBindingMutex.mutex.withLock {
             val activationBefore = runCatching { store.activationState(slot) }.getOrNull()
                 ?: return@withLock unavailable(
                     ModelPreparationFailure.ACTIVATION_FAILED,
-                    appContext.getString(R.string.model_activation_failed),
+                    ContextCompat.getContextForLanguage(appContext).getString(R.string.model_activation_failed),
                 )
             when (
                 val activation = delivery.activateStagedPackage(
@@ -942,7 +950,7 @@ internal class ModelPreparationCoordinator(
                         }
                         unavailable(
                             ModelPreparationFailure.TASK_UNAVAILABLE,
-                            appContext.getString(R.string.model_task_changed),
+                            ContextCompat.getContextForLanguage(appContext).getString(R.string.model_task_changed),
                         )
                     } else {
                         ModelPreparationResult.Ready(taskId, staged.pointer, slot)
@@ -950,7 +958,7 @@ internal class ModelPreparationCoordinator(
                 }
                 is ModelPackageActivationResult.Rejected -> unavailable(
                     ModelPreparationFailure.ACTIVATION_FAILED,
-                    appContext.getString(R.string.model_activation_other_monitor),
+                    ContextCompat.getContextForLanguage(appContext).getString(R.string.model_activation_other_monitor),
                 )
             }
         }

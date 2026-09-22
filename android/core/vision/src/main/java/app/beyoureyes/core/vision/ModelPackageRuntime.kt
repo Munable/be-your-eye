@@ -2,6 +2,7 @@ package app.beyoureyes.core.vision
 
 import app.beyoureyes.core.domain.Observation
 import app.beyoureyes.core.domain.NormalizedRect
+import app.beyoureyes.core.domain.supportedLocaleForTag
 import app.beyoureyes.core.domain.ReadingTemporalEvidenceTracker
 import app.beyoureyes.core.domain.UnavailableReason
 import app.beyoureyes.core.domain.ConfirmedReadingFormat
@@ -10,6 +11,10 @@ import app.beyoureyes.core.domain.MIN_REFERENCE_IMAGES as PRODUCT_MIN_REFERENCE_
 import java.io.File
 import java.io.FileInputStream
 import java.security.MessageDigest
+
+private val SUPPORTED_LOCALE_TAGS = setOf(
+    "en", "zh-Hans", "zh-Hant", "ja", "ko", "es", "fr", "de", "pt-BR",
+)
 
 /** The small, versioned set of runtime contracts understood by the Android application. */
 enum class RecipeFamily(val wireValue: String) {
@@ -64,6 +69,7 @@ sealed interface TargetProfile {
         override val targetId: String,
         val labelZhCn: String,
         val labelEn: String,
+        val labels: Map<String, String> = emptyMap(),
     ) : TargetProfile {
         override val mode: TargetMode = TargetMode.OBJECT_CLASS
 
@@ -71,6 +77,14 @@ sealed interface TargetProfile {
             requireValidTargetId(targetId)
             require(labelZhCn.isNotBlank() && labelZhCn.length <= 40)
             require(labelEn.isNotBlank() && labelEn.length <= 40)
+            require(labels.keys.all { it in SUPPORTED_LOCALE_TAGS })
+            require(labels.values.all { it.isNotBlank() && it.length <= 40 })
+        }
+
+        fun localizedLabel(languageTag: String): String {
+            val locale = supportedLocaleForTag(languageTag)
+            return labels[locale]
+                ?: if (locale == "zh-Hans" || locale == "zh-Hant") labelZhCn else labelEn
         }
     }
 

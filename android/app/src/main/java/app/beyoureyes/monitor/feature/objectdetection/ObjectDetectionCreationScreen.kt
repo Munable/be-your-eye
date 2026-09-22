@@ -35,7 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
@@ -56,6 +56,7 @@ import app.beyoureyes.monitor.design.ProductTopBar
 import app.beyoureyes.monitor.design.SetupInstructions
 import app.beyoureyes.monitor.feature.monitoring.TargetPresenceRuleControls
 import app.beyoureyes.monitor.feature.monitoring.LocalNotificationSetupPanel
+import app.beyoureyes.monitor.feature.account.currentAppLanguageTag
 
 internal object ObjectCreationTags {
     const val SCREEN = "object_detection_creation"
@@ -290,8 +291,8 @@ private fun ObjectSuggestionRow(
 
 @Composable
 private fun ObjectClassDefinition.localizedLabel(): String =
-    if (LocalConfiguration.current.locales[0].language == "zh") labelZhCn else labelEn
+    localizedLabel(currentAppLanguageTag(LocalContext.current))
 
 @Composable
 private fun ObjectClassDefinition.secondaryLabel(): String =
-    if (LocalConfiguration.current.locales[0].language == "zh") labelEn else labelZhCn
+    labelEn

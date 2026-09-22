@@ -70,4 +70,26 @@ class ObjectClassCatalogTest {
             )
         }
     }
+
+    @Test
+    fun `localized labels participate in lookup and use language fallback`() {
+        val localized = ObjectClassDefinition(
+            targetId = "apple",
+            labelZhCn = "苹果",
+            labelEn = "apple",
+            aliases = emptySet(),
+            labels = mapOf(
+                "ja" to "りんご",
+                "fr" to "pomme",
+                "zh-Hant" to "蘋果",
+                "pt-BR" to "maçã",
+            ),
+        )
+        val catalog = ObjectClassCatalog(listOf(localized))
+        assertEquals("りんご", localized.localizedLabel("ja-JP"))
+        assertEquals("蘋果", localized.localizedLabel("zh-TW"))
+        assertEquals("苹果", localized.localizedLabel("zh-SG"))
+        assertEquals("maçã", localized.localizedLabel("pt-PT"))
+        assertEquals("apple", (catalog.lookup("pomme") as ObjectClassLookup.Matched).definition.targetId)
+    }
 }

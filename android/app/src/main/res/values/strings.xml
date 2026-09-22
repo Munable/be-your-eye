@@ -4,6 +4,21 @@
     <string name="app_name_ui_test">Be Your Eye (UI test)</string>
     <string name="app_name_functional_test">Be Your Eye (functional test)</string>
     <string name="app_name_internal">Be Your Eye (Internal)</string>
+    <string name="language_settings_title">Language</string>
+    <string name="language_settings_summary">Use the device language or choose a language for this app.</string>
+    <string name="language_system">Use device language</string>
+    <string name="language_english">English</string>
+    <string name="language_simplified_chinese">简体中文</string>
+    <string name="language_traditional_chinese">繁體中文</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_french">Français</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_brazilian_portuguese">Português (Brasil)</string>
+    <string name="community_brand">Be Your Eye · Community</string>
+    <string name="product_brand">Be Your Eye · Be Your Eye</string>
+    <string name="reference_images_more_count">+%1$d</string>
     <string name="monitoring_channel_name">Monitoring</string>
     <string name="monitoring_channel_description">Shows that camera monitoring is running</string>
     <string name="local_event_channel_name">Events on this phone</string>
@@ -26,6 +41,8 @@
     <string name="notification_event_state_changed">%1$s changed from %2$s to %3$s</string>
     <string name="notification_duration_seconds">%1$d s</string>
     <string name="notification_duration_milliseconds">%1$d ms</string>
+    <string name="notification_duration_unknown">the required duration</string>
+    <string name="notification_reading_unknown">a new value</string>
 
     <!-- Global navigation and home -->
     <string name="action_back">Back</string>

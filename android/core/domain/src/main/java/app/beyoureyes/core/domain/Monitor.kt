@@ -27,6 +27,7 @@ sealed interface MonitorTarget {
         val targetId: String,
         val labelZhCn: String,
         val labelEn: String,
+        val labels: Map<String, String> = emptyMap(),
     ) : MonitorTarget {
         override val kind = MonitorKind.OBJECT_DETECTION
 
@@ -34,6 +35,14 @@ sealed interface MonitorTarget {
             require(targetId.matches(Regex("^[a-z0-9][a-z0-9_.-]{0,63}$")))
             require(labelZhCn.isNotBlank() && labelZhCn.length <= 40)
             require(labelEn.isNotBlank() && labelEn.length <= 40)
+            require(labels.keys.all { it in SUPPORTED_LOCALE_TAGS })
+            require(labels.values.all { it.isNotBlank() && it.length <= 40 })
+        }
+
+        fun localizedLabel(languageTag: String): String {
+            val locale = supportedLocaleForTag(languageTag)
+            return labels[locale]
+                ?: if (locale == "zh-Hans" || locale == "zh-Hant") labelZhCn else labelEn
         }
     }
 

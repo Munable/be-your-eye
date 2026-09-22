@@ -42,6 +42,26 @@ test('duplicate raw IDs and normalized aliases are rejected by the signed class 
   assert.ok(aliasResult.errors.some((error) => error.code === 'object_detection_alias_conflict'));
 });
 
+test('locale-keyed Catalog labels are validated and participate in exact matching', async () => {
+  const manifest = await readVector('model-manifest-object-detection.json');
+  manifest.adapter_contract.class_map.targets[0].labels = {
+    en: 'person',
+    'zh-Hans': '人',
+    'zh-Hant': '人',
+    ja: '人',
+    ko: '사람',
+    es: 'persona',
+    fr: 'personne',
+    de: 'Person',
+    'pt-BR': 'pessoa'
+  };
+  assert.deepEqual(validateManifest(manifest).errors, []);
+
+  const conflict = structuredClone(manifest);
+  conflict.adapter_contract.class_map.targets[1].labels = { es: 'persona' };
+  assert.ok(validateManifest(conflict).errors.some((error) => error.code === 'object_detection_alias_conflict'));
+});
+
 test('unknown task text is rejected instead of being routed to a model', async () => {
   const [task, catalog] = await Promise.all([
     readVector('task-config.json'),

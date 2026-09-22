@@ -2,6 +2,7 @@ package app.beyoureyes.core.vision
 
 import app.beyoureyes.core.domain.Detection
 import app.beyoureyes.core.domain.NormalizedRect
+import app.beyoureyes.core.domain.supportedLocaleForTag
 import app.beyoureyes.core.domain.Observation
 import app.beyoureyes.core.domain.UnavailableReason
 import app.beyoureyes.core.domain.parseStructuredReading
@@ -15,6 +16,10 @@ import kotlin.math.floor
 import kotlin.math.roundToInt
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
+
+private val SUPPORTED_LOCALE_TAGS = setOf(
+    "en", "zh-Hans", "zh-Hant", "ja", "ko", "es", "fr", "de", "pt-BR",
+)
 
 data class ResolvedClassMap(
     val identity: String,
@@ -45,6 +50,7 @@ data class ClassMapTarget(
     val labelZhCn: String,
     val labelEn: String,
     val aliases: Set<String> = emptySet(),
+    val labels: Map<String, String> = emptyMap(),
 ) {
     init {
         require(rawClassId >= 0)
@@ -52,6 +58,14 @@ data class ClassMapTarget(
         require(labelZhCn.isNotBlank() && labelZhCn.length <= 40)
         require(labelEn.isNotBlank() && labelEn.length <= 40)
         require(aliases.all(String::isNotBlank))
+        require(labels.keys.all { it in SUPPORTED_LOCALE_TAGS })
+        require(labels.values.all { it.isNotBlank() && it.length <= 40 })
+    }
+
+    fun localizedLabel(languageTag: String): String {
+        val locale = supportedLocaleForTag(languageTag)
+        return labels[locale]
+            ?: if (locale == "zh-Hans" || locale == "zh-Hant") labelZhCn else labelEn
     }
 }
 
@@ -515,6 +529,7 @@ class ManifestSsdDetectionAdapter(
                                         targetId = it,
                                         labelZhCn = profile.labelZhCn,
                                         labelEn = profile.labelEn,
+                                        labels = profile.labels,
                                     )
                                 }
                             ?: return@repeat

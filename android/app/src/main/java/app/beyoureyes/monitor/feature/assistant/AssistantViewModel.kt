@@ -63,6 +63,7 @@ internal class AssistantViewModel(
     private val catalogProvider: AssistantCatalogSnapshotProvider,
     private val voiceGateway: VoiceTranscriptionGateway = DisabledVoiceTranscriptionGateway,
     private val accessDecision: () -> ProductAccessDecision,
+    private val languageTag: () -> String = { "en" },
 ) : ViewModel() {
     private val mutableState = MutableStateFlow(AssistantUiState())
     val state: StateFlow<AssistantUiState> = mutableState.asStateFlow()
@@ -202,7 +203,7 @@ internal class AssistantViewModel(
                     voiceFailed(issue)
                     return@launch
                 }
-                when (val result = voiceGateway.transcribe(recording, "zh-CN")) {
+                when (val result = voiceGateway.transcribe(recording, languageTag())) {
                     is VoiceTranscriptionResult.Completed -> submitTranscribedText(result.text)
                     VoiceTranscriptionResult.SignInRequired -> voiceFailed(
                         AssistantVoiceIssue.SIGN_IN_REQUIRED,
@@ -316,7 +317,7 @@ internal class AssistantViewModel(
                 val outgoing = request ?: AssistantTurnRequest(
                     conversationId = conversationId,
                     turnId = UUID.randomUUID().toString(),
-                    locale = "zh-CN",
+                    locale = languageTag(),
                     catalog = currentCatalog,
                     messages = requestMessages(mutableState.value.messages),
                 ).also { pendingRequest = it }

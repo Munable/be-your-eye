@@ -24,11 +24,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import app.beyoureyes.core.data.cloud.CloudAccountState
 import app.beyoureyes.monitor.ProductColors
 import app.beyoureyes.monitor.R
 import app.beyoureyes.monitor.design.ProductPrimaryButton
+import app.beyoureyes.monitor.feature.account.localizedWebUri
 import kotlinx.coroutines.launch
 
 internal const val WEBSITE_ACCOUNT_URL = "https://beyoureye.com/account/"
@@ -50,7 +50,7 @@ internal fun WebsiteAccessWallScreen(
             Modifier.safeDrawingPadding().verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
-            Text("Be Your Eye · 帮你盯", style = MaterialTheme.typography.headlineMedium)
+            Text(stringResource(R.string.product_brand), style = MaterialTheme.typography.headlineMedium)
             Text(stringResource(R.string.website_access_title), style = MaterialTheme.typography.headlineSmall)
             Text(stringResource(R.string.website_access_summary), color = ProductColors.TextSecondary)
             account?.email?.let { Text(stringResource(R.string.website_same_account, it)) }
@@ -58,7 +58,7 @@ internal fun WebsiteAccessWallScreen(
                 text = stringResource(if (account == null) R.string.account_email_sign_in_or_register else R.string.website_open_account),
                 onClick = {
                     if (account == null) onOpenAccount()
-                    else context.startActivity(Intent(Intent.ACTION_VIEW, WEBSITE_ACCOUNT_URL.toUri()))
+                    else context.startActivity(Intent(Intent.ACTION_VIEW, localizedWebUri(context, WEBSITE_ACCOUNT_URL)))
                 },
                 modifier = Modifier.fillMaxWidth().testTag(SubscriptionWallTags.CTA),
             )
@@ -72,10 +72,10 @@ internal fun WebsiteAccessWallScreen(
             }
             TextButton(onClick = onOpenAccount) { Text(stringResource(R.string.subscription_account)) }
             TextButton(onClick = onOpenHistory) { Text(stringResource(R.string.subscription_local_history)) }
-            TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, "https://beyoureye.com/terms/".toUri())) }) {
+            TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, localizedWebUri(context, "https://beyoureye.com/terms/"))) }) {
                 Text(stringResource(R.string.subscription_terms))
             }
-            TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, "https://beyoureye.com/privacy/".toUri())) }) {
+            TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, localizedWebUri(context, "https://beyoureye.com/privacy/"))) }) {
                 Text(stringResource(R.string.subscription_privacy))
             }
         }

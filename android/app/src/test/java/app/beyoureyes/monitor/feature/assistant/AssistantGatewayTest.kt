@@ -237,7 +237,7 @@ class AssistantGatewayTest {
     ) = AssistantTurnRequest(
         conversationId = CONVERSATION_ID,
         turnId = TURN_ID,
-        locale = "zh-CN",
+        locale = "zh-Hans",
         catalog = snapshot,
         messages = messages,
     )

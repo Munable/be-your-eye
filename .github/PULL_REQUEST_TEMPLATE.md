@@ -1,21 +1,23 @@
-## 变更结果
+## Change result
 
-说明本变更关闭了哪个精确结果，或为何仍保持 gate 开放。
+State the exact result closed by this change, or why the gate remains open.
 
-## 验证
+## Verification
 
-- [ ] 实现、合同与测试同步更新
-- [ ] 本地命令和结果已记录
-- [ ] 只更新受影响的 `evidence/current/01`～`05` 或一个 `evidence/releases/<catalog-version>.json`；未取得证据仍为 open
-- [ ] 模型/依赖变更经过逐包许可和商业 fail-closed 测试
-- [ ] 没有把静态、模拟器或录制帧结果写成真机/生产验证
+- [ ] Implementation, contracts and tests are updated together
+- [ ] Local commands and results are recorded
+- [ ] Only the affected `evidence/current/01` through `05` summary or one `evidence/releases/<catalog-version>.json` was updated; missing evidence remains open
+- [ ] Model/dependency changes have package-level license and commercial fail-closed checks
+- [ ] Static, emulator or recorded-frame results are not presented as physical-device or production validation
+- [ ] `node tools/ci/check-i18n.mjs` and `node --test tools/ci/check-i18n.test.mjs` pass
+- [ ] Every changed user-visible string is present in all nine locales with matching placeholders and plural branches
 
-## 隐私与供应链
+## Privacy and supply chain
 
-- [ ] 没有提交密钥、用户数据、摄像帧或未批准模型二进制
-- [ ] Event/FCM 未增加媒体或敏感 payload
-- [ ] 发布相关变更包含 SBOM、产物/Catalog/Manifest/模型哈希和回滚说明
+- [ ] No secrets, user data, camera frames or unapproved model binaries are committed
+- [ ] Event/FCM payloads do not add media or sensitive content
+- [ ] Release changes include SBOM, artifact/Catalog/Manifest/model hashes and rollback notes
 
-## 开放门
+## Open gates
 
-列出下一项尚未取得的设备、许可、服务或 Beta 证据。
+List the next device, license, service or beta evidence that is still missing.

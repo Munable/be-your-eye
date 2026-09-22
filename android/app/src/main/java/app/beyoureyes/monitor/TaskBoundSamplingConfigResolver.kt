@@ -1,6 +1,7 @@
 package app.beyoureyes.monitor
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import app.beyoureyes.core.data.CatalogModelCard
 import app.beyoureyes.core.data.ModelArtifactStore
 import app.beyoureyes.core.data.ModelPackagePointer
@@ -195,15 +196,15 @@ internal class TaskBoundSamplingConfigResolver(
             failure = failure,
             userMessage = when (failure) {
                 SamplingConfigResolutionFailure.TASK_UNAVAILABLE ->
-                    appContext.getString(R.string.model_task_changed)
+                    ContextCompat.getContextForLanguage(appContext).getString(R.string.model_task_changed)
                 SamplingConfigResolutionFailure.PACKAGE_UNBOUND,
                 SamplingConfigResolutionFailure.CONFIG_MISSING_OR_CORRUPT,
                 SamplingConfigResolutionFailure.CONFIG_STALE,
-                -> appContext.getString(R.string.sampling_config_restore_required)
+                -> ContextCompat.getContextForLanguage(appContext).getString(R.string.sampling_config_restore_required)
                 SamplingConfigResolutionFailure.PACKAGE_UNAVAILABLE ->
-                    appContext.getString(R.string.sampling_package_unavailable)
+                    ContextCompat.getContextForLanguage(appContext).getString(R.string.sampling_package_unavailable)
                 SamplingConfigResolutionFailure.MANIFEST_INVALID ->
-                    appContext.getString(R.string.model_security_check_retry)
+                    ContextCompat.getContextForLanguage(appContext).getString(R.string.model_security_check_retry)
             },
         )
 

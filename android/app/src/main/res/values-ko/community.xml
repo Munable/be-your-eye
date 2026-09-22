@@ -1,0 +1,7 @@
+<resources>
+    <string name="community_about">Local monitoring needs no account or subscription. Recognition files download only after confirmation. Camera frames stay on this phone. Keep the app visible and the phone fixed and powered; leaving or locking stops monitoring. Cloud sync, remote alerts and AI are unavailable in Community. This preview is not a safety alarm.</string>
+    <string name="community_notices">Third-party notices</string>
+    <string name="community_back">Back</string>
+    <string name="community_tab">About</string>
+    <string name="community_catalog_expired">The model directory is out of date. Already installed recognition files remain usable. Update Community to prepare a new model.</string>
+</resources>

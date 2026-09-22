@@ -32,7 +32,7 @@ function baseRequest(): Record<string, unknown> {
     schema_version: "3.0",
     conversation_id: "84e0f63f-e594-42b5-9c41-c68001538861",
     turn_id: "8fbb3a42-11a0-4f71-84f7-90063d30dc83",
-    locale: "zh-CN",
+    locale: "zh-Hans",
     catalog_binding: {
       catalog_id: "be-your-eye-internal",
       catalog_version: "2026.08.31.1",

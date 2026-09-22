@@ -8,6 +8,8 @@ MODE="${1:---unsigned}"
 : "${COMMUNITY_OUTPUT_DIR:?Choose a release output directory outside the source tree}"
 export PATH="$JAVA_HOME/bin:$PATH"
 cd "$ROOT"
+node tools/ci/check-i18n.mjs
+node --test tools/ci/check-i18n.test.mjs
 if ! git diff --quiet || ! git diff --cached --quiet; then
     echo 'Commit verified source changes before freezing a candidate' >&2; exit 1
 fi

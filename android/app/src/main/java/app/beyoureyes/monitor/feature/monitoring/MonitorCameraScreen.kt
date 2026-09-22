@@ -92,6 +92,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
@@ -169,6 +170,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.StateFlow
+import java.util.Locale
 
 internal object CameraTags {
     const val SCREEN = "monitor_camera"
@@ -454,6 +456,7 @@ private fun ReadyCameraScreen(
     onPersistPendingReading: (suspend (ReadingTargetConfig) -> MonitorCameraState.Ready?)? = null,
 ) {
     val context = LocalContext.current
+    val appLocale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
     val monitorSaveFailed = stringResource(R.string.error_monitor_save_failed)
     val invalidRecordCondition = stringResource(R.string.error_invalid_record_condition)
     val readingNotStable = stringResource(R.string.error_reading_not_stable)
@@ -510,7 +513,13 @@ private fun ReadyCameraScreen(
     val persistedReadingFormat = (monitor.target as? MonitorTarget.NumericReading)?.confirmedFormat
     val persistedDraft = remember(monitor.id, monitor.revision, initialReadingCondition) {
         initialReadingCondition
-            ?: configuredRule?.let { readingConditionDraft(it, confirmedFormat = persistedReadingFormat) }
+            ?: configuredRule?.let {
+                readingConditionDraft(
+                    it,
+                    confirmedFormat = persistedReadingFormat,
+                    locale = appLocale,
+                )
+            }
             ?: ReadingConditionDraft(ReadingConditionMode.ABOVE)
     }
     var threshold by rememberSaveable(monitor.id) { mutableStateOf(persistedDraft.threshold) }
@@ -927,12 +936,14 @@ private fun ReadyCameraScreen(
                         } else {
                             R.string.action_start_monitoring
                         },
+                        locale = appLocale,
                         onConfirm = { reading ->
                             session.confirmReadingPreview(reading)
                             val draft = initialReadingCondition
                                 ?: readingConditionDraft(
                                     persistedRule = checkNotNull(configuredRule),
                                     confirmedBaseline = reading.value.text,
+                                    locale = appLocale,
                                 )
                             conditionMode = draft.mode
                             threshold = draft.threshold
@@ -963,6 +974,7 @@ private fun ReadyCameraScreen(
                                     upperThreshold = upperThreshold,
                                     durationSeconds = readingDurationSeconds,
                                 ),
+                                locale = appLocale,
                             )
                             if (submission == null) {
                                 startError = invalidRecordCondition
@@ -1614,7 +1626,7 @@ private fun ReferenceCameraRail(
             }
             if (materials.size > 3) {
                 Text(
-                    "+${materials.size - 3}",
+                    stringResource(R.string.reference_images_more_count, materials.size - 3),
                     color = ProductColors.TextSecondary,
                     style = MaterialTheme.typography.labelLarge,
                 )

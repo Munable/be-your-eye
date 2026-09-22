@@ -9,6 +9,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 
 object NotificationChannels {
     const val MONITORING_CHANNEL_ID = "monitoring_runtime_v1"
@@ -22,32 +23,33 @@ object NotificationChannels {
     const val EXTRA_MONITOR_ID = "app.beyoureyes.monitor.extra.MONITOR_ID"
 
     fun ensureCreated(context: Context) {
+        val localizedContext = ContextCompat.getContextForLanguage(context)
         val manager = context.getSystemService(NotificationManager::class.java)
         manager.createNotificationChannels(
             listOf(
                 NotificationChannel(
                     MONITORING_CHANNEL_ID,
-                    context.getString(R.string.monitoring_channel_name),
+                    localizedContext.getString(R.string.monitoring_channel_name),
                     NotificationManager.IMPORTANCE_LOW,
                 ).apply {
-                    description = context.getString(R.string.monitoring_channel_description)
+                    description = localizedContext.getString(R.string.monitoring_channel_description)
                     setShowBadge(false)
                     setSound(null, null)
                     enableVibration(false)
                 },
                 NotificationChannel(
                     LOCAL_EVENT_CHANNEL_ID,
-                    context.getString(R.string.local_event_channel_name),
+                    localizedContext.getString(R.string.local_event_channel_name),
                     NotificationManager.IMPORTANCE_HIGH,
                 ).apply {
-                    description = context.getString(R.string.local_event_channel_description)
+                    description = localizedContext.getString(R.string.local_event_channel_description)
                 },
                 NotificationChannel(
                     REMOTE_EVENT_CHANNEL_ID,
-                    context.getString(R.string.remote_event_channel_name),
+                    localizedContext.getString(R.string.remote_event_channel_name),
                     NotificationManager.IMPORTANCE_HIGH,
                 ).apply {
-                    description = context.getString(R.string.remote_event_channel_description)
+                    description = localizedContext.getString(R.string.remote_event_channel_description)
                 },
             ),
         )
@@ -58,6 +60,7 @@ object NotificationChannels {
         title: String,
         text: String,
     ): Notification {
+        val localizedContext = ContextCompat.getContextForLanguage(context)
         val openIntent = PendingIntent.getActivity(
             context,
             1,
@@ -80,21 +83,27 @@ object NotificationChannels {
             .setSilent(true)
             .setOnlyAlertOnce(true)
             .setOngoing(true)
-            .addAction(0, context.getString(R.string.notification_stop_action), stopIntent)
+            .addAction(0, localizedContext.getString(R.string.notification_stop_action), stopIntent)
             .build()
     }
 
-    fun startingCamera(context: Context): Notification = cameraServiceNotification(
-        context = context,
-        title = context.getString(R.string.notification_starting_title, context.getString(R.string.app_name)),
-        text = context.getString(R.string.notification_starting_text),
-    )
+    fun startingCamera(context: Context): Notification {
+        val localizedContext = ContextCompat.getContextForLanguage(context)
+        return cameraServiceNotification(
+            context = context,
+            title = localizedContext.getString(R.string.notification_starting_title, localizedContext.getString(R.string.app_name)),
+            text = localizedContext.getString(R.string.notification_starting_text),
+        )
+    }
 
-    fun cameraRunning(context: Context): Notification = cameraServiceNotification(
-        context = context,
-        title = context.getString(R.string.notification_running_title, context.getString(R.string.app_name)),
-        text = context.getString(R.string.notification_running_text),
-    )
+    fun cameraRunning(context: Context): Notification {
+        val localizedContext = ContextCompat.getContextForLanguage(context)
+        return cameraServiceNotification(
+            context = context,
+            title = localizedContext.getString(R.string.notification_running_title, localizedContext.getString(R.string.app_name)),
+            text = localizedContext.getString(R.string.notification_running_text),
+        )
+    }
 
     /** Must only be called after the event ID has been inserted idempotently into Room. */
     private fun confirmedEvent(
@@ -104,6 +113,7 @@ object NotificationChannels {
         channelId: String,
         quiet: Boolean,
     ): Notification {
+        val localizedContext = ContextCompat.getContextForLanguage(context)
         val openTimelineIntent = PendingIntent.getActivity(
             context,
             eventId.hashCode(),
@@ -112,7 +122,7 @@ object NotificationChannels {
         )
         return NotificationCompat.Builder(context, channelId)
             .setSmallIcon(android.R.drawable.ic_dialog_alert)
-            .setContentTitle(context.getString(R.string.notification_event_title, context.getString(R.string.app_name)))
+            .setContentTitle(localizedContext.getString(R.string.notification_event_title, localizedContext.getString(R.string.app_name)))
             .setContentText(text)
             .setContentIntent(openTimelineIntent)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -146,7 +156,7 @@ object NotificationChannels {
         monitorName: String,
         readingText: String,
     ): Boolean {
-        val appContext = context.applicationContext
+        val appContext = ContextCompat.getContextForLanguage(context.applicationContext)
         if (!AndroidEventNotificationAvailability.isAvailable(appContext)) return false
         ensureCreated(appContext)
         val openDetailIntent = PendingIntent.getActivity(
@@ -188,7 +198,7 @@ object NotificationChannels {
         taskId: String,
         monitorName: String,
     ): Boolean {
-        val appContext = context.applicationContext
+        val appContext = ContextCompat.getContextForLanguage(context.applicationContext)
         if (!AndroidEventNotificationAvailability.isAvailable(appContext)) return false
         ensureCreated(appContext)
         val openDetailIntent = PendingIntent.getActivity(

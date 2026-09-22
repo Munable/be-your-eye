@@ -671,7 +671,7 @@ data class ModelPackageManifest(
             }
             val aliases = mutableMapOf<String, String>()
             classMap.targets.forEach { target ->
-                (target.aliases + target.labelZhCn + target.labelEn).forEach { alias ->
+                (target.aliases + target.labelZhCn + target.labelEn + target.labels.values).forEach { alias ->
                     val key = Normalizer.normalize(alias, Normalizer.Form.NFKC)
                         .trim()
                         .replace(Regex("\\s+"), " ")

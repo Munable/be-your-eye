@@ -216,6 +216,9 @@ android {
         applicationId = "app.beyoureyes.monitor"
         minSdk = 26
         targetSdk = 36
+        resourceConfigurations += setOf(
+            "en", "b+zh+Hans", "b+zh+Hant", "ja", "ko", "es", "fr", "de", "pt-rBR",
+        )
         versionCode = configuredVersionCode
         versionName = configuredVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -496,6 +499,7 @@ dependencies {
     implementation(project(":core:vision"))
     implementation(project(":core:data"))
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)

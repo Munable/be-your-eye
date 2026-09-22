@@ -313,6 +313,10 @@ internal fun AccountScreen(
                     }
                 }
 
+                ProductPanel {
+                    LanguageSettingsCard()
+                }
+
                 when (val state = accountState) {
                     is CloudAccountState.Disabled -> {
                         ProductPanel(tone = ProductTone.WAITING) {
@@ -971,7 +975,8 @@ internal fun AccountScreen(
 }
 
 private fun Context.openExternalUrl(url: String) {
-    runCatching { startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) }
+    val uri = if (url.startsWith("https://beyoureye.com/")) localizedWebUri(this, url) else url.toUri()
+    runCatching { startActivity(Intent(Intent.ACTION_VIEW, uri)) }
 }
 
 private fun Context.openEmail(address: String) {

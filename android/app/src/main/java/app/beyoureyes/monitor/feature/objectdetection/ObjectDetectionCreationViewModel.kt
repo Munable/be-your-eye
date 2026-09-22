@@ -42,6 +42,7 @@ internal class ObjectDetectionCreationViewModel(
     private val catalogProvider: ObjectTargetCatalogProvider,
     private val initialTargetId: String? = null,
     private val initialTargetQuery: String? = null,
+    private val languageTag: String = "en",
     initialModelBinding: ObjectDetectionModelBinding? = null,
     initialRule: MonitorRule.TargetPresence = MonitorRule.TargetPresence(),
     initialNotificationsEnabled: Boolean = false,
@@ -89,7 +90,7 @@ internal class ObjectDetectionCreationViewModel(
                             "assistant target is not in current signed object metadata",
                         )
                         mutableState.value = ObjectDetectionCreationState(
-                            query = initialTargetQuery ?: definition.labelEn,
+                            query = initialTargetQuery ?: definition.localizedLabel(languageTag),
                             selected = definition,
                             suggestions = listOf(definition),
                             loading = false,
@@ -180,7 +181,7 @@ internal class ObjectDetectionCreationViewModel(
         val query = ObjectClassCatalog.normalize(value)
         if (query.isEmpty()) return emptyList()
         return loaded.definitions.filter { definition ->
-            (definition.aliases + definition.labelZhCn + definition.labelEn).any { label ->
+            (definition.aliases + definition.labelZhCn + definition.labelEn + definition.labels.values).any { label ->
                 ObjectClassCatalog.normalize(label).contains(query)
             }
         }.take(MAX_SUGGESTIONS)
@@ -193,7 +194,7 @@ internal class ObjectDetectionCreationViewModel(
         cameraRequested = false
         if (signedDefinition.targetId != mutableState.value.selected?.targetId) modelBinding = null
         mutableState.value = mutableState.value.copy(
-            query = signedDefinition.labelEn,
+            query = signedDefinition.localizedLabel(languageTag),
             selected = signedDefinition,
             suggestions = listOf(signedDefinition),
             error = null,
@@ -237,6 +238,7 @@ internal class ObjectDetectionCreationViewModel(
             targetId = definition.targetId,
             labelZhCn = definition.labelZhCn,
             labelEn = definition.labelEn,
+            labels = definition.labels,
         )
     }
 

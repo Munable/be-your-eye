@@ -33,6 +33,8 @@ const required = [
   "tools/ci/check-current-model-quality.test.mjs",
   "tools/ci/check-current-evidence.mjs",
   "tools/ci/check-current-evidence.test.mjs",
+  "tools/ci/check-i18n.mjs",
+  "tools/ci/check-i18n.test.mjs",
   ".github/scripts/repo-policy-rules.mjs",
   ".github/scripts/check-repo-policy.test.mjs",
 ];
@@ -194,15 +196,15 @@ for (const path of ["README.md", "AGENTS.md", "docs/PRODUCT.md", "docs/ARCHITECT
   }
 }
 const productAuthority = readFileSync(join(root, "docs/PRODUCT.md"), "utf8");
-const firstReleaseEntries = ["参考图片", "数字读数", "文字描述可见目标"];
+const firstReleaseEntries = ["reference images", "numeric reading", "visual target"];
 if (!firstReleaseEntries.every((entry) => productAuthority.includes(entry))) {
   failures.push("product authority must name all three first-release entries");
 }
 for (const [token, requirement] of [
   ["DeepSeek", "the current multi-turn configuration assistant"],
   ["propose_monitor_configuration", "the assistant's only no-side-effect proposal tool"],
-  ["签名 Catalog", "the single signed model Catalog"],
-  ["按住说话", "the foreground hold-to-talk voice input"],
+  ["signed Catalog", "the single signed model Catalog"],
+  ["hold-to-talk", "the foreground hold-to-talk voice input"],
 ]) {
   if (!productAuthority.includes(token)) {
     failures.push(`product authority must define ${requirement}`);

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="community_about">本地監控無需帳號或訂閱。識別文件經你確認後才下載，相機畫面留在本機。請固定手機、持續供電並保持 App 可見；切出或鎖定螢幕會停止監控。Community 不提供雲同步、遠程提醒和 AI。此預覽版不能作為安全報警器。</string>
+    <string name="community_notices">第三方許可</string>
+    <string name="community_back">返回</string>
+    <string name="community_tab">關於</string>
+    <string name="community_catalog_expired">識別文件目錄已過期，已安裝的文件仍可使用。請更新 Community 後再準備新的識別文件。</string>
+</resources>

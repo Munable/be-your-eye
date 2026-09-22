@@ -112,7 +112,7 @@ class CloudNotificationTextTest {
                 put("type", "object_episode")
                 put("target_id", "apple")
                 put("condition", "appeared")
-            }).displayText("zh-CN"),
+            }).displayText("zh-Hans"),
         )
     }
 

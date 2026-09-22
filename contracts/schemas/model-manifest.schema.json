@@ -941,6 +941,18 @@
           "minLength": 1,
           "maxLength": 40
         },
+        "labels": {
+          "type": "object",
+          "description": "Locale keyed display names. New manifests should provide every supported locale; legacy signed manifests may omit this field.",
+          "propertyNames": {
+            "enum": ["en", "zh-Hans", "zh-Hant", "ja", "ko", "es", "fr", "de", "pt-BR"]
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          }
+        },
         "aliases": {
           "type": "array",
           "uniqueItems": true,

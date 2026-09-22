@@ -32,7 +32,7 @@ function baseRequest(): Record<string, unknown> {
   return {
     schema_version: "1.0",
     request_id: "84e0f63f-e594-42b5-9c41-c68001538861",
-    locale: "zh-CN",
+    locale: "zh-Hans",
     audio: {
       media_type: "audio/mp4",
       duration_millis: 1_200,

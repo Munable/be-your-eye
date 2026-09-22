@@ -6,7 +6,8 @@ cd "$ROOT"
 : "${ANDROID_HOME:?Set ANDROID_HOME to Android SDK with platform 36 and build-tools 36.0.0}"
 export PATH="$JAVA_HOME/bin:$PATH"
 node .github/scripts/check-repo-policy.mjs
-node --test .github/scripts/check-repo-policy.test.mjs tools/ci/community-policy.test.mjs
+node tools/ci/check-i18n.mjs
+node --test .github/scripts/check-repo-policy.test.mjs tools/ci/community-policy.test.mjs tools/ci/check-i18n.test.mjs
 npm ci --ignore-scripts --prefix model-tools/catalog-validator
 npm ci --ignore-scripts --prefix supabase/tests
 npm test --prefix model-tools/catalog-validator

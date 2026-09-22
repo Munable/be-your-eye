@@ -56,6 +56,7 @@ import app.beyoureyes.monitor.design.ProductIconBadge
 import app.beyoureyes.monitor.design.ProductPanel
 import app.beyoureyes.monitor.design.ProductPrimaryButton
 import app.beyoureyes.monitor.design.ProductTone
+import app.beyoureyes.monitor.feature.account.localizedWebUri
 import kotlinx.coroutines.launch
 
 internal object SubscriptionWallTags {
@@ -112,7 +113,7 @@ internal fun SubscriptionWallScreen(
                     background = ProductColors.CyanSoft,
                 )
                 Column(Modifier.padding(start = 14.dp)) {
-                    Text("Be Your Eye", style = MaterialTheme.typography.headlineSmall)
+                    Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineSmall)
                     Text(
                         stringResource(R.string.subscription_tagline),
                         color = ProductColors.TextSecondary,
@@ -397,7 +398,8 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
 
 private fun Context.openUrl(url: String) {
     if (url.isBlank()) return
-    startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+    val uri = if (url.startsWith("https://beyoureye.com/")) localizedWebUri(this, url) else url.toUri()
+    startActivity(Intent(Intent.ACTION_VIEW, uri))
 }
 
 private const val SUBSCRIPTION_TERMS_URL = "https://beyoureye.com/terms/"

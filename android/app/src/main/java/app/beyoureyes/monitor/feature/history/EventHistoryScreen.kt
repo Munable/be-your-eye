@@ -48,6 +48,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -75,6 +76,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.Locale
 
 @Composable
 internal fun EventHistoryScreen(
@@ -595,11 +597,16 @@ private enum class LogFilter(val labelRes: Int) {
 private fun dayLabel(date: LocalDate, today: LocalDate): String = when (date) {
     today -> stringResource(R.string.date_today)
     today.minusDays(1) -> stringResource(R.string.date_yesterday)
-    else -> date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
+    else -> date.format(
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+            .withLocale(LocalConfiguration.current.locales[0] ?: Locale.getDefault()),
+    )
 }
 
+@Composable
 private fun formatEventTime(epochMillis: Long): String = DateTimeFormatter
-    .ofPattern("HH:mm")
+    .ofLocalizedTime(FormatStyle.SHORT)
+    .withLocale(LocalConfiguration.current.locales[0] ?: Locale.getDefault())
     .withZone(ZoneId.systemDefault())
     .format(Instant.ofEpochMilli(epochMillis))
 

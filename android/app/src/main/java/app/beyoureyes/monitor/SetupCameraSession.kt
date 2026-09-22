@@ -236,6 +236,7 @@ internal class SetupCameraSession(
     private val lifecycleOwner: LifecycleOwner,
     private val resolvedSamplingConfig: ResolvedSamplingConfig?,
 ) : AutoCloseable {
+    private val localizedContext = ContextCompat.getContextForLanguage(context)
     private val analyzerExecutor: ExecutorService = Executors.newSingleThreadExecutor()
     private val mainExecutor = ContextCompat.getMainExecutor(context)
     private val mainHandler = Handler(Looper.getMainLooper())
@@ -318,7 +319,7 @@ internal class SetupCameraSession(
         }.getOrNull()
         if (setupThermalMode == RuntimeThermalMode.PAUSED) {
             mutableStatus.value = SetupCameraStatus.Error(
-                context.getString(R.string.camera_thermal_paused),
+                localizedContext.getString(R.string.camera_thermal_paused),
             )
         }
     }
@@ -339,7 +340,7 @@ internal class SetupCameraSession(
         }
         if (setupThermalMode == RuntimeThermalMode.PAUSED) {
             mutableStatus.value = SetupCameraStatus.Error(
-                context.getString(R.string.camera_thermal_paused),
+                localizedContext.getString(R.string.camera_thermal_paused),
             )
             return
         }
@@ -357,7 +358,7 @@ internal class SetupCameraSession(
         val view = attachedView
         if (view == null) {
             mutableStatus.value = SetupCameraStatus.Error(
-                context.getString(R.string.camera_view_not_established),
+                localizedContext.getString(R.string.camera_view_not_established),
             )
         } else {
             attach(view)
@@ -681,12 +682,12 @@ internal class SetupCameraSession(
     ): MonitoringStartResult = withContext(Dispatchers.Main.immediate) {
         if (handedOff) {
             return@withContext MonitoringStartResult.Rejected(
-                context.getString(R.string.camera_handoff_in_progress),
+                localizedContext.getString(R.string.camera_handoff_in_progress),
             )
         }
         if (setupThermalMode == RuntimeThermalMode.PAUSED) {
             return@withContext MonitoringStartResult.Rejected(
-                context.getString(R.string.camera_thermal_paused),
+                localizedContext.getString(R.string.camera_thermal_paused),
             )
         }
         val readyStatus = if (status.value is SetupCameraStatus.Ready && viewPortSpec != null) {
@@ -699,7 +700,7 @@ internal class SetupCameraSession(
         val spec = viewPortSpec
         if (readyStatus !is SetupCameraStatus.Ready || spec == null) {
             val result = MonitoringStartResult.Rejected(
-                context.getString(R.string.camera_not_ready_to_start),
+                localizedContext.getString(R.string.camera_not_ready_to_start),
             )
             mutableStatus.value = SetupCameraStatus.Error(result.message)
             return@withContext result
@@ -711,7 +712,7 @@ internal class SetupCameraSession(
             )
         ) {
             return@withContext MonitoringStartResult.Rejected(
-                context.getString(R.string.camera_complete_field_check_first),
+                localizedContext.getString(R.string.camera_complete_field_check_first),
             )
         }
         if (readingPreviewRequired && !readingPreviewConfirmedFor(
@@ -720,7 +721,7 @@ internal class SetupCameraSession(
             )
         ) {
             return@withContext MonitoringStartResult.Rejected(
-                context.getString(R.string.camera_confirm_reading_first),
+                localizedContext.getString(R.string.camera_confirm_reading_first),
             )
         }
         val sampling = (resolvedSamplingOverride ?: resolvedSamplingConfig)?.takeIf {
@@ -728,7 +729,7 @@ internal class SetupCameraSession(
         }
         if (sampling == null) {
             val result = MonitoringStartResult.Rejected(
-                context.getString(R.string.camera_detection_not_ready),
+                localizedContext.getString(R.string.camera_detection_not_ready),
             )
             mutableStatus.value = SetupCameraStatus.Error(result.message)
             return@withContext result
@@ -763,7 +764,7 @@ internal class SetupCameraSession(
         }.exceptionOrNull()
         if (releaseFailure != null) {
             val rejected = MonitoringStartResult.Rejected(
-                context.getString(R.string.camera_detection_release_failed),
+                localizedContext.getString(R.string.camera_detection_release_failed),
             )
             restoreAfterRejectedStart(rejected.message)
             return@withContext rejected
@@ -772,7 +773,7 @@ internal class SetupCameraSession(
             onReleased(config)
         } catch (_: RuntimeException) {
             MonitoringStartResult.Rejected(
-                context.getString(R.string.camera_monitoring_start_failed_restored),
+                localizedContext.getString(R.string.camera_monitoring_start_failed_restored),
             )
         }
         if (result is MonitoringStartResult.Rejected) restoreAfterRejectedStart(result.message)
@@ -808,7 +809,7 @@ internal class SetupCameraSession(
                 invalidateSetupChecksForThermalPause()
                 releaseUseCases()
                 mutableStatus.value = SetupCameraStatus.Error(
-                    context.getString(R.string.camera_thermal_paused),
+                    localizedContext.getString(R.string.camera_thermal_paused),
                 )
             }
             previous == RuntimeThermalMode.PAUSED -> {
@@ -867,7 +868,7 @@ internal class SetupCameraSession(
     private fun bind(previewView: PreviewView, spec: ViewPortSpec) {
         if (setupThermalMode == RuntimeThermalMode.PAUSED) {
             mutableStatus.value = SetupCameraStatus.Error(
-                context.getString(R.string.camera_thermal_paused),
+                localizedContext.getString(R.string.camera_thermal_paused),
             )
             return
         }
@@ -976,7 +977,7 @@ internal class SetupCameraSession(
                 } catch (error: Throwable) {
                     releaseUseCases()
                     mutableStatus.value = SetupCameraStatus.Error(
-                        context.getString(R.string.camera_rear_open_failed),
+                        localizedContext.getString(R.string.camera_rear_open_failed),
                     )
                 }
             },

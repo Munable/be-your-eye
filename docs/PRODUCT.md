@@ -1,123 +1,134 @@
-# Be Your Eye 产品范围
+# Be Your Eye product scope
 
-Be Your Eye（中文展示名“帮你盯”）允许用户把监控意图快速配置成任务；开始监控后，把纵向后摄、持续供电的手机固定为本地视觉监控器，替用户等待目标出现。Production 英文品牌只有 `Be Your Eye`；连接版 Android `applicationId=app.beyoureyes.monitor` 与现有 package 名继续作为技术身份；Community 使用独立安装 ID。
+Be Your Eye helps a user turn a monitoring intention into a task. The user
+places a portrait rear-camera phone on continuous power and lets it wait for a
+target. The production English brand is **Be Your Eye**; **帮你盯** is the
+Chinese display name. `app.beyoureyes.monitor` remains the Android technical
+identity.
 
-## Community 本地工具与可选在线服务
+## Community and connected editions
 
-主版本为 Community：本地创建、模型下载、相机、运行、通知和记录无需账号或订阅。安装 ID 为 `app.beyoureyes.monitor.community`，开发包另加 `.debug`；既有连接版 ID 不变。首页保留参考图片、数字读数、文字描述可见目标三个手动入口。Community 不显示 AI、登录、购买、跨设备提醒或云同步入口，也不配置或激活云服务。三个入口共享既有配置与监控实现。
+Community is a local tool. It creates tasks, downloads signed models, runs the
+camera, sends local notifications and keeps local history without an account or
+subscription. It exposes three peer manual paths: reference images, numeric reading,
+and a text-described visual target/phenomenon. Community does not show
+login, purchase, AI assistant, voice, cross-device alerts or cloud sync.
 
-本地能力和官方在线资格分别判断，不伪造订阅租约。Community 不受登录失败、退出、云故障或付费资格到期影响；第一轮不向 Community 开放云账号，因此不存在本地资料自动同步、跨账号混用或删云账号删除本机资料的行为。连接版现有账号隔离与删除语义继续有效；将来给 Community 添加云功能时，必须单独实现云资格、限额和明确的数据保留选择。
+The connected edition retains its account and entitlement gate. When signed out
+or without `ProductAccessState.Granted`, a subscription wall blocks product
+capabilities while account management, restore, legal pages and read-only local
+history stay reachable. Google Play keeps the existing subscription channel.
+The website offers a one-time Stripe purchase for 30 days with no automatic
+renewal and one user-claimed three-day trial after email confirmation. Both
+channels share the root entitlement boundary.
 
-模型准备后可离线使用已验证的精确制品；目录新鲜度只决定能否安装新内容。签名、哈希、适配和真实第三方授权期限始终有效。原始相机帧不上传；首次识别文件下载需要联网并经确认。有效能力以当前签名 Community Catalog 为准，目录外目标明确无匹配。
+## Creation paths
 
-本轮优先验证非关键数字显示的真实任务与下次复用。参考图片和通用目标先保留为需现场测试的实验性能力，不承诺人物/宠物身份识别，不把工业、医疗、婴幼儿或老人安全监护作为用途。
+### Reference images
 
-## 保留的连接版：订阅边界、配置助手与三个直接入口
+The user imports 3–20 images of one target. The app rotates, scales and stores
+them privately; only decode failures and definite duplicates are rejected. Every
+visible image participates in the reference prototype. A complete configuration
+can start without a successful preflight. Optional testing recognition uses the
+same signed runtime and never creates an event or history row.
 
-以下仅适用于保留的 Play／website／Internal 连接版。首次打开、退出账号或没有有效权益时，App 进入不可关闭的订阅墙。用户仍可登录／注册、恢复购买、管理或取消订阅、删除账号、停用同账号设备、查看法律页面和只读本机历史；只有 `Granted` 才能进入首页、三种手动创建、相机、模型、AI、语音、同步和监控详情。同一时间只运行一个监控。首页在解锁后提供 DeepSeek 多轮配置助手和三个同级手动入口；助手用于把用户的监控意图问清楚并预填配置，不替代手动路线、Catalog 准入或最终用户确认。首页同时保留未完成的配置草稿卡片，用户离开创建流程后可从草稿继续，不静默丢弃已选素材。
+### Numeric reading
 
-待机首页将新建入口放在已保存的任务列表之前，用“照片指定目标／文字查找目标／数字设条件”解释三条路线的区别；启动成功后自动回到当前任务卡片，以进入箭头表示查看正在运行的任务。目标搜索时收起说明图并保留输入焦点，让匹配项在键盘上方可见。三条创建路线在启动前均可选择本机通知；拒绝通知权限仍可监控和保存记录，通知设置保持关闭。中文历史入口统一称“记录”；活动页返回按钮明确“回到首页，继续监控”。
+Without a manual region, every frame searches the full visible image for a
+readable number row and chooses the nearest candidate to the frame centre. More
+than one number does not block the path. The user may drag from the top-left to
+the bottom-right to define a strict region; the two handles resize it and a drag
+outside the region redraws it. A stable reading can become the baseline. If no
+stable value is available, the task may start as **baseline pending** and the
+first stable value later asks the user for confirmation before conditions become
+active. Missing frames, poor quality and inference errors are `unavailable`, not
+absence or a normal reading.
 
-### 核心使用需求
+### Text-described visual targets
 
-当前优先围绕固定机位、持续供电的个人与小型工作场景，验证三种需求：等待数字达到设定条件；等待指定物品出现或离开；离开现场后回来核对是否触发。这些是由现有能力提出的用户需求假设，尚未经真实用户访谈验证，同一用户可以同时有这些需求。
+The user describes what should be visible, for example “notify me when an apple
+appears”. Matching uses only the signed Catalog's exact target IDs, aliases,
+localized labels, capability and active package. No nearby class, generic model
+or unapproved package is a fallback. After the exact target and condition are
+selected, the task can start immediately. Optional testing recognition remains
+available from setup and details.
 
-体验验收分别关注：第一次使用能否选对入口并理解触发与通知条件；监控期间能否区分正在寻找、暂时无法判断和已停止；回来后能否从记录核对实际发生了什么。代理模拟视角用于发现待核验问题，不能替代真实用户验收。
+The DeepSeek assistant follows the same rules. It receives all three routes and the
+complete signed capability summary, asks only for material ambiguity, and uses
+the single `propose_monitor_configuration` tool to open a confirmation page.
+The tool has no create, save, start, download or notification side effect. It
+defaults an omitted duration to one second and accepts an explicit integer from
+one to 60 seconds. The user confirms through the original setup path.
 
-界面沿用深色与薄荷绿，以层次、留白和真实状态反馈表达科技感。动效只用于按压、非相机页面切换、消息出现和状态变化，短时完成并遵从系统动画设置；待机页不循环发光。相机取景范围与读数保持稳定，不用动画补间生成未识别的数字。助手示例仅预填文字，由用户编辑、发送。
+Text input and foreground hold-to-talk belong to the same conversation. Only a
+long press requests the microphone and records a bounded AAC file. The
+authenticated Qwen ASR function receives that file, returns text and deletes the
+cache immediately. Camera frames, reference images, trigger images and history
+never enter assistant or ASR requests. Community disables both routes.
 
-助手开场用自然需求举例，并按用户目标选择路线：数字变化走读数，特定外观走参考图片，泛类别走 Catalog 文字目标；不得把特定人物／宠物静默扩大为任意人／猫。只有会改变用户目标的歧义才追问。助手确认页的下一步说明与手动路线一致：文字目标可检查设置后直接开始，测试识别可选；数字暂时读不到可先保存，确认基准后条件才激活。文字目标页空白时显示最多三个可选择的实际目标，选中后才展示对应条件；没有匹配项时不显示相近目标作为替代。条件选中态使用统一青绿配色和勾选图标，较窄屏幕或大字体时选项可换行。
+## Testing and continuous monitoring
 
-输入时键盘不得遮挡表单。数字配置面板随键盘向上展开，相机仍保持原视口尺寸和选框位置；收起键盘后恢复正常取景与配置布局。
+Monitoring runs only while the app is visible. Moving to another app, the system
+desktop or the lock screen stops it and releases CameraX; returning does not
+restart it. Navigation inside the app and the visible black-screen option may
+continue monitoring. Black screen reduces display power only.
 
-创建流程的总原则：**配置完整即可创建并启动监控，不要求目标在场，不要求创建前识别成功一次。** 相机在创建流程中只出现两次：用户主动进入「测试识别」时，以及数字读数取基准值时。参考图片与文字描述的配置页用短步骤说明输入、固定后摄与前台运行边界；文字类别选中后解释“查找此类目标”，不配与当前目标不符的固定示例照片。首页三个模式入口保留各自的小示意图。
+Testing recognition and continuous monitoring share the exact signed model
+package, runtime, preprocessing, quality gate and typed `Observation`. Testing
+uses the signed minimum interval, gives immediate candidate feedback, requires
+at least two valid observations across 400 ms for a stable result, and treats
+`unavailable` as missing evidence. Severe thermal state slows processing within
+the signed bounds; critical state releases the camera and stops safely.
 
-### 识别文件的首次下载
+Continuous monitoring uses the task's persisted interval and thermal policy. A
+condition must remain true for its configured one-to-60-second duration. An
+appearance episode closes only after five continuous seconds without the target;
+one episode produces one event. The app keeps target-present and target-absent
+facts separate, does not turn uncertainty into absence, and keeps the same task
+when a baseline is later confirmed.
 
-首页说明识别在手机本地运行。进入数字取基准、参考图片／文字目标的测试识别或开始流程时，先核对签名 Catalog、精确模型和本机文件；需要下载才在当前流程显示用途、Catalog 中的模型名称、签名 Manifest 的文件总大小与联网提示。用户点击「下载并继续」之前不请求模型文件；不设置独立模型管理或准备页面。
+## Records, privacy and account boundaries
 
-下载期间显示实际已下载字节、总大小和百分比，完成后分别显示校验、加载再进入相机。返回会取消本次下载，保留可用于断点续传的数据；重试重新确认精确文件，不能把另一个模型的确认沿用过来。已安装且有效的同一模型由多个监控共用，不重复请求下载；相机设置显示文件已就绪，详情页显示已下载与模型名称。模型更新导致需要新文件时同样先说明大小并确认。下载和使用继续服从原有根级权益与签名有效期。
+The run page shows the current state, local record count and the latest record.
+Details and recent records are filtered by the exact monitor ID. A first trigger
+may save one private JPEG; media is never put in an Event payload, Supabase row,
+Storage object or FCM message. A same-account device may request a temporary
+end-to-end-encrypted copy through Realtime Broadcast, limited to 720 px and
+120 KiB; the viewer keeps it only in a private temporary cache.
 
-### DeepSeek 配置助手
+Ordinary camera frames and intermediate tensors stay in memory. Sign-out,
+account deletion or remote-event removal clears temporary media and leases.
+Diagnostics contain no target names, images, readings, raw recognition text,
+tokens or device serials. Provider purchase tokens are transient; only their
+hash and provider state may be persisted.
 
-- 助手理解完整对话并用简短自然语言回复；“出现就提醒”已经表达出现条件，未说确认时长时预填 1 秒，明确说 2 秒等整数时直接采用，最新修改覆盖旧值。目标、事件或数字阈值确实不清楚时才问一个具体问题并给示例，不机械追问路线、模型、秒数或通知方式。参考图片在下一页选择；参考匹配只比较外观，不能验证人物身份。
-- 信息完整后，助手唯一可调用的产品 tool 是 `propose_monitor_configuration`。它只打开一张可确认的预填配置页，不创建、不保存、不启动监控，也不能静默下载或选择 Catalog 之外的模型。
-- 配置页明确展示监控类型、目标、触发条件、触发持续秒数、精确模型和本机通知。助手路线把本机通知预填为开启，用户仍可在原设置流程中关闭；这里的“时间”只表示现有触发持续秒数，不包含排班、日期、日历或后台定时。
-- 参考图片方案在页面顶部明确提示仍需补齐至少 3 张参考图片；数字读数仍须取基准值（现场相机读到稳定值，或先创建待首次稳定读数时确认）；三条路线都可以在创建后随时用「测试识别」现场验证。
-- 文字和语音输入都进入同一段助手对话。点按输入框可打字；按住说话时才申请麦克风权限并录制最长 30 秒的 AAC/MPEG-4，松开后把一次性音频交给 Qwen ASR，转写成功即作为本轮用户消息发送给助手。缓存录音在转写后删除，不保存为对话或监控素材。
-- 连接版的监控、模型、助手、语音转写和同步要求登录并具有有效的 Be Your Eye Pro 权益。官网 Android 渠道通过 Stripe Checkout 一次性购买 30 天使用权，不自动续费；已确认邮箱的账号可主动领取一次 3 天试用。官网价格以服务器读取的 Stripe Price 与收银台为准。Google Play 渠道仍使用 `be_your_eye_pro` 自动续订，月付、年付价格及试用资格只显示 Play 当前返回的本地化信息。
+## Nine-locale user experience
 
-### 参考图片监控
+The shipped locales are `en`, `zh-Hans`, `zh-Hant`, `ja`, `ko`, `es`, `fr`, `de`
+and `pt-BR`. The default follows the system or browser language. A language
+picker is available from Community About and the connected Account surface even
+before sign-in or entitlement. The choice survives restart and sign-out, and
+Android 13 system app-language settings interoperate with Android 8+ fallback.
 
-- 用户导入 3–20 张同一目标的图片。应用统一转正、缩放并保存到 App 私有目录，只拒绝解码失败或确定重复的图片；页面上仍显示的每张图片都参与参考原型。
-- 页面只表达素材充分度，不显示虚构的成功率。素材充分后用户即可设置触发条件并创建监控；配置页提供可选的「测试识别」入口，目标正好在手边时可打开相机现场试跑，实时反馈命中情况；测试结果只作为信心提示，不产生记录，也不是创建门槛。
-- 完整配置在首次运行前显示“已就绪／开始监控”。取得持续监控的真实相机首帧后，任务才进入“曾运行”语义。
-- 参考目标需要在画面中足够大且外观可辨。目标过小或相似度不足时可以无法确认；这类结果显示暂时无法可靠判断，不承诺任意距离可识别，也不把不确定判断写成目标离开。
+Matching maps mainland China and Singapore to Simplified Chinese, Taiwan, Hong
+Kong and Macau to Traditional Chinese, Portuguese to Brazilian Portuguese, and
+unsupported languages to English. Dates, numbers, durations, file sizes and
+prices use the active locale. Stable protocol fields and provider-returned
+prices retain their literal meaning. User-entered text, saved names, source
+recognition text and conversation history are never translated automatically.
 
-### 数字读数监控
+Every Android string, accessibility label, notification, worker message, web
+template, legal/help page, account/checkout message, assistant response and
+Catalog display label follows the shared resource/dictionary contract. ViewModels
+and services carry message keys plus arguments; clients localize stable server
+error codes. `check-i18n` blocks missing keys, placeholder drift and hard-coded
+display copy.
 
-- 未手动画框时，每个处理帧都从完整可见画面寻找数字行；初次按数字行中心到取景画面中心的实际距离，由近到远尝试，选中最近的可读数字行。多个数字不阻塞自动读取。自动细角框只反馈当前锚点，不限制全画面定位，也不能点击选择；选定后保持同一位置，丢失时不跳到旁边的数字。设置页点“重新找数”可清除锚点与旧基准，再从中心向外选择。
-- 用户可以从一角直接拖到对角创建严格识别范围；左上角和右下角拖点调整范围，在框外空白处拖动可重画。想指定其他数字，或自动定位持续找不到完整读数时，可建议用户画框；画框不是读取或创建的前置条件。取景画面下方提示直接拖动，设置面板说明操作方式，避免重复提示遮挡数字。
-- 主路径：读到稳定有效值后，用户一键以当前值为基准，随后设置“高于／低于／超出范围”。读不到稳定值时允许先创建：任务进入“待确认基准”状态，监控照常运行但不产生条件事件，首次读到稳定值时推送一次本机确认，用户确认后条件才激活。
-- 待确认基准也是已保存的任务；启动失败后重试复用该任务，随后确认基准更新同一任务与运行配置，不重复创建。保存失败时保留配置和素材，不能按保存成功继续启动。
-- 详情页“去确认基准”会先暂停当前任务并释放监控相机，再进入已有的读数确认与条件配置页；保存后重新开始同一任务。
-- 基准配置保存成功或任务删除后，移除这条任务的本机基准确认提醒。
-- 漏掉小数点时可校正格式；编辑期间固定用户选中的稳定读数，短时画面不可用不丢弃输入。只允许补全小数点，不允许改数字或正负号；返回实时读数或重画范围后重新扫描。
-- 无帧、低质量、目标离开锚点或推理异常均为 `unavailable`，不产生事件，也不改认附近数字。
+## Product limits
 
-### 文字描述可见目标／现象
-
-- 用户用文字说明希望在相机画面中看到的目标或可见现象，例如“画面中出现苹果时通知我”。
-- App 只使用同一份签名 Catalog 中已可运行模型的结构化 target ID、别名／匹配模式、适用场景和限制来解析输入。Catalog 没有该目标时，页面说明当前模型列表没有匹配项，不得猜测、降级到相近类别或调用不匹配的通用包。
-- 选定精确目标与模型后，目标页显示该能力的示例识别示意图（App 内置素材），说明“它认得什么”并管理预期。选定目标、模型与触发条件后即可创建并启动监控；「测试识别」作为可选入口随时可进，不构成创建门槛。
-- 当运行时返回 `Observation.Detections` 时，设置预览和持续监控画面只绘制所选 `targetId` 的模型坐标框；只返回状态的参考图片匹配或现象模型不伪造定位框。
-- 文字目标和所有其他模型能力都服从统一产品权益。Catalog 的每个模型条目都必须可下载、可选择并可由现有 runtime 执行；尚未完成准入的模型不进入清单。
-
-## 测试识别与固定持续监控
-
-- 监控仅在 App 可见时运行。在 App 内回首页、查看记录可继续；切到其他 App、回系统桌面、锁屏或移除任务时停止监控并释放相机，回来后由用户重新开始。App 内“黑屏监控”保持 App 可见，只降低屏幕亮度／显示耗电，相机识别仍耗电；系统锁屏不属于黑屏监控。
-
-- 「测试识别」是可选的现场验证工具，从配置页和监控详情页随时可进。它与固定持续监控共享同一个签名模型包、runtime、发布方默认参数、画面质量门、预处理和 typed `Observation`；测试不降低参数、不绕过低质量或推理异常，也不创建另一套视觉能力。测试识别不产生事件和记录。
-- 测试识别使用签名 Manifest 允许的最小处理间隔，并只处理最新可用画面。系统进入 `SEVERE` 热状态时在签名范围内降低处理频率；`CRITICAL` 及以上立即释放 CameraX，并明确提示冷却后重试，恢复到 `MODERATE` 或更低后自动重开相机。第一个有效目标候选必须立即反馈；同一候选累计至少 400 ms 且包含至少两次有效观察后显示为“命中”；目标离开即撤销命中显示。`unavailable` 只暂停当前证据，不能解释为目标离开或正常结果。
-- 未命中且画面正常时，测试识别与持续监控画面都显示中性状态（“画面清晰，正在寻找目标”），不使用警告样式；只有无帧、低质量或推理异常才显示“画面暂不可用”的警告态。
-- 开始后进入固定机位持续监控：使用与精确任务、模型包和设备绑定的持久化处理间隔，并允许签名范围内的热策略调节。`CRITICAL` 及以上先报告热暂停 `unavailable`，再明确停止本次监控并释放 CameraX；冷却后由用户重新打开相机，不自动重启。触发条件必须连续满足配置的 1–60 整数秒（常用时长快捷项与自定义输入）；“出现”条件开启一次 episode 后以连续 5 秒未见关闭，同一次持续出现不重复产生事件。“持续可见”和“消失”条件各产生一次独立事实，恢复相反状态后才重新等待。
-- 防误配用提示而非阻塞：任务创建后长时间（如 24 小时）未命中目标时，App 给出一条温和的本机提示，建议用「测试识别」检查机位或素材；提示不影响监控继续运行。提示在监控运行期间周期性检查（已有任何 Event 即不再检查），每个任务最多发出一次。
-
-## 运行与记录
-
-- 三种监控复用保存、恢复、详情、停止和删除语义。返回首页不会停止活动监控；进程中断后明确显示已停止，不假装自动恢复。
-- 目标出现类监控的一次持续出现只形成一条记录；短暂模糊或 `unavailable` 不表示目标离开。首次触发最多保存一张本机 JPEG，停止时仍出现则记录“监控停止时结束”。
-- 数字条件每次进入命中状态只形成一条记录，恢复正常后才能再次触发。“待确认基准”状态不产生条件事件。
-- 默认运行页保留实时取景、当前状态、记录数与最近一次记录；回到首页、设置和停止集中在底部。用户可选择黑屏监控，点黑屏恢复取景。黑屏只改变显示，不改变本地识别生命周期。
-- 运行页的最近记录和详情页的“查看记录”进入当前监控的记录列表；页面明确显示监控名，返回原页面不停止监控。底部“记录”仍查看全部任务。详情页先展示记录条件，再展示识别准备提示、名称与通知设置；待确认基准在首屏明确说明条件记录尚未激活，保存的稳定读数明确标为最近一次读数。
-- 数字运行页提供按需打开的识别建议，说明固定机位、完整数字与小数点、多个数字时画框，以及停止后进入“测试识别”调整的方法。建议不改变模型阈值，也不将不确定读数当作有效结果。
-- 数字运行页显示本次识别结果的更新时间，表示结果发布到界面的时间，不声称是相机捕获时间。重启后取得本次结果前显示等待，不能把上次保存的读数当作当前读数；停止、任务或配置版本切换时清除旧运行结果。
-
-## 连接版账号、同步与共同隐私边界
-
-- 唯一商品 `be_your_eye_pro` 包含全部功能和同账号不限设备：`monthly-auto` 月付与 `annual-auto` 年付，年付默认选择；只有 Play 返回精确 P3D offer 时才展示一次性 3 天全功能试用，返订用户显示立即扣款。生产价格永不硬编码。
-- `ProductAccessState` 只有 `Granted` 可进入产品功能。trial、active、grace、取消但尚未到期继续可用；pending、paused、hold、expired、revoked 和 stale 均锁定。服务端按 Play 实际状态与到期日签发最长 72 小时且不越过到期日的账号绑定租约，客户端用 Android Keystore 加密缓存；离线租约只允许已缓存模型继续运行，AI、语音、新下载和同步仍要求联网。
-- 退出或删除账号立即清除租约并停止监控。到期后的任务与本机历史保留只读；删除账号不会自动取消 Google Play 订阅，账号页面必须在确认前明确提示用户到 Play 管理订阅。
-- 有效权益下自动启用同账号任务摘要与事件同步，其他手机提醒仍由用户选择。无权益时数据 RPC、Realtime、FCM 和同步 fail closed；设备列表、设备撤销、购买恢复、退出和账号删除继续开放。
-- 登录页支持发送一次性密码重置邮件。生产恢复链接只接受配置好的 HTTPS `/auth/callback` App Link，回到 App 后由用户设置新密码；失效、重复或非恢复链接均拒绝。
-- 普通相机帧和中间张量只在内存；参考图片和本机触发图只在 App 私有目录。Event、Supabase 数据库、Storage 和 FCM 不保存媒体。
-- 另一台同账号手机在线请求触发图时，来源端只发送一张不超过 720 px／120 KiB 的端侧加密临时副本；Supabase Realtime 只中继请求元数据和密文，不持久化媒体。
-- 助手只发送用户主动提交的文字、完成澄清所需的有限对话上下文和 Catalog 能力摘要给 Be Your Eye Edge，再由服务端调用 DeepSeek；语音转写只发送用户本次按住录制的 AAC 给 Qwen ASR。两条路线都不发送相机帧、参考图片、触发图或本地记录，服务凭据不得进入 App。
-
-## 当前产品边界
-
-- 安装最低 Android 8（API 26），Community 为 arm64，不需要 GMS。当前模型 Manifest 要求 8 GB RAM；低内存设备尚未验证，不能只改宣传就绕过兼容检查。连接版 FCM 需要 GMS。使用纵向后摄；手持只用于测试识别与数字读数取基准值，持续监控仍要求固定机位和持续供电。
-- 不开放人物身份识别、语音启停、排班／日历定时、第一方训练微调或后台永久运行。任何专业安全现象或工业缺陷只有在签名 Catalog 存在精确 active 模型时才会出现在可配置清单中。
-- 助手不能自由执行 App 功能；除无副作用的 `propose_monitor_configuration` 外，不提供其他 tool。模型提供方的成熟权重与默认参数作为能力输入，仓库不以长期重复调参或自建训练来替代模型准入。
-
-当前实现和验收状态只看 `evidence/current/01-foundation.json`～`05-release.json`。本文件不记录候选提交、Catalog/APK 哈希、一次性测试计数或阶段实验结果。
-
-## 官网付款与分发
-
-官网、App 共用 Supabase 账号。`website` APK 使用生产 package 和长期自持 app signing key，关闭 Play 购买入口；用户从权益墙进入官网 `/account/`，登录同一账号，领取试用或支付后返回 App 刷新权益。Play 包不展示官网购买导流。
-
-- 官网套餐为全功能 30 天使用权，一次性付款，不自动续费。重复购买从已有官网付费使用权结束时顺延 30 天；首次付费立即开始，试用剩余时间不叠加。
-- 试用由确认邮箱后的明确操作开始，只能领取一次，不需要银行卡。到期后功能锁定，购买可继续使用。
-- 前端跳转成功、付款截图或未付款 Checkout 不构成权益依据。服务端验证 Stripe 签名，并重新读取订单、价格、币种、金额和付款状态后才发放；重复通知不会重复延长。
-- 全额退款或支付争议撤销对应订单权益。部分退款不改变使用期限；争议关闭不会自动恢复已撤销订单，支持人员需核查处理。官网在线租约每 5 分钟刷新，离线最多保留 1 小时且不越过权益到期日。
-- 官网收款仍有独立的商户激活、支付方式开通、真实付款及退款验收门；网站下载不能跳过模型商业许可和真实设备可用性验收。
+The first release targets fixed-camera personal and small-workplace use. It does
+not promise identity recognition, medical, industrial, infant or elder safety
+monitoring. Community supports Android API 26+, arm64 and the signed device
+profile; the current model requirement is eight GB RAM and no GMS dependency.
+Evidence for physical devices, hosted services, payments and human acceptance
+is kept separate from builds, fixtures and emulator results.

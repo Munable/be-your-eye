@@ -3,17 +3,46 @@ package app.beyoureyes.core.domain
 import java.text.Normalizer
 import java.util.Locale
 
+val SUPPORTED_LOCALE_TAGS = setOf(
+    "en", "zh-Hans", "zh-Hant", "ja", "ko", "es", "fr", "de", "pt-BR",
+)
+
+/** Map a platform or browser locale to the stable nine-locale Catalog contract. */
+fun supportedLocaleForTag(languageTag: String): String {
+    val value = languageTag.replace('_', '-')
+    val lower = value.lowercase(Locale.ROOT)
+    return when {
+        lower.startsWith("zh") ->
+            if (Regex("(?:tw|hk|mo|hant)", RegexOption.IGNORE_CASE).containsMatchIn(value)) {
+                "zh-Hant"
+            } else {
+                "zh-Hans"
+            }
+        lower.startsWith("pt") -> "pt-BR"
+        else -> lower.substringBefore('-').takeIf { it in SUPPORTED_LOCALE_TAGS } ?: "en"
+    }
+}
+
 data class ObjectClassDefinition(
     val targetId: String,
     val labelZhCn: String,
     val labelEn: String,
     val aliases: Set<String>,
+    val labels: Map<String, String> = emptyMap(),
 ) {
     init {
         require(targetId.matches(Regex("^[a-z0-9][a-z0-9_.-]{0,63}\$")))
         require(labelZhCn.isNotBlank() && labelZhCn.length <= 40)
         require(labelEn.isNotBlank() && labelEn.length <= 40)
         require(aliases.all(String::isNotBlank))
+        require(labels.keys.all { it in SUPPORTED_LOCALE_TAGS })
+        require(labels.values.all { it.isNotBlank() && it.length <= 40 })
+    }
+
+    fun localizedLabel(languageTag: String): String {
+        val locale = supportedLocaleForTag(languageTag)
+        return labels[locale]
+            ?: if (locale == "zh-Hans" || locale == "zh-Hant") labelZhCn else labelEn
     }
 }
 
@@ -49,7 +78,7 @@ class ObjectClassCatalog(definitions: Collection<ObjectClassDefinition>) {
 
     private val aliases: List<AliasEntry> = buildList {
         this@ObjectClassCatalog.definitions.forEach { definition ->
-            (definition.aliases + definition.labelZhCn + definition.labelEn).forEach { alias ->
+            (definition.aliases + definition.labelZhCn + definition.labelEn + definition.labels.values).forEach { alias ->
                 val normalized = normalize(alias)
                 require(normalized.isNotEmpty()) { "object class alias must not be empty" }
                 add(AliasEntry(normalized, definition))

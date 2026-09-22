@@ -28,9 +28,10 @@ internal fun CommunityAboutScreen(onClose: () -> Unit, showBackButton: Boolean) 
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
         if (showBackButton) TextButton(onClick = onClose) { Text(stringResource(R.string.community_back)) }
-        Text("Be Your Eye · Community", style = MaterialTheme.typography.headlineSmall)
+        Text(stringResource(R.string.community_brand), style = MaterialTheme.typography.headlineSmall)
         Text(BuildConfig.VERSION_NAME)
         Text(stringResource(R.string.community_about))
+        LanguageSettingsCard()
         TextButton(onClick = { showNotices = !showNotices }) { Text(stringResource(R.string.community_notices)) }
         if (showNotices) Text(remember {
             context.resources.openRawResource(R.raw.third_party_licenses).bufferedReader().use { it.readText() }

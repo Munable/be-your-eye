@@ -71,6 +71,7 @@ internal class StoredTaskRuntimeResolver(private val filesDir: File) {
                 targetId = target.targetId,
                 labelZhCn = target.labelZhCn,
                 labelEn = target.labelEn,
+                labels = target.labels,
             )
             is MonitorTarget.NumericReading -> null
         }

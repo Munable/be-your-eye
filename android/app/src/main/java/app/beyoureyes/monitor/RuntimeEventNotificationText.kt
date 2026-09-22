@@ -1,6 +1,7 @@
 package app.beyoureyes.monitor
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import app.beyoureyes.core.domain.MonitoringSessionTransition
 import app.beyoureyes.core.domain.ObjectEventCondition
 import app.beyoureyes.core.domain.RestrictedEventPayload
@@ -10,7 +11,7 @@ import app.beyoureyes.core.domain.VisualEventCondition
 internal class AndroidRuntimeEventNotificationTextFormatter(
     context: Context,
 ) : RuntimeEventNotificationTextFormatter {
-    private val appContext = context.applicationContext
+    private val appContext = ContextCompat.getContextForLanguage(context)
 
     override fun format(displayName: String, payload: RestrictedEventPayload): String =
         when (payload) {

@@ -17,6 +17,9 @@ const MAX_TRANSCRIPT_CODE_POINTS = 500;
 const UUID =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const LOCALE = /^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{1,8})*$/;
+const SUPPORTED_LOCALES = new Set([
+  "en", "zh-Hans", "zh-Hant", "ja", "ko", "es", "fr", "de", "pt-BR",
+]);
 const BASE64 =
   /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
 const FORBIDDEN_TEXT_CONTROLS =
@@ -63,7 +66,7 @@ export function parseVoiceTranscriptionRequest(
   ]);
   if (root.schema_version !== VOICE_TRANSCRIPTION_SCHEMA_VERSION) invalid();
   const requestId = strictString(root.request_id, 36, UUID);
-  const locale = strictString(root.locale, 35, LOCALE);
+  const locale = normalizeLocale(strictString(root.locale, 35, LOCALE));
   const audio = exactRecord(root.audio, [
     "media_type",
     "duration_millis",
@@ -182,7 +185,14 @@ export class BailianAsrClient implements AsrModelClient {
 
 function localeLanguage(locale: string): string | undefined {
   const language = locale.split("-", 1)[0]?.toLowerCase();
-  return language === "zh" || language === "en" ? language : undefined;
+  return ["zh", "en", "ja", "ko", "es", "fr", "de", "pt"].includes(language)
+    ? language
+    : undefined;
+}
+
+function normalizeLocale(value: string): string {
+  if (!SUPPORTED_LOCALES.has(value)) throw new VoiceTranscriptionError("invalid_request");
+  return value;
 }
 
 function parseProviderTranscript(value: unknown): string {

@@ -119,7 +119,16 @@ private fun StringBuilder.appendTarget(task: RestoredMonitoringTask) {
             append("{\"mode\":\"object_detection\",\"target_id\":")
                 .appendJson(target.targetId)
             append(",\"label_zh_cn\":").appendJson(target.labelZhCn)
-            append(",\"label_en\":").appendJson(target.labelEn).append('}')
+            append(",\"label_en\":").appendJson(target.labelEn)
+            if (target.labels.isNotEmpty()) {
+                append(",\"labels\":{")
+                target.labels.toSortedMap().entries.forEachIndexed { index, (locale, label) ->
+                    if (index > 0) append(',')
+                    appendJson(locale).append(':').appendJson(label)
+                }
+                append('}')
+            }
+            append('}')
         }
         is TargetProfile.ReferenceImages -> {
             append("{\"mode\":\"reference_images\",\"target_id\":")

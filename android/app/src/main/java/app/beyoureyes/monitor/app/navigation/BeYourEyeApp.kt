@@ -17,7 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
@@ -36,6 +36,7 @@ import app.beyoureyes.monitor.RuntimeCameraConfig
 import app.beyoureyes.monitor.R
 import app.beyoureyes.monitor.activeMonitorId
 import app.beyoureyes.monitor.feature.account.AccountScreen
+import app.beyoureyes.monitor.feature.account.currentAppLanguageTag
 import app.beyoureyes.monitor.feature.assistant.AssistantProposalKind
 import app.beyoureyes.monitor.feature.assistant.AssistantProposalRecoveryScreen
 import app.beyoureyes.monitor.feature.assistant.AssistantProposalRecoveryState
@@ -334,6 +335,7 @@ internal fun BeYourEyeApp(
             }
         }
         composable(ASSISTANT) {
+            val context = androidx.compose.ui.platform.LocalContext.current
             val subscriptionState by container.subscription.state.collectAsState()
             val assistantAccessDecision = remember(accountState, subscriptionState) {
                 container.currentCloudAccessDecision()
@@ -346,6 +348,7 @@ internal fun BeYourEyeApp(
                     accessDecision = {
                         container.currentCloudAccessDecision()
                     },
+                    languageTag = { currentAppLanguageTag(context) },
                 )
             })
             AssistantScreen(
@@ -495,6 +498,7 @@ internal fun BeYourEyeApp(
             )
         }
         composable(OBJECT_DETECTION) { entry ->
+            val languageTag = currentAppLanguageTag(LocalContext.current)
             val assistantRecovery: AssistantProposalRecoveryViewModel = viewModel(
                 key = "assistant-proposal-recovery",
                 viewModelStoreOwner = entry,
@@ -528,6 +532,7 @@ internal fun BeYourEyeApp(
                     catalogProvider = objectTargetCatalogProvider,
                     initialTargetId = assistantProposal?.targetId,
                     initialTargetQuery = assistantProposal?.displayText,
+                    languageTag = languageTag,
                     initialModelBinding = assistantProposal?.let {
                         ObjectDetectionModelBinding(
                             modelProfileKey = it.modelProfileKey,
@@ -893,6 +898,7 @@ private fun ObjectDetectionSetupContent(
     onMissingTarget: () -> Unit,
     content: @Composable (ObjectDetectionSetupViewModel, ObjectDetectionCreationViewModel) -> Unit,
 ) {
+    val languageTag = currentAppLanguageTag(LocalContext.current)
     val assistantRecovery: AssistantProposalRecoveryViewModel = viewModel(
         key = "assistant-proposal-recovery",
         viewModelStoreOwner = creationEntry,
@@ -928,6 +934,7 @@ private fun ObjectDetectionSetupContent(
                 catalogProvider = objectTargetCatalogProvider,
                 initialTargetId = assistantProposal?.targetId,
                 initialTargetQuery = assistantProposal?.displayText,
+                languageTag = languageTag,
                 initialModelBinding = assistantProposal?.let {
                     ObjectDetectionModelBinding(
                         modelProfileKey = it.modelProfileKey,
@@ -944,11 +951,7 @@ private fun ObjectDetectionSetupContent(
         LaunchedEffect(Unit) { onMissingTarget() }
         return
     }
-    val targetLabel = if (LocalConfiguration.current.locales[0].language == "zh") {
-        target.labelZhCn
-    } else {
-        target.labelEn
-    }
+    val targetLabel = target.localizedLabel(currentAppLanguageTag(LocalContext.current))
     val defaultObjectMonitorName = stringResource(
         R.string.default_object_monitor_name,
         targetLabel,
@@ -957,6 +960,7 @@ private fun ObjectDetectionSetupContent(
         targetId = target.targetId,
         labelZhCn = target.labelZhCn,
         labelEn = target.labelEn,
+        labels = target.labels,
     )
     val vm: ObjectDetectionSetupViewModel = viewModel(
         viewModelStoreOwner = ownerEntry,

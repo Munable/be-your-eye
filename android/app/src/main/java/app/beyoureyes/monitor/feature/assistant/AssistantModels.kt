@@ -3,6 +3,8 @@ package app.beyoureyes.monitor.feature.assistant
 import app.beyoureyes.core.domain.ALLOWED_TRIGGER_DURATIONS_SECONDS
 import app.beyoureyes.core.domain.ObjectClassCatalog
 import app.beyoureyes.core.domain.ObjectClassDefinition
+import app.beyoureyes.core.domain.SUPPORTED_LOCALE_TAGS
+import app.beyoureyes.core.domain.supportedLocaleForTag
 import java.math.BigDecimal
 
 internal const val ASSISTANT_SCHEMA_VERSION = "3.0"
@@ -56,6 +58,7 @@ internal data class AssistantTargetDescriptor(
     val labelZhCn: String,
     val labelEn: String,
     val aliases: List<String>,
+    val labels: Map<String, String> = emptyMap(),
 ) {
     init {
         require(TARGET_ID.matches(targetId))
@@ -63,6 +66,14 @@ internal data class AssistantTargetDescriptor(
         requireStrictText(labelEn, 40, "labelEn")
         require(aliases.size <= 8 && aliases.distinct().size == aliases.size)
         aliases.forEach { requireStrictText(it, 40, "alias") }
+        require(labels.keys.all { it in SUPPORTED_LOCALE_TAGS })
+        require(labels.values.all { it.isNotBlank() && it.length <= 40 })
+    }
+
+    fun localizedLabel(languageTag: String): String {
+        val locale = supportedLocaleForTag(languageTag)
+        return labels[locale]
+            ?: if (locale == "zh-Hans" || locale == "zh-Hant") labelZhCn else labelEn
     }
 }
 
@@ -146,6 +157,7 @@ internal fun AssistantCatalogSnapshot.objectClassDefinitions(): List<ObjectClass
                 labelZhCn = definition.labelZhCn,
                 labelEn = definition.labelEn,
                 aliases = definition.aliases.toSet(),
+                labels = definition.labels,
             )
         }
         .sortedBy(ObjectClassDefinition::targetId)
@@ -356,7 +368,7 @@ internal fun validateProposalAgainstCatalog(
                 ?: return false
             proposal.targetId in catalog.currentExactObjectTargetIds &&
                 proposal.displayText in
-                (descriptor.aliases + descriptor.labelZhCn + descriptor.labelEn)
+                (descriptor.aliases + descriptor.labelZhCn + descriptor.labelEn + descriptor.labels.values)
         }
     }
 }

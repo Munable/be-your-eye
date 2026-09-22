@@ -6,6 +6,7 @@ import app.beyoureyes.core.domain.ConfirmedReadingFormat
 import app.beyoureyes.core.domain.ALLOWED_TRIGGER_DURATIONS_SECONDS
 import app.beyoureyes.core.domain.DEFAULT_TRIGGER_DURATION_SECONDS
 import java.math.BigDecimal
+import java.util.Locale
 
 internal enum class ReadingConditionMode {
     ABOVE,
@@ -50,6 +51,7 @@ internal fun readingConditionDraft(
     persistedRule: MonitorRule.ReadingThreshold,
     confirmedBaseline: String? = null,
     confirmedFormat: ConfirmedReadingFormat? = null,
+    locale: Locale = Locale.ROOT,
 ): ReadingConditionDraft {
     if (!persistedRule.configured) {
         return ReadingConditionDraft(
@@ -67,15 +69,15 @@ internal fun readingConditionDraft(
                 ReadingComparison.LTE,
                 -> ReadingConditionMode.BELOW
             },
-            threshold = confirmedFormat?.displayThreshold(persistedRule.thresholdDecimal)
+            threshold = confirmedFormat?.displayThreshold(persistedRule.thresholdDecimal, locale)
                 ?: persistedRule.thresholdDecimal,
             durationSeconds = persistedRule.durationSeconds,
         )
         is MonitorRule.ReadingThreshold.Outside -> ReadingConditionDraft(
             mode = ReadingConditionMode.OUTSIDE,
-            lowerThreshold = confirmedFormat?.displayThreshold(persistedRule.lowerThresholdDecimal)
+            lowerThreshold = confirmedFormat?.displayThreshold(persistedRule.lowerThresholdDecimal, locale)
                 ?: persistedRule.lowerThresholdDecimal,
-            upperThreshold = confirmedFormat?.displayThreshold(persistedRule.upperThresholdDecimal)
+            upperThreshold = confirmedFormat?.displayThreshold(persistedRule.upperThresholdDecimal, locale)
                 ?: persistedRule.upperThresholdDecimal,
             durationSeconds = persistedRule.durationSeconds,
         )
@@ -87,10 +89,12 @@ internal fun readingConditionSubmission(
     persistedRule: MonitorRule.ReadingThreshold,
     draft: ReadingConditionDraft,
     confirmedReadingFormat: ConfirmedReadingFormat,
+    locale: Locale = Locale.ROOT,
 ): ReadingConditionSubmission? {
     if (persistedRule.configured && draft == readingConditionDraft(
             persistedRule,
             confirmedFormat = confirmedReadingFormat,
+            locale = locale,
         )
     ) {
         return ReadingConditionSubmission(persistedRule, requiresPersistence = false)
@@ -102,6 +106,7 @@ internal fun readingConditionSubmission(
         upperThreshold = draft.upperThreshold,
         confirmedFormat = confirmedReadingFormat,
         durationSeconds = draft.durationSeconds,
+        locale = locale,
     ) ?: return null
     return ReadingConditionSubmission(
         rule = candidate,
@@ -116,11 +121,12 @@ internal fun validateReadingCondition(
     upperInput: String,
     confirmedFormat: ConfirmedReadingFormat,
     durationSeconds: Int = DEFAULT_TRIGGER_DURATION_SECONDS,
+    locale: Locale = Locale.ROOT,
 ): ReadingConditionValidation = when (mode) {
     ReadingConditionMode.ABOVE,
     ReadingConditionMode.BELOW,
     -> {
-        val canonical = confirmedFormat.parseThreshold(thresholdInput)?.valueDecimal
+        val canonical = confirmedFormat.parseThreshold(thresholdInput, locale)?.valueDecimal
             ?: return ReadingConditionValidation.Invalid(ReadingConditionInvalidReason.VALUE_FORMAT)
         ReadingConditionValidation.Valid(
             MonitorRule.ReadingThreshold.Single(
@@ -136,9 +142,9 @@ internal fun validateReadingCondition(
         )
     }
     ReadingConditionMode.OUTSIDE -> {
-        val lower = confirmedFormat.parseThreshold(lowerInput)?.valueDecimal
+        val lower = confirmedFormat.parseThreshold(lowerInput, locale)?.valueDecimal
             ?: return ReadingConditionValidation.Invalid(ReadingConditionInvalidReason.LOWER_FORMAT)
-        val upper = confirmedFormat.parseThreshold(upperInput)?.valueDecimal
+        val upper = confirmedFormat.parseThreshold(upperInput, locale)?.valueDecimal
             ?: return ReadingConditionValidation.Invalid(ReadingConditionInvalidReason.UPPER_FORMAT)
         if (BigDecimal(lower) >= BigDecimal(upper)) {
             ReadingConditionValidation.Invalid(ReadingConditionInvalidReason.ORDER)
@@ -162,6 +168,7 @@ internal fun readingRuleFromInputs(
     upperThreshold: String,
     confirmedFormat: ConfirmedReadingFormat,
     durationSeconds: Int = DEFAULT_TRIGGER_DURATION_SECONDS,
+    locale: Locale = Locale.ROOT,
 ): MonitorRule.ReadingThreshold? = (
     validateReadingCondition(
         mode,
@@ -170,6 +177,7 @@ internal fun readingRuleFromInputs(
         upperThreshold,
         confirmedFormat,
         durationSeconds,
+        locale,
     )
         as? ReadingConditionValidation.Valid
     )?.rule

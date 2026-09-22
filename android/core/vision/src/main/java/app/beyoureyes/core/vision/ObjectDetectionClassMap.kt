@@ -16,7 +16,7 @@ object ObjectDetectionClassMap {
 
             val aliases = mutableMapOf<String, String>()
             spec.targets.forEach { target ->
-                (target.aliases + target.labelZhCn + target.labelEn).forEach { alias ->
+                (target.aliases + target.labelZhCn + target.labelEn + target.labels.values).forEach { alias ->
                     val normalized = Normalizer.normalize(alias, Normalizer.Form.NFKC)
                         .trim()
                         .replace(Regex("\\s+"), " ")

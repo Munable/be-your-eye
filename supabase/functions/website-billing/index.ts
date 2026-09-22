@@ -20,6 +20,13 @@ const json = (body: unknown, status = 200) =>
   Response.json(body, { status, headers: cors });
 const UUID =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const LOCALES = new Set([
+  "en", "zh-Hans", "zh-Hant", "ja", "ko", "es", "fr", "de", "pt-BR",
+]);
+
+function requestLocale(value: unknown): string {
+  return typeof value === "string" && LOCALES.has(value) ? value : "en";
+}
 
 Deno.serve(async (request) => {
   if (
@@ -44,6 +51,17 @@ Deno.serve(async (request) => {
       return json({ error: "invalid_request" }, 400);
     }
     const billingEnabled = Deno.env.get("WEBSITE_BILLING_ENABLED") === "true";
+    if (body.action === "set_locale") {
+      const locale = requestLocale(body.locale);
+      const { error } = await admin.auth.admin.updateUserById(user.id, {
+        user_metadata: {
+          ...(user.user_metadata ?? {}),
+          preferred_locale: locale,
+        },
+      });
+      if (error) throw error;
+      return json({ ok: true, locale });
+    }
     if (body.action === "status") {
       const { data, error } = await admin.rpc(
         "beyoureyes_product_entitlement",
@@ -99,6 +117,7 @@ Deno.serve(async (request) => {
       body.action !== "checkout" || typeof body.request_id !== "string" ||
       !UUID.test(body.request_id)
     ) return json({ error: "invalid_request" }, 400);
+    const locale = requestLocale(body.locale);
     const price = await configuredPrice(client);
     const { data: order, error } = await admin.rpc(
       "beyoureyes_reserve_website_order",
@@ -108,6 +127,7 @@ Deno.serve(async (request) => {
         p_price_id: price.id,
         p_amount: price.unit_amount,
         p_currency: price.currency,
+        p_locale: locale,
       },
     );
     if (error) {
@@ -122,6 +142,7 @@ Deno.serve(async (request) => {
     ) return json({ error: "new_checkout_required" }, 409);
     const session = await client.checkout.sessions.create({
       mode: "payment",
+      locale: stripeLocale(order.locale),
       line_items: [{ price: order.price_id, quantity: 1 }],
       client_reference_id: order.id,
       metadata: { product: PRODUCT, order_id: order.id },
@@ -136,7 +157,7 @@ Deno.serve(async (request) => {
       custom_text: {
         submit: {
           message:
-            "30 days of Be Your Eye Pro. One-time payment; no automatic renewal.",
+            checkoutCopy(order.locale),
         },
       },
     }, { idempotencyKey: `website-order-${order.id}` });
@@ -152,3 +173,24 @@ Deno.serve(async (request) => {
     return json({ error: "billing_unavailable" }, 503);
   }
 });
+
+function stripeLocale(locale: string): string {
+  return ({
+    "zh-Hans": "zh",
+    "zh-Hant": "zh-TW",
+    "pt-BR": "pt-BR",
+  } as Record<string, string>)[locale] ?? locale;
+}
+
+function checkoutCopy(locale: string): string {
+  return ({
+    "zh-Hans": "30 天 Be Your Eye Pro 使用权。一次付款，不自动续费。",
+    "zh-Hant": "30 天 Be Your Eye Pro 使用權。一次付款，不自動續費。",
+    ja: "Be Your Eye Pro 30日間利用権。一回払いで、自動更新はありません。",
+    ko: "Be Your Eye Pro 30일 이용 권한입니다. 일회성 결제이며 자동 갱신되지 않습니다.",
+    es: "Acceso a Be Your Eye Pro durante 30 días. Pago único; no se renueva automáticamente.",
+    fr: "Accès à Be Your Eye Pro pendant 30 jours. Paiement unique, sans renouvellement automatique.",
+    de: "30 Tage Be Your Eye Pro. Einmalzahlung; keine automatische Verlängerung.",
+    "pt-BR": "Acesso ao Be Your Eye Pro por 30 dias. Pagamento único; sem renovação automática.",
+  } as Record<string, string>)[locale] ?? "30 days of Be Your Eye Pro. One-time payment; no automatic renewal.";
+}

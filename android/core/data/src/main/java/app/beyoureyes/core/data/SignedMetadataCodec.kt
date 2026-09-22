@@ -990,10 +990,9 @@ object SignedMetadataCodec {
             val targets = map.get("targets")?.asJsonArray?.mapIndexed { index, raw ->
                 val targetPath = "$path.class_map.targets[$index]"
                 val target = raw.asStrictObject(targetPath)
-                target.requireExactKeys(
-                    setOf("raw_class_id", "target_id", "label_zh_cn", "label_en", "aliases"),
-                    targetPath,
-                )
+                val targetKeys = setOf("raw_class_id", "target_id", "label_zh_cn", "label_en", "aliases") +
+                    if (target.has("labels")) setOf("labels") else emptySet()
+                target.requireExactKeys(targetKeys, targetPath)
                 val aliases = target.requireArray("aliases", targetPath)
                     .mapIndexed { aliasIndex, alias ->
                         if (!alias.isJsonPrimitive || !alias.asJsonPrimitive.isString) {
@@ -1008,6 +1007,12 @@ object SignedMetadataCodec {
                     labelZhCn = target.requireString("label_zh_cn", targetPath),
                     labelEn = target.requireString("label_en", targetPath),
                     aliases = aliases,
+                    labels = target.get("labels")?.asStrictObject("$targetPath.labels")?.entrySet()
+                        ?.associate { (language, label) ->
+                            require(language.matches(Regex("^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{1,8})*$")))
+                            require(label.isJsonPrimitive && label.asJsonPrimitive.isString)
+                            language to label.asString
+                        }.orEmpty(),
                 )
             } ?: emptyList()
             ClassMapSpec(

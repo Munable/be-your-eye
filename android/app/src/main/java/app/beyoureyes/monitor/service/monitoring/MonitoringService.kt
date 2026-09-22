@@ -108,12 +108,16 @@ class MonitoringService : LifecycleService() {
     private val heartbeatStore by lazy { MonitoringHeartbeatStore(filesDir) }
     private var lastHeartbeatElapsedMillis = Long.MIN_VALUE
 
+    /** Resolve every background status message against the current app locale. */
+    private fun localizedString(id: Int, vararg args: Any): String =
+        ContextCompat.getContextForLanguage(this).getString(id, *args)
+
     private val frameWatchdog = Runnable {
         failAndStop(
             if (receivedFirstFrame) {
-                getString(R.string.service_camera_stalled)
+                localizedString(R.string.service_camera_stalled)
             } else {
-                getString(R.string.service_camera_no_first_frame)
+                localizedString(R.string.service_camera_no_first_frame)
             },
         )
     }
@@ -121,7 +125,7 @@ class MonitoringService : LifecycleService() {
         override fun run() {
             if (activeCameraConfig == null || stopFinalizationPending) return
             if (appContainer.currentAccessDecision() != app.beyoureyes.monitor.feature.subscription.ProductAccessDecision.GRANTED) {
-                failAndStop(getString(R.string.service_access_expired))
+                failAndStop(localizedString(R.string.service_access_expired))
                 return
             }
             mainHandler.postDelayed(this, PRODUCT_ACCESS_CHECK_INTERVAL_MILLIS)
@@ -167,18 +171,18 @@ class MonitoringService : LifecycleService() {
             foregroundStarted = true
         } catch (error: RuntimeException) {
             logFailure("foreground_start_failed", error)
-            failAndStop(getString(R.string.service_fgs_rejected))
+            failAndStop(localizedString(R.string.service_fgs_rejected))
             return
         }
 
         if (config == null) {
-            failAndStop(getString(R.string.service_invalid_camera_config))
+            failAndStop(localizedString(R.string.service_invalid_camera_config))
             return
         }
         if (appContainer.currentAccessDecision() != app.beyoureyes.monitor.feature.subscription.ProductAccessDecision.GRANTED) {
             MonitoringRuntimeState.update(
                 MonitoringPhase.STOPPED,
-                getString(R.string.service_access_required),
+                localizedString(R.string.service_access_required),
                 MonitoringHealth.FATAL,
                 monitorId = config.taskId,
             )
@@ -189,7 +193,7 @@ class MonitoringService : LifecycleService() {
         activeCameraConfig = config
         MonitoringRuntimeState.setManualReadingScanRegion(config.manualReadingScanRegion)
         if (!heartbeatStore.begin(config.taskId, System.currentTimeMillis())) {
-            failAndStop(getString(R.string.service_state_save_failed))
+            failAndStop(localizedString(R.string.service_state_save_failed))
             return
         }
         lastHeartbeatElapsedMillis = SystemClock.elapsedRealtime()
@@ -197,7 +201,7 @@ class MonitoringService : LifecycleService() {
         mainHandler.postDelayed(productAccessWatchdog, PRODUCT_ACCESS_CHECK_INTERVAL_MILLIS)
         MonitoringRuntimeState.update(
             MonitoringPhase.STARTING,
-            getString(R.string.service_waiting_first_frame),
+            localizedString(R.string.service_waiting_first_frame),
             monitorId = config.taskId,
             initialBlackScreenPending = config.startWithBlackScreen,
             monitorRevision = config.taskRevision,
@@ -206,12 +210,12 @@ class MonitoringService : LifecycleService() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) !=
             PackageManager.PERMISSION_GRANTED
         ) {
-            failAndStop(getString(R.string.service_camera_permission_unavailable))
+            failAndStop(localizedString(R.string.service_camera_permission_unavailable))
             return
         }
 
         runtimeInitializationPending = true
-        MonitoringRuntimeState.update(MonitoringPhase.STARTING, getString(R.string.service_restoring_monitor))
+        MonitoringRuntimeState.update(MonitoringPhase.STARTING, localizedString(R.string.service_restoring_monitor))
         armFrameWatchdog()
         analysisExecutor.execute {
             val initialized = runCatching { MonitoringSession.open(this, config, sourceSequence) }
@@ -285,7 +289,7 @@ class MonitoringService : LifecycleService() {
                             if (!recordHeartbeatIfDue()) {
                                 mainHandler.post {
                                     if (generation == startGeneration) {
-                                        failAndStop(getString(R.string.service_state_save_failed))
+                                        failAndStop(localizedString(R.string.service_state_save_failed))
                                     }
                                 }
                                 return@setAnalyzer
@@ -433,7 +437,7 @@ class MonitoringService : LifecycleService() {
                     cameraProviderFuture = null
                 } catch (error: Exception) {
                     logFailure("camera_bind_failed", error)
-                    failAndStop(getString(R.string.service_camera_bind_failed))
+                    failAndStop(localizedString(R.string.service_camera_bind_failed))
                 }
             },
             ContextCompat.getMainExecutor(this),
@@ -447,31 +451,31 @@ class MonitoringService : LifecycleService() {
         MonitoringRuntimeInitializationError.TASK_NOT_FOUND,
         MonitoringRuntimeInitializationError.TASK_REVISION_CHANGED,
         MonitoringRuntimeInitializationError.TASK_INVALID,
-        -> getString(R.string.service_setup_changed)
+        -> localizedString(R.string.service_setup_changed)
         MonitoringRuntimeInitializationError.TASK_PACKAGE_UNBOUND ->
-            getString(R.string.service_detection_not_ready)
+            localizedString(R.string.service_detection_not_ready)
         MonitoringRuntimeInitializationError.SAMPLING_CONFIG_INVALID ->
-            getString(R.string.service_detection_config_changed)
+            localizedString(R.string.service_detection_config_changed)
         MonitoringRuntimeInitializationError.PACKAGE_UNAVAILABLE ->
-            getString(R.string.service_device_unsupported)
+            localizedString(R.string.service_device_unsupported)
         MonitoringRuntimeInitializationError.MANIFEST_INVALID,
         MonitoringRuntimeInitializationError.BUILD_CHANNEL_INVALID,
-        -> getString(R.string.service_security_check_failed)
+        -> localizedString(R.string.service_security_check_failed)
         MonitoringRuntimeInitializationError.RULE_FAMILY_MISMATCH,
         MonitoringRuntimeInitializationError.RUNTIME_INCOMPATIBLE,
-        -> getString(R.string.service_condition_unsupported)
-        null -> getString(R.string.service_initialization_failed)
+        -> localizedString(R.string.service_condition_unsupported)
+        null -> localizedString(R.string.service_initialization_failed)
     }
 
 
     private fun onRuntimeProcessingFailure(generation: Long) {
         if (generation != startGeneration) return
-        failAndStop(getString(R.string.service_processing_failed))
+        failAndStop(localizedString(R.string.service_processing_failed))
     }
 
     private fun onCriticalThermalStop(generation: Long) {
         if (generation != startGeneration) return
-        failAndStop(getString(R.string.service_thermal_stop))
+        failAndStop(localizedString(R.string.service_thermal_stop))
     }
 
     private fun ImageProxy.copyToSourceFrame(
@@ -534,7 +538,7 @@ class MonitoringService : LifecycleService() {
             )
             MonitoringRuntimeState.update(
                 MonitoringPhase.RUNNING,
-                getString(R.string.service_camera_connected_waiting),
+                localizedString(R.string.service_camera_connected_waiting),
                 MonitoringHealth.WARMING,
             )
             try {
@@ -545,7 +549,7 @@ class MonitoringService : LifecycleService() {
                 )
             } catch (error: SecurityException) {
                 logFailure("foreground_notification_update_failed", error)
-                failAndStop(getString(R.string.service_notification_permission_unavailable))
+                failAndStop(localizedString(R.string.service_notification_permission_unavailable))
                 return
             }
         }
@@ -603,26 +607,26 @@ class MonitoringService : LifecycleService() {
         ) {
             MonitoringRuntimeState.update(
                 MonitoringPhase.RUNNING,
-                getString(R.string.service_thermal_throttled),
+                localizedString(R.string.service_thermal_throttled),
                 MonitoringHealth.THERMALLY_LIMITED,
             )
         } else if (unavailable == null) {
             MonitoringRuntimeState.update(
                 MonitoringPhase.RUNNING,
-                getString(R.string.service_observing),
+                localizedString(R.string.service_observing),
                 MonitoringHealth.OBSERVING,
             )
         } else {
             val message = when (unavailable.reason) {
                 app.beyoureyes.core.domain.UnavailableReason.NO_FRAME ->
-                    getString(R.string.service_no_frame)
+                    localizedString(R.string.service_no_frame)
                 app.beyoureyes.core.domain.UnavailableReason.LOW_QUALITY ->
-                    getString(R.string.service_low_quality)
+                    localizedString(R.string.service_low_quality)
                 app.beyoureyes.core.domain.UnavailableReason.INFERENCE_ERROR,
                 app.beyoureyes.core.domain.UnavailableReason.INCOMPATIBLE_OUTPUT,
-                -> getString(R.string.service_inference_unavailable)
+                -> localizedString(R.string.service_inference_unavailable)
                 app.beyoureyes.core.domain.UnavailableReason.THERMAL_PAUSE ->
-                    getString(R.string.service_thermal_paused)
+                    localizedString(R.string.service_thermal_paused)
             }
             MonitoringRuntimeState.update(
                 MonitoringPhase.RUNNING,
@@ -642,7 +646,7 @@ class MonitoringService : LifecycleService() {
                 if (MonitoringRuntimeState.latestObservationSnapshot.value?.observation !is Observation.Unavailable) {
                     MonitoringRuntimeState.update(
                         MonitoringPhase.RUNNING,
-                        getString(R.string.service_observing),
+                        localizedString(R.string.service_observing),
                         MonitoringHealth.OBSERVING,
                     )
                 }
@@ -650,13 +654,13 @@ class MonitoringService : LifecycleService() {
             app.beyoureyes.monitor.RuntimeThermalMode.LIMITED ->
                 MonitoringRuntimeState.update(
                     MonitoringPhase.RUNNING,
-                    getString(R.string.service_thermal_throttled),
+                    localizedString(R.string.service_thermal_throttled),
                     MonitoringHealth.THERMALLY_LIMITED,
                 )
             app.beyoureyes.monitor.RuntimeThermalMode.PAUSED ->
                 MonitoringRuntimeState.update(
                     MonitoringPhase.RUNNING,
-                    getString(R.string.service_thermal_paused),
+                    localizedString(R.string.service_thermal_paused),
                     MonitoringHealth.TEMPORARILY_UNAVAILABLE,
                 )
         }
@@ -664,7 +668,7 @@ class MonitoringService : LifecycleService() {
 
     private fun onFrameMappingFailure(generation: Long) {
         if (generation != startGeneration) return
-        failAndStop(getString(R.string.service_frame_mapping_failed))
+        failAndStop(localizedString(R.string.service_frame_mapping_failed))
     }
 
     private fun armFrameWatchdog() {
@@ -690,7 +694,7 @@ class MonitoringService : LifecycleService() {
             MonitoringRuntimeState.update(
                 MonitoringPhase.STOPPED,
                 if (closeResult.isSuccess) message else {
-                    getString(R.string.service_stop_recovery_pending)
+                    localizedString(R.string.service_stop_recovery_pending)
                 },
                 MonitoringHealth.FATAL,
                 monitorId = monitorId,
@@ -713,14 +717,14 @@ class MonitoringService : LifecycleService() {
                 monitorId?.let(heartbeatStore::clear)
                 MonitoringRuntimeState.update(
                     MonitoringPhase.STOPPED,
-                    message = if (appHidden) getString(R.string.service_stopped_app_hidden) else null,
+                    message = if (appHidden) localizedString(R.string.service_stopped_app_hidden) else null,
                     stoppedWhenHidden = appHidden,
                 )
             } else {
                 RuntimeDiagnostics.record(this, "monitoring_stop_boundary_deferred")
                 MonitoringRuntimeState.update(
                     MonitoringPhase.STOPPED,
-                    getString(R.string.service_stop_recovery_pending),
+                    localizedString(R.string.service_stop_recovery_pending),
                     MonitoringHealth.FATAL,
                     monitorId = monitorId,
                 )
@@ -735,7 +739,7 @@ class MonitoringService : LifecycleService() {
         if (current.phase == MonitoringPhase.STOPPED) return
         MonitoringRuntimeState.update(
             next = current.phase,
-            message = getString(R.string.service_stopping_and_saving),
+            message = localizedString(R.string.service_stopping_and_saving),
             health = current.health,
             monitorId = current.monitorId,
         )
@@ -844,7 +848,7 @@ class MonitoringService : LifecycleService() {
             RuntimeDiagnostics.record(this, "monitoring_service_destroyed_unexpectedly")
             MonitoringRuntimeState.update(
                 next = MonitoringPhase.STOPPED,
-                message = getString(R.string.service_unexpected_stop),
+                message = localizedString(R.string.service_unexpected_stop),
                 health = MonitoringHealth.FATAL,
                 monitorId = interruptedMonitorId,
             )

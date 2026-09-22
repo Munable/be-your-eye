@@ -121,6 +121,7 @@ import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
+import java.util.Locale
 
 internal object MonitorDetailTags {
     const val DELETE = "monitor_delete"
@@ -925,6 +926,7 @@ private fun ReadingRuleEditor(
     actionState: MonitorDetailActionState,
     onSave: (MonitorRule.ReadingThreshold) -> Unit,
 ) {
+    val appLocale = LocalContext.current.resources.configuration.locales[0] ?: Locale.getDefault()
     val initialMode = when (rule) {
         is MonitorRule.ReadingThreshold.Single -> when (rule.comparison) {
             ReadingComparison.GT, ReadingComparison.GTE -> ReadingConditionMode.ABOVE
@@ -937,20 +939,20 @@ private fun ReadingRuleEditor(
         mutableStateOf(
             when (rule) {
                 is MonitorRule.ReadingThreshold.Single ->
-                    confirmedFormat?.displayThreshold(rule.thresholdDecimal) ?: rule.thresholdDecimal
+                    confirmedFormat?.displayThreshold(rule.thresholdDecimal, appLocale) ?: rule.thresholdDecimal
                 is MonitorRule.ReadingThreshold.Outside ->
-                    confirmedFormat?.displayThreshold(rule.upperThresholdDecimal)
+                    confirmedFormat?.displayThreshold(rule.upperThresholdDecimal, appLocale)
                         ?: rule.upperThresholdDecimal
             },
         )
     }
     var lower by remember(revision) {
         val persisted = (rule as? MonitorRule.ReadingThreshold.Outside)?.lowerThresholdDecimal
-        mutableStateOf(persisted?.let { confirmedFormat?.displayThreshold(it) ?: it }.orEmpty())
+        mutableStateOf(persisted?.let { confirmedFormat?.displayThreshold(it, appLocale) ?: it }.orEmpty())
     }
     var upper by remember(revision) {
         val persisted = (rule as? MonitorRule.ReadingThreshold.Outside)?.upperThresholdDecimal
-        mutableStateOf(persisted?.let { confirmedFormat?.displayThreshold(it) ?: it }.orEmpty())
+        mutableStateOf(persisted?.let { confirmedFormat?.displayThreshold(it, appLocale) ?: it }.orEmpty())
     }
     var durationSeconds by remember(revision) { mutableIntStateOf(rule.durationSeconds) }
     val validation = confirmedFormat?.let { profile ->
@@ -961,6 +963,7 @@ private fun ReadingRuleEditor(
             upperInput = upper,
             confirmedFormat = profile,
             durationSeconds = durationSeconds,
+            locale = appLocale,
         )
     }
     val validRule = (validation as? ReadingConditionValidation.Valid)?.rule
@@ -971,7 +974,7 @@ private fun ReadingRuleEditor(
                 ProductIconBadge(Icons.Outlined.Numbers, null)
                 Column(Modifier.padding(start = 13.dp)) {
                     Text(
-                        readingRuleSummary(rule, confirmedFormat).resolve(),
+                        readingRuleSummary(rule, confirmedFormat, appLocale).resolve(),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Text(
@@ -1121,9 +1124,10 @@ private fun DecimalRuleField(
 internal fun readingRuleSummary(
     rule: MonitorRule.ReadingThreshold,
     confirmedFormat: app.beyoureyes.core.domain.ConfirmedReadingFormat? = null,
+    locale: Locale = Locale.ROOT,
 ): UiText {
     if (!rule.configured) return uiText(R.string.reading_rule_not_configured)
-    fun display(value: String): String = confirmedFormat?.displayThreshold(value) ?: value
+    fun display(value: String): String = confirmedFormat?.displayThreshold(value, locale) ?: value
     return when (rule) {
         is MonitorRule.ReadingThreshold.Single -> when (rule.comparison) {
             ReadingComparison.GT -> uiText(
