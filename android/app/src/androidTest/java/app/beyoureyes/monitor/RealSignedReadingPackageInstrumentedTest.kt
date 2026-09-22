@@ -30,7 +30,6 @@ import app.beyoureyes.core.vision.SourceFrame
 import app.beyoureyes.core.vision.SupportedTask
 import app.beyoureyes.core.vision.UprightRgbFrameNormalizer
 import app.beyoureyes.core.vision.VerifiedModelPackage
-import app.beyoureyes.monitor.feature.subscription.ProductAccessDecision
 import com.google.gson.JsonParser
 import java.io.ByteArrayInputStream
 import java.io.File
@@ -111,7 +110,6 @@ class RealSignedReadingPackageInstrumentedTest {
                 },
                 transport = transport(fixture, document),
                 nowEpochMillis = { fixtureNow },
-                productAccess = { ProductAccessDecision.GRANTED },
             )
 
             val ready = coordinator.prepareTask(TASK_ID) { progress ->

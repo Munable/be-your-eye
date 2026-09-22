@@ -22,19 +22,18 @@ import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import app.beyoureyes.core.data.cloud.CloudAccountState
 import app.beyoureyes.monitor.app.navigation.BeYourEyeApp
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private var cameraPermissionGranted by mutableStateOf(false)
     private var cameraPermissionDenied by mutableStateOf(false)
+    private var openPeerAlerts by mutableStateOf(false)
     private var notificationEventId by mutableStateOf<String?>(null)
     private var notificationMonitorId by mutableStateOf<String?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        acceptPasswordRecoveryIntent(intent)
         acceptNotificationIntent(intent)
         cameraPermissionGranted = hasCameraPermission()
         NotificationChannels.ensureCreated(this)
@@ -58,6 +57,8 @@ class MainActivity : AppCompatActivity() {
                     onOpenAppSettings = ::openAppSettings,
                     onStartMonitoring = ::startFromVisibleActivity,
                     onStopMonitoring = ::stopMonitoring,
+                    openPeerAlerts = openPeerAlerts,
+                    onPeerNavigationConsumed = { openPeerAlerts = false },
                     notificationEventId = notificationEventId,
                     onNotificationNavigationConsumed = { notificationEventId = null },
                     notificationMonitorId = notificationMonitorId,
@@ -71,19 +72,12 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         cameraPermissionGranted = hasCameraPermission()
         LocalNotificationWorkScheduler.enqueue(this)
-        CloudBootstrap.enqueueForegroundSyncIfSignedIn(this)
-        val signedIn = appContainer.accountController.state.value as? CloudAccountState.SignedIn
-        if (signedIn == null) {
-            appContainer.subscription.signOut()
-        } else {
-            lifecycleScope.launch { appContainer.subscription.refresh(signedIn.accountId) }
-        }
+
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        acceptPasswordRecoveryIntent(intent)
         acceptNotificationIntent(intent)
     }
 
@@ -96,15 +90,11 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
-    private fun acceptPasswordRecoveryIntent(intent: Intent) {
-        if (intent.action != Intent.ACTION_VIEW) return
-        val callback = intent.dataString ?: return
-        if (CloudBootstrap.accountController(this).acceptPasswordRecoveryCallback(callback)) {
-            intent.data = null
-        }
-    }
+
 
     private fun acceptNotificationIntent(intent: Intent) {
+        if (intent.getBooleanExtra("open_paired_alerts", false)) openPeerAlerts = true
+        intent.removeExtra("open_paired_alerts")
         notificationEventId = intent.getStringExtra(NotificationChannels.EXTRA_EVENT_ID)
             ?.takeIf(String::isNotBlank)
         intent.removeExtra(NotificationChannels.EXTRA_EVENT_ID)
@@ -118,9 +108,7 @@ class MainActivity : AppCompatActivity() {
         if (!lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
             return MonitoringStartResult.Rejected(getString(R.string.error_page_not_visible))
         }
-        appContainer.productAccessRejection()?.let {
-            return it
-        }
+
         val current = MonitoringRuntimeState.status.value
         if (current.phase in setOf(MonitoringPhase.STARTING, MonitoringPhase.RUNNING)) {
             return if (current.monitorId == config.taskId) {

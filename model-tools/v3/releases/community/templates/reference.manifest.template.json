@@ -11,7 +11,7 @@
       "runtime": "litert",
       "sha256": "40593533fe47933022ec0dca71b8fa59f7df564d40d496faae44e4c1941e452e",
       "size_bytes": 1867321,
-      "url": "https://models.beyoureye.com/internal-evaluation/2026-08-10/first-release-5/artifacts/similarity_mediapipe_mobilenet_v3_large_v1/mobile_object_localizer_v1.tflite"
+      "url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/similarity_mediapipe_mobilenet_v3_large_v1.primary.tflite"
     },
     {
       "media_type": "application/vnd.beyoureyes.classic-vision+json",
@@ -19,7 +19,7 @@
       "runtime": "classic_vision",
       "sha256": "632fb7f5a7bb7d9fb0ce5bbe6de3b702713fe7ce429e19a7d4b1c9fd65315fd1",
       "size_bytes": 215,
-      "url": "https://models.beyoureye.com/internal-evaluation/2026-08-14/first-release-1/artifacts/similarity_mediapipe_mobilenet_v3_large_v1/prominent_object_candidates_v2.json"
+      "url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/similarity_mediapipe_mobilenet_v3_large_v1.object_crop.json"
     },
     {
       "media_type": "application/vnd.google.litert",
@@ -27,7 +27,7 @@
       "runtime": "litert",
       "sha256": "11af3c560dfeed7737cb4c03c23bf52a8403020784192d4dea0b74862a12828d",
       "size_bytes": 10889458,
-      "url": "https://models.beyoureye.com/internal-evaluation/2026-08-03/v3.1-combined-1/artifacts/similarity_mediapipe_mobilenet_v3_large_v1/primary.tflite"
+      "url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/similarity_mediapipe_mobilenet_v3_large_v1.embedder.tflite"
     },
     {
       "media_type": "application/vnd.beyoureyes.classic-vision+json",
@@ -35,7 +35,7 @@
       "runtime": "classic_vision",
       "sha256": "b999d1d9bfb302494fecd6d3f856d621dbb298bd66839d7a82483a508a28ee1b",
       "size_bytes": 78,
-      "url": "https://models.beyoureye.com/internal-evaluation/2026-08-14/first-release-1/artifacts/similarity_mediapipe_mobilenet_v3_large_v1/l2_prototype_cosine_candidates_v2.json"
+      "url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/similarity_mediapipe_mobilenet_v3_large_v1.similarity_head.json"
     }
   ],
   "bindings": [
@@ -351,7 +351,7 @@
     }
   ],
   "package_id": "similarity_mediapipe_mobilenet_v3_large_v1",
-  "package_version": "0.3.0-community.1",
+  "package_version": "0.3.1-community.1",
   "parameter_profile": {
     "allowed_bounds": {
       "match_threshold": {

@@ -22,10 +22,6 @@ espresso-intents = "3.6.1"
 gson = "2.13.2"
 jcs = "1.1"
 tink = "1.23.0"
-supabase = "3.6.0"
-ktor = "3.4.3"
-firebase-bom = "34.17.0"
-play-billing = "9.1.0"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -63,16 +59,8 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 java-json-canonicalization = { module = "io.github.erdtman:java-json-canonicalization", version.ref = "jcs" }
 orgjson = { module = "org.json:json", version = "20250107" }
 google-tink-android = { module = "com.google.crypto.tink:tink-android", version.ref = "tink" }
-supabase-auth = { module = "io.github.jan-tennert.supabase:auth-kt", version.ref = "supabase" }
-supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "supabase" }
-supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", version.ref = "supabase" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
-firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
-play-billing = { module = "com.android.billingclient:billing", version.ref = "play-billing" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

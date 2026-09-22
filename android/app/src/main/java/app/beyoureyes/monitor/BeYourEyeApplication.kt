@@ -53,7 +53,6 @@ class BeYourEyeApplication : Application() {
         }
         NotificationChannels.ensureCreated(this)
         LocalNotificationWorkScheduler.enqueue(this)
-        CloudBootstrap.initialize(this)
         container = AppContainer(this)
         recoveryScope.launch {
             runCatching {

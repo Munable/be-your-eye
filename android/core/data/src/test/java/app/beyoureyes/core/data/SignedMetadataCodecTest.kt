@@ -81,8 +81,7 @@ class SignedMetadataCodecTest {
         val (bytes, registry) = signedCurrentCatalog()
         val failure = assertThrows(MetadataVerificationException::class.java) {
             SignedMetadataCodec.decodeAndVerifyCatalog(bytes, keyRegistry = registry,
-                nowEpochMillis = catalogIssuedAtEpochMillis(bytes) + 30L * 24 * 60 * 60 * 1000,
-                allowInstalledCommunity = true)
+                nowEpochMillis = catalogIssuedAtEpochMillis(bytes) + 30L * 24 * 60 * 60 * 1000)
         }
         assertEquals("catalog_expired", failure.code)
     }

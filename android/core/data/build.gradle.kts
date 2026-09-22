@@ -4,7 +4,6 @@ val deviceTestAbi = providers.gradleProperty("beYourEyes.deviceTestAbi").orNull
 
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -63,12 +62,9 @@ dependencies {
     implementation(libs.androidx.exifinterface)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.gson)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
     implementation(libs.java.json.canonicalization)
     implementation(libs.google.tink.android)
-    implementation(libs.supabase.auth)
-    implementation(libs.supabase.postgrest)
-    implementation(libs.supabase.realtime)
-    implementation(libs.ktor.client.okhttp)
     testImplementation(libs.junit4)
     testImplementation(libs.orgjson)
     androidTestImplementation(libs.androidx.room.testing)

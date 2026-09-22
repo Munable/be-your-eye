@@ -31,9 +31,9 @@
       ]
     }
   ],
-  "catalog_id": "be-your-eye-website-v1",
-  "catalog_version": "2026.09.21.1",
-  "issued_at": "2026-09-21T06:31:29Z",
+  "catalog_id": "be-your-eye-community-models-v1",
+  "catalog_version": "2026.09.22.1",
+  "issued_at": "2026-09-22T00:00:00Z",
   "operational_capabilities": [
     {
       "capability_key": "reference_object_matching",
@@ -252,22 +252,22 @@
   "packages": [
     {
       "manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-      "manifest_url": "https://models.beyoureye.com/community/2026.09.21.1/manifests/similarity_mediapipe_mobilenet_v3_large_v1.json",
+      "manifest_url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/similarity_mediapipe_mobilenet_v3_large_v1.manifest.json",
       "package_id": "similarity_mediapipe_mobilenet_v3_large_v1",
-      "package_version": "0.3.0-community.1",
+      "package_version": "0.3.1-community.1",
       "status": "active"
     },
     {
       "manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-      "manifest_url": "https://models.beyoureye.com/community/2026.09.21.1/manifests/numeric_reader_ppocrv6_medium_v1.json",
+      "manifest_url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/numeric_reader_ppocrv6_medium_v1.manifest.json",
       "package_id": "numeric_reader_ppocrv6_medium_v1",
-      "package_version": "0.3.0-community.1",
+      "package_version": "0.3.1-community.1",
       "status": "active"
     },
     {
       "package_id": "efficientdet_lite2_object_v1",
-      "package_version": "0.3.0-community.1",
-      "manifest_url": "https://models.beyoureye.com/community/2026.09.21.1/manifests/efficientdet_lite2_object_v1.json",
+      "package_version": "0.3.1-community.1",
+      "manifest_url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/efficientdet_lite2_object_v1.manifest.json",
       "manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
       "status": "active"
     }

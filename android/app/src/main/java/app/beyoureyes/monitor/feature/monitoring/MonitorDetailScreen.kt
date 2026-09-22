@@ -74,6 +74,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -147,7 +148,6 @@ internal fun MonitorDetailScreen(
     cameraPermissionGranted: Boolean,
     onRequestCameraPermission: () -> Unit,
     onStartMonitoring: (app.beyoureyes.monitor.RuntimeCameraConfig) -> app.beyoureyes.monitor.MonitoringStartResult,
-    onCheckProductAccess: () -> app.beyoureyes.monitor.MonitoringStartResult.Rejected?,
     onBack: () -> Unit,
     onDeleted: () -> Unit,
     onOpenCamera: (String) -> Unit,
@@ -197,13 +197,6 @@ internal fun MonitorDetailScreen(
         if (!pendingDirectStart || !cameraPermissionGranted) return@LaunchedEffect
         directStartRunning = true
         directStartError = null
-        val rejection = onCheckProductAccess()
-        if (rejection != null) {
-            directStartError = rejection.message
-            directStartRunning = false
-            pendingDirectStart = false
-            return@LaunchedEffect
-        }
         val config = viewModel.buildDirectStartConfig(
             app.beyoureyes.monitor.currentCameraTargetRotation(context),
             viewPortWidth = windowView.width,
@@ -926,7 +919,7 @@ private fun ReadingRuleEditor(
     actionState: MonitorDetailActionState,
     onSave: (MonitorRule.ReadingThreshold) -> Unit,
 ) {
-    val appLocale = LocalContext.current.resources.configuration.locales[0] ?: Locale.getDefault()
+    val appLocale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
     val initialMode = when (rule) {
         is MonitorRule.ReadingThreshold.Single -> when (rule.comparison) {
             ReadingComparison.GT, ReadingComparison.GTE -> ReadingConditionMode.ABOVE

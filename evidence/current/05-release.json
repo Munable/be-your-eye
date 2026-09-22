@@ -51,11 +51,15 @@
     "rights_holder_grant": "Apache-2.0 first-party source publication explicitly authorized by project owner on 2026-09-21",
     "repository_name": "Munable/be-your-eye; owner inventory confirms singular name is a redirect, not a separate repository",
     "model_delivery": {
-      "bundled_signed_metadata": "Community 2026.09.21.1",
-      "artifact_range_get": "all 8 exact immutable artifact URLs returned 206 in current Mac network",
-      "freshness": "new installation gated at 7 days; refresh candidate before public launch",
-      "overseas_and_unproxied_mainland": "unknown",
-      "artifact_full_get": "all 8 artifacts, 98762965 bytes, downloaded independently from public URLs and verified against signed manifest SHA-256 and size"
+      "release": "https://github.com/Munable/be-your-eye/releases/tag/models-v1",
+      "catalog_version": "2026.09.22.1",
+      "catalog_sha256": "0698896deedcaf4eb6aca1c5d8344e95e7ad2c32986baad69a325d1c5a0cfb69",
+      "release_assets": 20,
+      "verification": "every GitHub-reported asset size and SHA-256 matched the local release",
+      "model_artifacts": 8,
+      "model_artifact_bytes": 98762965,
+      "freshness": "immutable Community catalog has no renewable service lease; genuine license expiry and signature/hash checks remain enforced",
+      "training_data_disclosures": "COCO 2017, ImageNet where publisher-documented; undisclosed upstream training inventories explicitly recorded; no training datasets redistributed"
     },
     "physical_acceptance": "open; phone install error -99",
     "real_demo": {
@@ -165,7 +169,7 @@
         "note": "Allocation deduplicates hard links. APFS free-space delta is an immediate observation, not a guaranteed space saving."
       }
     },
-    "website": "local candidate HTML, privacy and terms updated; not deployed",
+    "website": "retired; verified provider actions recorded in 04-cloud.json",
     "cleanup": {
       "deleted_task_relative_paths": [
         "tmp/community-clean-gradle",
@@ -299,11 +303,82 @@
         "public_git_history": "clean initial root; no private ancestors"
       },
       "working_copy": "original workspace now tracks public origin/main; private-history remote and pre-public branches retained locally"
+    },
+    "independent_community": {
+      "recorded_at": "2026-09-22T05:11:22.502783+00:00",
+      "status": "source_verified_release_candidate_pending",
+      "scope": "local Community only, no maintainer services or cloud AI; optional encrypted paired-phone alerts",
+      "previous_signed_apk": "the existing signed_apk and SBOM entries describe the prior 0.3.0 preview, not this change",
+      "android_download_test": {
+        "total_bytes": 78448006,
+        "artifact_requests": 5,
+        "range_resume_requests": 1,
+        "consent_before_download": true,
+        "cancelled": true,
+        "injected_network_failure_retried": true,
+        "offline_reuse": true,
+        "directory_expired_30_days_reuse": true
+      },
+      "android_startup_test": "passed with final asynchronous pairing storage on API 36 arm64 emulator",
+      "catalog_validator_tests": 32,
+      "i18n_locales": 9,
+      "i18n_contract_tests": 4,
+      "source_and_workflow_policy_tests": 5,
+      "clean_source_gate_tests": 8,
+      "secret_hygiene": "passed current source and regression fixtures",
+      "security_review": {
+        "status": "incomplete",
+        "reviewed_changed_paths": 308,
+        "candidate": "bounded receipt-history behavior; validation interrupted by platform",
+        "followup": "persistent receipt timestamp floor and ordinary persistence/restart tests passed; asynchronous storage initialization and UI writes also added later. The security scan remained incomplete and does not certify the final source."
+      },
+      "physical_natural_scene_acceptance": "open",
+      "paired_phone_acceptance": "emulator code-pairing and real encrypted test notification passed; physical phone installation, QR-camera pairing, actual monitor-trigger delivery and extended/background reliability remain open",
+      "community_ci": "Full Community CI passed; later asynchronous peer-storage changes passed app unit tests, lint and app/test-APK builds. Final i18n and source policy rerun after removal of six unused retired snapshot strings.",
+      "android_unit_tests": {
+        "passed": 447,
+        "failed": 0,
+        "scope": "domain 61, vision 80, data 71, app 235"
+      },
+      "functional_instrumentation_compile": "passed; no claim that compile runs the camera tests",
+      "android_lint": "passed with no errors; existing dependency/version, translation/plural and resource warnings remain",
+      "merged_manifest": "verified: no microphone, billing or Firebase services; arm64-only Community application; separate user-started text receiver",
+      "android_test_apk": {
+        "application_id": "app.beyoureyes.monitor.community.debug",
+        "version_name": "0.3.1-debug",
+        "version_code": 27,
+        "sha256": "02a4e4c0062f5e6da0450421f37d403adb307a3af22c86a9d5cd857890c285f5",
+        "bytes": 56459089,
+        "instrumentation_sha256": "dcf4956008891645c1b234da309767ce52c3eaec2fe8c714c8cf955cd8c78454",
+        "scope": "final peer runtime and UI; six unused retired snapshot strings removed afterward"
+      },
+      "instrumentation_initial_failure": "Earlier emulator runs failed with startup ANRs and system radio/Bluetooth crashes. A current app trace identified AtomicFile.readFully in PeerAlertStore on the startup main thread; loading and UI writes were moved to IO, with a ready-state guard. Six Android checks passed after this fix. Failed runs retained privately.",
+      "android_instrumentation": {
+        "startup_and_receipt_storage": "3 passed, 43.464 seconds",
+        "pairing_group_creation": "1 passed, 1.785 seconds",
+        "encrypted_send": "1 passed, 2.863 seconds",
+        "encrypted_receive_and_system_notification": "1 passed, 7.285 seconds"
+      },
+      "paired_delivery": {
+        "sender": "API 36 arm64 emulator, 8 GB",
+        "receiver": "separate API 36 arm64 emulator, 4 GB",
+        "relay": "https://ntfy.sh",
+        "pairing": "real app creation, confirmation and private code input",
+        "payload": "AES-256-GCM text test alert",
+        "remote_inbox": "passed",
+        "system_notification": "asserted in receiver test",
+        "different_installation_ids": "asserted",
+        "camera_trigger": "not claimed by this test",
+        "received_at_epoch_ms": 1790053614957,
+        "matching_sender_receipt_id": true,
+        "receiver_inbox_persisted_after_test_process_exit": true
+      },
+      "source_publication_authorized": true
     }
   },
   "i18n_verification": {
     "recorded_at": "2026-09-22",
-    "status": "structure_and_device_paths_passed; linguistic_hosted_and_api26_acceptance_open",
+    "status": "historical_pre_retirement_snapshot",
     "working_tree": "uncommitted task changes; no release artifact or commit claimed",
     "supported_locales": [
       "en",
@@ -341,7 +416,8 @@
     "community_ci": {
       "full_entrypoint": "blocked by local JDK 17 / Android Lint runtime mismatch: java.util.List.removeLast()",
       "no_lint_equivalent": "passed: communityDebug unit tests and assembleCommunityDebug"
-    }
+    },
+    "scope": "Earlier connected-edition and physical-device observations retained as history. Current Community checks are in community.independent_community; hosted services have been retired."
   },
   "detail": "Private historical evidence excluded. Only the current sanitized Community scope is included; open gates remain open."
 }

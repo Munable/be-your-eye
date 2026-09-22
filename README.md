@@ -41,6 +41,22 @@ Fix the phone in place, choose what matters, and start monitoring. When your con
 </tr>
 </table>
 
+## One phone watches. Another lets you know.
+
+| Monitoring phone A | Your phone B |
+| --- | --- |
+| Create a group and show the QR code | Scan it and start receiving |
+| Send an alert when the condition holds | See the time, condition and reading |
+
+Pair over the internet without an account or a server of your own. Alerts use the independent free public ntfy relay; you can choose another compatible relay. Quotas and availability limits apply. [Pair two phones](docs/community/PAIRING.md).
+
+<table>
+<tr><th>A sends a test alert</th><th>B receives the same alert</th></tr>
+<tr><td align="center"><img width="250" src="docs/community/images/paired-send.png" alt="Sender app after publishing an encrypted pairing test"></td><td align="center"><img width="250" src="docs/community/images/paired-receive.png" alt="Separate receiver app with the delivered pairing test in its inbox"></td></tr>
+</table>
+
+<sub>Two separate Android emulator installations, real public relay, app-side encryption and an actual received notification. This tests message delivery; the camera demonstrations are above. [Capture details](docs/community/demos/SOURCES.md#paired-alerts).</sub>
+
 ## Try it
 
 This is an **open-source developer preview**. Build the Community app with the [build guide](docs/community/BUILD.md); there is no public APK release yet.
@@ -56,7 +72,7 @@ This is an **open-source developer preview**. Build the Community app with the [
 
 Numeric reading is the main route. Reference matching and catalog-based object detection are experimental. A description searches a finite catalog; it is not an open-ended AI prompt. “Person” means person presence, not facial identity.
 
-One monitor runs at a time. In-app dark-screen mode keeps it running; switching apps or locking the phone stops it. Community notifications and history stay on the monitoring phone. There are no remote alerts in this edition.
+One monitor runs at a time. In-app dark-screen mode keeps it running; switching apps or locking the phone stops it. Local history stays on the monitoring phone. Optional [paired alerts](docs/community/PAIRING.md) send encrypted text through a free public relay; the other phone must enable persistent receiving.
 
 These selected replay clips show the app processing controlled inputs. They do not establish natural-scene accuracy, reliable detection of every frame, phone performance or extended-run reliability. Physical-device and natural-scene acceptance remain open. See [device support](docs/community/DEVICE_SUPPORT.md) and [current evidence](evidence/current/05-release.json). This is an early tool for everyday checking, not a safety alarm.
 
@@ -65,9 +81,9 @@ These selected replay clips show the app processing controlled inputs. They do n
 <details>
 <summary><b>Models, builds and privacy</b></summary>
 
-Community builds require no maintainer credentials or server. Models download separately after showing their size and asking for confirmation. The bundled signed catalog is dated September 21, 2026 and admits new downloads for seven days; the [build guide](docs/community/BUILD.md) explains refreshing signed metadata for an independent distribution.
+Build without maintainer credentials or a server. [Models live in this repository’s Releases](https://github.com/Munable/be-your-eye/releases/tag/models-v1), with original sources, dataset disclosures and licenses in [MODELS](docs/community/MODELS.md). Download once after confirmation; verified recognition runs on the phone without a subscription or periodic catalog renewal.
 
-Recognition runs locally. Ordinary camera frames stay in memory. Reference pictures and any saved trigger image stay in the app's private storage. The retained connected-service source is optional and is not activated by Community.
+Ordinary camera frames stay in memory. Reference pictures and saved trigger images stay in private storage. Paired alerts carry encrypted text, never pictures. The project provides no backend, cloud AI, account or paid service. Optional public relays have their own quotas and availability.
 
 The app uses Kotlin and Jetpack Compose, with four modules separating UI, domain rules, storage and vision. Start with [architecture](docs/ARCHITECTURE.md) and [Community checks](tools/ci/run-community.sh).
 

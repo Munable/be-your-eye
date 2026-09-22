@@ -3,5 +3,4 @@
     <string name="community_notices">第三方许可</string>
     <string name="community_back">返回</string>
     <string name="community_tab">关于</string>
-    <string name="community_catalog_expired">识别文件目录已过期，已安装的文件仍可使用。请更新 Community 后再准备新的识别文件。</string>
 </resources>

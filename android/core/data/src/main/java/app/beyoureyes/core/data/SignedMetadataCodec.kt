@@ -128,7 +128,6 @@ class VerifiedCapabilityCatalog internal constructor(
     val documentSha256: String,
     val signedPayloadSha256: String,
     val validUntilEpochMillis: Long,
-    val installedCommunityOnly: Boolean = false,
     documentBytes: ByteArray,
 ) {
     private val document = documentBytes.copyOf()
@@ -182,7 +181,6 @@ object SignedMetadataCodec {
         keyRegistry: PinnedEd25519KeyRegistry = EmbeddedModelDeliveryPublicKeys.catalog,
         nowEpochMillis: Long,
         maximumAgeMillis: Long = DEFAULT_CATALOG_MAX_AGE_MILLIS,
-        allowInstalledCommunity: Boolean = false,
     ): VerifiedCapabilityCatalog {
         require(maximumAgeMillis > 0) { "maximumAgeMillis must be positive" }
         val parsed = StrictSignedJson.parseAndVerify(
@@ -194,20 +192,19 @@ object SignedMetadataCodec {
         if (catalog.issuedAtEpochMillis > nowEpochMillis + MAX_METADATA_CLOCK_SKEW_MILLIS) {
             reject("catalog_from_future", "$.issued_at", "issued_at exceeds allowed clock skew")
         }
-        val validUntil = try {
+        // An open-source Community release is an immutable model distribution, not a
+        // renewable service lease. Authenticity, exact hashes and real license deadlines remain enforced.
+        val validUntil = if (catalog.buildChannel == BuildChannel.COMMUNITY) Long.MAX_VALUE else try {
             Math.addExact(catalog.issuedAtEpochMillis, maximumAgeMillis)
         } catch (_: ArithmeticException) {
             reject("catalog_time_overflow", "$.issued_at", "catalog expiry overflows")
         }
-        val installedOnly = nowEpochMillis >= validUntil && allowInstalledCommunity &&
-            catalog.buildChannel == BuildChannel.COMMUNITY
-        if (nowEpochMillis >= validUntil && !installedOnly) reject("catalog_expired", "$.issued_at", "catalog maximum age elapsed")
+        if (nowEpochMillis >= validUntil) reject("catalog_expired", "$.issued_at", "catalog maximum age elapsed")
         return VerifiedCapabilityCatalog(
             catalog = catalog,
             documentSha256 = parsed.rawSha256,
             signedPayloadSha256 = sha256Hex(parsed.canonicalSignedPayload),
             validUntilEpochMillis = validUntil,
-            installedCommunityOnly = installedOnly,
             documentBytes = parsed.rawBytes,
         )
     }
@@ -219,7 +216,7 @@ object SignedMetadataCodec {
         keyRegistry: PinnedEd25519KeyRegistry = EmbeddedModelDeliveryPublicKeys.manifest,
         nowEpochMillis: Long,
     ): VerifiedManifestDocument {
-        if (nowEpochMillis >= catalog.validUntilEpochMillis && !catalog.installedCommunityOnly) {
+        if (nowEpochMillis >= catalog.validUntilEpochMillis) {
             reject("catalog_expired", "$", "the verified Catalog is no longer valid")
         }
         if (catalog.catalog.buildChannel == BuildChannel.DEVELOPMENT_NO_MODEL) {

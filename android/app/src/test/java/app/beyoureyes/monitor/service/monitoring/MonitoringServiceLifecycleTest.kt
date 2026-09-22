@@ -1,9 +1,6 @@
 package app.beyoureyes.monitor.service.monitoring
 
 import app.beyoureyes.monitor.RuntimeThermalMode
-import app.beyoureyes.monitor.feature.subscription.EntitlementLease
-import app.beyoureyes.monitor.feature.subscription.ProductAccessState
-import app.beyoureyes.monitor.feature.subscription.ProductLockReason
 import java.time.Instant
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -57,24 +54,4 @@ class MonitoringServiceLifecycleTest {
         )
     }
 
-    @Test
-    fun `foreground monitoring stops for every non-granted product state`() {
-        val now = Instant.now()
-        val granted = ProductAccessState.Granted(
-            EntitlementLease(
-                accountId = "account",
-                providerState = "SUBSCRIPTION_STATE_ACTIVE",
-                expiresAt = now.plusSeconds(7_200),
-                refreshAfter = now.plusSeconds(3_600),
-            ),
-        )
-        assertFalse(shouldStopMonitoringForProductAccess(granted))
-        assertTrue(shouldStopMonitoringForProductAccess(ProductAccessState.Initializing))
-        assertTrue(shouldStopMonitoringForProductAccess(ProductAccessState.SignedOut))
-        assertTrue(
-            shouldStopMonitoringForProductAccess(
-                ProductAccessState.Locked(ProductLockReason.EXPIRED),
-            ),
-        )
-    }
 }

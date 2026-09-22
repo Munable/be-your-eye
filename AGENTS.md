@@ -12,9 +12,9 @@ artifacts do not override them.
 
 The production brand is **Be Your Eye**. The Chinese display name is **帮你盯**;
 the Android application ID and package remain `app.beyoureyes.monitor`.
-Community works locally without an account or subscription. The connected
-edition keeps its existing account, entitlement, Play Billing, website billing,
-assistant, voice and sync boundaries.
+Community works locally without an account or subscription. There is no connected
+edition, cloud assistant, ASR, billing or maintainer-operated service. Optional
+paired text alerts use a user-selected third-party relay with phone-side encryption.
 
 The product has three peer creation paths: reference images, numeric reading,
 and a Catalog-backed visual target or visible phenomenon. The signed Catalog is
@@ -23,36 +23,30 @@ packages. An unknown target must fail closed; do not substitute a nearby class
 or a generic model. A complete configuration can be created without a
 successful preflight recognition. Testing recognition is optional.
 
-The assistant is a short, structured, multi-turn configurator. Its only product
-tool is `propose_monitor_configuration`; it may open a confirmation page but
-must not create, save, start, download, bypass Catalog admission or bypass user
-confirmation. Text and foreground hold-to-talk voice use the same conversation.
-Community does not enable assistant, voice or cloud services.
-
 ## Architecture boundaries
 
 - Keep the four Gradle modules: `core:domain` owns product models,
-  `core:data` owns Room, settings, private media and Supabase, `core:vision`
+  `core:data` owns Room, settings, private media and signed model delivery, `core:vision`
   owns signed runtime families, and `app` owns Compose screens and lifecycle.
 - `MonitoringService` owns foreground-service and CameraX ownership;
   `MonitoringSession` owns frames, observations, rules and events.
-- Cloud access is limited to Supabase/Edge Functions, R2, FCM, static legal
-  pages, Alibaba Cloud Model Studio, Stripe Checkout and Google Play interfaces.
-  Credentials stay server-side.
+- Network access is limited to signed model downloads from HTTPS release assets
+  and an explicitly paired HTTPS text relay. No owner-paid service or API keys.
+  Private signing and pairing keys must never enter Git or logs.
 - Do not add a second model registry, model-specific Android backend, scheduler,
   background monitoring mode, training/export entry point or compatibility shell.
 - Camera frames and intermediate tensors remain in memory. Reference material
-  and the first trigger JPEG remain in the app-private directory. Events,
-  database rows, Storage and FCM must not contain media.
+  and the first trigger JPEG remain in the app-private directory. Alert messages must not contain media.
+- Camera monitoring requires a visible app. The user-started text receiver may
+  run as a separate foreground service and must never acquire the camera.
 
 ## Mandatory nine-locale i18n standard
 
 The supported locale tags are `en`, `zh-Hans`, `zh-Hant`, `ja`, `ko`, `es`,
 `fr`, `de`, and `pt-BR`. English is the source locale. Android resources,
-website dictionaries, account/checkout copy, notifications, email templates,
-assistant/ASR requests, legal pages and Catalog display labels must use these
-tags. The default follows the system or browser language; the user may choose
-any supported locale, and the choice survives sign-out and restart.
+notifications and Catalog display labels must use these
+tags. The default follows the system language; the user may choose
+any supported locale, and the choice survives restart.
 
 Every user-visible string must be a resource or dictionary key. Do not compose
 sentences by concatenating translated fragments, hard-code display text in
@@ -90,7 +84,8 @@ missing plural branches, unsupported locale tags and hard-coded display text.
   release summary. Keep unverified device, hosted and manual gates marked
   `open`.
 - Do not commit secrets, service accounts, tokens, account data, device serials,
-  raw camera frames or model binaries. Do not push automatically.
+  raw camera frames or model binaries in Git. Distribute reviewed model files as GitHub Release assets.
+  Do not push without user authorization.
 
 ## Standard verification commands
 
@@ -98,8 +93,8 @@ missing plural branches, unsupported locale tags and hard-coded display text.
 bash tools/ci/run-community.sh
 bash tools/release/build-community.sh --unsigned
 node tools/ci/check-i18n.mjs
-npm test --prefix supabase/tests
+npm test --prefix model-tools/catalog-validator
 ```
 
-Hosted, physical-device, payment and store acceptance remain separate gates.
+Public-relay, physical-device and human acceptance remain separate gates.
 Documentation may describe a gate, but only current evidence can close it.

@@ -6,8 +6,6 @@ import {
   validateCatalog,
   validateEvent,
   validateManifest,
-  validateSync,
-  validateSyncEventUpsert,
   validateTaskConfig
 } from '../src/index.mjs';
 
@@ -36,45 +34,6 @@ test('structured reading TaskConfig requires its continuous confirmation duratio
   const unsupported = structuredClone(task);
   unsupported.rule.duration_ms = 2000;
   assert.ok(validateTaskConfig(unsupported, catalog).errors.some((error) => error.code === 'enum'));
-});
-
-test('sync Event upserts require source identity without widening the generic Event contract', async () => {
-  const event = await readJson('test-vectors/valid/event.json');
-  const syncEvent = {
-    ...event,
-    monitoring_device_id: '0198f000-0000-7000-8000-000000000002'
-  };
-  const sync = {
-    schema_version: '3.0',
-    cursor: 'sync_43',
-    has_more: false,
-    changes: [{
-      change_id: 'event:0198f000-0000-7000-8000-000000000005:43',
-      entity_type: 'event',
-      operation: 'upsert',
-      updated_at: '2026-08-02T00:03:00Z',
-      entity: syncEvent
-    }]
-  };
-
-  assert.deepEqual(validateSyncEventUpsert(syncEvent).errors, []);
-  assert.deepEqual(validateSync(sync).errors, []);
-  assert.ok(validateEvent(syncEvent).errors.some((error) =>
-    error.path === '$/monitoring_device_id' && error.code === 'additional_property'
-  ));
-
-  const missingSource = structuredClone(sync);
-  delete missingSource.changes[0].entity.monitoring_device_id;
-  assert.equal(validateSync(missingSource).ok, false);
-
-  const invalidSource = structuredClone(sync);
-  invalidSource.changes[0].entity.monitoring_device_id = event.event_id.replace('-7', '-4');
-  assert.equal(validateSync(invalidSource).ok, false);
-
-  const tombstone = structuredClone(sync);
-  tombstone.changes[0].operation = 'delete';
-  tombstone.changes[0].entity = null;
-  assert.deepEqual(validateSync(tombstone).errors, []);
 });
 
 test('visual duration events stay distinct from open and close episodes', async () => {

@@ -23,7 +23,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ChevronRight
-import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.ImageSearch
 import androidx.compose.material.icons.outlined.MonitorHeart
 import androidx.compose.material.icons.outlined.Numbers
@@ -78,14 +77,12 @@ import app.beyoureyes.monitor.feature.monitoring.liveObservationText
 
 internal object HomeTags {
     const val SCREEN = "home"
-    const val ASSISTANT = "open_assistant"
     const val REFERENCE = "create_reference"
     const val READING = "create_reading"
     const val OBJECT = "create_object_detection"
     const val REFERENCE_ARTWORK = "create_reference_artwork"
     const val READING_ARTWORK = "create_reading_artwork"
     const val OBJECT_ARTWORK = "create_object_artwork"
-    const val ACCOUNT = "account"
     const val ACTIVE = "active_monitor"
     const val REFERENCE_DRAFT = "reference_draft_card"
     fun monitor(id: String): String = "monitor_$id"
@@ -96,7 +93,6 @@ internal fun HomeScreen(
     viewModel: HomeViewModel,
     monitoringStatus: MonitoringStatus,
     latestObservation: Observation?,
-    onAssistant: () -> Unit,
     onReference: () -> Unit,
     onReading: () -> Unit,
     onObjectDetection: () -> Unit,
@@ -184,12 +180,7 @@ internal fun HomeScreen(
                         Text(stringResource(R.string.service_stopped_app_hidden), color = ProductColors.TextSecondary)
                     }
                 }
-                if (!app.beyoureyes.monitor.BuildConfig.COMMUNITY_BUILD) item {
-                    AssistantCreationCard(
-                        modifier = Modifier.padding(top = 10.dp),
-                        onClick = onAssistant,
-                    )
-                }
+
             }
 
             referenceDraft?.let { draft ->
@@ -254,77 +245,7 @@ internal fun HomeScreen(
     }
 }
 
-@Composable
-private fun AssistantCreationCard(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val pressScale by rememberProductPressScale(interactionSource)
-    Surface(
-        modifier = modifier.fillMaxWidth().testTag(HomeTags.ASSISTANT)
-            .graphicsLayer {
-                scaleX = pressScale
-                scaleY = pressScale
-            }
-            .semantics(mergeDescendants = true) { role = Role.Button },
-        onClick = onClick,
-        interactionSource = interactionSource,
-        shape = MaterialTheme.shapes.large,
-        color = ProductColors.Surface,
-        border = BorderStroke(
-            1.dp,
-            Brush.linearGradient(
-                listOf(
-                    ProductColors.Cyan.copy(alpha = 0.32f),
-                    ProductColors.Border,
-                    ProductColors.Cyan.copy(alpha = 0.10f),
-                ),
-            ),
-        ),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-                .background(
-                    Brush.linearGradient(
-                        listOf(
-                            ProductColors.CyanSoft.copy(alpha = 0.65f),
-                            ProductColors.Surface,
-                        ),
-                    ),
-                )
-                .padding(18.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            ProductIconBadge(
-                icon = Icons.Outlined.AutoAwesome,
-                contentDescription = null,
-                tint = ProductColors.Cyan,
-                background = ProductColors.CyanSoft,
-            )
-            Column(Modifier.weight(1f).padding(start = 14.dp)) {
-                Text(stringResource(R.string.home_assistant_title), style = MaterialTheme.typography.titleMedium)
-                Text(
-                    stringResource(R.string.home_assistant_detail),
-                    modifier = Modifier.padding(top = 3.dp),
-                    color = ProductColors.TextSecondary,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-                Text(
-                    stringResource(R.string.home_assistant_privacy),
-                    modifier = Modifier.padding(top = 7.dp),
-                    color = ProductColors.TextMuted,
-                    style = MaterialTheme.typography.labelMedium,
-                )
-            }
-            Icon(
-                Icons.Outlined.ChevronRight,
-                contentDescription = null,
-                tint = ProductColors.Cyan,
-            )
-        }
-    }
-}
+
 
 @Composable
 private fun ReferenceDraftCard(

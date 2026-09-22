@@ -50,3 +50,27 @@ These are selected demonstrations, not accuracy measurements. Earlier numeric at
 Initial emulator runs had slow startup / unresponsive UI while the host was loaded. The recorded runs used host graphics and a smaller display. These clips do not establish real-phone speed, battery use, sustained operation or unattended reliability. [Physical acceptance remains open](../DEVICE_SUPPORT.md).
 
 Original source footage and uncut recordings are retained outside Git. The repository contains only the small public excerpts, GIFs, selected app screenshots and this provenance note.
+
+## Paired alerts
+
+The two `images/paired-*.png` captures are unedited app UI from September 22,
+2026, Community `0.3.1-debug` / version code 27. APK SHA-256:
+`02a4e4c0062f5e6da0450421f37d403adb307a3af22c86a9d5cd857890c285f5`.
+The sender and receiver were separate API 36 arm64 emulator installations,
+configured with 8 GB and 4 GB RAM respectively. The app created a group and the
+receiver joined using its private pairing code through the normal confirmation
+UI. The code and QR image are not published.
+
+The sender used **Send a test alert**. The app encrypted and published through
+`https://ntfy.sh`; the other installation decrypted the same message, persisted
+it in its inbox and posted an Android notification. The sent ID and received ID
+were matched, the device IDs were different, and the inbox survived test-process
+exit. No camera event, field accuracy, physical-phone delivery or long-running
+reliability claim follows from this transport test. Screenshots were captured
+after closing the pairing-code dialog; their pixels were not retouched.
+
+Earlier attempts hit emulator startup ANRs. One trace exposed synchronous
+pairing-file reads during app startup; these and UI-triggered writes were moved
+off the main thread before the passing run. Startup, receipt persistence and
+duplicate suppression then passed their Android checks. The failed runs remain
+in private local evidence rather than being counted as passes.

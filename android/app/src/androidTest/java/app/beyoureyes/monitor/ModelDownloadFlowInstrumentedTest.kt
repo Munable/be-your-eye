@@ -22,7 +22,6 @@ import app.beyoureyes.core.vision.BuildChannel
 import app.beyoureyes.monitor.feature.monitoring.LoadingScreen
 import app.beyoureyes.monitor.feature.monitoring.MonitorCameraState
 import app.beyoureyes.monitor.feature.monitoring.modelPreparationMessage
-import app.beyoureyes.monitor.feature.subscription.ProductAccessDecision
 import java.io.IOException
 import java.io.File
 import java.io.FilterInputStream
@@ -76,7 +75,7 @@ class ModelDownloadFlowInstrumentedTest {
             buildChannel = BuildChannel.INTERNAL_EVALUATION, device = currentModelPreparationDevice(context),
             targetResolver = ModelPreparationTargetResolver { null },
             taskBinder = ModelPreparationTaskBinder { true }, transport = transport,
-            networkAvailable = { online }, productAccess = { ProductAccessDecision.GRANTED },
+            networkAvailable = { online },
         )
         val state = mutableStateOf(MonitorCameraState.Loading())
         val fontScale = mutableStateOf(1f)

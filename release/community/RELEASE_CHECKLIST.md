@@ -1,28 +1,29 @@
 # Community release review
 
-Source publication and an installable app release have different completion criteria. Actual results belong to `evidence/current/05-release.json`.
+The public repository is the active source. Source publication, a downloadable developer build and a stable app release have separate acceptance criteria. Record current results in `evidence/current/05-release.json`.
 
-## Source publication
+## Source and models
 
-- The project owner authorized first-party Apache-2.0 licensing and public source publication on 2026-09-21. Third-party works keep their licenses; the code license does not grant trademark permission or imply publisher endorsement.
-- Publish a reviewed snapshot to `Munable/be-your-eye`, without importing the private repository’s history. The old private repository remains private. Future development belongs in the public repository.
-- The export excludes private execution evidence, the supplied internal handoff, store media and connected production configuration. Current Community results replace historical evidence.
-- Launcher vectors and geometric fixtures are project-authored. Two retained home illustrations have project-generation provenance. The untraced object illustration and apple photo are removed; object replay requires a tester-supplied image. Test-source attribution remains in the repository.
-- Check the exported tree with repository policy, model/service contracts, Android units, lint/build and a secret scanner. Review findings individually; a scanner pass is bounded evidence, not a guarantee.
-- Public CI uses pinned actions, read-only permissions and no maintainer secrets. Security reports use GitHub private vulnerability reporting.
+- First-party code is Apache-2.0. Model publishers and demo creators retain their own licenses; no endorsement or trademark permission is implied.
+- No private repository history, credentials, account exports, camera data or signing keys belong in public Git.
+- Cloud AI, voice transcription, accounts, subscriptions and maintainer-hosted services are retired. Community is the only shipped product path.
+- GitHub `models-v1` contains the exact original weights, signed metadata, license reviews, source/data disclosures and checksums. Never overwrite a published signed release; publish a new version for changed bytes.
+- Every Catalog target has labels for all nine supported locales. Unknown targets fail closed.
+- Public CI uses pinned actions, read-only permissions and no maintainer secrets. Check Android units, lint/build, Catalog contracts, i18n, secret hygiene and source cleanliness before tagging a candidate.
 
-## APK release — open
+## App acceptance
 
-The source preview is not a stable binary release. Keep these gates open until the exact distribution has evidence:
+Keep a gate open until the exact build has evidence:
 
-- Real-phone installation, model consent/cancel/resume, offline restart, foreground transitions, same-signature saved-data upgrade.
-- Natural numeric displays, uncertainty behavior, representative sustained runs and independent use.
-- A refreshed signed model catalog and durable metadata delivery. Never silently bypass freshness, signature or license checks.
-- Source tag, version, signed APK hash/certificate, model identities, SBOM, notices and download bound to one candidate.
-- Real camera/alert demonstration. Generated art or emulator screenshots are not substitutes.
+- Fresh install and same-signature saved-data upgrade on a supported real phone.
+- Explicit model-download consent, interruption/resume and offline reuse.
+- Real camera readings, uncertain inputs, foreground transitions and sustained runs.
+- Two separate phones pairing, receiving an actual trigger and retaining receipt history after restart.
+- Receiver notification permission, visible receiving service and battery restrictions. Public relay delivery is best effort; successful publication is not proof of reception.
+- Source commit, version, APK hash/signature, model identities, dependency inventories and notices tied to the same candidate.
 
-The preceding local candidate (`0.3.0-community-preview`, versionCode 26) passed 560 Android unit tests, clean-source debug/unsigned-release builds, both lints, policy/model/service checks and a signed emulator launch. Five SBOMs were generated; Android had 256 components and the scanned inventories had no known OSV findings. The eight model artifacts (98,762,965 bytes) matched their signed sizes and hashes after independent public download.
+Emulator replay is useful evidence of that replay only. It does not establish real-camera accuracy, hardware speed or long-running reliability. Generated scenes must be identified as generated. No face-identity recognition is claimed.
 
-Physical installation returned -99; natural scenes, long runs and independent users remain unverified. Later source presentation and asset cleanup do not retroactively change that signed APK or its evidence. No APK is published as part of source opening.
+## Retired infrastructure
 
-Website deployment, promotional posts, spending and optional remote-service experiments are outside this source-publication batch. Keep the existing legal/auth routes intact.
+The project does not provide a backend, model mirror, login website, billing service or cloud assistant. Record verified provider retirement separately from source deletion. Keep recovery archives private and preserve unrelated projects in shared provider accounts. New deployments and paid resources are outside the Community release process.

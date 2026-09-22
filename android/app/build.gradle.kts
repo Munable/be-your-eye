@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.net.URI
 
 fun optionalConfig(name: String): String = providers.gradleProperty(name)
     .orElse(providers.environmentVariable(name))
@@ -19,8 +18,8 @@ fun buildConfigString(value: String): String = buildString {
     append('"')
 }
 
-val configuredVersionCode = optionalConfig("BEYOUREYES_VERSION_CODE").toIntOrNull() ?: 25
-val configuredVersionName = optionalConfig("BEYOUREYES_VERSION_NAME").ifBlank { "0.2.24-dev" }
+val configuredVersionCode = optionalConfig("BEYOUREYES_VERSION_CODE").toIntOrNull() ?: 27
+val configuredVersionName = optionalConfig("BEYOUREYES_VERSION_NAME").ifBlank { "0.3.1" }
 val releaseStoreFilePath = optionalConfig("BEYOUREYES_RELEASE_STORE_FILE")
 val releaseStorePassword = optionalConfig("BEYOUREYES_RELEASE_STORE_PASSWORD")
 val releaseKeyAlias = optionalConfig("BEYOUREYES_RELEASE_KEY_ALIAS")
@@ -210,53 +209,28 @@ val prepareExternalVisionReplayAndroidTestAssets by tasks.registering {
 android {
     namespace = "app.beyoureyes.monitor"
     compileSdk = 36
-    testBuildType = providers.gradleProperty("testBuildType").getOrElse("functionalTest")
-
+    testBuildType = providers.gradleProperty("testBuildType").getOrElse("communityDebug")
     defaultConfig {
         applicationId = "app.beyoureyes.monitor"
         minSdk = 26
         targetSdk = 36
-        resourceConfigurations += setOf(
-            "en", "b+zh+Hans", "b+zh+Hant", "ja", "ko", "es", "fr", "de", "pt-rBR",
-        )
+        ndk { abiFilters += "arm64-v8a" }
+        resourceConfigurations += setOf("en", "b+zh+Hans", "b+zh+Hant", "ja", "ko", "es", "fr", "de", "pt-rBR")
         versionCode = configuredVersionCode
         versionName = configuredVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders["appName"] = "@string/app_name"
-        buildConfigField("boolean", "COMMUNITY_BUILD", "false")
-        buildConfigField("boolean", "WEBSITE_BILLING_ENABLED", "false")
-        buildConfigField("String", "SUPABASE_URL", buildConfigString(optionalConfig("SUPABASE_URL")))
-        buildConfigField(
-            "String",
-            "SUPABASE_PUBLISHABLE_KEY",
-            buildConfigString(optionalConfig("SUPABASE_PUBLISHABLE_KEY")),
-        )
-        buildConfigField("String", "MODEL_CATALOG_URL", buildConfigString(optionalConfig("MODEL_CATALOG_URL")))
-        buildConfigField("String", "PRIVACY_POLICY_URL", buildConfigString(optionalConfig("PRIVACY_POLICY_URL")))
-        buildConfigField("String", "AUTH_REDIRECT_URL", buildConfigString(optionalConfig("AUTH_REDIRECT_URL")))
-        val authRedirect = runCatching { URI(optionalConfig("AUTH_REDIRECT_URL")) }.getOrNull()
-        manifestPlaceholders["authRedirectScheme"] =
-            authRedirect?.scheme?.takeIf(String::isNotBlank) ?: "https"
-        manifestPlaceholders["authRedirectHost"] =
-            authRedirect?.host?.takeIf(String::isNotBlank) ?: "auth.invalid"
-        manifestPlaceholders["authRedirectPath"] =
-            authRedirect?.path?.takeIf(String::isNotBlank) ?: "/auth/callback"
-        buildConfigField("String", "FIREBASE_API_KEY", buildConfigString(optionalConfig("FIREBASE_API_KEY")))
-        buildConfigField(
-            "String",
-            "FIREBASE_APPLICATION_ID",
-            buildConfigString(optionalConfig("FIREBASE_APPLICATION_ID")),
-        )
-        buildConfigField("String", "FIREBASE_PROJECT_ID", buildConfigString(optionalConfig("FIREBASE_PROJECT_ID")))
-        buildConfigField(
-            "String",
-            "FIREBASE_GCM_SENDER_ID",
-            buildConfigString(optionalConfig("FIREBASE_GCM_SENDER_ID")),
-        )
+        buildConfigField("boolean", "COMMUNITY_BUILD", "true")
+        buildConfigField("boolean", "PRODUCT_RUNTIME_ENABLED", "true")
+        buildConfigField("String", "BUILD_CHANNEL", "\"community\"")
+        buildConfigField("String", "BUILD_IDENTITY", "\"community\"")
+        buildConfigField("String", "MODEL_CATALOG_URL", buildConfigString(
+            optionalConfig("COMMUNITY_MODEL_CATALOG_URL").ifBlank {
+                "https://github.com/Munable/be-your-eye/releases/download/models-v1/catalog.json"
+            }))
     }
-
     signingConfigs {
-        create("commercialRelease") {
+        create("community") {
             if (releaseSigningComplete) {
                 storeFile = file(releaseStoreFilePath)
                 storePassword = releaseStorePassword
@@ -265,233 +239,46 @@ android {
             }
         }
     }
-
     buildTypes {
-        debug {
-            applicationIdSuffix = ".debug"
-            versionNameSuffix = "-debug"
-            manifestPlaceholders["appName"] = "@string/app_name_ui_test"
-            buildConfigField("String", "BUILD_CHANNEL", "\"development-no-model\"")
-            buildConfigField("String", "BUILD_IDENTITY", "\"ui-unit-test-only\"")
-            buildConfigField("boolean", "PRODUCT_RUNTIME_ENABLED", "false")
-            buildConfigField("boolean", "PLAY_BILLING_ENABLED", "false")
-            buildConfigField("String", "FIREBASE_API_KEY", buildConfigString(optionalConfig("FIREBASE_DEBUG_API_KEY")))
-            buildConfigField(
-                "String",
-                "FIREBASE_APPLICATION_ID",
-                buildConfigString(optionalConfig("FIREBASE_DEBUG_APPLICATION_ID")),
-            )
-            buildConfigField("String", "FIREBASE_PROJECT_ID", buildConfigString(optionalConfig("FIREBASE_DEBUG_PROJECT_ID")))
-            buildConfigField(
-                "String",
-                "FIREBASE_GCM_SENDER_ID",
-                buildConfigString(optionalConfig("FIREBASE_DEBUG_GCM_SENDER_ID")),
-            )
-            ndk { abiFilters += "x86_64" }
-        }
-        create("functionalTest") {
-            initWith(getByName("debug"))
-            applicationIdSuffix = ".functional"
-            versionNameSuffix = "-functional"
-            manifestPlaceholders["appName"] = "@string/app_name_functional_test"
-            matchingFallbacks += listOf("debug")
-            buildConfigField("String", "BUILD_CHANNEL", "\"internal-evaluation\"")
-            buildConfigField("String", "BUILD_IDENTITY", "\"functional-test\"")
-            buildConfigField("boolean", "PRODUCT_RUNTIME_ENABLED", "true")
-            buildConfigField("boolean", "PLAY_BILLING_ENABLED", "false")
-            ndk {
-                abiFilters.clear()
-                // Linux CI uses x86_64; Apple Silicon local CI uses arm64.
-                // This test-only build carries both so the same functional
-                // suite runs locally without changing product binaries.
-                abiFilters += setOf("x86_64", "arm64-v8a")
-            }
-        }
-        create("internal") {
-            initWith(getByName("debug"))
-            applicationIdSuffix = ".internal"
-            versionNameSuffix = "-internal"
-            manifestPlaceholders["appName"] = "@string/app_name_internal"
-            matchingFallbacks += listOf("debug")
-            buildConfigField("String", "BUILD_CHANNEL", "\"internal-evaluation\"")
-            buildConfigField("String", "BUILD_IDENTITY", "\"internal-evaluation\"")
-            buildConfigField("boolean", "PRODUCT_RUNTIME_ENABLED", "true")
-            buildConfigField("boolean", "PLAY_BILLING_ENABLED", "false")
-            ndk {
-                abiFilters.clear()
-                abiFilters += "arm64-v8a"
-            }
-        }
+        debug { applicationIdSuffix = ".community.debug"; versionNameSuffix = "-debug" }
         release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            if (releaseSigningComplete) signingConfig = signingConfigs.getByName("commercialRelease")
-            buildConfigField("String", "BUILD_CHANNEL", "\"commercial\"")
-            buildConfigField("String", "BUILD_IDENTITY", "\"commercial\"")
-            buildConfigField("boolean", "PRODUCT_RUNTIME_ENABLED", "true")
-            buildConfigField("boolean", "PLAY_BILLING_ENABLED", "true")
-            ndk { abiFilters += "arm64-v8a" }
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
-        }
-        create("website") {
-            initWith(getByName("release"))
-            matchingFallbacks += listOf("release")
-            buildConfigField("String", "BUILD_IDENTITY", "\"commercial-website\"")
-            buildConfigField("boolean", "PLAY_BILLING_ENABLED", "false")
-            buildConfigField("boolean", "WEBSITE_BILLING_ENABLED", "true")
-        }
-    }
-
-    buildTypes {
-        listOf("communityDebug", "communityRelease").forEach { variant ->
-            create(variant) {
-                initWith(getByName(if (variant == "communityDebug") "debug" else "release"))
-                if (variant == "communityRelease" && optionalConfig("COMMUNITY_SIGNED") == "true") {
-                    require(releaseSigningComplete) { "COMMUNITY_SIGNED requires all release signing inputs" }
-                }
-                if (variant == "communityRelease" && optionalConfig("COMMUNITY_SIGNED") != "true") signingConfig = null
-                applicationIdSuffix = ".community" + if (variant == "communityDebug") ".debug" else ""
-                versionNameSuffix = "-community-preview" + if (variant == "communityDebug") "-debug" else ""
-                manifestPlaceholders["appName"] = "Be Your Eye Community"
-                matchingFallbacks += listOf(if (variant == "communityDebug") "debug" else "release")
-                buildConfigField("boolean", "COMMUNITY_BUILD", "true")
-                buildConfigField("boolean", "PRODUCT_RUNTIME_ENABLED", "true")
-                buildConfigField("boolean", "PLAY_BILLING_ENABLED", "false")
-                buildConfigField("boolean", "WEBSITE_BILLING_ENABLED", "false")
-                buildConfigField("String", "MODEL_CATALOG_URL", buildConfigString(
-                    optionalConfig("COMMUNITY_MODEL_CATALOG_URL").ifBlank {
-                        "https://models.beyoureye.com/community/2026.09.21.1/catalog.json"
-                    }))
-                buildConfigField("String", "BUILD_CHANNEL", "\"community\"")
-                buildConfigField("String", "BUILD_IDENTITY", "\"community\"")
-                listOf("SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY", "AUTH_REDIRECT_URL",
-                    "FIREBASE_API_KEY", "FIREBASE_APPLICATION_ID", "FIREBASE_PROJECT_ID", "FIREBASE_GCM_SENDER_ID"
-                ).forEach { buildConfigField("String", it, "\"\"") }
-                ndk { abiFilters.clear(); abiFilters += "arm64-v8a" }
+            applicationIdSuffix = ".community"
+            isMinifyEnabled = false
+            if (optionalConfig("COMMUNITY_SIGNED") == "true") {
+                require(releaseSigningComplete) { "Signed release requires external signing inputs" }
+                signingConfig = signingConfigs.getByName("community")
             }
         }
+        create("communityDebug") { initWith(getByName("debug")); matchingFallbacks += "debug" }
+        create("communityRelease") { initWith(getByName("release")); matchingFallbacks += "release" }
+        create("functionalTest") {
+            initWith(getByName("debug")); applicationIdSuffix = ".functional"
+            matchingFallbacks += "debug"
+            buildConfigField("String", "BUILD_IDENTITY", "\"functional-test\"")
+        }
     }
-
     buildFeatures { compose = true; buildConfig = true }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+    compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
     sourceSets {
+        getByName("main").assets.srcDir("src/community/assets")
         if (testBuildType == "communityDebug") {
             getByName("androidTest").kotlin.directories.clear()
             getByName("androidTest").kotlin.directories.add("src/communityAndroidTest/java")
         }
-        listOf("debug", "functionalTest", "internal", "release", "website").forEach { variant ->
-            getByName(variant) {
-                kotlin.directories.add("src/connected/java")
-                manifest.srcFile("src/connected/AndroidManifest.xml")
-            }
-            getByName("test" + variant.replaceFirstChar(Char::uppercase)) {
-                kotlin.directories.add("src/testConnected/java")
-            }
-        }
-        listOf("communityDebug", "communityRelease").forEach { variant ->
-            getByName(variant) {
-                kotlin.directories.add("src/community/java")
-                assets.srcDir("src/community/assets")
-                manifest.srcFile("src/community/AndroidManifest.xml")
-            }
-        }
-        getByName("androidTest").assets.directories.add(
-            generatedInternalReferenceAssets.get().asFile.absolutePath,
-        )
-        getByName("androidTest").assets.directories.add(
-            generatedInternalReadingAssets.get().asFile.absolutePath,
-        )
-        getByName("androidTest").assets.directories.add(
-            generatedInternalObjectAssets.get().asFile.absolutePath,
-        )
-        getByName("androidTest").assets.directories.add(
-            generatedExternalVisionReplayAssets.get().asFile.absolutePath,
-        )
+        getByName("androidTest").assets.directories.add(generatedInternalReferenceAssets.get().asFile.absolutePath)
+        getByName("androidTest").assets.directories.add(generatedInternalReadingAssets.get().asFile.absolutePath)
+        getByName("androidTest").assets.directories.add(generatedInternalObjectAssets.get().asFile.absolutePath)
+        getByName("androidTest").assets.directories.add(generatedExternalVisionReplayAssets.get().asFile.absolutePath)
     }
-}
-
-val verifyCommercialReleaseInputs by tasks.registering {
-    group = "verification"
-    doLast {
-        val required = linkedMapOf(
-            "MODEL_CATALOG_URL" to optionalConfig("MODEL_CATALOG_URL"),
-            "PRIVACY_POLICY_URL" to optionalConfig("PRIVACY_POLICY_URL"),
-            "SUPABASE_URL" to optionalConfig("SUPABASE_URL"),
-            "SUPABASE_PUBLISHABLE_KEY" to optionalConfig("SUPABASE_PUBLISHABLE_KEY"),
-            "AUTH_REDIRECT_URL" to optionalConfig("AUTH_REDIRECT_URL"),
-            "FIREBASE_API_KEY" to optionalConfig("FIREBASE_API_KEY"),
-            "FIREBASE_APPLICATION_ID" to optionalConfig("FIREBASE_APPLICATION_ID"),
-            "FIREBASE_PROJECT_ID" to optionalConfig("FIREBASE_PROJECT_ID"),
-            "FIREBASE_GCM_SENDER_ID" to optionalConfig("FIREBASE_GCM_SENDER_ID"),
-        )
-        val missing = required.filterValues(String::isBlank).keys +
-            listOf(
-                "BEYOUREYES_VERSION_CODE" to optionalConfig("BEYOUREYES_VERSION_CODE"),
-                "BEYOUREYES_VERSION_NAME" to optionalConfig("BEYOUREYES_VERSION_NAME"),
-                "BEYOUREYES_RELEASE_STORE_FILE" to releaseStoreFilePath,
-                "BEYOUREYES_RELEASE_STORE_PASSWORD" to releaseStorePassword,
-                "BEYOUREYES_RELEASE_KEY_ALIAS" to releaseKeyAlias,
-                "BEYOUREYES_RELEASE_KEY_PASSWORD" to releaseKeyPassword,
-            ).filter { it.second.isBlank() }.map { it.first }
-        require(missing.isEmpty()) { "Commercial release inputs are missing: ${missing.sorted()}" }
-        listOf("MODEL_CATALOG_URL", "PRIVACY_POLICY_URL", "SUPABASE_URL", "AUTH_REDIRECT_URL").forEach { name ->
-            require(required.getValue(name).startsWith("https://")) { "$name must use HTTPS" }
-        }
-        val authRedirect = runCatching { URI(required.getValue("AUTH_REDIRECT_URL")) }.getOrNull()
-        require(
-            authRedirect != null && authRedirect.scheme == "https" &&
-                !authRedirect.host.isNullOrBlank() && authRedirect.rawUserInfo == null &&
-                authRedirect.port == -1 && authRedirect.rawQuery == null &&
-                authRedirect.rawFragment == null && authRedirect.rawPath == "/auth/callback"
-        ) { "AUTH_REDIRECT_URL must be a canonical HTTPS /auth/callback URL" }
-        val store = file(releaseStoreFilePath).canonicalFile
-        require(store.isFile && store.canRead()) { "Commercial signing keystore is not readable" }
-        require(!store.toPath().startsWith(rootProject.projectDir.parentFile.canonicalFile.toPath()))
-        require(releaseSigningComplete)
-    }
-}
-
-val verifyInternalProductInputs by tasks.registering {
-    group = "verification"
-    doLast {
-        val catalogUrl = optionalConfig("MODEL_CATALOG_URL")
-        val catalogUri = runCatching { URI(catalogUrl) }.getOrNull()
-        require(
-            catalogUri != null &&
-                catalogUri.scheme == "https" &&
-                !catalogUri.host.isNullOrBlank() &&
-                catalogUri.userInfo == null &&
-                catalogUri.fragment == null &&
-                catalogUri.query == null &&
-                catalogUri.path.endsWith("/catalog.json") &&
-                "/internal-evaluation/" in catalogUri.path
-        ) {
-            "Internal product APK requires a canonical HTTPS internal-evaluation Catalog URL"
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        unitTests.all {
+            it.useJUnit()
+            it.systemProperty("beYourEyes.repoRoot", rootProject.projectDir.parentFile.absolutePath)
         }
     }
 }
-
-tasks.configureEach {
-    if (name in setOf("packageRelease", "bundleRelease", "packageWebsite", "bundleWebsite")) dependsOn(verifyCommercialReleaseInputs)
-    if (name in setOf("packageInternal", "bundleInternal")) dependsOn(verifyInternalProductInputs)
-    if (name.contains("AndroidTest", ignoreCase = true) &&
-        !name.startsWith("prepareInternal") &&
-        !name.startsWith("prepareExternal")
-    ) {
-        dependsOn(prepareInternalReferenceAndroidTestAssets)
-        dependsOn(prepareInternalReadingAndroidTestAssets)
-        dependsOn(prepareInternalObjectAndroidTestAssets)
-        dependsOn(prepareExternalVisionReplayAndroidTestAssets)
-    }
-}
-
 kotlin { compilerOptions { jvmTarget.set(JvmTarget.JVM_17) } }
 
 dependencies {
@@ -523,19 +310,13 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.gson)
-    implementation(libs.supabase.auth)
-    listOf("debug", "functionalTest", "internal", "release", "website").forEach { variant ->
-        add("${variant}Implementation", platform(libs.firebase.bom))
-        add("${variant}Implementation", libs.firebase.messaging)
-        add("${variant}Implementation", libs.play.billing)
-    }
+    implementation("com.google.zxing:core:3.5.3")
     testImplementation(libs.junit4)
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.espresso.intents)
     androidTestImplementation(libs.gson)
-    androidTestImplementation(libs.supabase.postgrest)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 }

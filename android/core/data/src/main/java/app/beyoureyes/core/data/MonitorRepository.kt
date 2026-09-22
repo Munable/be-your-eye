@@ -3,7 +3,6 @@ package app.beyoureyes.core.data
 import app.beyoureyes.core.domain.ObjectEventCondition
 import app.beyoureyes.core.domain.ReadingOperator
 import android.content.Context
-import app.beyoureyes.core.data.cloud.CloudAccountState
 import app.beyoureyes.core.data.reference.ReferenceDeletionJournal
 import app.beyoureyes.core.data.reference.ReferenceImageRepository
 import app.beyoureyes.core.data.reference.StagedReferenceSet
@@ -94,7 +93,6 @@ data class MonitorRepositoryState(
 
 class MonitorRepository(
     context: Context,
-    accountState: StateFlow<CloudAccountState>,
     private val roomStore: RoomMonitorStore = RoomMonitorStore(
         MonitorDatabaseFactory.open(context.applicationContext),
     ),
@@ -116,27 +114,11 @@ class MonitorRepository(
 
     val state: StateFlow<MonitorRepositoryState> = combine(
         roomStore.tasks,
-        roomStore.remoteTasks,
         roomStore.events,
         latestReadingStore.readings,
         preferences.eventNotificationTaskIds,
         preferences.startedTaskIds,
-        accountState,
-    ) { values ->
-        @Suppress("UNCHECKED_CAST")
-        val localRows = values[0] as List<StoredLocalTask>
-        @Suppress("UNCHECKED_CAST")
-        val remoteRows = values[1] as List<StoredRemoteTaskSummary>
-        @Suppress("UNCHECKED_CAST")
-        val eventRows = values[2] as List<TimelineEvent>
-        @Suppress("UNCHECKED_CAST")
-        val readings = values[3] as List<StoredLatestTaskReading>
-        @Suppress("UNCHECKED_CAST")
-        val notificationIds = values[4] as Set<String>
-        @Suppress("UNCHECKED_CAST")
-        val startedIds = values[5] as Set<String>
-        val account = values[6] as CloudAccountState
-        val accountId = (account as? CloudAccountState.SignedIn)?.accountId
+    ) { localRows, eventRows, readings, notificationIds, startedIds ->
         MonitorRepositoryState(
             local = localRows.mapNotNull { row ->
                 runCatching {
@@ -150,24 +132,7 @@ class MonitorRepository(
                     )
                 }.getOrNull()
             },
-            remote = remoteRows.filter { it.accountId == accountId }.mapNotNull { row ->
-                runCatching {
-                    RemoteMonitor(
-                        id = row.taskId,
-                        revision = row.revision,
-                        name = row.title,
-                        kind = when {
-                            row.capabilityId == "structured_reading" -> MonitorKind.READING
-                            row.targetDefinitionMode == "object_detection" -> MonitorKind.OBJECT_DETECTION
-                            row.capabilityId == "visual_target" || row.capabilityId == "visible_state" ->
-                                MonitorKind.REFERENCE
-                            else -> error("unsupported remote monitor kind")
-                        },
-                        monitoringDeviceId = row.monitoringDeviceId,
-                    )
-                }.getOrNull()
-            },
-            events = eventRows.filter { !it.isRemoteTask || it.remoteAccountId == accountId }
+            events = eventRows.filter { !it.isRemoteTask }
                 .map { row ->
                     row.toMonitorEvent(
                         localTriggerSnapshotUri = if (row.isRemoteTask) null else {

@@ -1,117 +1,55 @@
 # Be Your Eye release gates
 
-This document defines release gates. A command, build artifact, emulator, mock,
-dashboard or recorded frame is evidence only for its own layer. It cannot close
-a physical-device, hosted-production, payment, store or human-acceptance gate.
-Current results belong in `evidence/current/01` through `05`; unresolved gates
-remain `open`.
+A build, emulator, public URL or screenshot proves only its own layer. Current
+results belong in `evidence/current/01` through `05`; unresolved device, human
+and long-running reliability gates remain `open`.
 
-## Community Preview
+## Open-source Community preview
 
-Before a Community preview, verify:
+1. Keep Apache-2.0 first-party source, dependency notices and exact model sources,
+   dataset disclosures, licenses, signed metadata and artifact checksums.
+2. Verify API 26+ arm64 packaging, the signed eight-GB recognition constraint,
+   no GMS/account/subscription dependency and offline reuse. A Community release
+   must remain installable without renewable maintainer metadata.
+3. Test reference images, numeric reading and Catalog visual targets, including
+   first frame, optional testing, event, local notification, history, stop,
+   delete and failure recovery. Unsupported targets fail closed.
+4. Test QR/code pairing, encrypted real relay publication/reception, tamper and
+   replay rejection, duplicate suppression, disconnect/reconnect, unpairing and
+   notification permission. Relay availability and Android battery behavior are
+   explicit limits. The project must not create a hosted or paid dependency.
+5. Validate all nine locales, persisted selection, long text, notifications and
+   accessibility. Test Android 8+ fallback and Android 13+ system selection
+   separately from compile-time checks.
+6. Run Community CI and a release build, inspect the merged manifest/dependency
+   inventory, scan secrets, and keep signing keys and personal data outside Git.
 
-1. Apache-2.0 first-party source, third-party notices, signed Catalog and exact
-   Manifest/package hashes are present;
-2. API 26+ arm64 packaging, no GMS dependency, eight-GB model boundary,
-   offline reuse of an installed package and stale-Catalog fail-closed behavior;
-3. all three manual creation paths, the optional recognition test, first-frame
-   start, event, record, stop, delete and failure recovery on the fixed device;
-4. no account, subscription, AI, voice, cloud, FCM or cross-device capability
-   is reachable from the Community build;
-5. the nine-locale resources, app-language picker, notifications and offline
-   switching pass `check-i18n` and the Android 8+/Android 13+ paths;
-6. no secret, raw frame, device serial, user data or model binary is committed.
+## Distribution
 
-Community release output is unsigned unless the release workflow supplies the
-approved signing environment. The model package is not copied into Git.
+Git contains code, metadata and source/license records. GitHub Releases contains
+verified model weights and associated license/checksum files; do not use Git LFS
+for the default model distribution. Signed model metadata is immutable. New
+URLs, class labels, runtime contracts or weights require new signed metadata.
+Private keys never enter the APK, repository, public CI or logs.
 
-## Connected channels
+A model-only release must say it is model data and must not imply an installable
+APK or completed physical acceptance. A runnable official APK needs a stable
+release signing certificate, exact source commit and model identities, APK hash,
+license notices and a tested installation/upgrade path. Never label a debug
+signature as official. An unsigned candidate is not installable until signed.
+Record candidate identities in evidence, not in these authority documents.
 
-The connected Android package keeps the existing Play subscription and root
-entitlement gate. The website package uses Stripe for one-time 30-day access and
-an optional three-day trial; it never auto-renews. Both paths use the same
-entitlement decision for app capabilities. Account, restore, manage-subscription,
-legal, delete-account and read-only history remain reachable while locked.
+## Acceptance and service retirement
 
-The assistant and voice routes require a signed-in account and active entitlement.
-The assistant's only tool is `propose_monitor_configuration`. A hosted result
-must prove that the proposal opens a confirmation page without creating, saving,
-starting or downloading. Voice must prove hold-to-talk, bounded AAC, normalized
-ASR locale and cache deletion. Hosted failures remain open until a real response
-and privacy log boundary are observed.
+Real recognition on the intended phone and scene, sustained operation, missed
+and false events, thermal behavior and human use remain separate from replay
+clips. Selected demo clips must state their input source and test environment.
+No identity recognition or safety-alarm claim is permitted without its own
+validated product scope.
 
-## Candidate identity and artifact gates
-
-Every candidate records the exact source commit, build variant, version code,
-Catalog version, active package IDs, Manifest hashes, signing identity and
-rollback candidate outside this document. Existing frozen signed artifacts are
-never modified. A contract change gets a new forward migration and a newly
-signed metadata version; model weights are reused only when their hash and
-license remain exact.
-
-The candidate must pass the schema and signature validators, package license and
-source review, runtime-family dispatch tests, model activation smoke and the
-repository policy. Catalog entries without an executable active package are
-forbidden. Identity by package name, vendor, filename or model artifact is a
-release blocker.
-
-## Required verification sequence
-
-Run in order and record each layer separately:
-
-1. `bash tools/ci/run-community.sh`, unit tests, schema/signature checks, lint,
-   compile, SBOM and `node tools/ci/check-i18n.mjs`;
-2. exact package activation and a minimal signed-runtime inference smoke;
-3. external replay using the exact active package and signed preprocessing;
-4. physical CameraX replay covering all three creation paths, first frame,
-   quality/unavailable, event, notification, records, stop and restart;
-5. Android API compatibility, locale switching, large text, offline switching,
-   app-language settings and draft preservation;
-6. hosted Auth, assistant, ASR, website billing, Stripe idempotency, entitlement,
-   notification and two-device media-relay checks;
-7. human review of the complete download, setup, use, payment/refund and delete
-   journeys where those channels are enabled.
-
-The full nine-locale path must cover first system-language selection, manual
-selection, restart persistence, returning to system, notifications, assistant
-responses, ASR language, plural/placeholder checks, long copy, date/number/
-decimal formatting, unsupported-language English fallback, Chinese script
-routing and Portuguese routing. Website checks cover first visit, refresh,
-cross-page storage, storage failure, Auth callback and Checkout return.
-
-## Internal and Commercial gates
-
-Internal builds use the existing `.internal` identity and test entitlement. They
-must not initiate production Play purchases or show Play management for an
-unavailable provider. A new Auth account alone never grants product access.
-
-Commercial or store release additionally requires per-package license and
-redistribution review, exact Catalog target/capability/package binding, current
-physical-device acceptance, privacy and support pages, signed APK/AAB, SBOM and
-vulnerability scan. Play releases also require Data Safety and store assets. The
-website route additionally requires an independent Stripe merchant, dedicated
-Price/webhook configuration, real payment/refund/expiry and delete-account
-checks, a self-held signing key and matching Digital Asset Links.
-
-## Hosted configuration gates
-
-Before hosted release, configure and test the exact HTTPS `/auth/callback` in
-Supabase allowlists, verified SMTP and one-time/expired password links, Android
-App Links using the Play app-signing certificate, the scoped Model Studio key,
-Supabase function secrets, Play product/base plans/offers and RTDN OIDC push.
-Purchase tokens, service keys and raw provider payloads never enter source,
-logs or evidence.
-
-Website billing must run the forward migration before the function update.
-Checkout accepts only the configured origin, product and one-time amount;
-client-supplied amount or duration is rejected. The first order locale is stored
-and reused for Stripe retries. Webhook signature verification, duplicate-event
-idempotency, full refund revocation, account isolation and deletion must be
-observed with real hosted data.
-
-## Release conclusion
-
-`evidence/current/05-release.json` is the sole current release conclusion. Use
-“release ready” only when the corresponding device, hosted, payment and human
-gates are closed with current evidence. Do not infer readiness from a green
-build, a dashboard setting, an old screenshot or an unconfirmed deployment.
+There is no connected/paid edition in the current source. Old hosted/payment
+results are historical, not current release gates. Removing service code does
+not cancel old resource billing: verify each project-specific resource and
+subscription separately, preserve necessary user data and shared resources,
+and record what was actually disabled. Never claim a bill has stopped without
+provider confirmation.

@@ -1,16 +1,22 @@
 {
-  "source_commit": "f432771314692fe1b80e8a641fc56b2ca549ef57",
-  "scope": "Community developer source preview",
-  "release_quality_ready": false,
-  "public_release_authorized": false,
+  "scope": "Maintainer services retired; optional encrypted peer relay",
+  "recorded_at": "2026-09-22T04:13:59.145954+00:00",
   "source_publication_authorized": true,
-  "status": "open",
+  "release_quality_ready": false,
+  "status": "retired",
   "community": {
-    "status": "disabled_by_design",
-    "community_runtime_dependencies": "no Billing, Firebase or Google Play Services in Community runtime classpath",
-    "cloud_config": "empty; disabled account, no fabricated entitlement",
-    "remote_trial": "deferred until real demand and separate authority",
-    "recorded_at": "2026-09-21T07:12:17.086757+00:00"
+    "maintainer_backend": "none",
+    "accounts_billing_assistant_voice": "removed from source and runtime dependencies",
+    "paired_alerts": "optional public ntfy-compatible HTTPS relay; phone-side AES-256-GCM; no media; no maintainer account or backend",
+    "public_relay_limits": "provider quotas, availability and Android battery restrictions apply"
   },
-  "detail": "Private historical evidence excluded. Only the current sanitized Community scope is included; open gates remain open."
+  "provider_retirement": {
+    "supabase_project": "exact Be Your Eyes project paused through provider API; subsequent provider state INACTIVE",
+    "cloudflare_pages": "exact old project and its custom-domain association deleted; absent from provider inventory",
+    "cloudflare_r2": "168 model objects, 470116951 bytes, archived and content-verified before deletion; exact bucket and model-domain association deleted; absent from provider inventory",
+    "recovery": "private external archive; no account export or key in public repository",
+    "shared_resources": "unrelated provider resources preserved",
+    "new_paid_resources": 0,
+    "billing_scope": "project resources retired; this does not assert that unrelated account plans, old invoices or domain registrations were cancelled"
+  }
 }

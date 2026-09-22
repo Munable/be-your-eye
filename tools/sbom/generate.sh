@@ -9,10 +9,9 @@ readonly OUTPUT_DIR_INPUT="${1:-$REPO_ROOT/sbom/generated}"
 readonly ANDROID_AAB_INPUT="${2:-}"
 readonly ANDROID_CYCLONEDX_VERSION="3.3.0"
 readonly NPM_CYCLONEDX_VERSION="4.0.3"
-readonly ANDROID_VARIANT="${BEYOUREYES_SBOM_ANDROID_VARIANT:-release}"
+readonly ANDROID_VARIANT="${BEYOUREYES_SBOM_ANDROID_VARIANT:-communityRelease}"
 case "$ANDROID_VARIANT" in
-    release) ANDROID_ARTIFACT_KIND=aab ;;
-    website|communityRelease) ANDROID_ARTIFACT_KIND=apk ;;
+    release|communityRelease) ANDROID_ARTIFACT_KIND=apk ;;
     *) printf 'Unsupported Android SBOM variant: %s\n' "$ANDROID_VARIANT" >&2; exit 1 ;;
 esac
 readonly ANDROID_ARTIFACT_KIND
@@ -240,29 +239,7 @@ write_provenance \
     "$ANDROID_AAB_INPUT"
 
 generate_npm_sbom \
-    "supabase/tests" \
-    "supabase-test-lock-dependencies.cdx.json"
-generate_npm_sbom \
     "model-tools/catalog-validator" \
     "catalog-validator-lock-dependencies.cdx.json"
-
-node "$SCRIPT_DIR/deno-lock-to-cyclonedx.mjs" \
-    "$REPO_ROOT/supabase/functions/push-dispatch/deno.lock" \
-    "$OUTPUT_DIR/supabase-edge-lock-dependencies.cdx.json"
-write_provenance \
-    "$OUTPUT_DIR/supabase-edge-lock-dependencies.cdx.json" \
-    "deno-lock-to-cyclonedx" \
-    "1" \
-    "supabase/functions/push-dispatch/deno.lock"
-
-
-node "$SCRIPT_DIR/deno-lock-to-cyclonedx.mjs" \
-    "$REPO_ROOT/supabase/functions/website-billing/deno.lock" \
-    "$OUTPUT_DIR/website-billing-lock-dependencies.cdx.json"
-write_provenance \
-    "$OUTPUT_DIR/website-billing-lock-dependencies.cdx.json" \
-    "deno-lock-to-cyclonedx" \
-    "1" \
-    "supabase/functions/website-billing/deno.lock"
 
 bash "$SCRIPT_DIR/verify.sh" "$OUTPUT_DIR" "$ANDROID_AAB_INPUT"

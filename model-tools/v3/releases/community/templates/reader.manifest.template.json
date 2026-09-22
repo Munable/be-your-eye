@@ -11,7 +11,7 @@
       "runtime": "onnx",
       "sha256": "9c09abf0957f7968c7586464b7397b84ad2387a0497a351af40e9acc71b673ba",
       "size_bytes": 76554979,
-      "url": "https://models.beyoureye.com/internal-evaluation/2026-08-03/v3.1-combined-1/artifacts/numeric_reader_ppocrv6_medium_v1/primary.onnx"
+      "url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/numeric_reader_ppocrv6_medium_v1.primary.onnx"
     },
     {
       "media_type": "application/onnx",
@@ -19,7 +19,7 @@
       "runtime": "onnx",
       "sha256": "193bab7a04fca699a6c82e6abb5b81bdb28177f0abd4062552b04908dafb19f8",
       "size_bytes": 1780590,
-      "url": "https://models.beyoureye.com/internal-evaluation/2026-08-12/first-release-3/artifacts/numeric_reader_ppocrv6_medium_v1/locator.onnx"
+      "url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/numeric_reader_ppocrv6_medium_v1.locator.onnx"
     },
     {
       "media_type": "application/vnd.beyoureyes.ctc-vocabulary+json",
@@ -27,7 +27,7 @@
       "runtime": "ctc_vocabulary",
       "sha256": "684a00dd6ca9dd491468412c305aee6a450f69a2800108ddb23837c15fbcaf49",
       "size_bytes": 112437,
-      "url": "https://models.beyoureye.com/internal-evaluation/2026-08-03/v3.1-combined-1/artifacts/numeric_reader_ppocrv6_medium_v1/vocabulary.json"
+      "url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/numeric_reader_ppocrv6_medium_v1.vocabulary.json"
     }
   ],
   "bindings": [],
@@ -141,7 +141,7 @@
     }
   ],
   "package_id": "numeric_reader_ppocrv6_medium_v1",
-  "package_version": "0.3.0-community.1",
+  "package_version": "0.3.1-community.1",
   "parameter_profile": {
     "allowed_bounds": {
       "locator_box_threshold": {

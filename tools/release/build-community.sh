@@ -10,16 +10,13 @@ export PATH="$JAVA_HOME/bin:$PATH"
 cd "$ROOT"
 node tools/ci/check-i18n.mjs
 node --test tools/ci/check-i18n.test.mjs
-if ! git diff --quiet || ! git diff --cached --quiet; then
-    echo 'Commit verified source changes before freezing a candidate' >&2; exit 1
-fi
+COMMIT="$(bash "$ROOT/tools/release/require-clean-git-checkout.sh" "$ROOT")"
 python3 - "$ROOT" "$COMMUNITY_OUTPUT_DIR" <<'PYCHECK'
 from pathlib import Path
 import sys
 root,out=map(lambda p:Path(p).resolve(),sys.argv[1:])
 assert out != root and not out.is_relative_to(root), 'Release output must be outside the source tree'
 PYCHECK
-COMMIT="$(git rev-parse HEAD)"
 DEST="$COMMUNITY_OUTPUT_DIR/$COMMIT/${MODE#--}"
 [[ ! -e "$DEST" ]] || { echo 'Candidate already exists; refusing to overwrite' >&2; exit 1; }
 SIGNED=false
@@ -48,7 +45,7 @@ PYKEY
     SIGNED=true
 fi
 ./android/gradlew -p android --no-daemon -PCOMMUNITY_SIGNED="$SIGNED" \
-    -PBEYOUREYES_VERSION_CODE=26 -PBEYOUREYES_VERSION_NAME=0.3.0 \
+    -PBEYOUREYES_VERSION_CODE=27 -PBEYOUREYES_VERSION_NAME=0.3.1 \
     :app:lintCommunityRelease :app:assembleCommunityRelease
 mkdir -p "$DEST"
 if [[ "$SIGNED" == true ]]; then NAME=app-communityRelease.apk; else NAME=app-communityRelease-unsigned.apk; fi
@@ -64,9 +61,9 @@ import sys,json,hashlib,datetime
 out=Path(sys.argv[1]);apk=out/'be-your-eye-community.apk';digest=hashlib.sha256(apk.read_bytes()).hexdigest()
 (out/'SHA256SUMS').write_text(digest+'  '+apk.name+'\n')
 (out/'candidate.json').write_text(json.dumps({'source_commit':sys.argv[2],'application_id':'app.beyoureyes.monitor.community',
-'version_name':'0.3.0-community-preview','version_code':26,'apk_sha256':digest,'apk_bytes':apk.stat().st_size,
+'version_name':'0.3.1','version_code':27,'apk_sha256':digest,'apk_bytes':apk.stat().st_size,
 'signed':sys.argv[3]=='true','built_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
 'release_quality_ready':False,'public_release_authorized':False},indent=2)+'\n')
 PY
-[[ "$(git rev-parse HEAD)" == "$COMMIT" ]] && git diff --quiet && git diff --cached --quiet
+[[ "$(bash "$ROOT/tools/release/require-clean-git-checkout.sh" "$ROOT")" == "$COMMIT" ]]
 printf 'Community candidate: %s\n' "$DEST"

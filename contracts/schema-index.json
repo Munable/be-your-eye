@@ -2,14 +2,9 @@
   "schema_version": "3.0",
   "contracts": {
     "CapabilityCatalog": "schemas/capability-catalog.schema.json",
-    "MonitorConfigurationProposal": "schemas/monitor-configuration-proposal.schema.json",
     "TaskConfig": "schemas/task-config.schema.json",
     "Observation": "schemas/observation.schema.json",
     "Event": "schemas/event.schema.json",
-    "ModelPackageManifest": "schemas/model-manifest.schema.json",
-    "Device": "schemas/device.schema.json",
-    "SyncEventUpsert": "schemas/sync-event-upsert.schema.json",
-    "SyncResponse": "schemas/sync.schema.json",
-    "PushEnvelope": "schemas/push-envelope.schema.json"
+    "ModelPackageManifest": "schemas/model-manifest.schema.json"
   }
 }

@@ -56,7 +56,7 @@ import app.beyoureyes.monitor.design.ProductTopBar
 import app.beyoureyes.monitor.design.SetupInstructions
 import app.beyoureyes.monitor.feature.monitoring.TargetPresenceRuleControls
 import app.beyoureyes.monitor.feature.monitoring.LocalNotificationSetupPanel
-import app.beyoureyes.monitor.feature.account.currentAppLanguageTag
+import app.beyoureyes.monitor.feature.about.currentAppLanguageTag
 
 internal object ObjectCreationTags {
     const val SCREEN = "object_detection_creation"

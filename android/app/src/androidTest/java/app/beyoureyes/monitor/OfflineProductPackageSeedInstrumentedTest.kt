@@ -31,9 +31,6 @@ import app.beyoureyes.core.vision.RuntimeCreationResult
 import app.beyoureyes.core.vision.RuntimeFrameResult
 import app.beyoureyes.core.vision.UprightRgbFrameNormalizer
 import app.beyoureyes.core.vision.VerifiedModelPackage
-import app.beyoureyes.monitor.feature.assistant.SignedAssistantCatalogSnapshotProvider
-import app.beyoureyes.monitor.feature.assistant.objectClassDefinitions
-import app.beyoureyes.monitor.feature.subscription.ProductAccessDecision
 import com.google.gson.JsonParser
 import java.io.ByteArrayInputStream
 import java.io.IOException
@@ -62,7 +59,7 @@ class OfflineProductPackageSeedInstrumentedTest {
         targetContext.filesDir.resolve("signed-manifest-cache-v1").deleteRecursively()
         val transport = fixtureTransport(fixture, catalogUrl)
         val buildChannel = checkNotNull(BuildChannel.fromWireValue(BuildConfig.BUILD_CHANNEL))
-        assertEquals(BuildChannel.INTERNAL_EVALUATION, buildChannel)
+        assertEquals(BuildChannel.COMMUNITY, buildChannel)
         val device = currentModelPreparationDevice(targetContext)
         val now = System.currentTimeMillis()
 
@@ -103,7 +100,6 @@ class OfflineProductPackageSeedInstrumentedTest {
             taskBinder = ModelPreparationTaskBinder { true },
             transport = transport,
             nowEpochMillis = { now },
-            productAccess = { ProductAccessDecision.GRANTED },
         ).prepareTask(REFERENCE_TASK_ID) { progress ->
             (progress as? ModelPreparationProgress.AwaitingDownload)?.request?.confirm()
         }
@@ -130,7 +126,6 @@ class OfflineProductPackageSeedInstrumentedTest {
             taskBinder = ModelPreparationTaskBinder { true },
             transport = transport,
             nowEpochMillis = { now },
-            productAccess = { ProductAccessDecision.GRANTED },
         ).prepareTask(READING_TASK_ID) { progress ->
             (progress as? ModelPreparationProgress.AwaitingDownload)?.request?.confirm()
         }
@@ -146,7 +141,6 @@ class OfflineProductPackageSeedInstrumentedTest {
             taskBinder = ModelPreparationTaskBinder { true },
             transport = transport,
             nowEpochMillis = { now },
-            productAccess = { ProductAccessDecision.GRANTED },
         ).prepareTask(OBJECT_TASK_ID) { progress ->
             (progress as? ModelPreparationProgress.AwaitingDownload)?.request?.confirm()
         }
@@ -255,7 +249,6 @@ class OfflineProductPackageSeedInstrumentedTest {
             transport = offlineTransport,
             nowEpochMillis = { now },
             networkAvailable = { false },
-            productAccess = { ProductAccessDecision.GRANTED },
         ).prepareTask(STORED_OBJECT_TASK_ID) { progress ->
             (progress as? ModelPreparationProgress.AwaitingDownload)?.request?.confirm()
         }
@@ -268,7 +261,7 @@ class OfflineProductPackageSeedInstrumentedTest {
             VerifiedManifestCache(targetContext.filesDir, commonEntry).readBytesOrNull(),
         )
 
-        val offlineSnapshot = SignedAssistantCatalogSnapshotProvider(
+        val offlineDefinitions = SignedObjectCatalogProvider(
             catalogUrl = catalogUrl,
             expectedBuildChannel = buildChannel,
             metadataClient = SignedMetadataHttpClient(offlineTransport),
@@ -278,10 +271,8 @@ class OfflineProductPackageSeedInstrumentedTest {
             },
             nowEpochMillis = { now },
         ).load()
-        val offlineDefinitions = offlineSnapshot.objectClassDefinitions()
         assertTrue(offlineDefinitions.any { it.targetId == "cat" })
         assertEquals(80, offlineDefinitions.size)
-        assertEquals(3, offlineSnapshot.modelProfiles.size)
     }
 
     private fun loadFixture(): Fixture {

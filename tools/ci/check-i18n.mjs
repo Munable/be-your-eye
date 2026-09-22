@@ -1,14 +1,9 @@
-import vm from "node:vm";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
 export const SUPPORTED_LOCALES = [
   "en", "zh-Hans", "zh-Hant", "ja", "ko", "es", "fr", "de", "pt-BR",
 ];
-
-export function hardCodedWebsiteDisplay(source) {
-  return /\bmessage\(\s*["']/u.test(source) || /\.textContent\s*=\s*["'][^"']+[^"']*["']/u.test(source);
-}
 
 const root = resolve(import.meta.dirname, "../..");
 const failures = [];
@@ -108,57 +103,6 @@ else {
   }
 }
 
-function loadWebI18n() {
-  const source = readFileSync(join(root, "release/google-play/privacy/i18n.js"), "utf8");
-  const context = {
-    URL,
-    URLSearchParams,
-    CustomEvent: class CustomEvent { constructor(type, init) { this.type = type; this.detail = init?.detail; } },
-    navigator: { languages: ["en-US"], language: "en-US" },
-    location: { search: "", pathname: "/" },
-    localStorage: { getItem: () => null, setItem: () => {} },
-    document: {
-      documentElement: { lang: "" },
-      querySelectorAll: () => [],
-      querySelector: () => null,
-      getElementById: () => null,
-      addEventListener: () => {},
-      createElement: () => ({ setAttribute: () => {}, append: () => {}, addEventListener: () => {} }),
-      head: { append: () => {} },
-      body: { prepend: () => {} },
-    },
-    window: {},
-  };
-  context.window = context;
-  vm.runInNewContext(`${source}\n;globalThis.__i18nSnapshot = { languages: LANGUAGES, dictionaries: TEXT };`, context, {
-    filename: "release/google-play/privacy/i18n.js",
-  });
-  return context.__i18nSnapshot;
-}
-
-try {
-  const { languages, dictionaries } = loadWebI18n();
-  const registered = languages.map(([tag]) => tag).filter((tag) => tag !== "system");
-  if (JSON.stringify(registered) !== JSON.stringify(SUPPORTED_LOCALES)) {
-    failures.push(`website language registry must be ${SUPPORTED_LOCALES.join(", ")}`);
-  }
-  const sourceKeys = Object.keys(dictionaries.en ?? {}).sort();
-  for (const locale of SUPPORTED_LOCALES) {
-    const dictionary = dictionaries[locale];
-    if (!dictionary) {
-      failures.push(`website dictionary omits ${locale}`);
-      continue;
-    }
-    const keys = Object.keys(dictionary).sort();
-    if (JSON.stringify(keys) !== JSON.stringify(sourceKeys)) failures.push(`website dictionary key mismatch for ${locale}`);
-    for (const key of keys) if (typeof dictionary[key] !== "string" || dictionary[key].trim() === "") {
-      failures.push(`website dictionary has empty value ${locale}.${key}`);
-    }
-  }
-} catch (error) {
-  failures.push(`website i18n dictionary could not be loaded: ${error.message}`);
-}
-
 function walk(directory) {
   const files = [];
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -181,42 +125,21 @@ for (const path of [join(root, "android/app/src/main/java"), join(root, "android
   }
 }
 
-for (const file of walk(join(root, "release/google-play/privacy")).filter((value) => value.endsWith(".html"))) {
-  const source = readFileSync(file, "utf8");
-  if (!/<script\s+src="\/i18n\.js"><\/script>/u.test(source)) {
-    failures.push(`website page omits the shared i18n runtime: ${relative(root, file)}`);
+export function catalogLabelFailures(target, path) {
+  const labels = target.labels;
+  if (!labels || JSON.stringify(Object.keys(labels).sort()) !== JSON.stringify([...SUPPORTED_LOCALES].sort())) {
+    return [`Catalog target ${target.target_id} must have exactly nine locale labels in ${path}`];
   }
-  if (/<html\s+lang="zh-CN"/u.test(source)) {
-    failures.push(`website page keeps a fixed root zh-CN language: ${relative(root, file)}`);
-  }
-}
-
-const websiteSourceFiles = walk(join(root, "release/google-play/privacy"))
-  .filter((file) => file.endsWith(".js") && !file.endsWith("/i18n.js"));
-for (const file of websiteSourceFiles) {
-  const source = readFileSync(file, "utf8");
-  if (hardCodedWebsiteDisplay(source)) {
-    failures.push(`hard-coded website display text in ${relative(root, file)}`);
-  }
-}
-
-for (const directory of ["supabase/templates", "supabase/email-templates", "release/email"]) {
-  const path = join(root, directory);
-  if (!existsSync(path)) continue;
-  for (const file of walk(path).filter((value) => /\.(?:html|js|ts)$/u.test(value))) {
-    const source = readFileSync(file, "utf8");
-    if (/message\(\s*["']/u.test(source) || /textContent\s*=\s*["']/u.test(source)) {
-      failures.push(`hard-coded email display text in ${relative(root, file)}`);
-    }
-  }
+  return SUPPORTED_LOCALES.filter((locale) => typeof labels[locale] !== "string" || !labels[locale].trim() || /[\u0000-\u001f\u007f]/u.test(labels[locale]))
+    .map((locale) => `Catalog target ${target.target_id} has an invalid ${locale} label in ${path}`);
 }
 
 for (const path of [
-  "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/AssistantViewModel.kt",
-  "release/google-play/privacy/account/account.js",
+  "model-tools/v3/releases/community/templates/object.manifest.template.json",
+  "android/app/src/community/assets/community-models/manifests/efficientdet_lite2_object_v1.json",
 ]) {
-  const source = readFileSync(join(root, path), "utf8");
-  if (/zh-CN/u.test(source)) failures.push(`fixed zh-CN locale remains in ${path}`);
+  const manifest = JSON.parse(readFileSync(join(root, path), "utf8"));
+  for (const target of manifest.adapter_contract.class_map.targets) failures.push(...catalogLabelFailures(target, path));
 }
 
 if (failures.length) {

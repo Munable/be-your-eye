@@ -6,21 +6,17 @@ target. The production English brand is **Be Your Eye**; **帮你盯** is the
 Chinese display name. `app.beyoureyes.monitor` remains the Android technical
 identity.
 
-## Community and connected editions
+## Independent Community edition
 
-Community is a local tool. It creates tasks, downloads signed models, runs the
-camera, sends local notifications and keeps local history without an account or
-subscription. It exposes three peer manual paths: reference images, numeric reading,
-and a text-described visual target/phenomenon. Community does not show
-login, purchase, AI assistant, voice, cross-device alerts or cloud sync.
+Community creates tasks, downloads signed models, runs the camera, sends local
+notifications and keeps local history without an account, subscription or API key.
+The project operates no backend and offers no cloud AI, voice assistant, billing
+or hosted sync. Models are distributed through this repository’s GitHub Releases.
+After the first verified download, local recognition works offline without a
+service lease. Optional paired alerts use a user-selected third-party relay.
 
-The connected edition retains its account and entitlement gate. When signed out
-or without `ProductAccessState.Granted`, a subscription wall blocks product
-capabilities while account management, restore, legal pages and read-only local
-history stay reachable. Google Play keeps the existing subscription channel.
-The website offers a one-time Stripe purchase for 30 days with no automatic
-renewal and one user-claimed three-day trial after email confirmation. Both
-channels share the root entitlement boundary.
+The three peer creation paths are reference images, numeric reading and a
+Catalog-backed visual target.
 
 ## Creation paths
 
@@ -53,19 +49,6 @@ or unapproved package is a fallback. After the exact target and condition are
 selected, the task can start immediately. Optional testing recognition remains
 available from setup and details.
 
-The DeepSeek assistant follows the same rules. It receives all three routes and the
-complete signed capability summary, asks only for material ambiguity, and uses
-the single `propose_monitor_configuration` tool to open a confirmation page.
-The tool has no create, save, start, download or notification side effect. It
-defaults an omitted duration to one second and accepts an explicit integer from
-one to 60 seconds. The user confirms through the original setup path.
-
-Text input and foreground hold-to-talk belong to the same conversation. Only a
-long press requests the microphone and records a bounded AAC file. The
-authenticated Qwen ASR function receives that file, returns text and deletes the
-cache immediately. Camera frames, reference images, trigger images and history
-never enter assistant or ASR requests. Community disables both routes.
-
 ## Testing and continuous monitoring
 
 Monitoring runs only while the app is visible. Moving to another app, the system
@@ -87,42 +70,44 @@ one episode produces one event. The app keeps target-present and target-absent
 facts separate, does not turn uncertainty into absence, and keeps the same task
 when a baseline is later confirmed.
 
-## Records, privacy and account boundaries
+## Records and paired alerts
 
-The run page shows the current state, local record count and the latest record.
-Details and recent records are filtered by the exact monitor ID. A first trigger
-may save one private JPEG; media is never put in an Event payload, Supabase row,
-Storage object or FCM message. A same-account device may request a temporary
-end-to-end-encrypted copy through Realtime Broadcast, limited to 720 px and
-120 KiB; the viewer keeps it only in a private temporary cache.
+The run page shows local state and records for the selected monitor. A first
+trigger may save one private JPEG. Camera frames and tensors stay in memory;
+reference material and trigger photos remain on the source phone.
 
-Ordinary camera frames and intermediate tensors stay in memory. Sign-out,
-account deletion or remote-event removal clears temporary media and leases.
-Diagnostics contain no target names, images, readings, raw recognition text,
-tokens or device serials. Provider purchase tokens are transient; only their
-hash and provider state may be persisted.
+A user may pair two or more phones by QR code or a copied pairing code. They
+share one random topic and encryption key. Monitoring events with notifications
+enabled send encrypted text: monitor name, condition, time and optional reading.
+The receiving phone shows a local notification and stores a bounded text inbox.
+Images, live video, configuration and remote camera control are not transmitted.
+
+The default relay is the independent free public ntfy service; users can choose
+another compatible HTTPS relay. No maintainer account, server, API key, paid
+subscription or paid fallback is needed. Public service quotas and availability
+apply. The receiver must explicitly enable persistent receiving and allow
+notifications; a visible service notification offers Stop. Android battery
+restrictions or a killed app can interrupt delivery. This is best-effort
+messaging, not a guaranteed alarm. To remove a group member, form a new group
+with a new pairing code. Existing members share the same authority.
 
 ## Nine-locale user experience
 
 The shipped locales are `en`, `zh-Hans`, `zh-Hant`, `ja`, `ko`, `es`, `fr`, `de`
-and `pt-BR`. The default follows the system or browser language. A language
-picker is available from Community About and the connected Account surface even
-before sign-in or entitlement. The choice survives restart and sign-out, and
+and `pt-BR`. The default follows the system language. A language
+picker is available from About. The choice survives restart, and
 Android 13 system app-language settings interoperate with Android 8+ fallback.
 
 Matching maps mainland China and Singapore to Simplified Chinese, Taiwan, Hong
 Kong and Macau to Traditional Chinese, Portuguese to Brazilian Portuguese, and
 unsupported languages to English. Dates, numbers, durations, file sizes and
-prices use the active locale. Stable protocol fields and provider-returned
-prices retain their literal meaning. User-entered text, saved names, source
-recognition text and conversation history are never translated automatically.
+file sizes use the active locale. Stable protocol fields retain their literal meaning. User-entered text, saved names, source
+recognition text are never translated automatically.
 
-Every Android string, accessibility label, notification, worker message, web
-template, legal/help page, account/checkout message, assistant response and
-Catalog display label follows the shared resource/dictionary contract. ViewModels
-and services carry message keys plus arguments; clients localize stable server
-error codes. `check-i18n` blocks missing keys, placeholder drift and hard-coded
-display copy.
+Every Android string, accessibility label, notification, worker message and new
+Catalog display label follows the shared resource contract. `check-i18n` rejects
+missing keys, placeholder drift and hard-coded display copy. There is no hosted
+website, account, checkout, email or assistant locale surface.
 
 ## Product limits
 
@@ -130,5 +115,5 @@ The first release targets fixed-camera personal and small-workplace use. It does
 not promise identity recognition, medical, industrial, infant or elder safety
 monitoring. Community supports Android API 26+, arm64 and the signed device
 profile; the current model requirement is eight GB RAM and no GMS dependency.
-Evidence for physical devices, hosted services, payments and human acceptance
+Evidence for physical devices, public-relay delivery and human acceptance
 is kept separate from builds, fixtures and emulator results.

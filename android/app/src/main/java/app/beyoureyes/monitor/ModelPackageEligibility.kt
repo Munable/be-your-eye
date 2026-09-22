@@ -104,7 +104,6 @@ internal data class ModelPackageEligibilityCandidate(
     val recipe: CatalogRuntimeRecipe,
     val operationalCapability: CatalogOperationalCapability,
     val manifest: ModelPackageManifest,
-    val installedCommunityOnly: Boolean = false,
 ) {
     companion object {
         fun fromVerified(
@@ -136,7 +135,6 @@ internal data class ModelPackageEligibilityCandidate(
                 recipe = recipe,
                 operationalCapability = operationalCapability,
                 manifest = document.manifest,
-                installedCommunityOnly = catalog.installedCommunityOnly,
             )
         }
     }
@@ -170,8 +168,7 @@ internal object ModelPackageEligibilityEvaluator {
             add(ModelPackageIneligibility.SIGNED_METADATA_CHAIN_INVALID)
         }
         if (!entry.active) add(ModelPackageIneligibility.CATALOG_ENTRY_INACTIVE)
-        if ((candidate.catalogValidUntilEpochMillis <= requirement.nowEpochMillis &&
-                !(candidate.installedCommunityOnly && requirement.buildChannel == BuildChannel.COMMUNITY)) ||
+        if (candidate.catalogValidUntilEpochMillis <= requirement.nowEpochMillis ||
             candidate.licenseRunValidUntilEpochMillis <= requirement.nowEpochMillis ||
             license.grantExpiresAt?.let(::instantMillisOrNull)
                 ?.let { it <= requirement.nowEpochMillis } == true

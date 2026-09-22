@@ -49,7 +49,6 @@ internal sealed interface MonitorCameraState {
         val canReplaceReferenceImages: Boolean = false,
         val removingMonitor: Boolean = false,
         val retryable: Boolean = true,
-        val canOpenAccount: Boolean = false,
     ) : MonitorCameraState
 }
 
@@ -271,7 +270,6 @@ internal class MonitorCameraViewModel(
                         )
                         mutableState.value = MonitorCameraState.Error(
                             message = UiText.Verbatim(prepared.userMessage),
-                            canOpenAccount = prepared.canOpenAccount,
                         )
                     }
                 }

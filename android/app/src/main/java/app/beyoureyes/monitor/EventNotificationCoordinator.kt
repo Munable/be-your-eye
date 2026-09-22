@@ -189,6 +189,7 @@ class AndroidEventNotificationPublisher(
             RuntimeDiagnostics.record(appContext, "notification_skipped_disabled")
             return
         }
+        runCatching { app.beyoureyes.monitor.feature.peers.PeerAlertSender.event(appContext, eventId) }
         if (!notificationsAvailable()) {
             RuntimeDiagnostics.record(appContext, "notification_deferred")
             throw NotificationDeliveryDeferredException("event_notification_permission_denied")

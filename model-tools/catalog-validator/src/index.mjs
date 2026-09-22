@@ -9,8 +9,6 @@ export {
   validateTaskConfig,
   validateObservation,
   validateEvent,
-  validateSyncEventUpsert,
-  validateSync,
   validateContract
 } from './contracts.mjs';
 export {

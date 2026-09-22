@@ -1,20 +1,20 @@
 # 第三方组件与声明
 
-状态：Community 本地候选与保留的连接版依赖清单；正式商业发布必须从实际 Gradle、Deno、npm 锁文件和活动 Model Catalog 重新生成 SBOM 与最终许可文本。
+当前范围：独立开源 Android 应用。发布时从实际 Gradle 与 npm 依赖生成 SBOM，模型遵循各自许可。
 
 ## 代码与服务
 
-| 组件/服务 | 用途 | 当前边界 |
-|---|---|---|
-| AndroidX / Compose / Navigation / Lifecycle / CameraX / Room / DataStore / WorkManager | Android 产品与本地数据 | 版本由 Gradle catalog 锁定，进入 Android SBOM |
-| Google LiteRT / Microsoft ONNX Runtime Android | 通用 runtime family | 仅按签名 Manifest 执行，不含模型专属 backend |
-| Java JSON Canonicalization / Tink / Gson | RFC 8785、Ed25519 与严格 JSON | 进入 Android SBOM |
-| Supabase-kt / Ktor | 可选 Auth、密码恢复、PostgREST/RPC、RLS 同步与 Edge 调用 | Android 只持公开客户端配置与用户 session |
-| Supabase Edge Runtime / supabase-js / google-auth-library | 账号删除、DeepSeek/Qwen 代理、Play entitlement/RTDN 与 FCM push-dispatch | 版本由 Deno lock 固定；服务密钥只在 Function Secrets/Vault |
-| Firebase Messaging | 可选 data-only 跨设备提醒 | 消息只含 event_id/cursor_hint；失败不影响本地功能 |
-| Cloudflare R2 / Pages | 签名模型包与静态隐私页 | 外部服务条款不替代模型许可 |
-| Alibaba Cloud Model Studio / DashScope | `deepseek-v4-flash-0731` 配置助手与 `qwen3-asr-flash-2026-02-10` 语音转写 | 只经鉴权且 Pro gated 的 Edge Function 调用；普通相机帧、参考图和触发图不发送；服务端凭据不进入 APK |
-| Google Play Billing 9.1.0 / Android Publisher API / Pub/Sub RTDN | `be_your_eye_pro` 订阅购买、服务端校验与状态刷新 | Play 处理付款；原始 purchase token 只瞬时校验，数据库只存 SHA-256 与最小权益状态 |
+| 组件 | 用途 | 许可/来源 |
+| --- | --- | --- |
+| AndroidX / Compose / Navigation / Lifecycle / CameraX / Room / DataStore / WorkManager | 界面、相机、本地数据及有界发送重试 | Apache-2.0，版本固定在 Gradle |
+| Google LiteRT / Microsoft ONNX Runtime Android | 本机视觉推理 | Apache-2.0 / MIT，具体组件见 SBOM |
+| JSON Canonicalization / Tink / Gson | RFC 8785、Ed25519 与 JSON | Apache-2.0，保留原组件声明 |
+| Kotlin / Coroutines / Serialization | Android 运行与数据解析 | Apache-2.0 |
+| [ZXing Core 3.5.3](https://github.com/zxing/zxing/tree/zxing-3.5.3) | 生成及读取配对二维码 | Apache-2.0 |
+| GitHub Releases | 模型文件分发 | 独立托管服务；服务条款不替代文件许可 |
+| [ntfy](https://docs.ntfy.sh/) | 可选匿名加密文字中转，地址可更换 | 使用 HTTPS 协议；本应用未嵌入 ntfy 客户端或服务器代码。公共服务有其额度和条款 |
+
+项目不运营服务器，不提供云 AI、语音、账号、支付或订阅服务。
 
 ## 模型包（Community 精确身份见 docs/community/MODELS.md）
 

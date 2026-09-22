@@ -50,8 +50,6 @@ import app.beyoureyes.core.data.SignedMetadataCodec
 import app.beyoureyes.core.data.StoredLocalTask
 import app.beyoureyes.core.data.monitorPreferences
 import app.beyoureyes.core.domain.Observation
-import app.beyoureyes.monitor.feature.subscription.ProductAccessState
-import app.beyoureyes.monitor.feature.subscription.isGranted
 import app.beyoureyes.core.vision.BuildChannel
 import app.beyoureyes.core.vision.CameraPlaneBufferView
 import app.beyoureyes.core.vision.CameraYuv420FrameMapper
@@ -121,17 +119,6 @@ class MonitoringService : LifecycleService() {
             },
         )
     }
-    private val productAccessWatchdog = object : Runnable {
-        override fun run() {
-            if (activeCameraConfig == null || stopFinalizationPending) return
-            if (appContainer.currentAccessDecision() != app.beyoureyes.monitor.feature.subscription.ProductAccessDecision.GRANTED) {
-                failAndStop(localizedString(R.string.service_access_expired))
-                return
-            }
-            mainHandler.postDelayed(this, PRODUCT_ACCESS_CHECK_INTERVAL_MILLIS)
-        }
-    }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         when (intent?.action) {
@@ -179,17 +166,6 @@ class MonitoringService : LifecycleService() {
             failAndStop(localizedString(R.string.service_invalid_camera_config))
             return
         }
-        if (appContainer.currentAccessDecision() != app.beyoureyes.monitor.feature.subscription.ProductAccessDecision.GRANTED) {
-            MonitoringRuntimeState.update(
-                MonitoringPhase.STOPPED,
-                localizedString(R.string.service_access_required),
-                MonitoringHealth.FATAL,
-                monitorId = config.taskId,
-            )
-            stopForegroundIfStarted()
-            stopSelf()
-            return
-        }
         activeCameraConfig = config
         MonitoringRuntimeState.setManualReadingScanRegion(config.manualReadingScanRegion)
         if (!heartbeatStore.begin(config.taskId, System.currentTimeMillis())) {
@@ -197,8 +173,6 @@ class MonitoringService : LifecycleService() {
             return
         }
         lastHeartbeatElapsedMillis = SystemClock.elapsedRealtime()
-        mainHandler.removeCallbacks(productAccessWatchdog)
-        mainHandler.postDelayed(productAccessWatchdog, PRODUCT_ACCESS_CHECK_INTERVAL_MILLIS)
         MonitoringRuntimeState.update(
             MonitoringPhase.STARTING,
             localizedString(R.string.service_waiting_first_frame),
@@ -768,7 +742,6 @@ class MonitoringService : LifecycleService() {
         // opened concurrently with Back/stop is closed; removing it here would leak its runtime
         // lease when the callback never gets a chance to release the just-created session.
         mainHandler.removeCallbacks(frameWatchdog)
-        mainHandler.removeCallbacks(productAccessWatchdog)
         imageAnalysis?.clearAnalyzer()
         imageAnalysis = null
         cameraPreview?.let(MonitoringCameraPreview::unbind)
@@ -868,7 +841,6 @@ class MonitoringService : LifecycleService() {
         private const val LOG_TAG = "BeYourEyeMonitor"
         private const val FRAME_TIMEOUT_MILLIS = 10_000L
         private const val HEARTBEAT_INTERVAL_MILLIS = 5_000L
-        private const val PRODUCT_ACCESS_CHECK_INTERVAL_MILLIS = 5_000L
         private const val DEBUG_PROGRESS_INTERVAL = 120L
         private const val TIMING_DIAGNOSTIC_FRAME_INTERVAL = 60L
         private const val YUV_PLANE_COUNT = 3
@@ -1050,10 +1022,6 @@ class MonitoringService : LifecycleService() {
         }.getOrNull()
     }
 }
-
-internal fun shouldStopMonitoringForProductAccess(
-    accessState: ProductAccessState,
-): Boolean = !accessState.isGranted()
 
 internal fun shouldReportUnexpectedMonitoringServiceDestroy(
     wasActive: Boolean,

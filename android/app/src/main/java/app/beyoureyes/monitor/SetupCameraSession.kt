@@ -143,7 +143,6 @@ sealed interface MonitoringStartResult {
     data object Accepted : MonitoringStartResult
     data class Rejected(
         val message: String,
-        val canOpenAccount: Boolean = false,
     ) : MonitoringStartResult
 }
 

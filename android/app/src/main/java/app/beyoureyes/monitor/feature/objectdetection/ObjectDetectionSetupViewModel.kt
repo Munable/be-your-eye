@@ -138,7 +138,6 @@ internal class ObjectDetectionSetupViewModel(
                         diagnosticFailure("object_detection_package_preparation_failed", result.failure.name.lowercase())
                         mutableState.value = MonitorCameraState.Error(
                             UiText.Verbatim(result.userMessage),
-                            canOpenAccount = result.canOpenAccount,
                         )
                     }
                 }

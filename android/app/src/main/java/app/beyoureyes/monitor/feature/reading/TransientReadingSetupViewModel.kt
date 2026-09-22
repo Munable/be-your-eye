@@ -224,7 +224,6 @@ internal class TransientReadingSetupViewModel(
                         diagnosticFailure("manual_reading_package_preparation_failed", result.failure.name.lowercase())
                         mutableState.value = MonitorCameraState.Error(
                             UiText.Verbatim(result.userMessage),
-                            canOpenAccount = result.canOpenAccount,
                         )
                     }
                 }

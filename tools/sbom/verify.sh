@@ -3,10 +3,9 @@ set -euo pipefail
 
 readonly OUTPUT_DIR="${1:?usage: verify.sh OUTPUT_DIR}"
 readonly ANDROID_AAB_INPUT="${2:-}"
-readonly ANDROID_VARIANT="${BEYOUREYES_SBOM_ANDROID_VARIANT:-release}"
+readonly ANDROID_VARIANT="${BEYOUREYES_SBOM_ANDROID_VARIANT:-communityRelease}"
 case "$ANDROID_VARIANT" in
-    release) ANDROID_ARTIFACT_KIND=aab ;;
-    website|communityRelease) ANDROID_ARTIFACT_KIND=apk ;;
+    release|communityRelease) ANDROID_ARTIFACT_KIND=apk ;;
     *) printf 'Unsupported Android SBOM variant: %s\n' "$ANDROID_VARIANT" >&2; exit 1 ;;
 esac
 readonly ANDROID_ARTIFACT_KIND
@@ -16,12 +15,9 @@ readonly SCRIPT_DIR
 REPO_ROOT="$(CDPATH='' cd -- "$SCRIPT_DIR/../.." && pwd)"
 readonly REPO_ROOT
 readonly ANDROID_SBOM="$OUTPUT_DIR/android-resolved-dependencies.cdx.json"
-readonly SUPABASE_TEST_SBOM="$OUTPUT_DIR/supabase-test-lock-dependencies.cdx.json"
 readonly CATALOG_SBOM="$OUTPUT_DIR/catalog-validator-lock-dependencies.cdx.json"
-readonly SUPABASE_EDGE_SBOM="$OUTPUT_DIR/supabase-edge-lock-dependencies.cdx.json"
-readonly WEBSITE_BILLING_SBOM="$OUTPUT_DIR/website-billing-lock-dependencies.cdx.json"
 
-for file in "$ANDROID_SBOM" "$SUPABASE_TEST_SBOM" "$CATALOG_SBOM" "$SUPABASE_EDGE_SBOM" "$WEBSITE_BILLING_SBOM"; do
+for file in "$ANDROID_SBOM" "$CATALOG_SBOM"; do
     test -s "$file"
     jq -e '.bomFormat == "CycloneDX" and (.components | type == "array")' "$file" >/dev/null
     test -s "$file.sha256"
@@ -133,20 +129,10 @@ jq -e --arg pattern 'com.microsoft.onnxruntime[/:]onnxruntime-android|onnxruntim
     '[.components[]? | [(.group // ""), (.name // ""), (.purl // "")] | join(":")] |
      any(.[]; test($pattern))' \
     "$ANDROID_SBOM" >/dev/null
-if [[ "$ANDROID_VARIANT" == communityRelease ]]; then
-    jq -e '[.components[]? | [(.group // ""), (.name // ""), (.purl // "")] | join(":")] |
-        all(.[]; test("com.google.firebase|com.android.billingclient|com.google.android.gms") | not)' \
-        "$ANDROID_SBOM" >/dev/null
-else
-jq -e --arg pattern 'com.google.firebase[/:]firebase-messaging|firebase:firebase-messaging' \
-    '[.components[]? | [(.group // ""), (.name // ""), (.purl // "")] | join(":")] |
-     any(.[]; test($pattern))' \
+jq -e '[.components[]? | [(.group // ""), (.name // ""), (.purl // "")] | join(":")] |
+    all(.[]; test("com.google.firebase|com.android.billingclient|com.google.android.gms|supabase|ktor-client") | not)' \
     "$ANDROID_SBOM" >/dev/null
-fi
-jq -e --arg pattern 'io.github.jan-tennert.supabase[/:]auth-kt|supabase:auth-kt' \
-    '[.components[]? | [(.group // ""), (.name // ""), (.purl // "")] | join(":")] |
-     any(.[]; test($pattern))' \
-    "$ANDROID_SBOM" >/dev/null
+jq -e '[.components[]?] | any(.[]; .group == "com.google.zxing" and .name == "core")' "$ANDROID_SBOM" >/dev/null
 jq -e --arg pattern 'com.google.crypto.tink[/:]tink-android|tink:tink-android' \
     '[.components[]? | [(.group // ""), (.name // ""), (.purl // "")] | join(":")] |
      any(.[]; test($pattern))' \
@@ -158,20 +144,12 @@ jq -e '
 ' "$ANDROID_SBOM" >/dev/null
 
 jq -e '
-    [.components[]? | (.purl // "")] as $purls |
-    ($purls | any(.[]; startswith("pkg:npm/%40be-your-eyes/catalog-validator@"))) and
-    ($purls | any(.[]; startswith("pkg:npm/tsx@"))) and
-    ($purls | any(.[]; startswith("pkg:npm/typescript@"))) and
-    (.components | length) >= 3
-' "$SUPABASE_TEST_SBOM" >/dev/null
-
-jq -e '
     .metadata.component.group == "@be-your-eyes" and
     .metadata.component.name == "catalog-validator" and
     .metadata.component.version == "0.1.0"
 ' "$CATALOG_SBOM" >/dev/null
 
-for npm_sbom in "$SUPABASE_TEST_SBOM" "$CATALOG_SBOM"; do
+for npm_sbom in "$CATALOG_SBOM"; do
     jq -e '
         [.metadata.tools.components[]?] |
         any(.[]; .group == "@cyclonedx" and .name == "cyclonedx-npm" and .version == "4.0.3")
@@ -197,14 +175,7 @@ assert_direct_dependencies() {
     ' "$REPO_ROOT/$project_dir/package.json")
 }
 
-assert_direct_dependencies "supabase/tests" "$SUPABASE_TEST_SBOM"
 assert_direct_dependencies "model-tools/catalog-validator" "$CATALOG_SBOM"
 
-jq -e '[.components[]?] | any(.[]; .name == "stripe" and .version == "22.6.2")' "$WEBSITE_BILLING_SBOM" >/dev/null
-
-
 printf 'android_components=%s\n' "$(jq '.components | length' "$ANDROID_SBOM")"
-printf 'supabase_test_components=%s\n' "$(jq '.components | length' "$SUPABASE_TEST_SBOM")"
-printf 'supabase_edge_components=%s\n' "$(jq '.components | length' "$SUPABASE_EDGE_SBOM")"
-printf 'website_billing_components=%s\n' "$(jq '.components | length' "$WEBSITE_BILLING_SBOM")"
 printf 'catalog_validator_component_records=%s\n' "$(jq '1 + (.components | length)' "$CATALOG_SBOM")"

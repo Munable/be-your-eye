@@ -47,8 +47,7 @@ class DirectStartDownloadInstrumentedTest {
                     onRequestCameraPermission = {},
                     onOpenAppSettings = {},
                     onStartMonitoring = { starts++; error("Cannot start before files are ready") },
-                    onCheckProductAccess = { null },
-                    onStarted = {}, onOpenAccount = {}, onBack = {},
+                    onStarted = {}, onBack = {},
                 )
             }
         }

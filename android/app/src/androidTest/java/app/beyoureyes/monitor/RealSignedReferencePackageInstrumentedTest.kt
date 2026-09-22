@@ -31,7 +31,6 @@ import app.beyoureyes.core.vision.SupportedTask
 import app.beyoureyes.core.vision.TargetProfile
 import app.beyoureyes.core.vision.UprightRgbFrameNormalizer
 import app.beyoureyes.core.vision.VerifiedModelPackage
-import app.beyoureyes.monitor.feature.subscription.ProductAccessDecision
 import com.google.gson.JsonParser
 import java.io.ByteArrayInputStream
 import java.io.File
@@ -242,7 +241,6 @@ class RealSignedReferencePackageInstrumentedTest {
         taskBinder = taskBinder,
         transport = transport(fixture),
         nowEpochMillis = { fixtureNowEpochMillis(fixture) },
-        productAccess = { ProductAccessDecision.GRANTED },
     )
 
     private fun transport(fixture: Fixture): FixedHttpsTransport {

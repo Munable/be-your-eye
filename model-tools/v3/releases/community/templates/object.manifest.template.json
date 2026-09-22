@@ -1,7 +1,7 @@
 {
   "schema_version": "4.0",
   "package_id": "efficientdet_lite2_object_v1",
-  "package_version": "0.3.0-community.1",
+  "package_version": "0.3.1-community.1",
   "runtime_family": "object_detection_v1",
   "supported_tasks": [
     "visual_target"
@@ -43,7 +43,7 @@
       "role": "primary",
       "runtime": "litert",
       "media_type": "application/vnd.google.litert",
-      "url": "https://models.beyoureye.com/internal-evaluation/2026-08-31/be-your-eye-v1/artifacts/efficientdet_lite2_object_v1/efficientdet_lite2.tflite",
+      "url": "https://github.com/Munable/be-your-eye/releases/download/models-v1/efficientdet_lite2_object_v1.primary.tflite",
       "sha256": "6fd32c84ab1eb0f7e7f3a7a20a20d7df1530daa8378728f7c79571096286bd52",
       "size_bytes": 7557887
     }
@@ -132,7 +132,18 @@
           "aliases": [
             "人物",
             "people"
-          ]
+          ],
+          "labels": {
+            "en": "person",
+            "zh-Hans": "人",
+            "zh-Hant": "人",
+            "ja": "人",
+            "ko": "사람",
+            "es": "persona",
+            "fr": "personne",
+            "de": "Person",
+            "pt-BR": "pessoa"
+          }
         },
         {
           "raw_class_id": 1,
@@ -142,7 +153,18 @@
           "aliases": [
             "单车",
             "bike"
-          ]
+          ],
+          "labels": {
+            "en": "bicycle",
+            "zh-Hans": "自行车",
+            "zh-Hant": "自行車",
+            "ja": "自転車",
+            "ko": "자전거",
+            "es": "bicicleta",
+            "fr": "vélo",
+            "de": "Fahrrad",
+            "pt-BR": "bicicleta"
+          }
         },
         {
           "raw_class_id": 2,
@@ -152,7 +174,18 @@
           "aliases": [
             "车",
             "auto"
-          ]
+          ],
+          "labels": {
+            "en": "car",
+            "zh-Hans": "汽车",
+            "zh-Hant": "汽車",
+            "ja": "車",
+            "ko": "자동차",
+            "es": "coche",
+            "fr": "voiture",
+            "de": "Auto",
+            "pt-BR": "carro"
+          }
         },
         {
           "raw_class_id": 3,
@@ -161,7 +194,18 @@
           "label_en": "motorcycle",
           "aliases": [
             "motorbike"
-          ]
+          ],
+          "labels": {
+            "en": "motorcycle",
+            "zh-Hans": "摩托车",
+            "zh-Hant": "摩托車",
+            "ja": "オートバイ",
+            "ko": "오토바이",
+            "es": "motocicleta",
+            "fr": "moto",
+            "de": "Motorrad",
+            "pt-BR": "motocicleta"
+          }
         },
         {
           "raw_class_id": 4,
@@ -170,7 +214,18 @@
           "label_en": "airplane",
           "aliases": [
             "plane"
-          ]
+          ],
+          "labels": {
+            "en": "airplane",
+            "zh-Hans": "飞机",
+            "zh-Hant": "飛機",
+            "ja": "飛行機",
+            "ko": "비행기",
+            "es": "avión",
+            "fr": "avion",
+            "de": "Flugzeug",
+            "pt-BR": "avião"
+          }
         },
         {
           "raw_class_id": 5,
@@ -179,7 +234,18 @@
           "label_en": "bus",
           "aliases": [
             "巴士"
-          ]
+          ],
+          "labels": {
+            "en": "bus",
+            "zh-Hans": "公交车",
+            "zh-Hant": "公車",
+            "ja": "バス",
+            "ko": "버스",
+            "es": "autobús",
+            "fr": "bus",
+            "de": "Bus",
+            "pt-BR": "ônibus"
+          }
         },
         {
           "raw_class_id": 6,
@@ -188,7 +254,18 @@
           "label_en": "train",
           "aliases": [
             "列车"
-          ]
+          ],
+          "labels": {
+            "en": "train",
+            "zh-Hans": "火车",
+            "zh-Hant": "火車",
+            "ja": "電車",
+            "ko": "기차",
+            "es": "tren",
+            "fr": "train",
+            "de": "Zug",
+            "pt-BR": "trem"
+          }
         },
         {
           "raw_class_id": 7,
@@ -197,7 +274,18 @@
           "label_en": "truck",
           "aliases": [
             "货车"
-          ]
+          ],
+          "labels": {
+            "en": "truck",
+            "zh-Hans": "卡车",
+            "zh-Hant": "卡車",
+            "ja": "トラック",
+            "ko": "트럭",
+            "es": "camión",
+            "fr": "camion",
+            "de": "Lastwagen",
+            "pt-BR": "caminhão"
+          }
         },
         {
           "raw_class_id": 8,
@@ -206,7 +294,18 @@
           "label_en": "boat",
           "aliases": [
             "船只"
-          ]
+          ],
+          "labels": {
+            "en": "boat",
+            "zh-Hans": "船",
+            "zh-Hant": "船",
+            "ja": "船",
+            "ko": "배",
+            "es": "barco",
+            "fr": "bateau",
+            "de": "Boot",
+            "pt-BR": "barco"
+          }
         },
         {
           "raw_class_id": 9,
@@ -216,7 +315,18 @@
           "aliases": [
             "红绿灯",
             "traffic signal"
-          ]
+          ],
+          "labels": {
+            "en": "traffic light",
+            "zh-Hans": "交通信号灯",
+            "zh-Hant": "交通號誌",
+            "ja": "信号機",
+            "ko": "신호등",
+            "es": "semáforo",
+            "fr": "feu de circulation",
+            "de": "Ampel",
+            "pt-BR": "semáforo"
+          }
         },
         {
           "raw_class_id": 10,
@@ -225,7 +335,18 @@
           "label_en": "fire hydrant",
           "aliases": [
             "消火栓"
-          ]
+          ],
+          "labels": {
+            "en": "fire hydrant",
+            "zh-Hans": "消防栓",
+            "zh-Hant": "消防栓",
+            "ja": "消火栓",
+            "ko": "소화전",
+            "es": "boca de incendios",
+            "fr": "borne incendie",
+            "de": "Hydrant",
+            "pt-BR": "hidrante"
+          }
         },
         {
           "raw_class_id": 12,
@@ -234,7 +355,18 @@
           "label_en": "stop sign",
           "aliases": [
             "停止标志"
-          ]
+          ],
+          "labels": {
+            "en": "stop sign",
+            "zh-Hans": "停车标志",
+            "zh-Hant": "停止標誌",
+            "ja": "一時停止標識",
+            "ko": "정지 표지판",
+            "es": "señal de stop",
+            "fr": "panneau stop",
+            "de": "Stoppschild",
+            "pt-BR": "placa de pare"
+          }
         },
         {
           "raw_class_id": 13,
@@ -243,7 +375,18 @@
           "label_en": "parking meter",
           "aliases": [
             "停车收费表"
-          ]
+          ],
+          "labels": {
+            "en": "parking meter",
+            "zh-Hans": "停车计时器",
+            "zh-Hant": "停車收費表",
+            "ja": "パーキングメーター",
+            "ko": "주차 요금기",
+            "es": "parquímetro",
+            "fr": "parcmètre",
+            "de": "Parkuhr",
+            "pt-BR": "parquímetro"
+          }
         },
         {
           "raw_class_id": 14,
@@ -252,7 +395,18 @@
           "label_en": "bench",
           "aliases": [
             "长凳"
-          ]
+          ],
+          "labels": {
+            "en": "bench",
+            "zh-Hans": "长椅",
+            "zh-Hant": "長椅",
+            "ja": "ベンチ",
+            "ko": "벤치",
+            "es": "banco",
+            "fr": "banc",
+            "de": "Bank",
+            "pt-BR": "banco"
+          }
         },
         {
           "raw_class_id": 15,
@@ -261,7 +415,18 @@
           "label_en": "bird",
           "aliases": [
             "鸟类"
-          ]
+          ],
+          "labels": {
+            "en": "bird",
+            "zh-Hans": "鸟",
+            "zh-Hant": "鳥",
+            "ja": "鳥",
+            "ko": "새",
+            "es": "pájaro",
+            "fr": "oiseau",
+            "de": "Vogel",
+            "pt-BR": "pássaro"
+          }
         },
         {
           "raw_class_id": 16,
@@ -270,7 +435,18 @@
           "label_en": "cat",
           "aliases": [
             "小猫"
-          ]
+          ],
+          "labels": {
+            "en": "cat",
+            "zh-Hans": "猫",
+            "zh-Hant": "貓",
+            "ja": "猫",
+            "ko": "고양이",
+            "es": "gato",
+            "fr": "chat",
+            "de": "Katze",
+            "pt-BR": "gato"
+          }
         },
         {
           "raw_class_id": 17,
@@ -279,14 +455,36 @@
           "label_en": "dog",
           "aliases": [
             "小狗"
-          ]
+          ],
+          "labels": {
+            "en": "dog",
+            "zh-Hans": "狗",
+            "zh-Hant": "狗",
+            "ja": "犬",
+            "ko": "개",
+            "es": "perro",
+            "fr": "chien",
+            "de": "Hund",
+            "pt-BR": "cachorro"
+          }
         },
         {
           "raw_class_id": 18,
           "target_id": "horse",
           "label_zh_cn": "马",
           "label_en": "horse",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "horse",
+            "zh-Hans": "马",
+            "zh-Hant": "馬",
+            "ja": "馬",
+            "ko": "말",
+            "es": "caballo",
+            "fr": "cheval",
+            "de": "Pferd",
+            "pt-BR": "cavalo"
+          }
         },
         {
           "raw_class_id": 19,
@@ -295,7 +493,18 @@
           "label_en": "sheep",
           "aliases": [
             "绵羊"
-          ]
+          ],
+          "labels": {
+            "en": "sheep",
+            "zh-Hans": "羊",
+            "zh-Hant": "羊",
+            "ja": "羊",
+            "ko": "양",
+            "es": "oveja",
+            "fr": "mouton",
+            "de": "Schaf",
+            "pt-BR": "ovelha"
+          }
         },
         {
           "raw_class_id": 20,
@@ -304,35 +513,90 @@
           "label_en": "cow",
           "aliases": [
             "奶牛"
-          ]
+          ],
+          "labels": {
+            "en": "cow",
+            "zh-Hans": "牛",
+            "zh-Hant": "牛",
+            "ja": "牛",
+            "ko": "소",
+            "es": "vaca",
+            "fr": "vache",
+            "de": "Kuh",
+            "pt-BR": "vaca"
+          }
         },
         {
           "raw_class_id": 21,
           "target_id": "elephant",
           "label_zh_cn": "大象",
           "label_en": "elephant",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "elephant",
+            "zh-Hans": "大象",
+            "zh-Hant": "大象",
+            "ja": "象",
+            "ko": "코끼리",
+            "es": "elefante",
+            "fr": "éléphant",
+            "de": "Elefant",
+            "pt-BR": "elefante"
+          }
         },
         {
           "raw_class_id": 22,
           "target_id": "bear",
           "label_zh_cn": "熊",
           "label_en": "bear",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "bear",
+            "zh-Hans": "熊",
+            "zh-Hant": "熊",
+            "ja": "熊",
+            "ko": "곰",
+            "es": "oso",
+            "fr": "ours",
+            "de": "Bär",
+            "pt-BR": "urso"
+          }
         },
         {
           "raw_class_id": 23,
           "target_id": "zebra",
           "label_zh_cn": "斑马",
           "label_en": "zebra",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "zebra",
+            "zh-Hans": "斑马",
+            "zh-Hant": "斑馬",
+            "ja": "シマウマ",
+            "ko": "얼룩말",
+            "es": "cebra",
+            "fr": "zèbre",
+            "de": "Zebra",
+            "pt-BR": "zebra"
+          }
         },
         {
           "raw_class_id": 24,
           "target_id": "giraffe",
           "label_zh_cn": "长颈鹿",
           "label_en": "giraffe",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "giraffe",
+            "zh-Hans": "长颈鹿",
+            "zh-Hant": "長頸鹿",
+            "ja": "キリン",
+            "ko": "기린",
+            "es": "jirafa",
+            "fr": "girafe",
+            "de": "Giraffe",
+            "pt-BR": "girafa"
+          }
         },
         {
           "raw_class_id": 26,
@@ -341,7 +605,18 @@
           "label_en": "backpack",
           "aliases": [
             "双肩包"
-          ]
+          ],
+          "labels": {
+            "en": "backpack",
+            "zh-Hans": "背包",
+            "zh-Hant": "背包",
+            "ja": "リュック",
+            "ko": "배낭",
+            "es": "mochila",
+            "fr": "sac à dos",
+            "de": "Rucksack",
+            "pt-BR": "mochila"
+          }
         },
         {
           "raw_class_id": 27,
@@ -350,21 +625,54 @@
           "label_en": "umbrella",
           "aliases": [
             "伞"
-          ]
+          ],
+          "labels": {
+            "en": "umbrella",
+            "zh-Hans": "雨伞",
+            "zh-Hant": "雨傘",
+            "ja": "傘",
+            "ko": "우산",
+            "es": "paraguas",
+            "fr": "parapluie",
+            "de": "Regenschirm",
+            "pt-BR": "guarda-chuva"
+          }
         },
         {
           "raw_class_id": 30,
           "target_id": "handbag",
           "label_zh_cn": "手提包",
           "label_en": "handbag",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "handbag",
+            "zh-Hans": "手提包",
+            "zh-Hant": "手提包",
+            "ja": "ハンドバッグ",
+            "ko": "핸드백",
+            "es": "bolso",
+            "fr": "sac à main",
+            "de": "Handtasche",
+            "pt-BR": "bolsa"
+          }
         },
         {
           "raw_class_id": 31,
           "target_id": "tie",
           "label_zh_cn": "领带",
           "label_en": "tie",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "tie",
+            "zh-Hans": "领带",
+            "zh-Hant": "領帶",
+            "ja": "ネクタイ",
+            "ko": "넥타이",
+            "es": "corbata",
+            "fr": "cravate",
+            "de": "Krawatte",
+            "pt-BR": "gravata"
+          }
         },
         {
           "raw_class_id": 32,
@@ -373,14 +681,36 @@
           "label_en": "suitcase",
           "aliases": [
             "拉杆箱"
-          ]
+          ],
+          "labels": {
+            "en": "suitcase",
+            "zh-Hans": "行李箱",
+            "zh-Hant": "行李箱",
+            "ja": "スーツケース",
+            "ko": "여행 가방",
+            "es": "maleta",
+            "fr": "valise",
+            "de": "Koffer",
+            "pt-BR": "mala"
+          }
         },
         {
           "raw_class_id": 33,
           "target_id": "frisbee",
           "label_zh_cn": "飞盘",
           "label_en": "frisbee",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "frisbee",
+            "zh-Hans": "飞盘",
+            "zh-Hant": "飛盤",
+            "ja": "フリスビー",
+            "ko": "원반",
+            "es": "disco volador",
+            "fr": "frisbee",
+            "de": "Frisbee",
+            "pt-BR": "disco voador"
+          }
         },
         {
           "raw_class_id": 34,
@@ -389,14 +719,36 @@
           "label_en": "skis",
           "aliases": [
             "滑雪双板"
-          ]
+          ],
+          "labels": {
+            "en": "skis",
+            "zh-Hans": "双板滑雪板",
+            "zh-Hant": "滑雪板",
+            "ja": "スキー板",
+            "ko": "스키",
+            "es": "esquís",
+            "fr": "skis",
+            "de": "Ski",
+            "pt-BR": "esquis"
+          }
         },
         {
           "raw_class_id": 35,
           "target_id": "snowboard",
           "label_zh_cn": "单板滑雪板",
           "label_en": "snowboard",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "snowboard",
+            "zh-Hans": "单板滑雪板",
+            "zh-Hant": "單板滑雪板",
+            "ja": "スノーボード",
+            "ko": "스노보드",
+            "es": "tabla de snowboard",
+            "fr": "snowboard",
+            "de": "Snowboard",
+            "pt-BR": "prancha de snowboard"
+          }
         },
         {
           "raw_class_id": 36,
@@ -405,49 +757,126 @@
           "label_en": "sports ball",
           "aliases": [
             "球"
-          ]
+          ],
+          "labels": {
+            "en": "sports ball",
+            "zh-Hans": "运动球",
+            "zh-Hant": "球",
+            "ja": "ボール",
+            "ko": "공",
+            "es": "pelota",
+            "fr": "ballon",
+            "de": "Ball",
+            "pt-BR": "bola"
+          }
         },
         {
           "raw_class_id": 37,
           "target_id": "kite",
           "label_zh_cn": "风筝",
           "label_en": "kite",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "kite",
+            "zh-Hans": "风筝",
+            "zh-Hant": "風箏",
+            "ja": "凧",
+            "ko": "연",
+            "es": "cometa",
+            "fr": "cerf-volant",
+            "de": "Drachen",
+            "pt-BR": "pipa"
+          }
         },
         {
           "raw_class_id": 38,
           "target_id": "baseball_bat",
           "label_zh_cn": "棒球棒",
           "label_en": "baseball bat",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "baseball bat",
+            "zh-Hans": "棒球棒",
+            "zh-Hant": "棒球棒",
+            "ja": "野球のバット",
+            "ko": "야구 방망이",
+            "es": "bate de béisbol",
+            "fr": "batte de baseball",
+            "de": "Baseballschläger",
+            "pt-BR": "taco de beisebol"
+          }
         },
         {
           "raw_class_id": 39,
           "target_id": "baseball_glove",
           "label_zh_cn": "棒球手套",
           "label_en": "baseball glove",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "baseball glove",
+            "zh-Hans": "棒球手套",
+            "zh-Hant": "棒球手套",
+            "ja": "野球のグローブ",
+            "ko": "야구 글러브",
+            "es": "guante de béisbol",
+            "fr": "gant de baseball",
+            "de": "Baseballhandschuh",
+            "pt-BR": "luva de beisebol"
+          }
         },
         {
           "raw_class_id": 40,
           "target_id": "skateboard",
           "label_zh_cn": "滑板",
           "label_en": "skateboard",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "skateboard",
+            "zh-Hans": "滑板",
+            "zh-Hant": "滑板",
+            "ja": "スケートボード",
+            "ko": "스케이트보드",
+            "es": "monopatín",
+            "fr": "skateboard",
+            "de": "Skateboard",
+            "pt-BR": "skate"
+          }
         },
         {
           "raw_class_id": 41,
           "target_id": "surfboard",
           "label_zh_cn": "冲浪板",
           "label_en": "surfboard",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "surfboard",
+            "zh-Hans": "冲浪板",
+            "zh-Hant": "衝浪板",
+            "ja": "サーフボード",
+            "ko": "서핑보드",
+            "es": "tabla de surf",
+            "fr": "planche de surf",
+            "de": "Surfbrett",
+            "pt-BR": "prancha de surfe"
+          }
         },
         {
           "raw_class_id": 42,
           "target_id": "tennis_racket",
           "label_zh_cn": "网球拍",
           "label_en": "tennis racket",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "tennis racket",
+            "zh-Hans": "网球拍",
+            "zh-Hant": "網球拍",
+            "ja": "テニスラケット",
+            "ko": "테니스 라켓",
+            "es": "raqueta de tenis",
+            "fr": "raquette de tennis",
+            "de": "Tennisschläger",
+            "pt-BR": "raquete de tênis"
+          }
         },
         {
           "raw_class_id": 43,
@@ -456,7 +885,18 @@
           "label_en": "bottle",
           "aliases": [
             "瓶"
-          ]
+          ],
+          "labels": {
+            "en": "bottle",
+            "zh-Hans": "瓶子",
+            "zh-Hant": "瓶子",
+            "ja": "ボトル",
+            "ko": "병",
+            "es": "botella",
+            "fr": "bouteille",
+            "de": "Flasche",
+            "pt-BR": "garrafa"
+          }
         },
         {
           "raw_class_id": 45,
@@ -465,7 +905,18 @@
           "label_en": "wine glass",
           "aliases": [
             "高脚杯"
-          ]
+          ],
+          "labels": {
+            "en": "wine glass",
+            "zh-Hans": "酒杯",
+            "zh-Hant": "酒杯",
+            "ja": "ワイングラス",
+            "ko": "와인 잔",
+            "es": "copa de vino",
+            "fr": "verre à vin",
+            "de": "Weinglas",
+            "pt-BR": "taça de vinho"
+          }
         },
         {
           "raw_class_id": 46,
@@ -474,7 +925,18 @@
           "label_en": "cup",
           "aliases": [
             "杯"
-          ]
+          ],
+          "labels": {
+            "en": "cup",
+            "zh-Hans": "杯子",
+            "zh-Hant": "杯子",
+            "ja": "カップ",
+            "ko": "컵",
+            "es": "taza",
+            "fr": "tasse",
+            "de": "Tasse",
+            "pt-BR": "xícara"
+          }
         },
         {
           "raw_class_id": 47,
@@ -483,7 +945,18 @@
           "label_en": "fork",
           "aliases": [
             "餐叉"
-          ]
+          ],
+          "labels": {
+            "en": "fork",
+            "zh-Hans": "叉子",
+            "zh-Hant": "叉子",
+            "ja": "フォーク",
+            "ko": "포크",
+            "es": "tenedor",
+            "fr": "fourchette",
+            "de": "Gabel",
+            "pt-BR": "garfo"
+          }
         },
         {
           "raw_class_id": 48,
@@ -492,7 +965,18 @@
           "label_en": "knife",
           "aliases": [
             "刀具"
-          ]
+          ],
+          "labels": {
+            "en": "knife",
+            "zh-Hans": "刀",
+            "zh-Hant": "刀",
+            "ja": "ナイフ",
+            "ko": "칼",
+            "es": "cuchillo",
+            "fr": "couteau",
+            "de": "Messer",
+            "pt-BR": "faca"
+          }
         },
         {
           "raw_class_id": 49,
@@ -501,35 +985,90 @@
           "label_en": "spoon",
           "aliases": [
             "汤匙"
-          ]
+          ],
+          "labels": {
+            "en": "spoon",
+            "zh-Hans": "勺子",
+            "zh-Hant": "湯匙",
+            "ja": "スプーン",
+            "ko": "숟가락",
+            "es": "cuchara",
+            "fr": "cuillère",
+            "de": "Löffel",
+            "pt-BR": "colher"
+          }
         },
         {
           "raw_class_id": 50,
           "target_id": "bowl",
           "label_zh_cn": "碗",
           "label_en": "bowl",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "bowl",
+            "zh-Hans": "碗",
+            "zh-Hant": "碗",
+            "ja": "ボウル",
+            "ko": "그릇",
+            "es": "cuenco",
+            "fr": "bol",
+            "de": "Schüssel",
+            "pt-BR": "tigela"
+          }
         },
         {
           "raw_class_id": 51,
           "target_id": "banana",
           "label_zh_cn": "香蕉",
           "label_en": "banana",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "banana",
+            "zh-Hans": "香蕉",
+            "zh-Hant": "香蕉",
+            "ja": "バナナ",
+            "ko": "바나나",
+            "es": "plátano",
+            "fr": "banane",
+            "de": "Banane",
+            "pt-BR": "banana"
+          }
         },
         {
           "raw_class_id": 52,
           "target_id": "apple",
           "label_zh_cn": "苹果",
           "label_en": "apple",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "apple",
+            "zh-Hans": "苹果",
+            "zh-Hant": "蘋果",
+            "ja": "リンゴ",
+            "ko": "사과",
+            "es": "manzana",
+            "fr": "pomme",
+            "de": "Apfel",
+            "pt-BR": "maçã"
+          }
         },
         {
           "raw_class_id": 53,
           "target_id": "sandwich",
           "label_zh_cn": "三明治",
           "label_en": "sandwich",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "sandwich",
+            "zh-Hans": "三明治",
+            "zh-Hant": "三明治",
+            "ja": "サンドイッチ",
+            "ko": "샌드위치",
+            "es": "sándwich",
+            "fr": "sandwich",
+            "de": "Sandwich",
+            "pt-BR": "sanduíche"
+          }
         },
         {
           "raw_class_id": 54,
@@ -538,28 +1077,72 @@
           "label_en": "orange",
           "aliases": [
             "橙"
-          ]
+          ],
+          "labels": {
+            "en": "orange",
+            "zh-Hans": "橙子",
+            "zh-Hant": "橙子",
+            "ja": "オレンジ",
+            "ko": "오렌지",
+            "es": "naranja",
+            "fr": "orange",
+            "de": "Orange",
+            "pt-BR": "laranja"
+          }
         },
         {
           "raw_class_id": 55,
           "target_id": "broccoli",
           "label_zh_cn": "西兰花",
           "label_en": "broccoli",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "broccoli",
+            "zh-Hans": "西兰花",
+            "zh-Hant": "花椰菜",
+            "ja": "ブロッコリー",
+            "ko": "브로콜리",
+            "es": "brócoli",
+            "fr": "brocoli",
+            "de": "Brokkoli",
+            "pt-BR": "brócolis"
+          }
         },
         {
           "raw_class_id": 56,
           "target_id": "carrot",
           "label_zh_cn": "胡萝卜",
           "label_en": "carrot",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "carrot",
+            "zh-Hans": "胡萝卜",
+            "zh-Hant": "胡蘿蔔",
+            "ja": "ニンジン",
+            "ko": "당근",
+            "es": "zanahoria",
+            "fr": "carotte",
+            "de": "Karotte",
+            "pt-BR": "cenoura"
+          }
         },
         {
           "raw_class_id": 57,
           "target_id": "hot_dog",
           "label_zh_cn": "热狗",
           "label_en": "hot dog",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "hot dog",
+            "zh-Hans": "热狗",
+            "zh-Hant": "熱狗",
+            "ja": "ホットドッグ",
+            "ko": "핫도그",
+            "es": "perrito caliente",
+            "fr": "hot-dog",
+            "de": "Hotdog",
+            "pt-BR": "cachorro-quente"
+          }
         },
         {
           "raw_class_id": 58,
@@ -568,21 +1151,54 @@
           "label_en": "pizza",
           "aliases": [
             "比萨"
-          ]
+          ],
+          "labels": {
+            "en": "pizza",
+            "zh-Hans": "披萨",
+            "zh-Hant": "披薩",
+            "ja": "ピザ",
+            "ko": "피자",
+            "es": "pizza",
+            "fr": "pizza",
+            "de": "Pizza",
+            "pt-BR": "pizza"
+          }
         },
         {
           "raw_class_id": 59,
           "target_id": "donut",
           "label_zh_cn": "甜甜圈",
           "label_en": "donut",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "donut",
+            "zh-Hans": "甜甜圈",
+            "zh-Hant": "甜甜圈",
+            "ja": "ドーナツ",
+            "ko": "도넛",
+            "es": "dónut",
+            "fr": "beignet",
+            "de": "Donut",
+            "pt-BR": "rosquinha"
+          }
         },
         {
           "raw_class_id": 60,
           "target_id": "cake",
           "label_zh_cn": "蛋糕",
           "label_en": "cake",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "cake",
+            "zh-Hans": "蛋糕",
+            "zh-Hant": "蛋糕",
+            "ja": "ケーキ",
+            "ko": "케이크",
+            "es": "pastel",
+            "fr": "gâteau",
+            "de": "Kuchen",
+            "pt-BR": "bolo"
+          }
         },
         {
           "raw_class_id": 61,
@@ -591,14 +1207,36 @@
           "label_en": "chair",
           "aliases": [
             "座椅"
-          ]
+          ],
+          "labels": {
+            "en": "chair",
+            "zh-Hans": "椅子",
+            "zh-Hant": "椅子",
+            "ja": "椅子",
+            "ko": "의자",
+            "es": "silla",
+            "fr": "chaise",
+            "de": "Stuhl",
+            "pt-BR": "cadeira"
+          }
         },
         {
           "raw_class_id": 62,
           "target_id": "couch",
           "label_zh_cn": "沙发",
           "label_en": "couch",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "couch",
+            "zh-Hans": "沙发",
+            "zh-Hant": "沙發",
+            "ja": "ソファ",
+            "ko": "소파",
+            "es": "sofá",
+            "fr": "canapé",
+            "de": "Sofa",
+            "pt-BR": "sofá"
+          }
         },
         {
           "raw_class_id": 63,
@@ -607,14 +1245,36 @@
           "label_en": "potted plant",
           "aliases": [
             "盆栽植物"
-          ]
+          ],
+          "labels": {
+            "en": "potted plant",
+            "zh-Hans": "盆栽",
+            "zh-Hant": "盆栽",
+            "ja": "鉢植え",
+            "ko": "화분",
+            "es": "planta en maceta",
+            "fr": "plante en pot",
+            "de": "Topfpflanze",
+            "pt-BR": "planta em vaso"
+          }
         },
         {
           "raw_class_id": 64,
           "target_id": "bed",
           "label_zh_cn": "床",
           "label_en": "bed",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "bed",
+            "zh-Hans": "床",
+            "zh-Hant": "床",
+            "ja": "ベッド",
+            "ko": "침대",
+            "es": "cama",
+            "fr": "lit",
+            "de": "Bett",
+            "pt-BR": "cama"
+          }
         },
         {
           "raw_class_id": 66,
@@ -623,7 +1283,18 @@
           "label_en": "dining table",
           "aliases": [
             "饭桌"
-          ]
+          ],
+          "labels": {
+            "en": "dining table",
+            "zh-Hans": "餐桌",
+            "zh-Hant": "餐桌",
+            "ja": "ダイニングテーブル",
+            "ko": "식탁",
+            "es": "mesa de comedor",
+            "fr": "table à manger",
+            "de": "Esstisch",
+            "pt-BR": "mesa de jantar"
+          }
         },
         {
           "raw_class_id": 69,
@@ -632,7 +1303,18 @@
           "label_en": "toilet",
           "aliases": [
             "坐便器"
-          ]
+          ],
+          "labels": {
+            "en": "toilet",
+            "zh-Hans": "马桶",
+            "zh-Hant": "馬桶",
+            "ja": "トイレ",
+            "ko": "변기",
+            "es": "inodoro",
+            "fr": "toilettes",
+            "de": "Toilette",
+            "pt-BR": "vaso sanitário"
+          }
         },
         {
           "raw_class_id": 71,
@@ -642,7 +1324,18 @@
           "aliases": [
             "电视机",
             "television"
-          ]
+          ],
+          "labels": {
+            "en": "tv",
+            "zh-Hans": "电视",
+            "zh-Hant": "電視",
+            "ja": "テレビ",
+            "ko": "텔레비전",
+            "es": "televisor",
+            "fr": "téléviseur",
+            "de": "Fernseher",
+            "pt-BR": "televisor"
+          }
         },
         {
           "raw_class_id": 72,
@@ -651,14 +1344,36 @@
           "label_en": "laptop",
           "aliases": [
             "笔记本"
-          ]
+          ],
+          "labels": {
+            "en": "laptop",
+            "zh-Hans": "笔记本电脑",
+            "zh-Hant": "筆記型電腦",
+            "ja": "ノートパソコン",
+            "ko": "노트북",
+            "es": "portátil",
+            "fr": "ordinateur portable",
+            "de": "Laptop",
+            "pt-BR": "notebook"
+          }
         },
         {
           "raw_class_id": 73,
           "target_id": "mouse",
           "label_zh_cn": "鼠标",
           "label_en": "mouse",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "mouse",
+            "zh-Hans": "鼠标",
+            "zh-Hant": "滑鼠",
+            "ja": "マウス",
+            "ko": "마우스",
+            "es": "ratón",
+            "fr": "souris",
+            "de": "Maus",
+            "pt-BR": "mouse"
+          }
         },
         {
           "raw_class_id": 74,
@@ -667,14 +1382,36 @@
           "label_en": "remote",
           "aliases": [
             "remote control"
-          ]
+          ],
+          "labels": {
+            "en": "remote",
+            "zh-Hans": "遥控器",
+            "zh-Hant": "遙控器",
+            "ja": "リモコン",
+            "ko": "리모컨",
+            "es": "mando a distancia",
+            "fr": "télécommande",
+            "de": "Fernbedienung",
+            "pt-BR": "controle remoto"
+          }
         },
         {
           "raw_class_id": 75,
           "target_id": "keyboard",
           "label_zh_cn": "键盘",
           "label_en": "keyboard",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "keyboard",
+            "zh-Hans": "键盘",
+            "zh-Hant": "鍵盤",
+            "ja": "キーボード",
+            "ko": "키보드",
+            "es": "teclado",
+            "fr": "clavier",
+            "de": "Tastatur",
+            "pt-BR": "teclado"
+          }
         },
         {
           "raw_class_id": 76,
@@ -684,21 +1421,54 @@
           "aliases": [
             "移动电话",
             "phone"
-          ]
+          ],
+          "labels": {
+            "en": "cell phone",
+            "zh-Hans": "手机",
+            "zh-Hant": "手機",
+            "ja": "携帯電話",
+            "ko": "휴대전화",
+            "es": "teléfono móvil",
+            "fr": "téléphone portable",
+            "de": "Mobiltelefon",
+            "pt-BR": "celular"
+          }
         },
         {
           "raw_class_id": 77,
           "target_id": "microwave",
           "label_zh_cn": "微波炉",
           "label_en": "microwave",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "microwave",
+            "zh-Hans": "微波炉",
+            "zh-Hant": "微波爐",
+            "ja": "電子レンジ",
+            "ko": "전자레인지",
+            "es": "microondas",
+            "fr": "micro-ondes",
+            "de": "Mikrowelle",
+            "pt-BR": "micro-ondas"
+          }
         },
         {
           "raw_class_id": 78,
           "target_id": "oven",
           "label_zh_cn": "烤箱",
           "label_en": "oven",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "oven",
+            "zh-Hans": "烤箱",
+            "zh-Hant": "烤箱",
+            "ja": "オーブン",
+            "ko": "오븐",
+            "es": "horno",
+            "fr": "four",
+            "de": "Backofen",
+            "pt-BR": "forno"
+          }
         },
         {
           "raw_class_id": 79,
@@ -707,7 +1477,18 @@
           "label_en": "toaster",
           "aliases": [
             "吐司机"
-          ]
+          ],
+          "labels": {
+            "en": "toaster",
+            "zh-Hans": "烤面包机",
+            "zh-Hant": "烤麵包機",
+            "ja": "トースター",
+            "ko": "토스터",
+            "es": "tostadora",
+            "fr": "grille-pain",
+            "de": "Toaster",
+            "pt-BR": "torradeira"
+          }
         },
         {
           "raw_class_id": 80,
@@ -716,7 +1497,18 @@
           "label_en": "sink",
           "aliases": [
             "洗手池"
-          ]
+          ],
+          "labels": {
+            "en": "sink",
+            "zh-Hans": "水槽",
+            "zh-Hant": "水槽",
+            "ja": "流し台",
+            "ko": "싱크대",
+            "es": "fregadero",
+            "fr": "évier",
+            "de": "Spüle",
+            "pt-BR": "pia"
+          }
         },
         {
           "raw_class_id": 81,
@@ -725,7 +1517,18 @@
           "label_en": "refrigerator",
           "aliases": [
             "fridge"
-          ]
+          ],
+          "labels": {
+            "en": "refrigerator",
+            "zh-Hans": "冰箱",
+            "zh-Hant": "冰箱",
+            "ja": "冷蔵庫",
+            "ko": "냉장고",
+            "es": "frigorífico",
+            "fr": "réfrigérateur",
+            "de": "Kühlschrank",
+            "pt-BR": "geladeira"
+          }
         },
         {
           "raw_class_id": 83,
@@ -734,7 +1537,18 @@
           "label_en": "book",
           "aliases": [
             "书本"
-          ]
+          ],
+          "labels": {
+            "en": "book",
+            "zh-Hans": "书",
+            "zh-Hant": "書",
+            "ja": "本",
+            "ko": "책",
+            "es": "libro",
+            "fr": "livre",
+            "de": "Buch",
+            "pt-BR": "livro"
+          }
         },
         {
           "raw_class_id": 84,
@@ -743,21 +1557,54 @@
           "label_en": "clock",
           "aliases": [
             "钟"
-          ]
+          ],
+          "labels": {
+            "en": "clock",
+            "zh-Hans": "时钟",
+            "zh-Hant": "時鐘",
+            "ja": "時計",
+            "ko": "시계",
+            "es": "reloj",
+            "fr": "horloge",
+            "de": "Uhr",
+            "pt-BR": "relógio"
+          }
         },
         {
           "raw_class_id": 85,
           "target_id": "vase",
           "label_zh_cn": "花瓶",
           "label_en": "vase",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "vase",
+            "zh-Hans": "花瓶",
+            "zh-Hant": "花瓶",
+            "ja": "花瓶",
+            "ko": "꽃병",
+            "es": "jarrón",
+            "fr": "vase",
+            "de": "Vase",
+            "pt-BR": "vaso"
+          }
         },
         {
           "raw_class_id": 86,
           "target_id": "scissors",
           "label_zh_cn": "剪刀",
           "label_en": "scissors",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "scissors",
+            "zh-Hans": "剪刀",
+            "zh-Hant": "剪刀",
+            "ja": "はさみ",
+            "ko": "가위",
+            "es": "tijeras",
+            "fr": "ciseaux",
+            "de": "Schere",
+            "pt-BR": "tesoura"
+          }
         },
         {
           "raw_class_id": 87,
@@ -766,7 +1613,18 @@
           "label_en": "teddy bear",
           "aliases": [
             "毛绒熊"
-          ]
+          ],
+          "labels": {
+            "en": "teddy bear",
+            "zh-Hans": "泰迪熊",
+            "zh-Hant": "泰迪熊",
+            "ja": "テディベア",
+            "ko": "테디 베어",
+            "es": "oso de peluche",
+            "fr": "ours en peluche",
+            "de": "Teddybär",
+            "pt-BR": "urso de pelúcia"
+          }
         },
         {
           "raw_class_id": 88,
@@ -776,14 +1634,36 @@
           "aliases": [
             "电吹风",
             "hair dryer"
-          ]
+          ],
+          "labels": {
+            "en": "hair drier",
+            "zh-Hans": "吹风机",
+            "zh-Hant": "吹風機",
+            "ja": "ドライヤー",
+            "ko": "헤어드라이어",
+            "es": "secador de pelo",
+            "fr": "sèche-cheveux",
+            "de": "Haartrockner",
+            "pt-BR": "secador de cabelo"
+          }
         },
         {
           "raw_class_id": 89,
           "target_id": "toothbrush",
           "label_zh_cn": "牙刷",
           "label_en": "toothbrush",
-          "aliases": []
+          "aliases": [],
+          "labels": {
+            "en": "toothbrush",
+            "zh-Hans": "牙刷",
+            "zh-Hant": "牙刷",
+            "ja": "歯ブラシ",
+            "ko": "칫솔",
+            "es": "cepillo de dientes",
+            "fr": "brosse à dents",
+            "de": "Zahnbürste",
+            "pt-BR": "escova de dentes"
+          }
         }
       ]
     },

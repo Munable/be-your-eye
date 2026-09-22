@@ -190,7 +190,6 @@ internal object CameraTags {
     const val UPPER_THRESHOLD = "reading_upper_threshold"
     const val START = "monitor_start"
     const val RETRY = "monitor_retry"
-    const val OPEN_ACCOUNT = "monitor_open_account"
     const val CAMERA_RETRY = "camera_retry"
     const val REFERENCE_RAIL = "reference_camera_rail"
     const val PRIVACY_BADGE = "camera_privacy_badge"
@@ -266,10 +265,8 @@ internal fun MonitorCameraScreen(
     onRequestCameraPermission: () -> Unit,
     onOpenAppSettings: () -> Unit,
     onStartMonitoring: (app.beyoureyes.monitor.RuntimeCameraConfig) -> MonitoringStartResult,
-    onCheckProductAccess: () -> MonitoringStartResult.Rejected?,
     onStopMonitoring: () -> Unit,
     onReplaceReference: () -> Unit,
-    onOpenAccount: () -> Unit,
     onBack: () -> Unit,
 ) {
     BackHandler(onBack = onBack)
@@ -280,7 +277,6 @@ internal fun MonitorCameraScreen(
             state = current,
             retry = viewModel::retry,
             replaceReference = { viewModel.replaceReferenceImages(onReplaceReference) },
-            onOpenAccount = onOpenAccount,
             onBack = onBack,
         )
         is MonitorCameraState.Ready -> {
@@ -298,9 +294,7 @@ internal fun MonitorCameraScreen(
                     monitoringStatus = monitoringStatus,
                     latestObservationSnapshot = latestObservationSnapshot,
                     onStartMonitoring = onStartMonitoring,
-                    onCheckProductAccess = onCheckProductAccess,
                     onStopMonitoring = onStopMonitoring,
-                    onOpenAccount = onOpenAccount,
                     onBack = onBack,
                                     onNotificationsEnabled = viewModel::setNotificationsEnabled,
                     onConfigureReading = viewModel::configureReadingAndRefresh,
@@ -323,9 +317,7 @@ internal fun TransientReadingCameraScreen(
     onRequestCameraPermission: () -> Unit,
     onOpenAppSettings: () -> Unit,
     onStartMonitoring: (app.beyoureyes.monitor.RuntimeCameraConfig) -> MonitoringStartResult,
-    onCheckProductAccess: () -> MonitoringStartResult.Rejected?,
     onStopMonitoring: () -> Unit,
-    onOpenAccount: () -> Unit,
     onBack: () -> Unit,
     onMonitoringStarted: () -> Unit,
 ) {
@@ -337,7 +329,6 @@ internal fun TransientReadingCameraScreen(
             state = current,
             retry = viewModel::retry,
             replaceReference = {},
-            onOpenAccount = onOpenAccount,
             onBack = onBack,
         )
         is MonitorCameraState.Ready -> {
@@ -356,9 +347,7 @@ internal fun TransientReadingCameraScreen(
                     monitoringStatus = monitoringStatus,
                     latestObservationSnapshot = latestObservationSnapshot,
                     onStartMonitoring = onStartMonitoring,
-                    onCheckProductAccess = onCheckProductAccess,
                     onStopMonitoring = onStopMonitoring,
-                    onOpenAccount = onOpenAccount,
                     onBack = onBack,
                     onNotificationsEnabled = viewModel::setNotificationsEnabled,
                     onConfigureReading = viewModel::configureReadingAndPersist,
@@ -381,9 +370,7 @@ internal fun ReferenceCameraScreen(
     onRequestCameraPermission: () -> Unit,
     onOpenAppSettings: () -> Unit,
     onStartMonitoring: (app.beyoureyes.monitor.RuntimeCameraConfig) -> MonitoringStartResult,
-    onCheckProductAccess: () -> MonitoringStartResult.Rejected?,
     onStopMonitoring: () -> Unit,
-    onOpenAccount: () -> Unit,
     onBack: () -> Unit,
     onReferencePersisted: () -> Unit,
     onMonitoringStarted: () -> Unit,
@@ -397,7 +384,6 @@ internal fun ReferenceCameraScreen(
             state = current,
             retry = viewModel::retry,
             replaceReference = {},
-            onOpenAccount = onOpenAccount,
             onBack = onBack,
         )
         is MonitorCameraState.Ready -> {
@@ -415,9 +401,7 @@ internal fun ReferenceCameraScreen(
                     monitoringStatus = monitoringStatus,
                     latestObservationSnapshot = latestObservationSnapshot,
                     onStartMonitoring = onStartMonitoring,
-                    onCheckProductAccess = onCheckProductAccess,
                     onStopMonitoring = onStopMonitoring,
-                    onOpenAccount = onOpenAccount,
                     onBack = onBack,
                     onNotificationsEnabled = { enabled ->
                         viewModel.setNotificationsEnabled(enabled)
@@ -441,9 +425,7 @@ private fun ReadyCameraScreen(
     monitoringStatus: MonitoringStatus,
     latestObservationSnapshot: MonitoringObservationSnapshot?,
     onStartMonitoring: (app.beyoureyes.monitor.RuntimeCameraConfig) -> MonitoringStartResult,
-    onCheckProductAccess: () -> MonitoringStartResult.Rejected?,
     onStopMonitoring: () -> Unit,
-    onOpenAccount: () -> Unit,
     onBack: () -> Unit,
     onNotificationsEnabled: (Boolean) -> Unit,
     onConfigureReading: suspend (
@@ -534,7 +516,6 @@ private fun ReadyCameraScreen(
         mutableIntStateOf(persistedDraft.durationSeconds)
     }
     var startError by remember { mutableStateOf<String?>(null) }
-    var startCanOpenAccount by remember { mutableStateOf(false) }
     var startWithBlackScreen by rememberSaveable(monitor.id) { mutableStateOf(false) }
     var manualScanRegion by remember(monitor.id, monitor.revision) {
         mutableStateOf((monitor.target as? MonitorTarget.NumericReading)?.manualRoi)
@@ -545,21 +526,13 @@ private fun ReadyCameraScreen(
     val fieldSpec = state.runtime.fieldValidationSpec
     val readingSpec = state.runtime.readingPreviewSpec
     val currentFieldValidationIdentity = fieldSpec?.identity(region)
-    fun productAccessRejected(): Boolean {
-        val rejection = onCheckProductAccess() ?: return false
-        startError = rejection.message
-        startCanOpenAccount = rejection.canOpenAccount
-        return true
-    }
     // 待确认基准：读不到稳定值时也允许先创建并开始监控，首个稳定值稍后再确认。
     val startPendingReading: () -> Unit = startPending@{
         val persistPending = onPersistPendingReading ?: return@startPending
         if (startingPendingReading || startingReading || handedOff || startRequested) {
             return@startPending
         }
-        if (productAccessRejected()) return@startPending
         startError = null
-        startCanOpenAccount = false
         startingPendingReading = true
         coroutineScope.launch {
             try {
@@ -570,7 +543,6 @@ private fun ReadyCameraScreen(
                     readyForStart.runtime.config.packagePointer != pointer
                 ) {
                     startError = monitorSaveFailed
-                    startCanOpenAccount = false
                     return@launch
                 }
                 val result = session.releaseForMonitoring(
@@ -586,13 +558,11 @@ private fun ReadyCameraScreen(
                 if (handedOff) onMonitoringStarted()
                 if (result is MonitoringStartResult.Rejected) {
                     startError = result.message
-                    startCanOpenAccount = result.canOpenAccount
                 }
             } catch (error: CancellationException) {
                 throw error
             } catch (_: Throwable) {
                 startError = monitorSaveFailed
-                startCanOpenAccount = false
             } finally {
                 if (!handedOff) startingPendingReading = false
             }
@@ -607,9 +577,7 @@ private fun ReadyCameraScreen(
         if (startingPendingReading || startingReading || handedOff || startRequested) {
             return@startPersistedPending
         }
-        if (productAccessRejected()) return@startPersistedPending
         startError = null
-        startCanOpenAccount = false
         startingPendingReading = true
         coroutineScope.launch {
             val result = session.releaseForMonitoring(
@@ -625,7 +593,6 @@ private fun ReadyCameraScreen(
             if (handedOff) onMonitoringStarted()
             if (result is MonitoringStartResult.Rejected) {
                 startError = result.message
-                startCanOpenAccount = result.canOpenAccount
             }
             if (!handedOff) startingPendingReading = false
         }
@@ -656,10 +623,6 @@ private fun ReadyCameraScreen(
         ) {
             return@LaunchedEffect
         }
-        if (productAccessRejected()) {
-            startRequested = false
-            return@LaunchedEffect
-        }
         try {
             val readyForStart = if (onPersistReference != null) onPersistReference() else state
             if (readyForStart == null ||
@@ -668,7 +631,6 @@ private fun ReadyCameraScreen(
                 readyForStart.runtime.config.packagePointer != pointer
             ) {
                 startError = monitorSaveFailed
-                startCanOpenAccount = false
             } else {
                 if (onPersistReference != null) onReferencePersisted()
                 val result = session.releaseForMonitoring(
@@ -683,14 +645,12 @@ private fun ReadyCameraScreen(
                 if (handedOff) onMonitoringStarted()
                 if (result is MonitoringStartResult.Rejected) {
                     startError = result.message
-                    startCanOpenAccount = result.canOpenAccount
                 }
             }
         } catch (error: CancellationException) {
             throw error
         } catch (_: Throwable) {
             startError = monitorSaveFailed
-            startCanOpenAccount = false
         } finally {
             startRequested = false
         }
@@ -961,7 +921,6 @@ private fun ReadyCameraScreen(
                         onUpperThresholdChange = { upperThreshold = it },
                         onDurationSecondsChange = { readingDurationSeconds = it },
                         onStart = {
-                            if (productAccessRejected()) return@ReadingConditionControls
                             val submission = readingConditionSubmission(
                                 persistedRule = checkNotNull(configuredRule),
                                 confirmedReadingFormat = (
@@ -978,17 +937,14 @@ private fun ReadyCameraScreen(
                             )
                             if (submission == null) {
                                 startError = invalidRecordCondition
-                                startCanOpenAccount = false
                             } else if (!startingReading && !handedOff) {
                                 val confirmedBeforeSave = readingStatus
                                     as? ReadingPreviewStatus.Confirmed
                                 if (confirmedBeforeSave?.live !is ReadingPreviewLiveState.Stable) {
                                     startError = readingNotStable
-                                    startCanOpenAccount = false
                                     return@ReadingConditionControls
                                 }
                                 startError = null
-                                startCanOpenAccount = false
                                 startingReading = true
                                 coroutineScope.launch {
                                     try {
@@ -1021,7 +977,6 @@ private fun ReadyCameraScreen(
                                             readyForStart.persisted.runtimePackagePointer
                                         ) {
                                             startError = setupChanged
-                                            startCanOpenAccount = false
                                             return@launch
                                         }
                                         // Saving the condition advances the persisted revision, not
@@ -1029,7 +984,6 @@ private fun ReadyCameraScreen(
                                         // identity while handing off the verified saved runtime.
                                         if (current.live !is ReadingPreviewLiveState.Stable) {
                                             startError = readingNotStable
-                                            startCanOpenAccount = false
                                             return@launch
                                         }
                                         val result = session.releaseForMonitoring(
@@ -1047,13 +1001,11 @@ private fun ReadyCameraScreen(
                                         if (handedOff) onMonitoringStarted()
                                         if (result is MonitoringStartResult.Rejected) {
                                             startError = result.message
-                                            startCanOpenAccount = result.canOpenAccount
                                         }
                                     } catch (error: CancellationException) {
                                         throw error
                                     } catch (_: Exception) {
                                         startError = conditionSaveFailed
-                                        startCanOpenAccount = false
                                     } finally {
                                         if (!handedOff) startingReading = false
                                     }
@@ -1100,25 +1052,21 @@ private fun ReadyCameraScreen(
                         },
                         onConfirm = {
                             startError = null
-                            startCanOpenAccount = false
                             startRequested = true
                         },
                         onReject = {
                             startError = null
-                            startCanOpenAccount = false
                             startRequested = false
                             referenceMatchRejected = true
                             session.clearFieldValidation()
                         },
                         onRecheck = {
                             startError = null
-                            startCanOpenAccount = false
                             referenceMatchRejected = false
                             session.startFieldValidation(checkNotNull(fieldSpec), region)
                         },
                         onRetry = {
                             startError = null
-                            startCanOpenAccount = false
                             session.startFieldValidation(checkNotNull(fieldSpec), region)
                         },
                     )
@@ -1149,12 +1097,6 @@ private fun ReadyCameraScreen(
                 }
                 startError?.let {
                     Text(it, color = ProductColors.Error, style = MaterialTheme.typography.bodyMedium)
-                    if (startCanOpenAccount) {
-                        OutlinedButton(
-                            onClick = onOpenAccount,
-                            modifier = Modifier.testTag(CameraTags.OPEN_ACCOUNT),
-                        ) { Text(stringResource(R.string.action_open_account)) }
-                    }
                 }
             }
         }
@@ -2538,7 +2480,6 @@ private fun ErrorScreen(
     state: MonitorCameraState.Error,
     retry: () -> Unit,
     replaceReference: () -> Unit,
-    onOpenAccount: () -> Unit,
     onBack: () -> Unit,
 ) {
     ProductStateScreen(
@@ -2550,27 +2491,23 @@ private fun ErrorScreen(
         body = state.message.resolve(),
         primaryText = when {
             !state.retryable -> stringResource(R.string.action_back_home)
-            state.canOpenAccount -> stringResource(R.string.action_open_account)
             state.canReplaceReferenceImages -> stringResource(R.string.action_choose_images_again)
             else -> stringResource(R.string.action_retry)
         },
         onPrimary = when {
             !state.retryable -> onBack
-            state.canOpenAccount -> onOpenAccount
             state.canReplaceReferenceImages -> replaceReference
             else -> retry
         },
         primaryEnabled = !state.removingMonitor,
-        primaryTag = if (state.canOpenAccount) CameraTags.OPEN_ACCOUNT else CameraTags.RETRY,
+        primaryTag = CameraTags.RETRY,
         secondaryText = when {
             !state.retryable -> null
-            state.canOpenAccount -> stringResource(R.string.action_try_again)
             state.canReplaceReferenceImages -> stringResource(R.string.action_try_again)
             else -> stringResource(R.string.action_back)
         },
         onSecondary = when {
             !state.retryable -> null
-            state.canOpenAccount -> retry
             state.canReplaceReferenceImages -> retry
             else -> onBack
         },

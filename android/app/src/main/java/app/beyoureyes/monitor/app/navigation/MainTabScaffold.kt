@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.MonitorHeart
-import androidx.compose.material.icons.outlined.PersonOutline
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -22,7 +22,7 @@ import app.beyoureyes.monitor.R
 internal enum class MainTab(@param:androidx.annotation.StringRes val labelRes: Int) {
     MONITORS(R.string.tab_monitors),
     HISTORY(R.string.tab_history),
-    ACCOUNT(R.string.tab_account),
+    ABOUT(R.string.community_tab),
 }
 
 @Composable
@@ -47,12 +47,12 @@ internal fun MainTabScaffold(
                                 imageVector = when (tab) {
                                     MainTab.MONITORS -> Icons.Outlined.MonitorHeart
                                     MainTab.HISTORY -> Icons.Outlined.History
-                                    MainTab.ACCOUNT -> Icons.Outlined.PersonOutline
+                                    MainTab.ABOUT -> Icons.Outlined.Info
                                 },
                                 contentDescription = null,
                             )
                         },
-                        label = { Text(stringResource(if (tab == MainTab.ACCOUNT && app.beyoureyes.monitor.BuildConfig.COMMUNITY_BUILD) R.string.community_tab else tab.labelRes)) },
+                        label = { Text(stringResource(tab.labelRes)) },
                         colors = NavigationBarItemDefaults.colors(
                             selectedIconColor = ProductColors.Cyan,
                             selectedTextColor = ProductColors.TextPrimary,

@@ -3,15 +3,10 @@ import { readFileSync } from 'node:fs';
 const schemaNames = [
   'common',
   'capability-catalog',
-  'monitor-configuration-proposal',
   'model-manifest',
   'task-config',
   'observation',
   'event',
-  'device',
-  'sync-event-upsert',
-  'sync',
-  'push-envelope'
 ];
 
 const schemas = new Map(

@@ -9,9 +9,7 @@ node .github/scripts/check-repo-policy.mjs
 node tools/ci/check-i18n.mjs
 node --test .github/scripts/check-repo-policy.test.mjs tools/ci/community-policy.test.mjs tools/ci/check-i18n.test.mjs
 npm ci --ignore-scripts --prefix model-tools/catalog-validator
-npm ci --ignore-scripts --prefix supabase/tests
 npm test --prefix model-tools/catalog-validator
-npm test --prefix supabase/tests
 bash tools/release/check-secret-hygiene.sh
 ./android/gradlew -p android --no-daemon -PtestBuildType=communityDebug \
     :core:domain:testDebugUnitTest :core:vision:testDebugUnitTest :core:data:testDebugUnitTest \

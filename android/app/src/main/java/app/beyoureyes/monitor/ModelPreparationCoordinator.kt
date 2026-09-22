@@ -57,8 +57,6 @@ import app.beyoureyes.core.vision.TargetMode
 import app.beyoureyes.core.vision.TargetProfile
 import app.beyoureyes.core.vision.UprightRgbFrameNormalizer
 import app.beyoureyes.core.vision.VerifiedModelPackage
-import app.beyoureyes.monitor.feature.subscription.ProductAccessDecision
-import app.beyoureyes.monitor.feature.subscription.messageResource
 import java.io.File
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
@@ -76,9 +74,6 @@ enum class ModelPreparationFailure {
     CATALOG_CHANGED,
     TASK_UNAVAILABLE,
     NO_COMPATIBLE_PACKAGE,
-    SIGN_IN_REQUIRED,
-    SUBSCRIPTION_REQUIRED,
-    SUBSCRIPTION_VERIFICATION_REQUIRED,
     PACKAGE_DOWNLOAD_FAILED,
     SELF_TEST_FAILED,
     MONITORING_ACTIVE,
@@ -98,7 +93,6 @@ sealed interface ModelPreparationResult {
     data class Unavailable(
         val failure: ModelPreparationFailure,
         val userMessage: String,
-        val canOpenAccount: Boolean = false,
     ) : ModelPreparationResult
 }
 
@@ -109,7 +103,6 @@ internal sealed interface TransientReadingPreparationResult {
     data class Unavailable(
         val failure: ModelPreparationFailure,
         val userMessage: String,
-        val canOpenAccount: Boolean = false,
     ) : TransientReadingPreparationResult
 }
 
@@ -120,7 +113,6 @@ internal sealed interface TransientReferencePreparationResult {
     data class Unavailable(
         val failure: ModelPreparationFailure,
         val userMessage: String,
-        val canOpenAccount: Boolean = false,
     ) : TransientReferencePreparationResult
 }
 
@@ -131,7 +123,6 @@ internal sealed interface TransientObjectPreparationResult {
     data class Unavailable(
         val failure: ModelPreparationFailure,
         val userMessage: String,
-        val canOpenAccount: Boolean = false,
     ) : TransientObjectPreparationResult
 }
 
@@ -425,31 +416,6 @@ internal fun interface ModelPreparationTaskBinder {
     suspend fun bind(config: ResolvedSamplingConfig): Boolean
 }
 
-private fun failClosedProductAccess(): ProductAccessDecision =
-    ProductAccessDecision.VERIFICATION_REQUIRED
-
-internal fun productAccessPreparationRejection(
-    decision: ProductAccessDecision,
-    userMessage: () -> String,
-): ModelPreparationResult.Unavailable? = when (decision) {
-    ProductAccessDecision.GRANTED -> null
-    ProductAccessDecision.SIGN_IN_REQUIRED -> ModelPreparationResult.Unavailable(
-        ModelPreparationFailure.SIGN_IN_REQUIRED,
-        userMessage(),
-        canOpenAccount = true,
-    )
-    ProductAccessDecision.PRO_REQUIRED -> ModelPreparationResult.Unavailable(
-        ModelPreparationFailure.SUBSCRIPTION_REQUIRED,
-        userMessage(),
-        canOpenAccount = true,
-    )
-    ProductAccessDecision.VERIFICATION_REQUIRED -> ModelPreparationResult.Unavailable(
-        ModelPreparationFailure.SUBSCRIPTION_VERIFICATION_REQUIRED,
-        userMessage(),
-        canOpenAccount = true,
-    )
-}
-
 /**
  * One product path for signed Catalog fetch, deterministic compatible-package choice, download,
  * exact artifact self-test, immutable staging, and explicit activation.
@@ -468,7 +434,6 @@ internal class ModelPreparationCoordinator(
     transport: FixedHttpsTransport = UrlConnectionFixedHttpsTransport(),
     private val nowEpochMillis: () -> Long = System::currentTimeMillis,
     private val networkAvailable: () -> Boolean = { true },
-    private val productAccess: () -> ProductAccessDecision = ::failClosedProductAccess,
 ) {
     private val metadataClient = SignedMetadataHttpClient(transport)
     private val store = ModelPackageStores.open(filesDir)
@@ -548,7 +513,6 @@ internal class ModelPreparationCoordinator(
             is ModelPreparationResult.Unavailable -> TransientReadingPreparationResult.Unavailable(
                 result.failure,
                 result.userMessage,
-                result.canOpenAccount,
             )
         }
     }
@@ -639,7 +603,6 @@ internal class ModelPreparationCoordinator(
                 TransientReferencePreparationResult.Unavailable(
                     result.failure,
                     result.userMessage,
-                    result.canOpenAccount,
                 )
         }
     }
@@ -652,12 +615,12 @@ internal class ModelPreparationCoordinator(
         requiredPackageId: String? = null,
         requiredIntentKey: String? = null,
     ): TransientObjectPreparationResult {
-        val assistantBinding = listOf(
+        val catalogBinding = listOf(
             requiredModelProfileKey,
             requiredPackageId,
             requiredIntentKey,
         )
-        if (assistantBinding.any { it != null } && assistantBinding.any { it == null }) {
+        if (catalogBinding.any { it != null } && catalogBinding.any { it == null }) {
             return TransientObjectPreparationResult.Unavailable(
                 ModelPreparationFailure.NO_COMPATIBLE_PACKAGE,
                 ContextCompat.getContextForLanguage(appContext)
@@ -709,7 +672,6 @@ internal class ModelPreparationCoordinator(
             is ModelPreparationResult.Unavailable -> TransientObjectPreparationResult.Unavailable(
                 result.failure,
                 result.userMessage,
-                result.canOpenAccount,
             )
         }
     }
@@ -760,7 +722,6 @@ internal class ModelPreparationCoordinator(
             SignedMetadataCodec.decodeAndVerifyCatalog(
                 documentBytes = catalogBytes,
                 nowEpochMillis = now,
-                allowInstalledCommunity = buildChannel == BuildChannel.COMMUNITY,
             )
         } catch (_: Exception) {
             return@withContext unavailable(
@@ -775,10 +736,6 @@ internal class ModelPreparationCoordinator(
                 ContextCompat.getContextForLanguage(appContext).getString(R.string.model_build_mismatch),
             )
         }
-        val productAccessDecision = productAccess()
-        productAccessPreparationRejection(productAccessDecision) {
-            ContextCompat.getContextForLanguage(appContext).getString(productAccessDecision.messageResource())
-        }?.let { return@withContext it }
         val manifestSelection = when (
             val selection = selectManifest(catalog, target, now, allowNetwork = shouldUseNetwork)
         ) {
@@ -789,7 +746,7 @@ internal class ModelPreparationCoordinator(
             )
             ManifestSelection.NotFound -> return@withContext unavailable(
                 ModelPreparationFailure.NO_COMPATIBLE_PACKAGE,
-                ContextCompat.getContextForLanguage(appContext).getString(if (catalog.installedCommunityOnly) R.string.community_catalog_expired else R.string.model_device_unsupported),
+                ContextCompat.getContextForLanguage(appContext).getString(R.string.model_device_unsupported),
             )
             ManifestSelection.Rejected -> return@withContext unavailable(
                 ModelPreparationFailure.CATALOG_REJECTED,
@@ -822,11 +779,6 @@ internal class ModelPreparationCoordinator(
             )
             onProgress(ModelPreparationProgress.AwaitingDownload(request))
             request.awaitConfirmation()
-            // Consent applies only to this exact signed package, and does not extend access.
-            val accessAfterConfirmation = productAccess()
-            productAccessPreparationRejection(accessAfterConfirmation) {
-                ContextCompat.getContextForLanguage(appContext).getString(accessAfterConfirmation.messageResource())
-            }?.let { return@withContext it }
         } else {
             onProgress(ModelPreparationProgress.UsingDownloaded(modelName))
         }
@@ -850,19 +802,7 @@ internal class ModelPreparationCoordinator(
             runValidUntilEpochMillis = selected.licenseRunValidUntilEpochMillis,
         )
         var selfTestActivationErrors = emptySet<RuntimeActivationError>()
-        val staged = if (catalog.installedCommunityOnly) {
-            val pointer = ModelPackagePointer(descriptor.identity, descriptor.canonicalManifestSha256)
-            when (val installed = store.acquireRuntimeLease(pointer, preparationNow)) {
-                is ModelPackageRuntimeLeaseResult.Acquired -> installed.lease.use { lease ->
-                    if (lease.descriptor == descriptor && lease.canonicalManifest.copyBytes()
-                            .contentEquals(selected.copyDocumentBytes())) {
-                        ModelPackageDeliveryResult.Staged(pointer, alreadyPresent = true)
-                    } else ModelPackageDeliveryResult.Rejected(app.beyoureyes.core.data.ModelDeliveryFailure.METADATA_GATE_INVALID)
-                }
-                is ModelPackageRuntimeLeaseResult.Rejected -> ModelPackageDeliveryResult.Rejected(
-                    app.beyoureyes.core.data.ModelDeliveryFailure.STORE_REJECTED, installed.reasons)
-            }
-        } else delivery.stageVerifiedPackage(
+        val staged = delivery.stageVerifiedPackage(
             verifiedManifest = selected,
             gateReport = gateReport,
             nowEpochMillis = preparationNow,
@@ -1038,7 +978,7 @@ internal class ModelPreparationCoordinator(
                 val entry = catalog.activePackage(candidate.packageId)
                 val document = entry?.let { activeEntry ->
                     val bundled = CommunityModelMetadata.read(appContext, activeEntry.manifestUrl)
-                    val online = if (!catalog.installedCommunityOnly && (allowNetwork || bundled != null)) {
+                    val online = if (allowNetwork || bundled != null) {
                         when (val fetched = bundled?.let { MetadataFetchResult.Fetched(it) }
                             ?: metadataClient.fetchManifest(activeEntry)) {
                             is MetadataFetchResult.Fetched -> try {
@@ -1254,13 +1194,11 @@ internal class ModelPreparationCoordinator(
     private fun unavailable(
         failure: ModelPreparationFailure,
         message: String,
-        canOpenAccount: Boolean = false,
-    ) = ModelPreparationResult.Unavailable(failure, message, canOpenAccount)
+    ) = ModelPreparationResult.Unavailable(failure, message)
 
     companion object {
         fun createApp(
             context: Context,
-            productAccess: () -> ProductAccessDecision = ::failClosedProductAccess,
         ): ModelPreparationCoordinator {
             val appContext = context.applicationContext
             val memory = ActivityManager.MemoryInfo().also { info ->
@@ -1336,7 +1274,6 @@ internal class ModelPreparationCoordinator(
                     connectivity.getNetworkCapabilities(connectivity.activeNetwork)
                         ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
                 },
-                productAccess = productAccess,
             )
         }
 

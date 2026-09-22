@@ -77,8 +77,8 @@ object EmbeddedModelDeliveryPublicKeys {
             rawPublicKeyBase64 = "UtA1YMoUNVD4Oopro6sEp61YDtMQXu5rIqGZZi6BlDQ=",
         ),
         next = PinnedEd25519PublicKey(
-            keyId = "catalog-key-2026-b",
-            rawPublicKeyBase64 = "5IJ4t5JTAIde8oIbso2R6OB5Y3qGrvbqGiKjXRXuim8=",
+            keyId = "catalog-key-2026-c",
+            rawPublicKeyBase64 = "niPovqLlpcicIfCCj9JkKmMAWcgZy0ZbHKoFyDujcZw=",
         ),
     )
     val manifest: PinnedEd25519KeyRegistry = PinnedEd25519KeyRegistry(
@@ -87,8 +87,8 @@ object EmbeddedModelDeliveryPublicKeys {
             rawPublicKeyBase64 = "G1WvR2G5iRbzIdr6UOqh8tZ7cvJ/AaTvDyRQfZ8Yg0w=",
         ),
         next = PinnedEd25519PublicKey(
-            keyId = "manifest-key-2026-b",
-            rawPublicKeyBase64 = "HZ/m6+/9kdbW/Xlvw8FIPukKz8EY+xmKl8p7vkVwLfY=",
+            keyId = "manifest-key-2026-c",
+            rawPublicKeyBase64 = "Hhm34mEyIsUcU6UYLIjALtWrlV7FPxa8MIQUrLlxeiQ=",
         ),
     )
 }

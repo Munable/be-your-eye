@@ -35,19 +35,8 @@ import app.beyoureyes.monitor.MonitoringStatus
 import app.beyoureyes.monitor.RuntimeCameraConfig
 import app.beyoureyes.monitor.R
 import app.beyoureyes.monitor.activeMonitorId
-import app.beyoureyes.monitor.feature.account.AccountScreen
-import app.beyoureyes.monitor.feature.account.currentAppLanguageTag
-import app.beyoureyes.monitor.feature.assistant.AssistantProposalKind
-import app.beyoureyes.monitor.feature.assistant.AssistantProposalRecoveryScreen
-import app.beyoureyes.monitor.feature.assistant.AssistantProposalRecoveryState
-import app.beyoureyes.monitor.feature.assistant.AssistantProposalRecoveryViewModel
-import app.beyoureyes.monitor.feature.assistant.AssistantProposalSavedState
-import app.beyoureyes.monitor.feature.assistant.AssistantScreen
-import app.beyoureyes.monitor.feature.assistant.AssistantViewModel
-import app.beyoureyes.monitor.feature.assistant.MonitorConfigurationProposal
-import app.beyoureyes.monitor.feature.assistant.objectClassDefinitions
-import app.beyoureyes.monitor.feature.assistant.toReadingConditionDraft
-import app.beyoureyes.monitor.feature.assistant.toMonitorRule
+import app.beyoureyes.monitor.feature.about.CommunityAboutScreen
+import app.beyoureyes.monitor.feature.about.currentAppLanguageTag
 import app.beyoureyes.monitor.feature.home.HomeScreen
 import app.beyoureyes.monitor.feature.home.HomeViewModel
 import app.beyoureyes.monitor.feature.history.EventHistoryScreen
@@ -82,14 +71,9 @@ import app.beyoureyes.monitor.feature.objectdetection.ObjectDetectionPreparation
 import app.beyoureyes.monitor.feature.objectdetection.ObjectDetectionSetupViewModel
 import app.beyoureyes.monitor.feature.objectdetection.ObjectDetectionTaskPersistence
 import app.beyoureyes.monitor.feature.objectdetection.ObjectTargetCatalogProvider
-import app.beyoureyes.monitor.feature.subscription.ProductAccessState
-import app.beyoureyes.monitor.feature.subscription.SubscriptionWallScreen
 import app.beyoureyes.monitor.design.localizedLabel
 
 private const val HOME = "home"
-private const val ASSISTANT = "assistant"
-private const val ASSISTANT_ACCOUNT = "assistant-account"
-private const val SETUP_ACCOUNT = "setup-account"
 private const val REFERENCE = "reference"
 private const val REFERENCE_CAMERA = "reference-camera"
 private const val REFERENCE_START = "reference-start"
@@ -97,7 +81,7 @@ private const val READING_SETUP = "reading-setup"
 private const val OBJECT_DETECTION = "object-detection"
 private const val OBJECT_DETECTION_CAMERA = "object-detection-camera"
 private const val OBJECT_DETECTION_START = "object-detection-start"
-private const val ACCOUNT = "account"
+private const val ABOUT = "about"
 private const val HISTORY = "history"
 private const val MONITOR_ID = "monitorId"
 private const val CAMERA = "camera/{$MONITOR_ID}"
@@ -110,11 +94,9 @@ private val CAMERA_TRANSITION_ROUTES = setOf(
     REFERENCE_START,
     OBJECT_DETECTION_CAMERA,
     OBJECT_DETECTION_START,
-    SETUP_ACCOUNT,
 )
 
 enum class MonitorRouteState { ACTIVE, BLOCKED_BY_OTHER, FAILED, SETUP }
-private enum class LockedSurface { PAYWALL, ACCOUNT, HISTORY }
 
 internal fun monitorRouteState(status: MonitoringStatus, monitorId: String): MonitorRouteState {
     val active = status.phase in setOf(
@@ -141,6 +123,8 @@ internal fun BeYourEyeApp(
     onOpenAppSettings: () -> Unit,
     onStartMonitoring: (RuntimeCameraConfig) -> MonitoringStartResult,
     onStopMonitoring: () -> Unit,
+    openPeerAlerts: Boolean = false,
+    onPeerNavigationConsumed: () -> Unit = {},
     notificationEventId: String? = null,
     onNotificationNavigationConsumed: () -> Unit = {},
     notificationMonitorId: String? = null,
@@ -148,18 +132,7 @@ internal fun BeYourEyeApp(
 ) {
     val nav = rememberNavController()
     val repositoryState by container.monitors.state.collectAsState()
-    val remoteSnapshotStates by container.remoteSnapshots.states.collectAsState()
-    val accountState by container.accountController.state.collectAsState()
-    val productAccessState by container.productAccess.collectAsState()
-    val localUseGranted = app.beyoureyes.monitor.BuildConfig.COMMUNITY_BUILD ||
-        productAccessState is ProductAccessState.Granted
-    val passwordRecoveryPending by container.accountController.passwordRecoveryPending.collectAsState()
-    var lockedSurface by rememberSaveable { mutableStateOf(LockedSurface.PAYWALL) }
-    val objectTargetCatalogProvider = remember(container.assistantCatalog) {
-        ObjectTargetCatalogProvider {
-            container.assistantCatalog.load().objectClassDefinitions()
-        }
-    }
+    val objectTargetCatalogProvider = remember(container.objectCatalog) { container.objectCatalog }
     val monitoringActive = monitoringStatus.phase in setOf(
         app.beyoureyes.monitor.MonitoringPhase.STARTING,
         app.beyoureyes.monitor.MonitoringPhase.RUNNING,
@@ -169,7 +142,7 @@ internal fun BeYourEyeApp(
         val route = when (tab) {
             MainTab.MONITORS -> HOME
             MainTab.HISTORY -> HISTORY
-            MainTab.ACCOUNT -> ACCOUNT
+            MainTab.ABOUT -> ABOUT
         }
         nav.navigate(route) {
             popUpTo(HOME) { saveState = true }
@@ -196,78 +169,31 @@ internal fun BeYourEyeApp(
         if (monitoringStatus.stoppedWhenHidden) returnHome()
     }
 
-    LaunchedEffect(passwordRecoveryPending, productAccessState) {
-        if (passwordRecoveryPending) {
-            if (localUseGranted) {
-                nav.navigate(ACCOUNT) { launchSingleTop = true }
-            } else {
-                lockedSurface = LockedSurface.ACCOUNT
-            }
-        }
+
+
+    LaunchedEffect(openPeerAlerts) {
+        if (openPeerAlerts) { nav.navigate("paired-alerts"); onPeerNavigationConsumed() }
     }
 
-    LaunchedEffect(notificationEventId, productAccessState) {
+    LaunchedEffect(notificationEventId) {
         if (notificationEventId != null) {
-            if (localUseGranted) {
-                openMainTab(MainTab.HISTORY)
-            } else {
-                lockedSurface = LockedSurface.HISTORY
-            }
+            openMainTab(MainTab.HISTORY)
             onNotificationNavigationConsumed()
         }
     }
 
-    LaunchedEffect(notificationMonitorId, productAccessState) {
+    LaunchedEffect(notificationMonitorId) {
         if (notificationMonitorId != null) {
-            if (localUseGranted) {
-                nav.navigate("monitor/$notificationMonitorId") { launchSingleTop = true }
-            }
+            nav.navigate("monitor/$notificationMonitorId") { launchSingleTop = true }
             onMonitorNavigationConsumed()
         }
     }
 
-    LaunchedEffect(accountState) {
-        val signedIn = accountState as? app.beyoureyes.core.data.cloud.CloudAccountState.SignedIn
-        if (signedIn == null) {
-            container.subscription.signOut()
-        } else {
-            container.subscription.refresh(signedIn.accountId)
-        }
-    }
 
-    LaunchedEffect(productAccessState) {
-        if (!localUseGranted && (productAccessState is ProductAccessState.SignedOut ||
-            productAccessState is ProductAccessState.Locked)
-        ) {
-            if (monitoringActive) onStopMonitoring()
-        }
-    }
 
-    if (!localUseGranted) {
-        when (lockedSurface) {
-            LockedSurface.PAYWALL -> SubscriptionWallScreen(
-                accessState = productAccessState,
-                accountState = accountState,
-                playSubscription = container.subscription,
-                onOpenAccount = { lockedSurface = LockedSurface.ACCOUNT },
-                onOpenHistory = { lockedSurface = LockedSurface.HISTORY },
-            )
-            LockedSurface.ACCOUNT -> AccountScreen(
-                showBackButton = true,
-                playSubscription = container.subscription,
-                onClose = { lockedSurface = LockedSurface.PAYWALL },
-            )
-            LockedSurface.HISTORY -> EventHistoryScreen(
-                state = repositoryState,
-                remoteSnapshotStates = emptyMap(),
-                onRequestRemoteSnapshot = { _, _ -> },
-                onCreateMonitor = { lockedSurface = LockedSurface.PAYWALL },
-                showBackButton = true,
-                onBack = { lockedSurface = LockedSurface.PAYWALL },
-            )
-        }
-        return
-    }
+
+
+
 
     NavHost(
         navController = nav,
@@ -301,6 +227,7 @@ internal fun BeYourEyeApp(
             }
         },
     ) {
+        composable("paired-alerts") { app.beyoureyes.monitor.feature.peers.PeerScreen(onBack = { nav.popBackStack() }) }
         composable(HOME) {
             val vm: HomeViewModel = viewModel(factory = viewModelFactory {
                 HomeViewModel(repository = container.monitors)
@@ -313,7 +240,6 @@ internal fun BeYourEyeApp(
                         it.monitorId == monitoringStatus.monitorId &&
                             it.monitorRevision == monitoringStatus.monitorRevision
                     }?.observation,
-                    onAssistant = { nav.navigate(ASSISTANT) },
                     onReference = {
                         if (monitoringActive && monitoringStatus.monitorId != null) {
                             nav.navigate("camera/${monitoringStatus.monitorId}")
@@ -334,99 +260,22 @@ internal fun BeYourEyeApp(
                 )
             }
         }
-        composable(ASSISTANT) {
-            val context = androidx.compose.ui.platform.LocalContext.current
-            val subscriptionState by container.subscription.state.collectAsState()
-            val assistantAccessDecision = remember(accountState, subscriptionState) {
-                container.currentCloudAccessDecision()
-            }
-            val vm: AssistantViewModel = viewModel(factory = viewModelFactory {
-                AssistantViewModel(
-                    gateway = container.monitorAssistant,
-                    catalogProvider = container.assistantCatalog,
-                    voiceGateway = container.voiceTranscription,
-                    accessDecision = {
-                        container.currentCloudAccessDecision()
-                    },
-                    languageTag = { currentAppLanguageTag(context) },
-                )
-            })
-            AssistantScreen(
-                viewModel = vm,
-                accessDecision = assistantAccessDecision,
-                onBack = nav::popBackStack,
-                onOpenAccount = { nav.navigate(ASSISTANT_ACCOUNT) },
-                onConfirmProposal = { proposal ->
-                    val destination = when (proposal) {
-                        is MonitorConfigurationProposal.ReferenceImages -> REFERENCE
-                        is MonitorConfigurationProposal.VisualDescription -> OBJECT_DETECTION
-                        is MonitorConfigurationProposal.StructuredReading -> READING_SETUP
-                    }
-                    nav.navigate(destination) {
-                        popUpTo(ASSISTANT) { inclusive = true }
-                    }
-                    AssistantProposalSavedState.write(
-                        nav.getBackStackEntry(destination).savedStateHandle,
-                        proposal,
-                    )
-                },
-            )
-        }
-        composable(ASSISTANT_ACCOUNT) {
-            AccountScreen(
-                showBackButton = true,
-                playSubscription = container.subscription,
-                onClose = nav::popBackStack,
-            )
-        }
-        composable(SETUP_ACCOUNT) {
-            AccountScreen(
-                showBackButton = true,
-                playSubscription = container.subscription,
-                onClose = nav::popBackStack,
-            )
-        }
+
+
         composable(READING_SETUP) { entry ->
-            val assistantRecovery: AssistantProposalRecoveryViewModel = viewModel(
-                key = "assistant-proposal-recovery",
-                viewModelStoreOwner = entry,
-                factory = viewModelFactory {
-                    AssistantProposalRecoveryViewModel(
-                        savedStateHandle = entry.savedStateHandle,
-                        expectedKind = AssistantProposalKind.STRUCTURED_READING,
-                        catalogProvider = container.assistantCatalog,
-                    )
-                },
-            )
-            val assistantRecoveryState by assistantRecovery.state.collectAsState()
-            val assistantProposal: MonitorConfigurationProposal.StructuredReading? =
-                when (val state = assistantRecoveryState) {
-                    AssistantProposalRecoveryState.ManualRoute -> null
-                    is AssistantProposalRecoveryState.Ready ->
-                        state.proposal as MonitorConfigurationProposal.StructuredReading
-                    AssistantProposalRecoveryState.Validating,
-                    is AssistantProposalRecoveryState.Rejected,
-                    -> {
-                        AssistantProposalRecoveryScreen(
-                            state = state,
-                            onRetry = assistantRecovery::retry,
-                            onBack = nav::popBackStack,
-                        )
-                        return@composable
-                    }
-                }
+
             val defaultReadingMonitorName = stringResource(R.string.default_reading_monitor_name)
             val vm: TransientReadingSetupViewModel = viewModel(factory = viewModelFactory {
                 TransientReadingSetupViewModel(
-                    initialNotificationsEnabled = assistantProposal != null,
+                    initialNotificationsEnabled = false,
                     monitorName = defaultReadingMonitorName,
                     preparation = ReadingPreparation { taskId, onProgress ->
                         container.modelPreparation.prepareTransientReading(
                             taskId = taskId,
                             onProgress = onProgress,
-                            requiredModelProfileKey = assistantProposal?.modelProfileKey,
-                            requiredPackageId = assistantProposal?.packageId,
-                            requiredIntentKey = assistantProposal?.intentKey,
+                            requiredModelProfileKey = null,
+                            requiredPackageId = null,
+                            requiredIntentKey = null,
                         )
                     },
                     persistence = object : ReadingTaskPersistence {
@@ -437,7 +286,6 @@ internal fun BeYourEyeApp(
                             resolvedSamplingConfig: app.beyoureyes.core.data.ResolvedSamplingConfig,
                             nowEpochMillis: Long,
                         ): PersistedMonitor {
-                            container.requireProductAccess()
                             return container.monitors.createConfiguredReadingMonitor(
                                 taskId = taskId,
                                 requestedName = defaultReadingMonitorName,
@@ -454,7 +302,6 @@ internal fun BeYourEyeApp(
                             resolvedSamplingConfig: app.beyoureyes.core.data.ResolvedSamplingConfig,
                             nowEpochMillis: Long,
                         ): PersistedMonitor {
-                            container.requireProductAccess()
                             return container.monitors.createPendingReadingMonitor(
                                 taskId = taskId,
                                 requestedName = defaultReadingMonitorName,
@@ -481,7 +328,7 @@ internal fun BeYourEyeApp(
             })
             TransientReadingCameraScreen(
                 viewModel = vm,
-                initialCondition = assistantProposal?.toReadingConditionDraft(),
+                initialCondition = null,
                 repositoryState = repositoryState,
                 monitoringStatus = monitoringStatus,
                 latestObservationSnapshot = latestObservationSnapshot,
@@ -490,59 +337,23 @@ internal fun BeYourEyeApp(
                 onRequestCameraPermission = onRequestCameraPermission,
                 onOpenAppSettings = onOpenAppSettings,
                 onStartMonitoring = onStartMonitoring,
-                onCheckProductAccess = container::productAccessRejection,
                 onStopMonitoring = onStopMonitoring,
-                onOpenAccount = { nav.navigate(SETUP_ACCOUNT) { launchSingleTop = true } },
                 onBack = { vm.leave(::returnHome) },
                 onMonitoringStarted = ::returnHome,
             )
         }
         composable(OBJECT_DETECTION) { entry ->
             val languageTag = currentAppLanguageTag(LocalContext.current)
-            val assistantRecovery: AssistantProposalRecoveryViewModel = viewModel(
-                key = "assistant-proposal-recovery",
-                viewModelStoreOwner = entry,
-                factory = viewModelFactory {
-                    AssistantProposalRecoveryViewModel(
-                        savedStateHandle = entry.savedStateHandle,
-                        expectedKind = AssistantProposalKind.VISUAL_DESCRIPTION,
-                        catalogProvider = container.assistantCatalog,
-                    )
-                },
-            )
-            val assistantRecoveryState by assistantRecovery.state.collectAsState()
-            val assistantProposal: MonitorConfigurationProposal.VisualDescription? =
-                when (val state = assistantRecoveryState) {
-                    AssistantProposalRecoveryState.ManualRoute -> null
-                    is AssistantProposalRecoveryState.Ready ->
-                        state.proposal as MonitorConfigurationProposal.VisualDescription
-                    AssistantProposalRecoveryState.Validating,
-                    is AssistantProposalRecoveryState.Rejected,
-                    -> {
-                        AssistantProposalRecoveryScreen(
-                            state = state,
-                            onRetry = assistantRecovery::retry,
-                            onBack = nav::popBackStack,
-                        )
-                        return@composable
-                    }
-                }
+
             val vm: ObjectDetectionCreationViewModel = viewModel(factory = viewModelFactory {
                 ObjectDetectionCreationViewModel(
                     catalogProvider = objectTargetCatalogProvider,
-                    initialTargetId = assistantProposal?.targetId,
-                    initialTargetQuery = assistantProposal?.displayText,
+                    initialTargetId = null,
+                    initialTargetQuery = null,
                     languageTag = languageTag,
-                    initialModelBinding = assistantProposal?.let {
-                        ObjectDetectionModelBinding(
-                            modelProfileKey = it.modelProfileKey,
-                            packageId = it.packageId,
-                            intentKey = it.intentKey,
-                        )
-                    },
-                    initialRule = assistantProposal?.rule?.toMonitorRule()
-                        ?: MonitorRule.TargetPresence(),
-                    initialNotificationsEnabled = assistantProposal != null,
+                    initialModelBinding = null,
+                    initialRule = MonitorRule.TargetPresence(),
+                    initialNotificationsEnabled = false,
                 )
             })
             ObjectDetectionCreationScreen(
@@ -572,9 +383,7 @@ internal fun BeYourEyeApp(
                     onRequestCameraPermission = onRequestCameraPermission,
                     onOpenAppSettings = onOpenAppSettings,
                     onStartMonitoring = onStartMonitoring,
-                    onCheckProductAccess = container::productAccessRejection,
                     onStopMonitoring = onStopMonitoring,
-                    onOpenAccount = { nav.navigate(SETUP_ACCOUNT) { launchSingleTop = true } },
                     onBack = {
                         creationVm.resetCameraRequest()
                         vm.leave { nav.popBackStack(OBJECT_DETECTION, false) }
@@ -602,9 +411,7 @@ internal fun BeYourEyeApp(
                     onRequestCameraPermission = onRequestCameraPermission,
                     onOpenAppSettings = onOpenAppSettings,
                     onStartMonitoring = onStartMonitoring,
-                    onCheckProductAccess = container::productAccessRejection,
                     onStarted = ::returnHome,
-                    onOpenAccount = { nav.navigate(SETUP_ACCOUNT) { launchSingleTop = true } },
                     onBack = {
                         creationVm.resetCameraRequest()
                         vm.leave { nav.popBackStack(OBJECT_DETECTION, false) }
@@ -625,45 +432,17 @@ internal fun BeYourEyeApp(
                     entry.savedStateHandle[ReferenceCreationViewModel.DRAFT_SESSION_KEY] = draftId
                 }
             }
-            val assistantRecovery: AssistantProposalRecoveryViewModel = viewModel(
-                key = "assistant-proposal-recovery",
-                viewModelStoreOwner = entry,
-                factory = viewModelFactory {
-                    AssistantProposalRecoveryViewModel(
-                        savedStateHandle = entry.savedStateHandle,
-                        expectedKind = AssistantProposalKind.REFERENCE_IMAGES,
-                        catalogProvider = container.assistantCatalog,
-                    )
-                },
-            )
-            val assistantRecoveryState by assistantRecovery.state.collectAsState()
-            val assistantProposal: MonitorConfigurationProposal.ReferenceImages? =
-                when (val state = assistantRecoveryState) {
-                    AssistantProposalRecoveryState.ManualRoute -> null
-                    is AssistantProposalRecoveryState.Ready ->
-                        state.proposal as MonitorConfigurationProposal.ReferenceImages
-                    AssistantProposalRecoveryState.Validating,
-                    is AssistantProposalRecoveryState.Rejected,
-                    -> {
-                        AssistantProposalRecoveryScreen(
-                            state = state,
-                            onRetry = assistantRecovery::retry,
-                            onBack = nav::popBackStack,
-                        )
-                        return@composable
-                    }
-                }
+
             val vm: ReferenceCreationViewModel = viewModel(factory = viewModelFactory {
                 ReferenceCreationViewModel(
                     repository = container.monitors,
                     savedStateHandle = entry.savedStateHandle,
-                    initialName = assistantProposal?.title.orEmpty(),
-                    initialRule = assistantProposal?.rule?.toMonitorRule()
-                        ?: MonitorRule.TargetPresence(),
-                    initialNotificationsEnabled = assistantProposal != null,
-                    requiredModelProfileKey = assistantProposal?.modelProfileKey,
-                    requiredPackageId = assistantProposal?.packageId,
-                    requiredIntentKey = assistantProposal?.intentKey,
+                    initialName = "",
+                    initialRule = MonitorRule.TargetPresence(),
+                    initialNotificationsEnabled = false,
+                    requiredModelProfileKey = null,
+                    requiredPackageId = null,
+                    requiredIntentKey = null,
                 )
             })
             val requested by vm.cameraRequested.collectAsState()
@@ -701,9 +480,7 @@ internal fun BeYourEyeApp(
                     onRequestCameraPermission = onRequestCameraPermission,
                     onOpenAppSettings = onOpenAppSettings,
                     onStartMonitoring = onStartMonitoring,
-                    onCheckProductAccess = container::productAccessRejection,
                     onStopMonitoring = onStopMonitoring,
-                    onOpenAccount = { nav.navigate(SETUP_ACCOUNT) { launchSingleTop = true } },
                     onBack = {
                         vm.leave {
                             materialsVm.resumeAfterCamera()
@@ -732,12 +509,10 @@ internal fun BeYourEyeApp(
                     onRequestCameraPermission = onRequestCameraPermission,
                     onOpenAppSettings = onOpenAppSettings,
                     onStartMonitoring = onStartMonitoring,
-                    onCheckProductAccess = container::productAccessRejection,
                     onStarted = {
                         materialsVm.completeCameraCreation()
                         returnHome()
                     },
-                    onOpenAccount = { nav.navigate(SETUP_ACCOUNT) { launchSingleTop = true } },
                     onBack = {
                         vm.leave {
                             materialsVm.resumeAfterCamera()
@@ -747,11 +522,11 @@ internal fun BeYourEyeApp(
                 )
             }
         }
-        composable(ACCOUNT) {
-            MainTabScaffold(MainTab.ACCOUNT, ::openMainTab) {
-                AccountScreen(
+        composable(ABOUT) {
+            MainTabScaffold(MainTab.ABOUT, ::openMainTab) {
+                CommunityAboutScreen(
+                    onPairedAlerts = { nav.navigate("paired-alerts") },
                     showBackButton = false,
-                    playSubscription = container.subscription,
                     onClose = { openMainTab(MainTab.MONITORS) },
                 )
             }
@@ -760,8 +535,6 @@ internal fun BeYourEyeApp(
             MainTabScaffold(MainTab.HISTORY, ::openMainTab) {
                 EventHistoryScreen(
                     state = repositoryState,
-                    remoteSnapshotStates = remoteSnapshotStates,
-                    onRequestRemoteSnapshot = container.remoteSnapshots::request,
                     onCreateMonitor = { openMainTab(MainTab.MONITORS) },
                 )
             }
@@ -770,8 +543,6 @@ internal fun BeYourEyeApp(
             val id = checkNotNull(entry.arguments?.getString(MONITOR_ID))
             EventHistoryScreen(
                 state = repositoryState,
-                remoteSnapshotStates = remoteSnapshotStates,
-                onRequestRemoteSnapshot = container.remoteSnapshots::request,
                 showBackButton = true,
                 onBack = nav::popBackStack,
                 monitorId = id,
@@ -788,7 +559,6 @@ internal fun BeYourEyeApp(
                 cameraPermissionGranted = cameraPermissionGranted,
                 onRequestCameraPermission = onRequestCameraPermission,
                 onStartMonitoring = onStartMonitoring,
-                onCheckProductAccess = container::productAccessRejection,
                 onBack = nav::popBackStack,
                 onOpenHistory = { nav.navigate("history/monitor/$id") { launchSingleTop = true } },
                 onDeleted = {
@@ -872,9 +642,7 @@ internal fun BeYourEyeApp(
                         onRequestCameraPermission = onRequestCameraPermission,
                         onOpenAppSettings = onOpenAppSettings,
                         onStartMonitoring = onStartMonitoring,
-                        onCheckProductAccess = container::productAccessRejection,
                         onStopMonitoring = onStopMonitoring,
-                        onOpenAccount = { nav.navigate(SETUP_ACCOUNT) { launchSingleTop = true } },
                         onReplaceReference = {
                             nav.navigate(REFERENCE) { popUpTo("camera/$id") { inclusive = true } }
                         },
@@ -899,51 +667,17 @@ private fun ObjectDetectionSetupContent(
     content: @Composable (ObjectDetectionSetupViewModel, ObjectDetectionCreationViewModel) -> Unit,
 ) {
     val languageTag = currentAppLanguageTag(LocalContext.current)
-    val assistantRecovery: AssistantProposalRecoveryViewModel = viewModel(
-        key = "assistant-proposal-recovery",
-        viewModelStoreOwner = creationEntry,
-        factory = viewModelFactory {
-            AssistantProposalRecoveryViewModel(
-                savedStateHandle = creationEntry.savedStateHandle,
-                expectedKind = AssistantProposalKind.VISUAL_DESCRIPTION,
-                catalogProvider = container.assistantCatalog,
-            )
-        },
-    )
-    val assistantRecoveryState by assistantRecovery.state.collectAsState()
-    val assistantProposal: MonitorConfigurationProposal.VisualDescription? =
-        when (val state = assistantRecoveryState) {
-            AssistantProposalRecoveryState.ManualRoute -> null
-            is AssistantProposalRecoveryState.Ready ->
-                state.proposal as MonitorConfigurationProposal.VisualDescription
-            AssistantProposalRecoveryState.Validating,
-            is AssistantProposalRecoveryState.Rejected,
-            -> {
-                AssistantProposalRecoveryScreen(
-                    state = state,
-                    onRetry = assistantRecovery::retry,
-                    onBack = onRecoveryExit,
-                )
-                return
-            }
-        }
+
     val creationVm: ObjectDetectionCreationViewModel = viewModel(
         viewModelStoreOwner = creationEntry,
         factory = viewModelFactory {
             ObjectDetectionCreationViewModel(
                 catalogProvider = objectTargetCatalogProvider,
-                initialTargetId = assistantProposal?.targetId,
-                initialTargetQuery = assistantProposal?.displayText,
+                initialTargetId = null,
+                initialTargetQuery = null,
                 languageTag = languageTag,
-                initialModelBinding = assistantProposal?.let {
-                    ObjectDetectionModelBinding(
-                        modelProfileKey = it.modelProfileKey,
-                        packageId = it.packageId,
-                        intentKey = it.intentKey,
-                    )
-                },
-                initialRule = assistantProposal?.rule?.toMonitorRule()
-                    ?: MonitorRule.TargetPresence(),
+                initialModelBinding = null,
+                initialRule = MonitorRule.TargetPresence(),
             )
         },
     )
@@ -997,7 +731,6 @@ private fun ObjectDetectionSetupContent(
                         resolvedSamplingConfig: app.beyoureyes.core.data.ResolvedSamplingConfig,
                         nowEpochMillis: Long,
                     ): PersistedMonitor {
-                        container.requireProductAccess()
                         return container.monitors.createConfiguredObjectMonitor(
                             taskId = taskId,
                             requestedName = defaultObjectMonitorName,
@@ -1031,47 +764,19 @@ private fun ReferenceSetupContent(
     onMissingDraft: () -> Unit,
     content: @Composable (ReferenceSetupViewModel, ReferenceCreationViewModel) -> Unit,
 ) {
-    val assistantRecovery: AssistantProposalRecoveryViewModel = viewModel(
-        key = "assistant-proposal-recovery",
-        viewModelStoreOwner = materialsEntry,
-        factory = viewModelFactory {
-            AssistantProposalRecoveryViewModel(
-                savedStateHandle = materialsEntry.savedStateHandle,
-                expectedKind = AssistantProposalKind.REFERENCE_IMAGES,
-                catalogProvider = container.assistantCatalog,
-            )
-        },
-    )
-    val assistantRecoveryState by assistantRecovery.state.collectAsState()
-    val assistantProposal: MonitorConfigurationProposal.ReferenceImages? =
-        when (val state = assistantRecoveryState) {
-            AssistantProposalRecoveryState.ManualRoute -> null
-            is AssistantProposalRecoveryState.Ready ->
-                state.proposal as MonitorConfigurationProposal.ReferenceImages
-            AssistantProposalRecoveryState.Validating,
-            is AssistantProposalRecoveryState.Rejected,
-            -> {
-                AssistantProposalRecoveryScreen(
-                    state = state,
-                    onRetry = assistantRecovery::retry,
-                    onBack = onRecoveryExit,
-                )
-                return
-            }
-        }
+
     val materialsVm: ReferenceCreationViewModel = viewModel(
         viewModelStoreOwner = materialsEntry,
         factory = viewModelFactory {
             ReferenceCreationViewModel(
                 repository = container.monitors,
                 savedStateHandle = materialsEntry.savedStateHandle,
-                initialName = assistantProposal?.title.orEmpty(),
-                initialRule = assistantProposal?.rule?.toMonitorRule()
-                    ?: MonitorRule.TargetPresence(),
-                initialNotificationsEnabled = assistantProposal != null,
-                requiredModelProfileKey = assistantProposal?.modelProfileKey,
-                requiredPackageId = assistantProposal?.packageId,
-                requiredIntentKey = assistantProposal?.intentKey,
+                initialName = "",
+                initialRule = MonitorRule.TargetPresence(),
+                initialNotificationsEnabled = false,
+                requiredModelProfileKey = null,
+                requiredPackageId = null,
+                requiredIntentKey = null,
             )
         },
     )
@@ -1125,7 +830,6 @@ private fun ReferenceSetupContent(
                         stage: app.beyoureyes.monitor.feature.reference.ReferenceStage,
                         resolvedSamplingConfig: app.beyoureyes.core.data.ResolvedSamplingConfig,
                     ): PersistedMonitor {
-                        container.requireProductAccess()
                         return container.monitors.createConfiguredReferenceMonitor(
                             stage.repositoryHandle as StagedReferenceMonitor,
                             resolvedSamplingConfig,

@@ -13,38 +13,12 @@ import app.beyoureyes.core.vision.RecipeFamily
 import app.beyoureyes.core.vision.RuntimeActivationError
 import app.beyoureyes.core.vision.TargetMode
 import app.beyoureyes.core.vision.TargetProfile
-import app.beyoureyes.monitor.feature.subscription.ProductAccessDecision
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
 class ModelPreparationPolicyTest {
-    @Test
-    fun `product access rejection carries a precise account action`() {
-        val signIn = requireNotNull(
-            productAccessPreparationRejection(
-                ProductAccessDecision.SIGN_IN_REQUIRED,
-            ) { "sign in" },
-        )
-        val subscribe = requireNotNull(
-            productAccessPreparationRejection(
-                ProductAccessDecision.PRO_REQUIRED,
-            ) { "subscribe" },
-        )
-        val verify = requireNotNull(
-            productAccessPreparationRejection(
-                ProductAccessDecision.VERIFICATION_REQUIRED,
-            ) { "verify" },
-        )
-
-        assertEquals(ModelPreparationFailure.SIGN_IN_REQUIRED, signIn.failure)
-        assertEquals(ModelPreparationFailure.SUBSCRIPTION_REQUIRED, subscribe.failure)
-        assertEquals(ModelPreparationFailure.SUBSCRIPTION_VERIFICATION_REQUIRED, verify.failure)
-        assertTrue(listOf(signIn, subscribe, verify).all { it.canOpenAccount })
-        assertNull(productAccessPreparationRejection(ProductAccessDecision.GRANTED) { "" })
-    }
-
     @Test
     fun `signed fallback skips an ineligible first package and selects the second`() {
         val recipe = recipe("object_detection_general_v1", "first_v1", "second_v1")

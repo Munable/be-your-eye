@@ -7,7 +7,7 @@ https://github.com/Munable/be-your-eye
 This application includes software from the following projects. Exact versions are recorded in the release SBOM generated from the locked build.
 
 Apache License 2.0
-AndroidX, Jetpack Compose, Navigation, Lifecycle, CameraX, Room, DataStore, WorkManager, Google LiteRT, Google Tink, Gson, Kotlin, Kotlin Coroutines, Ktor, Supabase Kotlin, and Google Play Billing are distributed under the Apache License 2.0 or include components under that license.
+AndroidX, Jetpack Compose, Navigation, Lifecycle, CameraX, Room, DataStore, WorkManager, Google LiteRT, Google Tink, Gson, Kotlin, Kotlin Coroutines, Kotlin Serialization, and ZXing Core are distributed under the Apache License 2.0 or include components under that license.
 License: https://www.apache.org/licenses/LICENSE-2.0
 
 MIT License

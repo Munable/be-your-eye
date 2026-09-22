@@ -22,7 +22,7 @@ for (const spec of input.packages) {
       if (!verify(file, artifact)) throw new Error(`Corrupt cache: ${artifact.role}`);
     } else {
       const partial = file + '.part';
-      execFileSync('curl', ['--fail', '--silent', '--show-error', '--max-time', '900', '--retry', '2',
+      execFileSync('curl', ['--fail', '--location', '--proto-redir', '=https', '--silent', '--show-error', '--max-time', '900', '--retry', '2',
         '--proto', '=https', '--output', partial, artifact.url], { stdio: 'inherit' });
       if (!verify(partial, artifact)) throw new Error(`Artifact integrity failure: ${spec.package_id}/${artifact.role}`);
       renameSync(partial, file);

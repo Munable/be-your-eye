@@ -73,15 +73,12 @@ internal fun DirectStartScreen(
     onRequestCameraPermission: () -> Unit,
     onOpenAppSettings: () -> Unit,
     onStartMonitoring: (RuntimeCameraConfig) -> MonitoringStartResult,
-    onCheckProductAccess: () -> MonitoringStartResult.Rejected?,
     onStarted: () -> Unit,
-    onOpenAccount: () -> Unit,
     onBack: () -> Unit,
 ) {
     BackHandler(onBack = onBack)
     val state by viewModel.state.collectAsState()
     var startError by remember { mutableStateOf<String?>(null) }
-    var startCanOpenAccount by remember { mutableStateOf(false) }
     var started by rememberSaveable { mutableStateOf(false) }
     var attemptNonce by rememberSaveable { mutableIntStateOf(0) }
     val context = LocalContext.current
@@ -105,12 +102,6 @@ internal fun DirectStartScreen(
     ) {
         val current = ready ?: return@LaunchedEffect
         if (!cameraPermissionGranted || started) return@LaunchedEffect
-        val rejection = onCheckProductAccess()
-        if (rejection != null) {
-            startError = rejection.message
-            startCanOpenAccount = rejection.canOpenAccount
-            return@LaunchedEffect
-        }
         if (current.notificationsEnabled && !notificationPermissionCompleted &&
             Build.VERSION.SDK_INT >= 33 &&
             ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
@@ -143,7 +134,6 @@ internal fun DirectStartScreen(
             }
             is MonitoringStartResult.Rejected -> {
                 startError = result.message
-                startCanOpenAccount = result.canOpenAccount
             }
         }
     }
@@ -157,20 +147,15 @@ internal fun DirectStartScreen(
         )
         startError != null -> DirectStartErrorScreen(
             message = startError.orEmpty(),
-            canOpenAccount = startCanOpenAccount,
             onRetry = {
                 startError = null
-                startCanOpenAccount = false
                 attemptNonce += 1
             },
-            onOpenAccount = onOpenAccount,
             onBack = onBack,
         )
         state is MonitorCameraState.Error -> DirectStartErrorScreen(
             message = (state as MonitorCameraState.Error).message.resolve(),
-            canOpenAccount = (state as MonitorCameraState.Error).canOpenAccount,
             onRetry = viewModel::retry,
-            onOpenAccount = onOpenAccount,
             onBack = onBack,
         )
         state is MonitorCameraState.Loading -> LoadingScreen(
@@ -219,9 +204,7 @@ private fun DirectStartProgressScreen(message: String) {
 @Composable
 private fun DirectStartErrorScreen(
     message: String,
-    canOpenAccount: Boolean,
     onRetry: () -> Unit,
-    onOpenAccount: () -> Unit,
     onBack: () -> Unit,
 ) {
     Surface(Modifier.fillMaxSize(), color = ProductColors.Background) {
@@ -253,9 +236,9 @@ private fun DirectStartErrorScreen(
             )
             ProductPrimaryButton(
                 text = stringResource(
-                    if (canOpenAccount) R.string.action_open_account else R.string.action_retry,
+                    R.string.action_retry,
                 ),
-                onClick = if (canOpenAccount) onOpenAccount else onRetry,
+                onClick = onRetry,
                 modifier = Modifier.padding(top = 24.dp).testTag(DirectStartTags.RETRY),
             )
             OutlinedButton(onClick = onBack, modifier = Modifier.padding(top = 12.dp)) {

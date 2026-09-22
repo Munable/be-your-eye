@@ -57,9 +57,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import app.beyoureyes.core.data.MonitorRepositoryState
-import app.beyoureyes.core.data.cloud.RemoteSnapshotRequestSpec
-import app.beyoureyes.core.data.cloud.RemoteSnapshotUnavailableReason
-import app.beyoureyes.core.data.cloud.RemoteSnapshotViewState
 import app.beyoureyes.core.domain.MonitorEvent
 import app.beyoureyes.core.domain.MonitorEventFact
 import app.beyoureyes.monitor.ProductColors
@@ -81,8 +78,6 @@ import java.util.Locale
 @Composable
 internal fun EventHistoryScreen(
     state: MonitorRepositoryState,
-    remoteSnapshotStates: Map<String, RemoteSnapshotViewState> = emptyMap(),
-    onRequestRemoteSnapshot: (RemoteSnapshotRequestSpec, Boolean) -> Unit = { _, _ -> },
     onCreateMonitor: () -> Unit = {},
     showBackButton: Boolean = false,
     onBack: () -> Unit = {},
@@ -108,9 +103,7 @@ internal fun EventHistoryScreen(
             persisted.referenceThumbnailUri?.let { persisted.monitor.id to it }
         }.toMap()
     }
-    val remoteSourceDevices = remember(state.remote) {
-        state.remote.associate { it.id to it.monitoringDeviceId }
-    }
+
 
     Surface(Modifier.fillMaxSize(), color = ProductColors.Background) {
         Column(
@@ -160,11 +153,6 @@ internal fun EventHistoryScreen(
                                 monitorName = monitorNames[entry.monitorId]
                                     ?: stringResource(R.string.deleted_monitor),
                                 referenceThumbnailUri = referenceThumbnails[entry.monitorId],
-                                remoteSourceDeviceId = remoteSourceDevices[entry.monitorId],
-                                remoteSnapshotState = (entry as? DiaryEntry.ReferenceEpisode)
-                                    ?.triggerEventId
-                                    ?.let(remoteSnapshotStates::get),
-                                onRequestRemoteSnapshot = onRequestRemoteSnapshot,
                             )
                         }
                     }
@@ -259,9 +247,6 @@ private fun LogTimelineRow(
     entry: DiaryEntry,
     monitorName: String,
     referenceThumbnailUri: String?,
-    remoteSourceDeviceId: String?,
-    remoteSnapshotState: RemoteSnapshotViewState?,
-    onRequestRemoteSnapshot: (RemoteSnapshotRequestSpec, Boolean) -> Unit,
 ) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Text(
@@ -277,9 +262,6 @@ private fun LogTimelineRow(
                     entry = entry,
                     monitorName = monitorName,
                     referenceThumbnailUri = referenceThumbnailUri,
-                    remoteSourceDeviceId = remoteSourceDeviceId,
-                    remoteSnapshotState = remoteSnapshotState,
-                    onRequestRemoteSnapshot = onRequestRemoteSnapshot,
                 )
                 is DiaryEntry.Moment -> MomentLogCard(entry, monitorName)
             }
@@ -292,26 +274,10 @@ private fun ReferenceLogCard(
     entry: DiaryEntry.ReferenceEpisode,
     monitorName: String,
     referenceThumbnailUri: String?,
-    remoteSourceDeviceId: String?,
-    remoteSnapshotState: RemoteSnapshotViewState?,
-    onRequestRemoteSnapshot: (RemoteSnapshotRequestSpec, Boolean) -> Unit,
 ) {
     var expandedSnapshotUri by remember { mutableStateOf<String?>(null) }
     val completed = entry.endedAtEpochMillis != null
-    val remoteRequest = if (entry.isRemote && entry.triggerEventId != null && remoteSourceDeviceId != null) {
-        RemoteSnapshotRequestSpec(
-            eventId = entry.triggerEventId,
-            taskId = entry.monitorId,
-            sourceDeviceId = remoteSourceDeviceId,
-        )
-    } else {
-        null
-    }
-    LaunchedEffect(remoteRequest) {
-        remoteRequest?.let { onRequestRemoteSnapshot(it, false) }
-    }
     val displayedSnapshotUri = entry.triggerSnapshotUri
-        ?: (remoteSnapshotState as? RemoteSnapshotViewState.Ready)?.privateUri
     val thumbnailDescription = stringResource(R.string.reference_target_thumbnail)
     val triggerImageDescription = stringResource(R.string.trigger_image_description)
     ProductPanel(
@@ -392,13 +358,7 @@ private fun ReferenceLogCard(
                     style = MaterialTheme.typography.bodySmall,
                 )
             }
-            if (entry.isRemote && displayedSnapshotUri == null) {
-                RemoteSnapshotPlaceholder(
-                    state = remoteSnapshotState,
-                    requestAvailable = remoteRequest != null,
-                    onRetry = { remoteRequest?.let { onRequestRemoteSnapshot(it, true) } },
-                )
-            }
+
         }
     }
     expandedSnapshotUri?.let { snapshotUri ->
@@ -463,65 +423,7 @@ private fun referenceLogDetail(entry: DiaryEntry.ReferenceEpisode): String {
     return stringResource(R.string.history_episode_ended, formatEventTime(endedAt), reason)
 }
 
-@Composable
-private fun RemoteSnapshotPlaceholder(
-    state: RemoteSnapshotViewState?,
-    requestAvailable: Boolean,
-    onRetry: () -> Unit,
-) {
-    Surface(
-        modifier = Modifier.fillMaxWidth().heightIn(min = 104.dp)
-            .testTag("remote_trigger_snapshot_state"),
-        shape = RoundedCornerShape(12.dp),
-        color = ProductColors.SurfaceRaised,
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-        ) {
-            when (state) {
-                RemoteSnapshotViewState.Loading -> {
-                    CircularProgressIndicator(modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
-                    Text(
-                        stringResource(R.string.remote_snapshot_loading),
-                        modifier = Modifier.padding(top = 10.dp),
-                        color = ProductColors.TextSecondary,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-                is RemoteSnapshotViewState.Unavailable -> {
-                    Text(
-                        when (state.reason) {
-                            RemoteSnapshotUnavailableReason.SOURCE_OFFLINE ->
-                                stringResource(R.string.remote_snapshot_source_offline)
-                            RemoteSnapshotUnavailableReason.PHOTO_UNAVAILABLE ->
-                                stringResource(R.string.remote_snapshot_photo_unavailable)
-                            RemoteSnapshotUnavailableReason.SECURE_TRANSFER_FAILED ->
-                                stringResource(R.string.remote_snapshot_transfer_failed)
-                        },
-                        color = ProductColors.TextSecondary,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    if (requestAvailable) {
-                        TextButton(onClick = onRetry, modifier = Modifier.testTag("retry_remote_snapshot")) {
-                            Text(stringResource(R.string.action_retry))
-                        }
-                    }
-                }
-                is RemoteSnapshotViewState.Ready -> Unit
-                null -> Text(
-                    stringResource(
-                        if (requestAvailable) R.string.remote_snapshot_waiting_source
-                        else R.string.remote_snapshot_old_event,
-                    ),
-                    color = ProductColors.TextMuted,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
-        }
-    }
-}
+
 
 @Composable
 private fun MomentLogCard(entry: DiaryEntry.Moment, monitorName: String) {

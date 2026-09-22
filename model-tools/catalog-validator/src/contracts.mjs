@@ -1525,37 +1525,6 @@ export function validateEvent(event) {
   return { ok: errors.length === 0, errors };
 }
 
-export function validateSyncEventUpsert(event) {
-  const schema = validateAgainstSchema('sync-event-upsert', event);
-  if (!schema.ok) return schema;
-  const { monitoring_device_id: _monitoringDeviceId, ...baseEvent } = event;
-  return validateEvent(baseEvent);
-}
-
-export function validateSync(sync) {
-  const schema = validateAgainstSchema('sync', sync);
-  if (!schema.ok) return schema;
-  const errors = [];
-  sync.changes.forEach((change, index) => {
-    const path = `$/changes/${index}/entity`;
-    if (change.operation === 'delete' && change.entity !== null) {
-      errors.push(issue(path, 'delete_entity_must_be_null', 'delete changes must not carry stale entity data'));
-    }
-    if (change.operation === 'upsert' && change.entity === null) {
-      errors.push(issue(path, 'upsert_entity_required', 'upsert changes must carry an entity'));
-      return;
-    }
-    if (change.operation !== 'upsert') return;
-    const nested = change.entity_type === 'task'
-      ? validateTaskConfig(change.entity)
-      : change.entity_type === 'event'
-        ? validateSyncEventUpsert(change.entity)
-        : validateAgainstSchema('device', change.entity);
-    if (!nested.ok) errors.push(issue(path, 'invalid_upsert_entity', nested.errors));
-  });
-  return { ok: errors.length === 0, errors };
-}
-
 export function validateContract(kind, value, context = {}) {
   switch (kind) {
     case 'capability-catalog': return validateCatalog(value);
@@ -1563,8 +1532,6 @@ export function validateContract(kind, value, context = {}) {
     case 'task-config': return validateTaskConfig(value, context.catalog);
     case 'observation': return validateObservation(value);
     case 'event': return validateEvent(value);
-    case 'sync-event-upsert': return validateSyncEventUpsert(value);
-    case 'sync': return validateSync(value);
     default: return validateAgainstSchema(kind, value);
   }
 }

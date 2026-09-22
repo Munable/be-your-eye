@@ -1,6 +1,0 @@
-Developer name: PUBLISHER_NAME
-Support email: support@beyoureye.com
-Private security reports: https://beyoureye.com/security/
-Privacy policy: https://beyoureye.com/privacy/
-Subscription terms: https://beyoureye.com/terms/
-Account deletion: https://beyoureye.com/privacy/#delete-account

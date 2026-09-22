@@ -11,6 +11,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.RandomAccessFile
 import java.net.URL
+import java.net.URI
 import javax.net.ssl.HttpsURLConnection
 
 data class FixedHttpsRequest(
@@ -34,7 +35,21 @@ fun interface FixedHttpsTransport {
     fun execute(request: FixedHttpsRequest): FixedHttpsResponse
 }
 
-/** Production transport: TLS is platform validated and redirects are always surfaced as errors. */
+/** Only GitHub's documented release-asset hop is allowed; hashes still bind every byte. */
+internal fun trustedModelDownloadLocation(original: String, location: String): Boolean {
+    if (original == location) return true
+    return runCatching {
+        val source = URI(original)
+        val target = URI(location)
+        source.scheme == "https" && source.host == "github.com" &&
+            source.rawUserInfo == null && source.port == -1 && source.rawQuery == null &&
+            source.rawFragment == null &&
+            Regex("^/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/releases/download/[^/]+/[^/]+$").matches(source.path) &&
+            target.scheme == "https" && target.host == "release-assets.githubusercontent.com" &&
+            target.rawUserInfo == null && target.port == -1 && target.rawFragment == null
+    }.getOrDefault(false)
+}
+
 class UrlConnectionFixedHttpsTransport(
     private val connectTimeoutMillis: Int = 15_000,
     private val readTimeoutMillis: Int = 30_000,
@@ -43,46 +58,48 @@ class UrlConnectionFixedHttpsTransport(
         require(connectTimeoutMillis in 1..120_000)
         require(readTimeoutMillis in 1..300_000)
     }
-
     override fun execute(request: FixedHttpsRequest): FixedHttpsResponse {
         requireFixedHttpsUrl(request.url, "$.download.url")
         require(request.rangeStartBytes == null || request.rangeStartBytes >= 0)
-        val connection = (URL(request.url).openConnection() as HttpsURLConnection).apply {
-            instanceFollowRedirects = false
-            requestMethod = "GET"
-            connectTimeout = connectTimeoutMillis
-            readTimeout = readTimeoutMillis
-            useCaches = false
-            setRequestProperty("Accept", request.accept)
-            setRequestProperty("Accept-Encoding", "identity")
-            request.rangeStartBytes?.let { setRequestProperty("Range", "bytes=$it-") }
-        }
-        return try {
-            val status = connection.responseCode
-            val stream = if (status in 200..299) connection.inputStream else {
-                connection.errorStream ?: ByteArrayInputStream(byteArrayOf())
+        var url = request.url
+        repeat(2) { hop ->
+            val connection = (URL(url).openConnection() as HttpsURLConnection).apply {
+                instanceFollowRedirects = false
+                requestMethod = "GET"
+                connectTimeout = connectTimeoutMillis
+                readTimeout = readTimeoutMillis
+                useCaches = false
+                setRequestProperty("Accept", request.accept)
+                setRequestProperty("Accept-Encoding", "identity")
+                request.rangeStartBytes?.let { setRequestProperty("Range", "bytes=$it-") }
             }
-            FixedHttpsResponse(
-                statusCode = status,
-                finalUrl = connection.url.toString(),
-                contentLengthBytes = connection.getHeaderFieldLong("Content-Length", -1L)
-                    .takeIf { it >= 0 },
-                contentRange = connection.getHeaderField("Content-Range"),
-                body = object : FilterInputStream(stream) {
-                    override fun close() {
-                        try {
-                            super.close()
-                        } finally {
-                            connection.disconnect()
-                        }
+            try {
+                val status = connection.responseCode
+                val redirect = connection.getHeaderField("Location")
+                if (hop == 0 && status in setOf(301, 302, 303, 307, 308) && redirect != null &&
+                    trustedModelDownloadLocation(request.url, redirect) && redirect != request.url) {
+                    connection.disconnect()
+                    url = redirect
+                } else {
+                    val stream = if (status in 200..299) connection.inputStream else {
+                        connection.errorStream ?: ByteArrayInputStream(byteArrayOf())
                     }
-                },
-            )
-        } catch (error: Exception) {
-            connection.disconnect()
-            if (error is IOException) throw error
-            throw IOException("HTTPS request failed", error)
+                    return FixedHttpsResponse(status, connection.url.toString(),
+                        connection.getHeaderFieldLong("Content-Length", -1L).takeIf { it >= 0 },
+                        connection.getHeaderField("Content-Range"),
+                        object : FilterInputStream(stream) {
+                            override fun close() {
+                                try { super.close() } finally { connection.disconnect() }
+                            }
+                        })
+                }
+            } catch (error: Exception) {
+                connection.disconnect()
+                if (error is IOException) throw error
+                throw IOException("HTTPS request failed", error)
+            }
         }
+        throw IOException("Model redirect limit reached")
     }
 }
 
@@ -123,7 +140,7 @@ class SignedMetadataHttpClient(
             return MetadataFetchResult.Rejected(MetadataFetchFailure.INSECURE_OR_INVALID_URL)
         }
         response.use {
-            if (response.finalUrl != url || response.statusCode in 300..399) {
+            if (!trustedModelDownloadLocation(url, response.finalUrl) || response.statusCode in 300..399) {
                 return MetadataFetchResult.Rejected(MetadataFetchFailure.REDIRECT_OR_URL_DRIFT)
             }
             if (response.statusCode !in 200..299) {
@@ -450,7 +467,7 @@ class ModelPackageDeliveryCoordinator(
                 return ArtifactDownloadResult.Rejected(ModelDeliveryFailure.INSECURE_ARTIFACT_URL)
             }
             response.use {
-                if (response.finalUrl != url || response.statusCode in 300..399) {
+                if (!trustedModelDownloadLocation(url, response.finalUrl) || response.statusCode in 300..399) {
                     return ArtifactDownloadResult.Rejected(ModelDeliveryFailure.REDIRECT_OR_URL_DRIFT)
                 }
                 if (offset > 0 && response.statusCode == 200 && !restartedAfterIgnoredRange) {

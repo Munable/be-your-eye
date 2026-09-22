@@ -22,7 +22,6 @@ import app.beyoureyes.core.vision.BuildChannel
 import app.beyoureyes.monitor.feature.monitoring.LoadingScreen
 import app.beyoureyes.monitor.feature.monitoring.MonitorCameraState
 import app.beyoureyes.monitor.feature.monitoring.modelPreparationMessage
-import app.beyoureyes.monitor.feature.subscription.ProductAccessDecision
 import java.io.IOException
 import java.io.File
 import java.io.FilterInputStream
@@ -55,7 +54,7 @@ class CommunityDownloadInstrumentedTest {
         val failNextArtifact = AtomicBoolean(false)
         val network = UrlConnectionFixedHttpsTransport()
         val transport = FixedHttpsTransport { request ->
-            val isArtifact = request.url != BuildConfig.MODEL_CATALOG_URL && !request.url.contains("/manifests/")
+            val isArtifact = request.url != BuildConfig.MODEL_CATALOG_URL && !request.url.contains("/manifests/") && !request.url.endsWith(".manifest.json")
             if (isArtifact) {
                 artifacts.incrementAndGet()
                 if (failNextArtifact.compareAndSet(true, false)) throw IOException("Injected test network interruption")
@@ -77,7 +76,6 @@ class CommunityDownloadInstrumentedTest {
             targetResolver = ModelPreparationTargetResolver { null },
             taskBinder = ModelPreparationTaskBinder { true }, transport = transport,
             networkAvailable = { online }, nowEpochMillis = { now },
-            productAccess = { context.appContainer.currentAccessDecision() },
         )
         val state = mutableStateOf(MonitorCameraState.Loading())
         val fontScale = mutableStateOf(1f)

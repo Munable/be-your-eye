@@ -79,43 +79,8 @@ mkdir -p "$ignored_repo/ignored-output"
 printf 'generated\n' > "$ignored_repo/ignored-output/result.txt"
 expect_pass ignored "$ignored_repo"
 
-bundle_repo="$(new_repo bundle-integration)"
-mkdir -p "$bundle_repo/tools/release"
-cp "$SCRIPT_DIR/build-google-play-bundle.sh" "$bundle_repo/tools/release/"
-cp "$GATE" "$bundle_repo/tools/release/"
-git -C "$bundle_repo" add tools/release
-git -C "$bundle_repo" commit --quiet -m bundle-integration
-if BEYOUREYES_RELEASE_ENV_FILE="$bundle_repo/missing.env" \
-    bash "$bundle_repo/tools/release/build-google-play-bundle.sh" \
-    >"$TEMP_ROOT/bundle-clean.stdout" 2>"$TEMP_ROOT/bundle-clean.stderr"; then
-    printf 'expected clean integration fixture to stop at missing release env\n' >&2
+if [[ "$(grep -c 'require-clean-git-checkout.sh' "$SCRIPT_DIR/build-community.sh")" -ne 2 ]]; then
+    printf 'Community release must verify clean source before and after its build\n' >&2
     exit 1
 fi
-if ! grep -q 'release env is missing' "$TEMP_ROOT/bundle-clean.stderr"; then
-    printf 'clean integration fixture did not pass the source gate\n' >&2
-    cat "$TEMP_ROOT/bundle-clean.stderr" >&2
-    exit 1
-fi
-
-printf 'untracked\n' > "$bundle_repo/untracked.txt"
-if BEYOUREYES_RELEASE_ENV_FILE="$bundle_repo/missing.env" \
-    bash "$bundle_repo/tools/release/build-google-play-bundle.sh" \
-    >"$TEMP_ROOT/bundle-dirty.stdout" 2>"$TEMP_ROOT/bundle-dirty.stderr"; then
-    printf 'expected dirty integration fixture to fail before release env\n' >&2
-    exit 1
-fi
-if ! grep -q 'release source checkout is dirty' "$TEMP_ROOT/bundle-dirty.stderr" || \
-    grep -q 'release env is missing' "$TEMP_ROOT/bundle-dirty.stderr"; then
-    printf 'bundle did not fail on dirty source before reading release inputs\n' >&2
-    cat "$TEMP_ROOT/bundle-dirty.stderr" >&2
-    exit 1
-fi
-
-if [[ "$(grep -c 'require-clean-git-checkout.sh' "$SCRIPT_DIR/build-google-play-bundle.sh")" -ne 2 ]] || \
-    ! grep -Fq "source: {git_commit: \$git_commit, dirty_worktree: false}" \
-        "$SCRIPT_DIR/build-google-play-bundle.sh"; then
-    printf 'bundle must re-check source and record dirty_worktree=false\n' >&2
-    exit 1
-fi
-
-printf 'clean-source release gate: 10/10 passed\n'
+printf 'clean-source release gate: 8/8 passed\n'

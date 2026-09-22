@@ -61,7 +61,7 @@ internal class ObjectDetectionCreationViewModel(
 
     init {
         require((initialTargetId == null) == (initialModelBinding == null)) {
-            "assistant target and model binding must be supplied together"
+            "Catalog target and model binding must be supplied together"
         }
         loadCatalog()
     }
@@ -87,7 +87,7 @@ internal class ObjectDetectionCreationViewModel(
                         val definition = loaded.definitions.singleOrNull {
                             it.targetId == initialTargetId
                         } ?: throw IllegalStateException(
-                            "assistant target is not in current signed object metadata",
+                            "Catalog target is not in current signed object metadata",
                         )
                         mutableState.value = ObjectDetectionCreationState(
                             query = initialTargetQuery ?: definition.localizedLabel(languageTag),

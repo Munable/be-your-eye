@@ -5,7 +5,6 @@ import {
   containsDeprecatedPluralCodeBrand,
   containsRemovedBrand,
   validateAndroidVoicePolicy,
-  validateSupabaseConfig,
 } from "./repo-policy-rules.mjs";
 
 import { validateCommunityWorkflow } from "../../tools/ci/community-policy.mjs";
@@ -21,18 +20,12 @@ const required = [
   "evidence/current/05-release.json", "android/settings.gradle.kts",
   "android/core/domain/src/main/java/app/beyoureyes/core/domain/Monitor.kt",
   "android/app/src/main/java/app/beyoureyes/monitor/app/navigation/BeYourEyeApp.kt",
-  "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/AssistantScreen.kt",
-  "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant/AssistantVoiceRecorder.kt",
   "android/app/src/main/java/app/beyoureyes/monitor/service/monitoring/MonitoringService.kt",
   "android/app/src/main/java/app/beyoureyes/monitor/service/monitoring/MonitoringSession.kt",
-  "supabase/config.toml", "supabase/functions/push-dispatch/index.ts",
-  "supabase/functions/voice-transcription/index.ts",
-  "supabase/functions/delete-account/index.ts", "supabase/tests/package.json",
   "model-tools/catalog-validator/package.json",
-  "tools/ci/check-current-model-quality.mjs",
-  "tools/ci/check-current-model-quality.test.mjs",
-  "tools/ci/check-current-evidence.mjs",
-  "tools/ci/check-current-evidence.test.mjs",
+  "tools/ci/run-community.sh",
+  "tools/ci/community-policy.mjs",
+  "tools/ci/community-policy.test.mjs",
   "tools/ci/check-i18n.mjs",
   "tools/ci/check-i18n.test.mjs",
   ".github/scripts/repo-policy-rules.mjs",
@@ -41,6 +34,8 @@ const required = [
 for (const path of required) if (!existsSync(join(root, path))) failures.push(`missing required path: ${path}`);
 
 for (const forbidden of [
+  "supabase/functions", "release/website", "release/google-play",
+  "android/app/src/main/java/app/beyoureyes/monitor/feature/assistant",
   "backend", "railway.toml", "docs/DEVELOPMENT-PLAN-v2.1.md",
   "docs/DEVELOPMENT-PLAN-v3.md", "docs/DEVELOPMENT-PLAN-v3.1.md",
   "docs/PRODUCT-EXPERIENCE-v1.md", "mobile_visual_monitor_app_complete_plan_zh.md",
@@ -93,12 +88,11 @@ for (const path of [
     failures.push(`authority document contains dated artifact hash; move status to evidence/current: ${path}`);
   }
 }
-for (const packageFile of ["supabase/tests/package.json", "model-tools/catalog-validator/package.json"]) {
+for (const packageFile of ["model-tools/catalog-validator/package.json"]) {
   const value = JSON.parse(readFileSync(join(root, packageFile), "utf8"));
   if (value.private !== true) failures.push(`${packageFile} must set private=true`);
   if (!value.scripts?.test) failures.push(`${packageFile} must expose tests`);
 }
-failures.push(...validateSupabaseConfig(readFileSync(join(root, "supabase/config.toml"), "utf8")));
 
 const expectedDocs = ["ARCHITECTURE.md", "DEVELOPMENT.md", "PRODUCT.md", "RELEASE.md"];
 const actualDocs = readdirSync(join(root, "docs")).filter((name) => name.endsWith(".md")).sort();
@@ -149,6 +143,10 @@ const androidMain = walk(join(root, "android/app/src/main")).filter((path) => /\
 const forbiddenProductTokens = [
   ["ProductShell", "obsolete ProductShell"],
   ["RAILWAY_API_URL", "Railway URL"],
+  ["SUPABASE_URL", "maintainer backend"],
+  ["FirebaseMessaging", "maintainer push service"],
+  ["BillingClient", "billing"],
+  ["ProductAccessDecision", "subscription gate"],
   ["getSharedPreferences", "legacy SharedPreferences storage"],
 ];
 for (const path of androidMain) {
@@ -201,10 +199,8 @@ if (!firstReleaseEntries.every((entry) => productAuthority.includes(entry))) {
   failures.push("product authority must name all three first-release entries");
 }
 for (const [token, requirement] of [
-  ["DeepSeek", "the current multi-turn configuration assistant"],
-  ["propose_monitor_configuration", "the assistant's only no-side-effect proposal tool"],
   ["signed Catalog", "the single signed model Catalog"],
-  ["hold-to-talk", "the foreground hold-to-talk voice input"],
+  ["paired alerts", "optional encrypted peer notifications"],
 ]) {
   if (!productAuthority.includes(token)) {
     failures.push(`product authority must define ${requirement}`);
@@ -215,4 +211,4 @@ if (failures.length) {
   for (const failure of failures) process.stderr.write(`POLICY ERROR: ${failure}\n`);
   process.exit(1);
 }
-process.stdout.write("Repository policy passed: four current authorities, five evidence streams, three manual Android flows plus the bounded DeepSeek proposal assistant and foreground-only hold-to-talk, one signed Catalog, no removed early brand/shell/Railway/UI compatibility, external model bytes, and package-neutral runtimes.\n");
+process.stdout.write("Repository policy passed: independent Community Android, encrypted paired alerts, one signed Catalog, no microphone or maintainer services.\n");

@@ -1,152 +1,93 @@
 # Be Your Eye architecture
 
-## Module boundaries
+## Four modules
 
-The repository keeps four Gradle modules:
+| Module | Responsibility |
+| --- | --- |
+| `core:domain` | Monitor targets, rules, observations and events |
+| `core:data` | Room, private media, settings, task codecs, signed metadata and model delivery |
+| `core:vision` | Manifest runtime contracts, preprocessing, generic LiteRT/ONNX families and adapters |
+| `app` | Compose, ViewModels, CameraX lifecycle, local notifications and encrypted paired alerts |
 
-- `core:domain` is the single source of product models, monitor targets,
-  rules, typed observations, events and assistant proposals.
-- `core:data` owns Room, private media, settings, task codecs, account state,
-  Supabase synchronization and the assistant gateway.
-- `core:vision` owns signed Catalog/Manifest decoding, package verification,
-  preprocessing, generic LiteRT/ONNX runtime families and adapters.
-- `app` owns Navigation Compose, Lifecycle ViewModels, CameraX setup, foreground
-  service handoff and user-facing screens.
+`AppContainer` assembles these components. There is no account, entitlement,
+billing, cloud assistant, ASR, FCM or project-operated backend. An optional
+third-party relay handles encrypted text; it never performs recognition.
 
-`AppContainer` is the assembly point. Do not add another dependency-injection
-layer, model registry, model-specific Android backend or independent app server.
-DeepSeek, Qwen ASR, Stripe and Google Play are reached through Supabase Edge
-Functions; credentials never enter the APK.
+## Signed model distribution
 
-## Community assembly
+The signed Catalog is the only list of capabilities, targets and packages.
+Ed25519 and RFC 8785 bind the Catalog and each Manifest. Artifact byte counts,
+SHA-256, source licenses, IO contracts and device constraints are checked before
+installation. A missing exact target fails closed, without a nearby-class or
+unapproved-model fallback. Runtime dispatch depends on signed runtime family,
+preprocess ID, tensor roles and adapter contract, never a vendor or filename.
 
-Community variants use the same four modules with `BuildChannel.COMMUNITY` and a
-separate package. Local-use access decides only local capabilities; connected
-`ProductAccessState` still decides online capabilities. Community compiles cloud,
-AI, Billing and FCM integrations out of the product path and performs no account,
-lease or network work.
+Community bundles signed metadata and obtains weights from GitHub Releases.
+The downloader accepts a single HTTPS hop from a GitHub release download URL to
+`release-assets.githubusercontent.com`; other redirects fail. Exact bytes are
+verified after download and again when installed packages are opened. A
+Community Catalog is an immutable release, with no renewable seven-day lease.
+Actual license deadlines and all signature/hash checks remain enforced.
+Independent distributors can mirror artifacts and sign their own metadata with
+their own keys; the app pins public keys, never private signing material.
 
-Signed Community metadata may ship with the APK, but the same public key,
-strict decoder, hash checks, license checks and runtime lease rules apply. A
-stale Catalog may only resolve an already-installed exact package; a new install
-must use a fresh Catalog. Frozen signatures and package bytes are never rewritten.
+## Camera lifecycle
 
-## Domain and transport models
+`MonitoringService` owns foreground-service and CameraX ownership;
+`MonitoringSession` owns frames, observations, rules, episodes and events.
+One monitor runs at a time, while the app is visible. Leaving the app, locking
+or removing its task stops the camera. Returning does not restart it. The
+in-app dark-screen mode may continue monitoring because the app remains visible.
+Critical thermal state stops safely. Missing/poor frames and inference errors
+produce `unavailable`, never target absence or a normal reading.
 
-`MonitorKind` covers reference images, numeric readings and Catalog visual
-targets. `MonitorTarget.ObjectClass` stores a stable target ID, the legacy source
-labels, a locale-keyed `labels` map when present, the operational capability and
-the exact package selection. Unknown fields, target IDs, modes, ROIs and
-capability/package relationships fail closed during write, restore and start.
+Testing recognition shares the signed runtime and preprocessing with monitoring,
+but cannot create events. A complete monitor can be saved and started without a
+successful test. Numeric baseline-pending tasks retain their identity when a
+later stable reading is confirmed. Domain rule timing remains independent of
+UI frame cadence.
 
-The shared task contract uses `reference_images`, `none` or `object_detection`.
-Cloud projection uses `visual_target` with the same finite object-target shape;
-there is no second task type or model registry. New signed metadata may include
-localized Catalog labels for all nine supported locales. Legacy signed metadata
-remains readable only because frozen artifacts cannot be changed in place.
+## Paired text alerts
 
-## Assistant and voice
+Pairing creates a random 192-bit topic and 256-bit shared secret. A QR code (or
+copied code) carries the HTTPS relay origin, topic and secret. Joining shows the
+relay and privacy implications before confirmation. The key never goes to the
+relay. All devices in a group are trusted equally; there is no individual member
+revocation. To exclude a device, create a new group and re-pair the others.
 
-The assistant request contains authenticated user conversation context and a
-signed Catalog capability summary. The server function normalizes the requested
-locale to `en`, `zh-Hans`, `zh-Hant`, `ja`, `ko`, `es`, `fr`, `de` or `pt-BR` and
-instructs the provider to answer in that locale unless the user explicitly asks
-for another language. The only tool is `propose_monitor_configuration`; strict
-decoding rejects unknown fields, unknown enums, Catalog-outside identities and
-provider claims of execution.
+A local event with notifications enabled queues an AES-256-GCM message through
+WorkManager. Each encryption uses a fresh 96-bit nonce and binds the protocol
+version/topic as authenticated data. Only event ID, sender ID, time, event kind,
+monitor name and optional displayed reading are inside the encrypted payload.
+There are no images, thumbnails, camera streams, account records or remote
+commands. Network work is bounded and retries transient failures. Sending is
+best effort; an accepted relay response does not prove delivery to another phone.
 
-Voice is foreground hold-to-talk only. The app bounds AAC recording, sends it to
-the authenticated ASR function with the normalized language parameter and
-deletes the cache after success, failure or cancellation. No camera frame,
-reference image, trigger image, history or transcript is stored by the product.
+The receiver is a separately user-started `remoteMessaging` foreground service.
+It reads the relay's HTTPS JSON stream, authenticates messages, rejects stale or
+future messages, ignores its own messages and deduplicates event IDs. A bounded
+private inbox persists before a local notification is shown. It can reconnect
+and ask for up to 24 hours of cached messages, subject to the relay's retention.
+It does not own a camera, start monitoring, run at boot or silently restart after
+being killed. Battery restrictions, network failures and relay quotas can delay
+or lose alerts. No paid fallback is configured.
 
-## Model and Catalog contracts
+The default `ntfy.sh` is an independent public service. Users may select another
+compatible anonymous HTTPS origin. This is relay messaging, not direct P2P or a
+maintainer-hosted service. Relay operators still observe IP addresses, random
+topics, timing and ciphertext size. Pairing secrets and inbox data are private
+and excluded from Android backup.
 
-Runtime dispatch is determined only by the signed Manifest's runtime family,
-preprocess ID, adapter contract, tensor roles and package metadata:
+## Local data and language
 
-- `similarity_match_v1` handles reference-image targets;
-- `reading_pipeline_v1` handles structured readings;
-- `object_detection_v1` handles finite Catalog visual targets.
+Ordinary frames and tensors stay in memory. Reference images and the first
+trigger JPEG stay in app-private storage. Legacy Room tables are retained for
+safe database compatibility, but no cloud synchronization path uses them.
+Diagnostics exclude names, readings, images, pairing codes and keys, raw
+recognition text, tokens and device serials.
 
-The Catalog is the only model list. Each operational capability binds one recipe,
-model card and at least one active package, together with target IDs, localized
-labels, aliases, license, source, hash, device constraints and evidence. A
-missing exact match fails closed; a nearby class or generic model is never used.
-No package contains billing tiers, invented accuracy or release status. Frames,
-poor quality, tensor failures, preprocessing failures and adapter failures all
-produce `unavailable`.
-
-## Camera and monitoring lifecycle
-
-Setup previews and continuous monitoring share camera orientation, signed model,
-quality gate, preprocessing and typed observations. They differ only in frame
-cadence and rule consumption. Preview uses the signed minimum interval and gives
-candidate feedback; severe thermal state slows within signed bounds; critical
-state clears the old result and releases CameraX. Continuous monitoring uses the
-persisted task interval; critical state produces `unavailable`, stops safely and
-does not auto-restart.
-
-The app writes a complete task atomically before starting the existing service.
-Numeric baseline-pending tasks remain the same task when a later stable reading
-is confirmed. `MainActivity.onStop` (except configuration recreation) and
-`onTaskRemoved` stop the service and release the camera. Navigation inside the
-visible app and the visible black-screen page may continue. One monitor runs at a
-time.
-
-`MonitoringService` owns FGS and CameraX ownership. `MonitoringSession` owns
-frames, observations, rules, episode de-duplication and events. The appearance
-rule uses five seconds of confirmed absence to close an episode; present and
-absent facts remain separate. The configured one-to-60-second duration is a
-trigger duration, never a scheduler.
-
-## Account, entitlement and App Link
-
-Connected navigation, model download/run, AI, voice, FGS and cloud activation
-consume one root `ProductAccessState`. The FGS rechecks it at least every five
-seconds. Supabase Auth handles sign-in and one-time password recovery; only the
-configured HTTPS `/auth/callback` App Link and `type=recovery` fragment are
-accepted. Provider purchase tokens are hashed before persistence.
-
-Play validates the single `be_your_eye_pro` subscription and its monthly/annual
-plans. Website billing uses a separate Stripe order ledger but grants the same
-root entitlement. Website Checkout stores the first selected locale on the order
-and reuses it for idempotent retries. Supabase functions return stable error
-codes. Auth email templates use the account's latest locale and fall back to
-English.
-
-## Data and privacy boundaries
-
-Camera frames and intermediate tensors stay in memory. Reference material and
-the first trigger JPEG stay in the source device's private directory. Supabase
-stores only account/task/event facts, cursors and minimal entitlement state.
-FCM carries event cursor metadata, never media. Same-account trigger-image
-viewing uses a temporary end-to-end-encrypted Realtime relay capped at 720 px and
-120 KiB; the viewer cache is private and short-lived.
-
-Diagnostics never record names, images, raw target text, readings, transcripts,
-tokens, serials or provider payloads. No assistant transcript or ASR audio table
-is added. Account deletion and sign-out clear leases, temporary media and local
-remote-event caches according to the existing boundary.
-
-## Nine-locale implementation
-
-Android uses AppCompat application locales, `locales_config.xml` and resources
-for `en`, `zh-Hans`, `zh-Hant`, `ja`, `ko`, `es`, `fr`, `de` and `pt-BR`. The web
-uses one dictionary, `navigator.languages`, a query override and device/browser
-storage. System matching handles Chinese script/region and maps Portuguese to
-Brazilian Portuguese. The language picker is reachable without entitlement.
-
-Every user-facing string is a resource or dictionary key. ViewModels, workers,
-notifications and services pass message keys and arguments; no exception text or
-sentence concatenation is displayed. The `tools/ci/check-i18n.mjs` policy scans
-Kotlin, JavaScript, HTML, notification resources and signed metadata and is run
-by Community CI and release builds.
-
-## Explicit exclusions
-
-The architecture has no side-effectful agent tool, independent model router,
-second model registry, schedule/calendar subsystem, background-monitoring mode,
-training/fine-tuning/export entry point or model-specific Android backend.
-Current device, hosted, payment and human results live in `evidence/current/`,
-not in this architecture document.
+Android AppCompat locales and resources support `en`, `zh-Hans`, `zh-Hant`, `ja`,
+`ko`, `es`, `fr`, `de`, `pt-BR`. System language is the default; a persisted picker
+is available in About. New Catalog class maps sign all nine labels. Services and
+screens resolve resource keys using the current locale. User-entered names and
+recognized text remain literal. No raw exception is presented as UI copy.
