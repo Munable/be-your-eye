@@ -2,77 +2,83 @@
 
 # 帮你盯 · Be Your Eye
 
-**让闲置手机，帮你盯着。**
+**让闲置手机，替你盯着。**
 
-Android 本地视觉监控，无需账号、订阅或 API Key。
+对准摄像头，设好条件，发生时提醒你。
 
-[![Android 8+](https://img.shields.io/badge/Android-8%2B-3DDC84?logo=android&logoColor=white)](docs/community/DEVICE_SUPPORT.zh-CN.md)
-[![Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue)](LICENSE)
-[![开发预览版](https://img.shields.io/badge/Status-Developer_preview-e6b86a)](#开始使用)
+[English](README.md) · **简体中文** · [繁體中文](README.zh-Hant.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Español](README.es.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Português (Brasil)](README.pt-BR.md)
 
-[English](README.md) · **简体中文**
+[![Android 8+](https://img.shields.io/badge/Android-8%2B-3DDC84?logo=android&logoColor=white)](docs/community/DEVICE_SUPPORT.zh-CN.md) [![Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue)](LICENSE) [![开发预览版](https://img.shields.io/badge/Status-Developer_preview-e6b86a)](#get-started)
 
-[使用说明](USER_MANUAL.zh-CN.md) · [从源码构建](docs/community/BUILD.zh-CN.md) · [参与贡献](CONTRIBUTING.zh-CN.md)
+**[观看演示](#demo)** · **[从源码构建](#get-started)** · [使用说明](USER_MANUAL.zh-CN.md)
 
 </div>
 
-## 看看它能做什么
+<a name="demo"></a>
+
+## 不用反复看仪表，让手机帮你盯着。
 
 <table>
-<tr><th>读取数字</th><th>发现目标</th><th>匹配图片</th></tr>
 <tr>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4"><img width="250" src="docs/community/demos/numeric.gif" alt="应用读取电源仪表并记录一次越界事件"></a></td>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/person.mp4"><img width="250" src="docs/community/demos/person.gif" alt="应用识别街景视频中的行人"></a></td>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/reference.mp4"><img width="250" src="docs/community/demos/reference.gif" alt="应用匹配绘制的参考图案"></a></td>
+<td width="45%" align="center"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4"><img width="280" src="docs/community/demos/numeric.gif" alt="应用实录：读取电源仪表，触发越界事件"></a></td>
+<td width="55%">
+<h3>读数超过 8，手机就留下记录。</h3>
+<p>一个电源仪表、一个摄像头，再加一条简单规则：</p>
+<ol><li>盯住屏幕上的数字。</li><li>超过 8 并持续 1 秒时触发。</li><li>在读数 08.8 时记录事件，并弹出本机通知。</li></ol>
+<p><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4">观看 23 秒实录</a></p>
+</td>
 </tr>
-<tr><td>读数越过阈值时留下记录。</td><td>检测支持的目标。<br><em>实验功能</em></td><td>匹配 3–20 张参考图片。<br><em>实验功能</em></td></tr>
 </table>
 
-Android 模拟器中的应用实录：读数和检测使用视频回放，图片匹配使用绘制的测试图案。点击动图查看视频。[来源与结果（英文）](docs/community/demos/SOURCES.md)。
+演示为 Android 模拟器中的应用实录，输入为回放视频和绘制的参考图案；展示的是操作流程，不代表真机准确率。 [演示来源与结果（英文）](docs/community/demos/SOURCES.md).
 
-- **本机识别。** 下载模型后，可以离线监控。
-- **本机记录。** 事件和触发图保存在监控手机。
-- **可选配对提醒。** 将加密文字发送到另一台手机。
-- **九种语言。** 跟随系统，也可手动选择。
+- **画面留在你手里。** 识别在手机上运行，图片保留在本机。
+- **无需账号、订阅或 API Key。** 下载模型后即可离线监控。
+- **发生过什么，随时回看。** 在本机回看记录，也可向另一台手机发送加密文字提醒。
 
 ## 选好目标，设好条件，开始监控
 
-固定手机，选择目标并设置条件。条件满足时，应用留下记录，也可以通知你。
+选择要盯的目标，设好条件，保持应用可见。需要时回看事件记录。
 
 <table>
 <tr><th>选择目标</th><th>设置条件</th><th>回看记录</th></tr>
-<tr>
-<td width="33%"><img width="250" src="docs/community/images/home.png" alt="首页的三种监控创建入口"></td>
-<td width="33%"><img width="250" src="docs/community/demos/condition.png" alt="设置数字越界阈值"></td>
-<td width="33%"><img width="250" src="docs/community/demos/history.png" alt="演示中实际产生的本机事件记录"></td>
-</tr>
+<tr><td align="center" width="33%"><img width="220" src="docs/community/images/home.png" alt="首页的三种监控创建入口"></td><td align="center" width="33%"><img width="220" src="docs/community/demos/condition.png" alt="设置数字阈值和持续时间"></td><td align="center" width="33%"><img width="220" src="docs/community/demos/history.png" alt="本机历史中的目标演示事件"></td></tr>
+</table>
+
+## 也可以盯这些
+
+<table>
+<tr><th>有人出现时提醒你 · 实验功能</th><th>用图片指定要找的目标 · 实验功能</th></tr>
+<tr><td align="center" width="50%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/person.mp4"><img width="240" src="docs/community/demos/person.gif" alt="应用在回放的街景视频中检测行人"></a></td><td align="center" width="50%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/reference.mp4"><img width="240" src="docs/community/demos/reference.gif" alt="应用将绘制的目标与参考图片匹配"></a></td></tr>
+<tr><td>从目录中选择支持的目标。演示检测的是行人类别，不识别身份。</td><td>提供 3–20 张参考图片。演示匹配的是绘制的测试图案。</td></tr>
 </table>
 
 ## 一台手机盯着，另一台手机提醒你
 
-扫码配对两台手机，加密文字通过公共中转发送，图片留在监控端。[配对指南](docs/community/PAIRING.zh-CN.md)。
+扫码配对手机，加密文字通过你选择的中转服务发送，图片留在监控端。 [配对指南](docs/community/PAIRING.zh-CN.md).
 
 <table>
-<tr><th>发送</th><th>接收</th></tr>
-<tr>
-<td align="center"><img width="250" src="docs/community/images/paired-send.png" alt="发送端已发出加密测试提醒"></td>
-<td align="center"><img width="250" src="docs/community/images/paired-receive.png" alt="另一接收端的收件箱中出现同一条测试提醒"></td>
-</tr>
+<tr><th>发送提醒</th><th>另一台手机收到提醒</th></tr>
+<tr><td align="center" width="50%"><img width="240" src="docs/community/images/paired-send.png" alt="发送端已发出加密测试提醒"></td><td align="center" width="50%"><img width="240" src="docs/community/images/paired-receive.png" alt="另一接收端显示同一条测试提醒"></td></tr>
 </table>
 
-图中是两个模拟器经过公共中转收发测试提醒。送达受网络、中转可用性和 Android 电池设置影响。
+图中是两个模拟器通过公共中转收发测试提醒。送达受网络、中转可用性和 Android 电池设置影响。
 
-## 开始使用
+<a name="get-started"></a>
 
-**开发预览版，暂无公开 APK。** [构建 Community 应用](docs/community/BUILD.zh-CN.md)后，按[使用说明](USER_MANUAL.zh-CN.md)操作。[Releases](https://github.com/Munable/be-your-eye/releases/tag/models-v1) 目前只有模型文件。
+## 开始使用帮你盯
 
-监控端要求 **Android 8+、arm64、8 GB 内存**。固定手机、持续供电并保持应用可见；切换应用或锁屏会停止监控。
+**开发预览版，暂无公开 APK。** 从源码构建 Community 应用，再按使用说明操作。Releases 目前只有模型文件。
 
-数字读数是当前主路线，目标检测和参考图匹配仍属实验功能。文字用于搜索有限目录中的支持目标。真机准确率和持续运行可靠性尚未验证，不适合作为安全报警器。[设备范围与限制](docs/community/DEVICE_SUPPORT.zh-CN.md)。
+**[从源码构建](docs/community/BUILD.zh-CN.md)** · [使用说明](USER_MANUAL.zh-CN.md)
 
-## 参与贡献
+**监控手机要求：** Android 8+、arm64、8 GB 内存。固定手机、持续供电并保持应用可见；切换应用或锁屏会停止监控。
 
-试一个场景、[报告问题](https://github.com/Munable/be-your-eye/issues/new?template=bug.zh-CN.yml)，或改进翻译。详见[贡献说明](CONTRIBUTING.zh-CN.md)与[架构（英文）](docs/ARCHITECTURE.md)。漏洞请按[安全策略](SECURITY.zh-CN.md)私下报告。
+数字读数是当前主路线，另外两种路线仍属实验功能。支持目标来自有限目录。真机准确率和持续运行可靠性尚未验证，不适合作为安全报警器。 [设备要求与限制](docs/community/DEVICE_SUPPORT.zh-CN.md).
+
+## 一起把它做好
+
+试一个场景、报告问题，或改进翻译。 [参与贡献](CONTRIBUTING.zh-CN.md) · [架构（英文）](docs/ARCHITECTURE.md) · [安全策略](SECURITY.zh-CN.md).
 
 ## 许可
 

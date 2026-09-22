@@ -2,77 +2,83 @@
 
 # Be Your Eye
 
-**Give your spare phone something to watch.**
+**Turn a spare phone into a visual monitor.**
 
-Local visual monitoring for Android. No account, subscription or API key.
+Point the camera. Set a condition. Get an alert when it happens.
 
-[![Android 8+](https://img.shields.io/badge/Android-8%2B-3DDC84?logo=android&logoColor=white)](docs/community/DEVICE_SUPPORT.md)
-[![Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue)](LICENSE)
-[![Developer preview](https://img.shields.io/badge/Status-Developer_preview-e6b86a)](#get-started)
+**English** · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-Hant.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Español](README.es.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Português (Brasil)](README.pt-BR.md)
 
-**English** · [简体中文](README.zh-CN.md)
+[![Android 8+](https://img.shields.io/badge/Android-8%2B-3DDC84?logo=android&logoColor=white)](docs/community/DEVICE_SUPPORT.md) [![Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue)](LICENSE) [![Developer preview](https://img.shields.io/badge/Status-Developer_preview-e6b86a)](#get-started)
 
-[User guide](USER_MANUAL.md) · [Build from source](docs/community/BUILD.md) · [Contribute](CONTRIBUTING.md)
+**[Watch the demo](#demo)** · **[Build from source](#get-started)** · [User guide](USER_MANUAL.md)
 
 </div>
 
-## See it in action
+<a name="demo"></a>
+
+## Stop checking the display. Let your phone watch it.
 
 <table>
-<tr><th>Read a display</th><th>Watch a target</th><th>Match your pictures</th></tr>
 <tr>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4"><img width="250" src="docs/community/demos/numeric.gif" alt="The app reading a power-supply display and recording a threshold event"></a></td>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/person.mp4"><img width="250" src="docs/community/demos/person.gif" alt="The app detecting people in street footage"></a></td>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/reference.mp4"><img width="250" src="docs/community/demos/reference.gif" alt="The app matching an illustrated reference target"></a></td>
+<td width="45%" align="center"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4"><img width="280" src="docs/community/demos/numeric.gif" alt="Actual app demo: reading a power-supply display and triggering a threshold event"></a></td>
+<td width="55%">
+<h3>A reading crosses 8. Your phone catches it.</h3>
+<p>A power-supply display, a camera and one simple rule:</p>
+<ol><li>Watch the number on the display.</li><li>Trigger above 8 for one second.</li><li>Record the event at 08.8 and show a local notification.</li></ol>
+<p><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4">Watch the 23-second recording</a></p>
+</td>
 </tr>
-<tr><td>Record a value crossing a threshold.</td><td>Detect a supported target.<br><em>Experimental</em></td><td>Match 3–20 reference pictures.<br><em>Experimental</em></td></tr>
 </table>
 
-Actual app recordings on an Android emulator: video replay for reading and detection, an illustrated target for matching. Click a demo for its video. [Sources and results](docs/community/demos/SOURCES.md).
+App recordings on an Android emulator, using replayed footage and an illustrated reference target. These demonstrate the workflow, not real-phone accuracy. [Demo sources and results](docs/community/demos/SOURCES.md).
 
-- **On-device recognition.** Download the models once, then monitor offline.
-- **Local history.** Keep events and trigger images on the monitoring phone.
-- **Optional paired alerts.** Send encrypted text to another phone.
-- **Nine languages.** Follow the system language or choose your own.
+- **Your camera stays yours.** Recognition runs on the phone; images stay there.
+- **No account. No subscription. No API key.** Download the models once, then monitor offline.
+- **A history of what happened.** Review events locally, with an optional encrypted text alert to another phone.
 
 ## Choose. Set. Monitor.
 
-Fix the phone in place, choose a target and set the condition. When it holds, the app records an event and can notify you.
+Choose what to watch, set the condition and keep the app visible. Review the events when you need them.
 
 <table>
 <tr><th>Choose a target</th><th>Set a condition</th><th>Review events</th></tr>
-<tr>
-<td width="33%"><img width="250" src="docs/community/images/home.png" alt="Home screen with three monitoring routes"></td>
-<td width="33%"><img width="250" src="docs/community/demos/condition.png" alt="Setting a numeric threshold"></td>
-<td width="33%"><img width="250" src="docs/community/demos/history.png" alt="Local event history from the recorded demos"></td>
-</tr>
+<tr><td align="center" width="33%"><img width="220" src="docs/community/images/home.png" alt="Home screen with three ways to create a monitor"></td><td align="center" width="33%"><img width="220" src="docs/community/demos/condition.png" alt="Setting a numeric threshold and duration"></td><td align="center" width="33%"><img width="220" src="docs/community/demos/history.png" alt="Local history showing events from the target demos"></td></tr>
+</table>
+
+## More ways to watch
+
+<table>
+<tr><th>Notice when a person appears · Experimental</th><th>Watch for a target from your pictures · Experimental</th></tr>
+<tr><td align="center" width="50%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/person.mp4"><img width="240" src="docs/community/demos/person.gif" alt="App detecting the person category in replayed street footage"></a></td><td align="center" width="50%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/reference.mp4"><img width="240" src="docs/community/demos/reference.gif" alt="App matching an illustrated target against reference pictures"></a></td></tr>
+<tr><td>Select a supported target from the Catalog. The demo detects people, not identities.</td><td>Provide 3–20 reference pictures. The demo matches an illustrated test target.</td></tr>
 </table>
 
 ## One phone watches. Another tells you.
 
-Pair two phones by QR code. Alerts travel as encrypted text through a public relay; pictures stay on the monitoring phone. [Pairing guide](docs/community/PAIRING.md).
+Pair phones by QR code. Encrypted text travels through a relay you choose; images stay on the monitoring phone. [Pairing guide](docs/community/PAIRING.md).
 
 <table>
-<tr><th>Send</th><th>Receive</th></tr>
-<tr>
-<td align="center"><img width="250" src="docs/community/images/paired-send.png" alt="Sender after sending an encrypted test alert"></td>
-<td align="center"><img width="250" src="docs/community/images/paired-receive.png" alt="A separate receiver with the same test alert in its inbox"></td>
-</tr>
+<tr><th>Send an alert</th><th>Receive it on another phone</th></tr>
+<tr><td align="center" width="50%"><img width="240" src="docs/community/images/paired-send.png" alt="Sender after sending an encrypted test alert"></td><td align="center" width="50%"><img width="240" src="docs/community/images/paired-receive.png" alt="A separate receiver showing the same test alert"></td></tr>
 </table>
 
-Shown: a test alert between two emulators through the public relay. Delivery depends on network, relay availability and Android battery settings.
+Shown: a test alert between two emulators through a public relay. Delivery depends on the network, relay availability and Android battery settings.
 
-## Get started
+<a name="get-started"></a>
 
-**Developer preview — no public APK yet.** [Build the Community app](docs/community/BUILD.md) and follow the [user guide](USER_MANUAL.md). [Releases](https://github.com/Munable/be-your-eye/releases/tag/models-v1) currently contains model files only.
+## Try Be Your Eye
 
-Monitoring requires **Android 8+, arm64 and 8 GB RAM**. Keep the phone fixed, powered and the app visible; switching apps or locking stops monitoring.
+**Developer preview — no public APK yet.** Build the Community app and follow the user guide. Releases currently contain model files only.
 
-Numeric reading is the main route; target detection and reference matching are experimental. Text searches a finite Catalog of supported targets. Physical-device accuracy and sustained reliability remain unverified. This is not a safety alarm. [Device scope and limits](docs/community/DEVICE_SUPPORT.md).
+**[Build from source](docs/community/BUILD.md)** · [User guide](USER_MANUAL.md)
 
-## Contributing
+**Monitoring phone:** Android 8+, arm64, 8 GB RAM. Keep it fixed, powered and the app visible. Switching apps or locking stops monitoring.
 
-Try a scene, [report a bug](https://github.com/Munable/be-your-eye/issues/new?template=bug.yml), or improve a translation. See [Contributing](CONTRIBUTING.md) and [Architecture](docs/ARCHITECTURE.md). Report vulnerabilities through the [security policy](SECURITY.md).
+Numeric reading is the main route; the other two routes are experimental. Supported targets come from a finite Catalog. Real-phone accuracy and sustained reliability remain unverified. Not a safety alarm. [Device requirements and limits](docs/community/DEVICE_SUPPORT.md).
+
+## Help shape it
+
+Try a scene, report a bug or improve a translation. [Contributing](CONTRIBUTING.md) · [Architecture](docs/ARCHITECTURE.md) · [Security](SECURITY.md).
 
 ## License
 
