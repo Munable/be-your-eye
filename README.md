@@ -82,4 +82,4 @@ Try a scene, report a bug or improve a translation. [Contributing](CONTRIBUTING.
 
 ## License
 
-First-party code is [Apache-2.0](LICENSE). [Models](docs/community/MODELS.md), [demo footage](docs/community/demos/SOURCES.md) and [dependencies](THIRD_PARTY_NOTICES.md) retain their own licenses.
+**Free to use, modify and redistribute — including commercially.** First-party code is licensed under [Apache-2.0](LICENSE); no separate permission is needed. Keep the required license, attribution and change notices. [Models](docs/community/MODELS.md), [demo footage](docs/community/demos/SOURCES.md) and [dependencies](THIRD_PARTY_NOTICES.md) retain their own licenses.

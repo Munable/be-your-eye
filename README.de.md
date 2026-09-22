@@ -84,4 +84,4 @@ Probiere einen Anwendungsfall aus, melde einen Fehler oder verbessere eine Über
 
 ## Lizenz
 
-Der eigene Projektcode steht unter [Apache-2.0](LICENSE). [Modelle](docs/community/MODELS.md), [Demomaterial](docs/community/demos/SOURCES.md) und [Abhängigkeiten](THIRD_PARTY_NOTICES.md) behalten ihre jeweiligen Lizenzen.
+**Kostenlos nutzen, verändern und weitergeben — auch kommerziell.** Der eigene Projektcode steht unter [Apache-2.0](LICENSE); eine gesonderte Erlaubnis ist nicht nötig. Behalte die vorgeschriebenen Lizenz-, Urheber- und Änderungshinweise bei. [Modelle](docs/community/MODELS.md), [Demomaterial](docs/community/demos/SOURCES.md) und [Abhängigkeiten](THIRD_PARTY_NOTICES.md) behalten ihre jeweiligen Lizenzen.

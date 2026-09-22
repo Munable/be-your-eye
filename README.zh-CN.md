@@ -82,4 +82,4 @@
 
 ## 许可
 
-第一方代码使用 [Apache-2.0](LICENSE)。[模型](docs/community/MODELS.md)、[演示素材](docs/community/demos/SOURCES.md)和[依赖](THIRD_PARTY_NOTICES.md)各自遵循原有许可，详细说明为英文。
+**可免费使用、修改和分发，包括商用。** 第一方代码采用 [Apache-2.0](LICENSE)，无需另行申请许可；请保留许可要求的许可证、署名及修改声明。[模型](docs/community/MODELS.md)、[演示素材](docs/community/demos/SOURCES.md)和[依赖](THIRD_PARTY_NOTICES.md)仍遵循各自许可，详细说明为英文。

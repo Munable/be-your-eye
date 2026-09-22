@@ -84,4 +84,4 @@ QR コードでスマホをペアリング。選択したリレー経由で暗�
 
 ## ライセンス
 
-本プロジェクトのコードは [Apache-2.0](LICENSE) です。[モデル](docs/community/MODELS.md)、[デモ映像](docs/community/demos/SOURCES.md)、[依存ライブラリ](THIRD_PARTY_NOTICES.md)にはそれぞれのライセンスが適用されます。
+**商用を含め、無償で使用・改変・再配布できます。** 本プロジェクトのコードは [Apache-2.0](LICENSE) で提供され、個別の許可は不要です。ライセンスで求められるライセンス文書、帰属表示、変更の明示を維持してください。[モデル](docs/community/MODELS.md)、[デモ映像](docs/community/demos/SOURCES.md)、[依存ライブラリ](THIRD_PARTY_NOTICES.md)にはそれぞれのライセンスが適用されます。

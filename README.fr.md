@@ -84,4 +84,4 @@ Essayez un cas concret, signalez un bug ou améliorez une traduction. [Contribue
 
 ## Licence
 
-Le code du projet est sous [Apache-2.0](LICENSE). Les [modèles](docs/community/MODELS.md), les [vidéos de démonstration](docs/community/demos/SOURCES.md) et les [dépendances](THIRD_PARTY_NOTICES.md) conservent leurs propres licences.
+**Utilisation, modification et redistribution gratuites, y compris à des fins commerciales.** Le code du projet est sous [Apache-2.0](LICENSE), sans autorisation supplémentaire. Conservez les licences, attributions et mentions de modifications requises. Les [modèles](docs/community/MODELS.md), les [vidéos de démonstration](docs/community/demos/SOURCES.md) et les [dépendances](THIRD_PARTY_NOTICES.md) conservent leurs propres licences.

@@ -84,4 +84,4 @@ Teste um cenário, relate um problema ou melhore uma tradução. [Como contribui
 
 ## Licença
 
-O código próprio do projeto usa [Apache-2.0](LICENSE). Os [modelos](docs/community/MODELS.md), os [vídeos das demonstrações](docs/community/demos/SOURCES.md) e as [dependências](THIRD_PARTY_NOTICES.md) mantêm suas próprias licenças.
+**Uso, modificação e redistribuição gratuitos, inclusive para fins comerciais.** O código próprio do projeto usa [Apache-2.0](LICENSE), sem necessidade de autorização adicional. Preserve as licenças, atribuições e avisos de alterações exigidos. Os [modelos](docs/community/MODELS.md), os [vídeos das demonstrações](docs/community/demos/SOURCES.md) e as [dependências](THIRD_PARTY_NOTICES.md) mantêm suas próprias licenças.

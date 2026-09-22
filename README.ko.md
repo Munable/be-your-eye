@@ -84,4 +84,4 @@ QR 코드로 스마트폰을 페어링하세요. 선택한 중계 서비스를 �
 
 ## 라이선스
 
-프로젝트 자체 코드는 [Apache-2.0](LICENSE)을 따릅니다. [모델](docs/community/MODELS.md), [데모 영상](docs/community/demos/SOURCES.md), [의존성](THIRD_PARTY_NOTICES.md)에는 각각의 라이선스가 적용됩니다.
+**상업적 용도를 포함하여 무료로 사용·수정·재배포할 수 있습니다.** 프로젝트 자체 코드는 [Apache-2.0](LICENSE)으로 제공되며 별도 허가는 필요하지 않습니다. 라이선스에서 요구하는 라이선스 문서, 출처 표시 및 변경 고지를 유지해 주세요. [모델](docs/community/MODELS.md), [데모 영상](docs/community/demos/SOURCES.md), [의존성](THIRD_PARTY_NOTICES.md)에는 각각의 라이선스가 적용됩니다.

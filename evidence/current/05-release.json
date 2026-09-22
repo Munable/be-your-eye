@@ -604,6 +604,26 @@
           "immediate_system_volume_free_delta_bytes": 180224,
           "note": "Immediate APFS free-space delta may include concurrent activity. No large download, installation or build was created. Source history is the recovery copy. Existing media, provenance, dependencies, processes and work/website-preview.log retained."
         }
+      },
+      "usage_permission_clarification": {
+        "recorded_at": "2026-09-22T12:06:28.099472+00:00",
+        "scope": "All nine README license sections clarify free use, modification, redistribution and commercial use of first-party code under the unchanged Apache-2.0 license. Third-party licenses and required notices remain explicit.",
+        "checks": [
+          "GitHub Markdown render passed for all nine README files",
+          "Nine-locale policy and four existing i18n tests passed",
+          "Repository policy and git diff check passed"
+        ],
+        "model_distribution_recheck": {
+          "bundled_metadata_files": 4,
+          "bundled_metadata_bytes": 106674,
+          "tracked_model_weight_files": 0,
+          "public_model_artifact_bytes": 98762965,
+          "origin": "https://github.com/Munable/be-your-eye/releases/tag/models-v1",
+          "download": "First-use HTTPS asset download to private phone storage; signed metadata and hash checks; local recognition after installation",
+          "optional_paired_alerts": "User-selected third-party HTTPS text relay; not a maintainer-operated service"
+        },
+        "product_and_release_gates": "unchanged; no new APK or physical-device acceptance",
+        "cleanup": "No model files downloaded, no installation or build created. Source history is the recovery copy."
       }
     }
   },

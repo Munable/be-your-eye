@@ -84,4 +84,4 @@
 
 ## 授權
 
-第一方程式碼採用 [Apache-2.0](LICENSE)。[模型](docs/community/MODELS.md)、[示範素材](docs/community/demos/SOURCES.md)及[相依套件](THIRD_PARTY_NOTICES.md)保留各自的授權。
+**可免費使用、修改及散布，包括商業用途。** 第一方程式碼採用 [Apache-2.0](LICENSE)，無須另外申請許可；請保留授權要求的授權條款、署名及修改聲明。[模型](docs/community/MODELS.md)、[示範素材](docs/community/demos/SOURCES.md)及[相依套件](THIRD_PARTY_NOTICES.md)仍遵循各自的授權。

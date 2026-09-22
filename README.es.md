@@ -84,4 +84,4 @@ Prueba un caso de uso, informa de un error o mejora una traducción. [Contribuir
 
 ## Licencia
 
-El código propio se publica bajo [Apache-2.0](LICENSE). Los [modelos](docs/community/MODELS.md), los [vídeos de las demos](docs/community/demos/SOURCES.md) y las [dependencias](THIRD_PARTY_NOTICES.md) conservan sus propias licencias.
+**Puedes usar, modificar y redistribuir el código gratuitamente, incluso con fines comerciales.** El código propio se publica bajo [Apache-2.0](LICENSE), sin necesidad de un permiso adicional. Conserva las licencias, atribuciones y avisos de cambios exigidos. Los [modelos](docs/community/MODELS.md), los [vídeos de las demos](docs/community/demos/SOURCES.md) y las [dependencias](THIRD_PARTY_NOTICES.md) conservan sus propias licencias.
