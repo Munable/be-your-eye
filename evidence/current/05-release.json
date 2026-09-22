@@ -446,6 +446,46 @@
         "immediate_system_volume_free_delta_bytes": 122880,
         "note": "Immediate free-space observation is affected by APFS and other activity; not guaranteed recovered space.",
         "retained": "Reviewed source documentation, existing demo/provenance assets and this summary; original content recoverable from Git. Pre-existing work/website-preview.log, shared dependencies, caches and active processes untouched. No large downloads or builds."
+      },
+      "homepage_iteration_status": "The initial homepage layout and its media reduction below are superseded by homepage_revision. Bilingual guide changes remain in place.",
+      "homepage_revision": {
+        "recorded_at": "2026-09-22T10:39:05.104902+00:00",
+        "replaces_readme_commit": "c85327c",
+        "presentation": "English README is the default entry point; Chinese is an optional language link. Concise introduction, three factual badges, all original app demonstrations/screenshots inline, detailed instructions linked.",
+        "reference_readmes": [
+          "https://github.com/localsend/localsend",
+          "https://github.com/jellyfin/jellyfin-android"
+        ],
+        "english_visible_word_count": 345,
+        "previous_english_visible_word_count": 888,
+        "original_app_media_restored": {
+          "gifs": 3,
+          "screenshots": 5,
+          "bytes": 6393056,
+          "media_files_modified": false
+        },
+        "checks": {
+          "github_markdown_rendering": "passed for English and Chinese README",
+          "local_links": 38,
+          "public_badges_and_video_links": "six HTTP 200 responses",
+          "i18n": "nine-locale check and four existing contract tests passed",
+          "repository_policy": "passed",
+          "secret_hygiene": "passed",
+          "git_diff_check": "passed",
+          "visual_browser": "open; IAB and Chrome control timed out. HTML structure checks do not establish visual or mobile-browser acceptance."
+        },
+        "product_gates": "unchanged: no public APK or new physical-device evidence",
+        "cleanup": {
+          "removed_task_directory": "work/github-readme-correction-20260922",
+          "removed_files": [
+            "README.md.html",
+            "README.zh-CN.md.html",
+            "validation.json"
+          ],
+          "allocated_file_bytes_removed": 20480,
+          "immediate_system_volume_free_delta_bytes": 16384,
+          "note": "Immediate APFS observation may include concurrent activity. Existing demos, source, unrelated work and dependencies retained; source history is the recovery copy."
+        }
       }
     }
   },
