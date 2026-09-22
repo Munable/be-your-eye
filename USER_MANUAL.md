@@ -1,136 +1,142 @@
-# Be Your Eye Community 用户手册
+# Be Your Eye Community user guide
 
-适用于本地 Community 预览候选，不需要账号或订阅。相机画面、任务和记录保存在手机；首次下载识别文件需要联网。公开与自然实物验收状态见 [当前证据](evidence/current/05-release.json)。
+[中文](USER_MANUAL.zh-CN.md) · [Project home](README.md) · [Build and install](docs/community/BUILD.md)
 
-## 1. 使用前准备
+This guide covers the local Community developer preview. No account or subscription is needed. Camera processing, monitors and records stay on the phone; the first model download needs internet. There is no public APK yet: build the app yourself. Monitoring requires Android 8+, arm64 and 8 GB RAM. Physical-device, natural-scene and sustained-use acceptance remain open; see [device scope](docs/community/DEVICE_SUPPORT.md) and [current evidence](evidence/current/05-release.json).
 
-1. 把手机固定在稳定的支架或云台上，使用后置摄像头，接通电源。
-2. 保持镜头、目标和光线稳定。开始监控后不要移动手机；移动后应停止并重新创建监控。
-3. 默认会保留实时取景，便于确认相机仍在工作。运行页点“黑屏监控”可熄灭画面，点屏幕恢复取景；点“回到首页，继续监控”也不会停止任务。
-4. 同一时间只能运行一个监控。开始另一项前，请先停止当前监控。
-5. 首次使用会申请相机权限；创建时可选择本机通知，需要提醒时再允许通知权限。拒绝通知权限仍可监控和保存记录。Community 不请求麦克风权限。
-6. 首次选择数字读数时，确认下载约 78 MB 的识别文件；可取消并下次重试。已安装的精确模型不因云服务或目录过期停止使用；开源模型目录不需要定期续签。参考图片/通用目标需自行测试识别效果。
+## 1. Before you start
 
-## 2. 参考图片监控
+1. Secure the phone on a stable stand, use the rear camera in portrait orientation, and connect power.
+2. Keep the camera, target and lighting stable. If the phone moves, stop and reconfigure the monitor.
+3. Keep the app visible. Switching to another app, the system home screen or the lock screen stops monitoring; returning does not restart it. The in-app dark-screen option can keep monitoring active; tap to return to the live view. Returning to the app's own home screen does not stop the monitor.
+4. Only one monitor can run at a time. Stop it before starting another.
+5. Allow camera access when prompted. Local notifications are optional: without permission, monitoring and local records still work. Community does not request microphone access.
+6. For numeric reading, confirm the first download of about 78 MB. You can cancel and retry later. Installed, verified models do not depend on a renewable service lease. Reference matching and Catalog detection are experimental; try them on your own scene.
 
-首页“参考图片”入口左侧显示“实物＋参考照片”的取景示意；它只帮助辨认功能，不会作为监控素材或上传。
+## 2. Reference-image monitoring
 
-参考图片适合观察一个外观明确的物品是否进入并离开固定画面，例如门口的包裹、桌上的杯子或设备上的指示部件。
+The home-screen illustration helps identify the feature; it is not monitoring input and is not uploaded.
 
-让目标在画面中占据足够面积，并选用能看清外观的参考照片。目标太小或外观不够明确时可能无法确认；可用“测试识别”检查当前机位，必要时拉近距离。
+Reference matching is intended for a visually distinct object entering or leaving a fixed scene, such as a parcel, cup or visible component. Its real-object performance remains unverified. Keep the target large enough in the frame and choose clear reference photos. If it is too small or indistinct, try a closer view and optional recognition testing.
 
-### 创建
+### Create a monitor
 
-1. 在“监控”页点“参考图片”。
-2. 选择 3–20 张不同照片。应用会自动处理不同尺寸、方向、透明背景和常见手机图片格式；只会拒绝打不开的文件或确定重复的图片。导入后页面上显示的每一张都会参与匹配。
-3. 名称可留空，应用会自动命名。设置出现、持续可见或消失条件，以及持续秒数和通知。
-4. 点“保存并开始监控”，应用会准备所选模型并启动。目标不需要已经在相机前；准备失败时页面会说明原因并允许重试。
-5. 想现场检查时，可在配置页或停止后的详情页点“测试识别”，对准目标查看识别反馈。测试本身不产生记录，也不是创建门槛。
+1. Choose **Reference images** on the monitoring screen.
+2. Select 3–20 different pictures of one target. The app handles different sizes, orientations, transparent backgrounds and common phone image formats. It rejects unreadable files and definite duplicates; every picture shown in the configuration participates in matching.
+3. Leave the name blank for an automatic name, or enter your own. Set an appearance, continued-presence or disappearance condition, its duration and notifications.
+4. Save and start monitoring. The app prepares the selected model and starts the camera. The target need not already be in view. If preparation fails, follow the explanation and retry.
+5. Recognition testing is optional, from setup or a stopped monitor's details. It shows feedback without creating records and is not a prerequisite for saving a complete configuration.
 
-未完成的参考图片配置可从首页草稿卡片继续，已选图片会保留。配置保存成功、尚未取得监控相机首帧时显示“已就绪”；实际运行并停止后显示“已停止／重新开始”。
+An unfinished configuration can be resumed from its draft card, with selected pictures preserved. A saved configuration that has never received a monitoring camera frame is ready; a previously running monitor is stopped and can be restarted.
 
-### 运行和记录
+### Events and history
 
-- 目标稳定出现后，应用保存一条记录；同一次持续出现不会重复记录。
-- 首次记录时会从触发判断所用的画面自动保存一张照片，便于在记录中回看；原图只保存在这台监控手机。
-- 连续 5 秒没有看到目标后，应用结束这条记录，并写入开始时间、结束时间和停留时长。
-- 短暂模糊、遮挡或相机暂时看不清只会暂停判断，不会冒充目标离开。
-- 目标快速消失又出现仍算同一条记录，不会反复记录或拍照；确认离开后再次出现才开启下一条记录。
-- 停止监控后，可以在详情中更换参考图片或删除监控；若目标当时仍在画面中，记录会写明“监控停止时结束”，不会误写成目标离开。
+- Stable target presence creates a record; continued presence does not repeatedly create the same event.
+- The first trigger can save one image from the triggering frame for local review. It stays on the monitoring phone.
+- After five continuous seconds without the target, the appearance record closes with its start, end and duration.
+- Blur, occlusion or missing camera evidence pauses judgment instead of being treated as confirmed departure.
+- Brief disappearance and return remain one episode; a confirmed departure followed by a new appearance starts another.
+- Stop the monitor before replacing references or deleting it. If the target was still present when monitoring stopped, the record says it ended because monitoring stopped, not because the target left.
 
-## 3. 数字读数监控
+## 3. Numeric reading
 
-首页“数字读数”入口左侧显示镜头中的数字屏；它只帮助辨认功能，不会作为监控素材，真实读数仍来自打开后的相机画面。
+The home-screen illustration identifies the feature; actual readings come from the camera.
 
-数字监控适合固定位置的单行读数，例如计时器、余额、百分比、仪表读数或带单位的温度显示。支持正负数、小数、千分位、货币、短单位、百分比、科学计数法、`MM:SS` 和 `HH:MM:SS`。
+Numeric reading is intended for a fixed single-line display, such as a timer, percentage, balance, temperature or meter. Supported formats include signed numbers, decimals, grouping separators, currency, short units, percentages, scientific notation, `MM:SS` and `HH:MM:SS`. Recognition on a particular display still needs checking.
 
-### 选择数字
+### Select the number
 
-1. 在“监控”页点“数字读数”，相机会持续从整个可见画面寻找读数行。
-2. 细角框表示应用当前跟踪的位置，只是对焦式反馈，不会把识别限制在框里。首个有效目标建立固定位置；它消失后应用会显示暂时看不清，不会跳到附近的另一个数字。
-3. 如果画面数字很多，建议直接从目标的一角拖向对角，画一个实线范围，不用长按。只扫描框内会更快、更准；不画框会搜索整个画面，多个数字时可能变慢或认错。
-4. 画好后可拖动左上角或右下角的圆点调整大小；在框外空白处拖动会重画，点红色“清除选框”会恢复全画面。开始监控后不能修改，停止后可以编辑。
-5. 等数据流稳定后确认当前值；连续增长的计时器同样可以稳定。若识别漏掉小数点，点“小数点不对，校正格式”补全小数点；编辑期间保留这次选中的稳定读数和输入，点“返回实时读数”后重新扫描。不能借此替换数字或正负号，应用也不会学习或改写后续画面中的数字。
+1. Choose **Numeric reading**. Without a manual region, the app searches the visible frame for readable rows.
+2. Thin corner marks indicate tracking, not a scanning boundary. The first accepted target anchors a fixed position. If it disappears, the app reports that it cannot read it rather than switching to a nearby number.
+3. If several numbers are visible, drag from one corner of the intended number to the opposite corner to define a region; no long press is needed. Restricting the scan to that region can reduce ambiguity. Full-frame scanning may be slower or select the wrong number.
+4. Drag the upper-left or lower-right handle to resize. Drag outside the region to replace it, or clear the region to return to full-frame scanning. Stop monitoring before changing the region.
+5. Confirm the reading once it is stable; a steadily changing timer can also become stable. If a decimal point is missing, use the decimal-format correction action. The selected stable reading and your input remain while editing; return to live readings to rescan. This does not change digits or signs, train the model or rewrite later camera readings.
 
-### 设置条件
+### Set the condition
 
-暂时读不到稳定值时，可以先创建为“待确认基准”并启动。此时会持续读取，但不会产生条件事件；读到稳定值后会提示确认基准，确认并设置条件后才开始判断越界。启动失败后可直接重试，已保存的任务不会重复创建。
+If no stable value is available yet, a monitor can start with its baseline pending. It keeps reading but cannot create threshold events until you confirm the baseline and set a condition. Retrying a failed start keeps the same saved task.
 
-在监控详情点“去确认基准”，当前监控会暂停，相机进入读数确认页。确认基准并设置条件后，点“保存并开始监控”继续使用这条任务。
+From the monitor's details, confirm the baseline when available. This pauses monitoring and opens the reading-confirmation screen. Confirm the baseline and condition, then save and restart the same monitor.
 
-- **高于**：读数高于指定值时记录。
-- **低于**：读数低于指定值时记录。
-- **超出范围**：读数低于下限或高于上限时记录。
-- 达到条件只记录一次；读数恢复正常后，下一次越界才会再次记录。
-- 暂时看不清、遮挡或目标离开固定位置／手动画框时不产生事件，也不会把其他数字当成目标。
+- **Above:** record when the reading exceeds the value.
+- **Below:** record when the reading falls below the value.
+- **Outside a range:** record below the lower bound or above the upper bound.
+- A condition creates one event; once the reading returns to normal, a later crossing can create another.
+- Unreadable, occluded or missing target readings do not produce a normal value or a threshold event. Nearby numbers do not replace the fixed target.
 
-### 固定机位要求
+### Keep the camera fixed
 
-固定机位下，自动模式会持续扫描全画面，但只接受最初锚定位置的同格式读数；自动细角框不是识别边界。长期监控建议使用手机支架固定机位，再画出手动范围；画面会显示实线框和“只读取手动画框内”。目标短暂消失后回到同一位置即可继续；如果手机或页面布局已经移动，请停止后调整或重画。
+Automatic mode continues scanning the whole frame but accepts readings at the original anchored position and format. Thin automatic corners are not a scan boundary. For sustained use, secure the phone and draw a manual region; the solid border marks the restricted reading area.
 
-## 4. 文字描述目标或现象
+The target can return to the same position after briefly disappearing. If the phone or display layout moves, stop and adjust or redraw the region.
 
-这条路线用于用文字描述画面中可见的物体或现象，例如“苹果出现”或某个专业场景中的明确可见状态。应用只会使用同一份签名 Catalog 中已激活、适配当前手机且明确覆盖该描述的模型；没有精确可用模型时会说明当前不支持，不会用相似类别或通用模型兜底。
+## 4. Text-described visual targets
 
-### 创建
+A description searches the signed Catalog for an available visual target, such as an apple appearing. It is not a general-purpose AI prompt. Only an active, licensed model explicitly covering the target and compatible with the phone can be used. No exact match means unsupported; the app does not substitute a nearby category or generic model.
 
-1. 在“监控”页点“文字描述”，输入需要在画面中寻找的物体或现象。输入用于查找目录里的可用目标。
-2. 应用会在当前签名 Catalog 中查找精确覆盖该目标、许可有效且适配本机的 active 模型。专业场景只使用对应的专业模型；没有精确匹配时会停在当前页并说明原因。所有模型均无需订阅。
-3. 选好目标、模型、触发条件和持续秒数，点“保存并开始监控”即可启动。目标不需要在场；配置页和停止后的详情页都提供可选的“测试识别”。
+### Create a monitor
 
-### 运行和记录
+1. Choose **Text description** and enter the object or visible phenomenon.
+2. Review the exact supported target and model from the Catalog. A specialized scene requires an explicitly matching model; an unsupported description stays on setup with an explanation. No model requires a subscription.
+3. Choose the target, model, condition and duration, then save and start. The target need not already be visible. Optional recognition testing is available in setup and stopped-monitor details.
 
-- 只标出当前配置的目标或现象；目标稳定出现时保存一条记录，连续未见后关闭并记录停留时长。
-- 一次出现周期只生成一条记录；短暂模糊、无帧或推理异常会显示暂不可用，不会冒充目标离开。
-- 首次触发最多保存一张本机触发照片，沿用参考图片监控的私有存储、停止、恢复、删除语义。
+### Events and history
 
-## 5. 运行、黑屏与恢复
+- The app highlights the configured target only. Stable appearance creates a record; confirmed absence closes it and records its duration.
+- One appearance episode creates one record. Blur, missing frames and inference errors are unavailable evidence, not confirmed absence.
+- At most one private trigger image is saved for the first trigger. Stop, resume and deletion follow the same local-storage rules as reference monitoring.
 
-- 默认运行页保留实时取景、识别状态、记录数和最近一次记录；底部可回到首页、进入监控设置或停止。自动反馈框或手动画框让你能确认正在读取的位置。
-- 选择黑屏监控后，画面变黑但识别继续；点黑屏可恢复取景。
-- 返回首页不会停止监控；再次打开活动监控时，默认恢复取景和当前状态。
-- 进程被系统中断后，应用会明确显示“已停止”，不会假装已经自动恢复。请重新启动该监控。
-- 飞行模式下只能复用已经完整安装、校验通过且仍在当前签名 Catalog 中有效的模型；需要下载或更新模型时必须联网。
-- “已就绪”表示配置已经保存但从未实际运行；“已停止”表示这条监控曾取得真实相机帧，当前已经停下。两者都不代表后台仍在监控。
+## 5. Running, dark screen and recovery
 
-## 6. 记录
+- The run screen shows the camera view, recognition state, event count and latest event. You can return to the app's home screen, open monitor settings or stop.
+- The in-app dark-screen option keeps recognition running while the app remains visible. Tap it to restore the view. This is different from locking the phone, which stops capture.
+- Returning to the app's home screen does not stop the active monitor. Reopening that monitor restores the live view.
+- If the system interrupts the process, the app reports stopped. Restart the monitor yourself; it does not silently resume camera capture.
+- Offline use requires the exact model to be installed and verified and still valid under the signed Catalog. Downloads or updates need internet.
+- Ready means saved but never supplied with a monitoring camera frame. Stopped means it ran and is now stopped. Neither means that a background camera is still working.
 
-“记录”页按日期整理三类内容：
+## 6. Records
 
-- 参考目标显示为一条完整记录：触发照片、开始、结束和停留时长；尚未结束时显示“目标已出现／仍在画面中”。
-- 文字描述目标或现象路线显示所选物体或现象的一条完整出现记录，触发照片和关闭语义与参考目标一致。
-- 数字越界显示当时的读数、条件和时间。
-- 每条记录左侧先显示时间；右上角的筛选菜单可选择“全部 / 画面目标 / 数字”。
-- 记录和触发图保留在监控手机。配对手机只能收到文字提醒，不能查看相机或远程取图。
+History groups records by date:
 
-## 7. 常见问题
+- Reference targets have an appearance record with a trigger image, start, end and duration; an ongoing episode remains marked present.
+- Catalog target records use the same appearance and private-image rules.
+- Numeric threshold events show the reading, condition and time.
+- Use the filter to choose all records, visual targets or numeric readings.
+- Images and full history remain on the monitoring phone. A paired phone receives text only and cannot view or remotely retrieve camera images.
 
-### 一直没有读到数字
+## 7. Troubleshooting
 
-先确认读数清晰、没有反光、字符没有被截断。自动模式让目标保持在最初位置；手动画框模式让目标完整留在实线框内。普通未识别会持续观察，不需要反复点重试。
+### No number is being read
 
-### 页面上有很多数字，应用跟踪错了
+Check clarity, glare and clipped characters. In automatic mode, keep the number at its original position. With a manual region, keep the complete number within the solid border. Ordinary unreadable frames keep being observed; repeated retries are unnecessary.
 
-开始前直接拖动框住需要监控的读数，再用左上／右下圆点调整，必要时点红色“清除选框”后重画。自动细角框不能点击，也不会限制识别；开始后应用不会跳到其他位置。
+### The wrong number is tracked
 
-### 参考目标一直“未找到”
+Before starting, draw a region around the intended number. Resize with the corner handles or clear and redraw it. Automatic corner marks cannot be clicked and do not restrict scanning. Monitoring will not switch to a different position after it starts.
 
-让目标在画面中更清晰，并尽量接近参考照片中的外观。应用会比较前三个显著区域和完整画面；若背景中的显著物体更多、目标太小或遮挡严重，调整固定机位或补充不同角度、光线的参考照片，然后重新检查。
+### A reference target is not found
 
-### 设备发热或识别变慢
+Make the target clearer and closer in appearance to the references. The app compares up to three salient regions and the whole frame. A small or occluded target, or more prominent background objects, may prevent a match. Adjust the fixed camera position or add references with useful angles and lighting, then try again.
 
-保持设备通风并持续供电。设置相机达到严重热状态时会降速；达到临界热状态时会清除旧确认并释放相机，冷却到安全等级后重新打开现场检查。持续监控达到临界热状态时会记录暂不可用并停止本次监控，冷却后需要用户重新开始，不会自行恢复。
+### The phone gets hot or recognition slows
 
-### 什么时候使用“重试”
+Keep the phone ventilated and powered. During setup, severe thermal conditions slow processing; critical conditions clear stale confirmation and release the camera, so inspect the scene again after recovery. During continuous monitoring, a critical thermal state records unavailable and stops the monitor. Let it cool and restart manually.
 
-只在相机、模型准备或初始化明确失败时使用。普通未识别、短暂模糊或目标暂时不在画面中都会自动继续观察。
+### When should I retry?
 
-## 8. 隐私与当前边界
+Retry explicit camera, model-preparation or initialization failures. Ordinary non-recognition, brief blur or a temporarily absent target continue being observed automatically.
 
-无需账号。本机任务、参考素材和触发图保存在 App 私有目录；普通相机帧只在内存处理。删除任务会清理相应本机素材与附件。配对提醒只发送加密文字，不提供云同步、AI 对话或录音。卸载会删除应用资料，请先保留需要的记录。
+## 8. Privacy and current limits
 
-## 跨手机提醒
+No account is required. Monitors, reference material and trigger images remain in app-private storage; ordinary frames stay in memory. Deleting a monitor removes its associated private media and attachments. Uninstalling deletes app data, so preserve any records you need first.
 
-在两台手机的“关于 → 配对提醒”中操作：A 创建配对组，B 扫描 A 的二维码并确认中转地址。B 允许通知并开启收信；A 发送测试提醒后，在 B 的通知栏和收件箱确认。之后打开监控的通知开关，实际触发时就会发送加密文字。也可以复制配对码加入。
+Paired alerts send encrypted text only. There is no cloud sync, AI conversation or audio recording. This preview is not a safety alarm.
 
-不需要账号、API Key 或我们提供服务器。默认使用独立的免费公共 ntfy 服务，可换成其他兼容 HTTPS 中转。公共服务有额度，手机省电限制、断网、强制停止都会影响收信；重启后请重新打开收信。图片留在监控手机，不会传到另一台手机。退出组不能撤回其他成员保存的密钥，移除成员请创建新组。详见[配对指南](docs/community/PAIRING.md)。
+## Alerts on another phone
+
+On both phones, open **About → Paired phones**. A creates a group; B scans A's QR code and confirms the relay, or enters the copied pairing code. B allows notifications and starts receiving. A sends a test alert; verify it in B's inbox and notification shade. Then enable notifications for the actual monitor so that its events can send encrypted text.
+
+No account, API key or project-operated server is needed. The default is the independent free public ntfy service; a compatible HTTPS relay can be selected instead. Quotas, battery restrictions, network loss and force-stop affect delivery. Open the app and start receiving again after a restart.
+
+Images stay on the monitoring phone. Leaving a group cannot revoke a key already copied by another member; create a new group to exclude a member. Only the monitoring phone needs vision models and their supported hardware. Physical pairing and actual monitor-trigger delivery remain unverified. Follow the [pairing guide](docs/community/PAIRING.md) for setup and delivery limits.

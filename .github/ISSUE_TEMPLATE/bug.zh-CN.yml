@@ -1,0 +1,15 @@
+name: 问题报告
+description: 报告一个具体任务中可以复现的问题
+body:
+  - type: textarea
+    attributes:
+      label: 应用版本与设备
+      description: 应用版本、Android 版本、机型与内存。文案问题请补充应用语言。不要提供序列号或账号资料。
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 任务与复现步骤
+      description: 预期和实际表现，发生在下载、设置、识别还是通知阶段。图片和日志可选，请移除私人内容、配对码和凭据。
+    validations:
+      required: true

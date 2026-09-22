@@ -4,12 +4,12 @@ body:
   - type: textarea
     attributes:
       label: Version and device
-      description: App version, Android version, model and memory. Never include serial numbers or account details.
+      description: App version, Android version, model and memory. For wording issues, include the app language. Never include serial numbers or account details.
     validations:
       required: true
   - type: textarea
     attributes:
       label: Task and steps
-      description: Expected and observed behavior; download, setup, recognition or notification stage. Images and logs are optional; remove private content and credentials.
+      description: Expected and observed behavior; download, setup, recognition or notification stage. Images and logs are optional; remove private content, pairing codes and credentials.
     validations:
       required: true

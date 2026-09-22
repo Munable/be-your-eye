@@ -1,15 +1,19 @@
 # Send an alert to another phone
 
+[中文](PAIRING.zh-CN.md) · [User guide](../../USER_MANUAL.md) · [Build and install](BUILD.md)
+
 **Phone A watches. Phone B tells you when something happens.** Both phones need
 the Community app and internet for paired alerts. Only the monitoring phone
 needs the recognition model and its supported hardware.
 
+The app requires Android 8+ and arm64. The current recognition profiles require 8 GB RAM on the monitoring phone; receiving text alone does not load these models. The recorded receiver test used a 4 GB emulator, not a physical-phone compatibility test. There is no public APK yet, and physical pairing and sustained delivery remain unverified. See [device scope](DEVICE_SUPPORT.md).
+
 | On phone A | On phone B |
 | --- | --- |
-| Open **About → Paired alerts → Create group** | Open **About → Paired alerts → Scan QR code** |
+| Open **About → Paired phones → Create a pairing group** | Open **About → Paired phones → Scan pairing QR** |
 | Confirm the relay, then show the QR code | Scan A’s code and confirm the relay |
 | Keep the QR code private | Allow notifications and tap **Start receiving** |
-| Tap **Send test alert** | Check the new alert in the inbox and notification shade |
+| Tap **Send a test alert** | Check the new alert in the inbox and notification shade |
 | Enable notifications for a monitor and start it | Keep receiving enabled; follow the battery-settings hint |
 
 The copied pairing code works if scanning is inconvenient. Stop monitoring before

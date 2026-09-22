@@ -4,10 +4,10 @@ body:
   - type: textarea
     attributes:
       label: What did you last have to watch?
-      description: What display or visible change, how often, and how do you handle it today? No personal photos are needed.
+      description: What display or visible change, how often, how do you handle it today, and which condition matters? No personal photos, pairing codes or credentials are needed.
     validations:
       required: true
   - type: textarea
     attributes:
       label: When is the next opportunity?
-      description: Include whether a local notification helps or you need to be elsewhere, and whether you have a spare compatible phone.
+      description: Include whether a local notification helps or you need to be elsewhere, and whether you have a spare compatible phone. For a field report, add the version, device, duration and observed events; distinguish physical use from emulator replay.

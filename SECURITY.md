@@ -1,24 +1,24 @@
-# 安全策略
+# Security policy
 
-## 当前状态
+[中文](SECURITY.zh-CN.md) · [Project home](README.md)
 
-Community 源码已开放，目前仍处于开发预览阶段。漏洞、密钥或用户数据问题请使用
-[GitHub 私密漏洞报告](https://github.com/Munable/be-your-eye/security/advisories/new)。不要在公开 Issue
-中提交密钥、验证码、账号信息、设备标识、用户事件或摄像内容。
+## Current status
 
-## 安全边界
+Community source is public and remains a developer preview. Report vulnerabilities, keys or user-data problems through [GitHub private vulnerability reporting](https://github.com/Munable/be-your-eye/security/advisories/new). Do not include keys, verification codes, account information, device identifiers, user events or camera content in public issues.
 
-- Catalog 与 Manifest 使用 RFC 8785 规范化 JSON、Ed25519 签名和固定公钥；模型安装/运行验证 SHA-256、大小、许可、运行时与设备兼容性。开源 Catalog 不需要定期续签，但真实许可期限仍然有效。
-- 私钥、配对码、群组密钥、图像、读数和用户内容不得进入 Git、公开日志或问题报告。
-- 配对消息在手机上使用 AES-256-GCM 加密和认证。中转只能看到 IP、随机主题、时间、大小及密文。所有已配对成员拥有相同权限；移除成员需创建新组和密钥。
-- 接收端拒绝篡改、过旧、未来和重复消息，不接收图片或远程命令。配对二维码包含密钥，只能给信任的人扫描。
-- GitHub 模型下载只允许单次跳转到指定 HTTPS Release 资产域名，再校验精确文件；消息中转禁止自动跳转。
-- 无账号、计费、FCM、云端 AI、麦克风或维护者后端。免费公共中转不保证送达，不适合安全报警。
+## Security boundaries
 
-## 依赖与供应链
+- Catalogs and manifests use RFC 8785 canonical JSON, Ed25519 signatures and pinned public keys. Model installation and use verify SHA-256, size, licenses, runtime contracts and device compatibility. Community metadata has no renewable service lease; actual license deadlines still apply.
+- Private keys, pairing codes, group keys, images, readings and user content must not enter Git, public logs or issue reports.
+- Paired messages are encrypted and authenticated on the phone with AES-256-GCM. The relay can observe IP addresses, random topics, timing, sizes and ciphertext. Every group member has the same authority; removing a member requires a new group and key.
+- The receiver rejects tampered, stale, future and duplicate messages. It does not accept images or remote commands. Pairing QR codes contain keys and must be shared only with trusted people.
+- Model downloads allow one HTTPS redirect to the designated GitHub Release asset host, followed by exact artifact verification. Relay messaging does not automatically follow redirects.
+- There are no accounts, billing, FCM, cloud AI, microphone capture or maintainer backend. Public relay delivery is not guaranteed and is unsuitable as a safety alarm.
 
-所有依赖使用锁文件或精确版本；发布构建生成 SBOM。安全更新不能绕过合同 fixtures、逐模型许可审核、签名验证、确定性选模和回滚测试。发现已激活模型或 Catalog 被篡改时，客户端必须拒绝运行并显示明确错误，不得静默降级到未审核资源。
+## Dependencies and supply chain
 
-## 支持范围
+Dependencies use lockfiles or exact versions; release builds produce an SBOM. Security updates must not bypass contract fixtures, model license review, signature verification, deterministic model selection or rollback tests. A tampered active model or Catalog must be rejected with a clear error, never silently replaced by an unreviewed resource.
 
-项目目前处于 Community 开发预览阶段，没有对外生产安全支持范围。未来只有按 [`evidence/README.md`](evidence/README.md) 约定写入 `evidence/releases/` 的最新 Beta／正式发布构建属于支持范围；旧构建、开发签名、模拟器和未签名 Catalog 不构成生产安全承诺。发布门以 [`docs/RELEASE.md`](docs/RELEASE.md) 为准。
+## Supported scope
+
+Community is a developer preview with no production security support commitment. Future production support covers only the latest Beta or official release recorded under `evidence/releases/` according to [the evidence policy](evidence/README.md). Old builds, development signatures, emulators and unsigned Catalogs do not establish production security support. [Release gates](docs/RELEASE.md) remain the authority.

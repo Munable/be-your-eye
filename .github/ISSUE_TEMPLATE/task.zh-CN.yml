@@ -1,0 +1,13 @@
+name: 真实监控场景
+description: 描述你原本就需要反复查看的事情
+body:
+  - type: textarea
+    attributes:
+      label: 你最近需要反复盯什么？
+      description: 什么显示屏或可见变化、多久检查一次、现在如何处理、想等什么条件？不需要私人照片、配对码或凭据。
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 下次什么时候能尝试？
+      description: 本机通知是否够用，还是需要人在别处也能收到提醒？是否有兼容的闲置手机？已有试用结果可写明版本、设备、时长和实际事件，并区分真机与模拟器。

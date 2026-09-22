@@ -2,97 +2,73 @@
 
 # Be Your Eye
 
-### Stop checking. Let a spare phone watch.
+### Stop checking. Let a spare Android phone watch.
 
-[中文](README.zh-CN.md) · [Build it](docs/community/BUILD.md) · [User guide](USER_MANUAL.md) · [Contribute](CONTRIBUTING.md)
+**Open-source developer preview · No public APK yet**
+
+[中文](README.zh-CN.md) · [Watch the demo](#see-a-number-trigger-an-event) · [Build and run](docs/community/BUILD.md) · [User guide](USER_MANUAL.md)
 
 </div>
 
-<table>
-<tr><th>A number crosses the line</th><th>Someone enters the scene</th><th>Your pictures become a target</th></tr>
-<tr>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4"><img width="250" src="docs/community/demos/numeric.gif" alt="The Android app reading a real power-supply display and recording a threshold event"></a></td>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/person.mp4"><img width="250" src="docs/community/demos/person.gif" alt="The Android app detecting pedestrians in street footage"></a></td>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/reference.mp4"><img width="250" src="docs/community/demos/reference.gif" alt="The Android app matching an illustrated reference target"></a></td>
-</tr>
-<tr><td>A camera becomes a reading.</td><td>A supported target becomes a monitor.</td><td>Three pictures. One thing to watch for.</td></tr>
-</table>
+Point a fixed phone at a display, a supported object or a doorway. Set a condition; Be Your Eye can record the event and alert you. **Recognition runs on the phone. No account, subscription or API key.**
 
-<sub>Actual Community app recordings on Android emulator. The first two use real video as camera input; the third uses an illustrated test target. Tap a clip to download the full-size video. [Sources, setup and results](docs/community/demos/SOURCES.md).</sub>
+The monitoring phone needs **Android 8+, arm64 and 8 GB RAM** for the current models. Keep it powered and the app visible: **switching apps or locking the phone stops monitoring**. In-app dark-screen mode can keep it running.
 
-| What you keep checking | What you give it | What it watches for |
-| --- | --- | --- |
-| A meter or display | A visible number | A value crossing your threshold |
-| A doorway or work area | A supported target, such as “person” | The target appearing in the frame |
-| A particular object | 3–20 reference pictures | A visual match to your pictures |
+This preview is for developers who can build the app. [Releases currently contains model files only](https://github.com/Munable/be-your-eye/releases/tag/models-v1), not an app installer. Physical-device, natural-scene and long-running acceptance remain open.
 
-**No account. No subscription. No API key. Recognition runs on the phone.**
+## See a number trigger an event
 
-## From a glance to a record
+**Numeric reading · Main route, still a preview.** In this recording, a power-supply reading starts at `03.2`. The condition is **above 8 for one second**; the app stores an event at `08.8` and shows a local notification.
 
-Fix the phone in place, choose what matters, and start monitoring. When your condition holds, the app records the event and can alert you on that phone.
+<p align="center"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4"><img width="320" src="docs/community/demos/numeric.gif" alt="Emulator replay: the power-supply reading crosses 8, the record counter changes from 0 to 1, and a local notification appears"></a></p>
 
-<table>
-<tr><th>1 · Choose what to watch</th><th>2 · Set the condition</th><th>3 · Check what happened</th></tr>
-<tr>
-<td width="33%"><img width="250" src="docs/community/images/home.png" alt="Three creation routes on the home screen"></td>
-<td width="33%"><img width="250" src="docs/community/demos/condition.png" alt="A threshold configured in the Android app"></td>
-<td width="33%"><img width="250" src="docs/community/demos/history.png" alt="Actual local events recorded during the camera replay"></td>
-</tr>
-</table>
+[Download the 23-second video](https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4) · [See the configured condition](docs/community/demos/condition.png) · [Sources and recording method](docs/community/demos/SOURCES.md)
 
-## One phone watches. Another lets you know.
+The actual Community app processes prerecorded video through an Android emulator camera. This is controlled replay evidence, not a live physical-phone demonstration or an accuracy, speed or reliability measurement.
 
-| Monitoring phone A | Your phone B |
-| --- | --- |
-| Create a group and show the QR code | Scan it and start receiving |
-| Send an alert when the condition holds | See the time, condition and reading |
+## Three ways to choose what to watch
 
-Pair over the internet without an account or a server of your own. Alerts use the independent free public ntfy relay; you can choose another compatible relay. Quotas and availability limits apply. [Pair two phones](docs/community/PAIRING.md).
+- **Numeric reading — main route.** Give it a visible number and a threshold. The replay above produced an event; test your own display and lighting.
+- **Catalog target — experimental.** Choose a supported target such as “person”. The [17-second person replay](https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/person.mp4) produced an appearance record. This detects presence, not identity or a people count.
+- **Reference images — experimental.** Supply 3–20 pictures of one target. The [12-second reference replay](https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/reference.mp4) matched an illustrated test pattern; general real-object matching remains unverified.
 
-<table>
-<tr><th>A sends a test alert</th><th>B receives the same alert</th></tr>
-<tr><td align="center"><img width="250" src="docs/community/images/paired-send.png" alt="Sender app after publishing an encrypted pairing test"></td><td align="center"><img width="250" src="docs/community/images/paired-receive.png" alt="Separate receiver app with the delivered pairing test in its inbox"></td></tr>
-</table>
+A text description searches the finite signed Catalog; it is not an open-ended AI prompt. An unsupported target is rejected. [Browse the person GIF](docs/community/demos/person.gif), [reference GIF](docs/community/demos/reference.gif) or [recorded results](docs/community/demos/SOURCES.md#what-was-recorded).
 
-<sub>Two separate Android emulator installations, real public relay, app-side encryption and an actual received notification. This tests message delivery; the camera demonstrations are above. [Capture details](docs/community/demos/SOURCES.md#paired-alerts).</sub>
+## Build it and try one scene
 
-## Try it
+1. **Check your phone.** Monitoring requires Android 8+, arm64 and 8 GB RAM under the current signed model profiles. No Google Play Services are required. See [device and network scope](docs/community/DEVICE_SUPPORT.md).
+2. **Build and install the Community debug app.** Follow the [build guide](docs/community/BUILD.md). There is no public APK yet; the unsigned release output is not installable until signed.
+3. **Fix the phone in place and choose a target.** Confirm the first model download; numeric reading needs about 78 MB. Verified models can then be reused offline. Only one monitor runs at a time.
+4. **Set a condition and check a real result.** Recognition testing is optional; a complete configuration can be saved without a successful test. A numeric monitor waiting for its baseline cannot create threshold events until you confirm the baseline and condition. Check the local record and notification before relying on a scene.
 
-This is an **open-source developer preview**. Build the Community app with the [build guide](docs/community/BUILD.md); there is no public APK release yet.
+[Follow the user guide](USER_MANUAL.md) · [View the creation screen](docs/community/images/home.png) · [View replay event history](docs/community/demos/history.png)
 
-| Bring | Keep in mind |
-| --- | --- |
-| Android 8+, arm64, 8 GB RAM | Keep the phone fixed, powered and the app visible |
-| An internet connection for the first model download | Installed, verified models can be reused offline |
-| A scene you can try safely | Test recognition on your own scene before relying on it |
+The app follows the system language, with a saved manual choice in About: English, Simplified Chinese, Traditional Chinese, Japanese, Korean, Spanish, French, German and Brazilian Portuguese.
 
-<details>
-<summary><b>What works, what is still experimental</b></summary>
+## Send an alert to another phone
 
-Numeric reading is the main route. Reference matching and catalog-based object detection are experimental. A description searches a finite catalog; it is not an open-ended AI prompt. “Person” means person presence, not facial identity.
+Pair the Community app on both phones by QR code or copied code. The monitoring phone sends encrypted text; the receiving phone must allow notifications and explicitly start receiving. **Only the monitoring phone needs the recognition models and their 8 GB RAM profile.** Receiving alone does not run vision models; physical receiver compatibility remains unverified. Both phones need internet for paired alerts.
 
-One monitor runs at a time. In-app dark-screen mode keeps it running; switching apps or locking the phone stops it. Local history stays on the monitoring phone. Optional [paired alerts](docs/community/PAIRING.md) send encrypted text through a free public relay; the other phone must enable persistent receiving.
+<p align="center"><img width="320" src="docs/community/images/paired-receive.png" alt="A separate emulator installation showing the received encrypted test alert in its inbox"></p>
 
-These selected replay clips show the app processing controlled inputs. They do not establish natural-scene accuracy, reliable detection of every frame, phone performance or extended-run reliability. Physical-device and natural-scene acceptance remain open. See [device support](docs/community/DEVICE_SUPPORT.md) and [current evidence](evidence/current/05-release.json). This is an early tool for everyday checking, not a safety alarm.
+[Pair two phones](docs/community/PAIRING.md) · [View the sender](docs/community/images/paired-send.png) · [Read the capture details](docs/community/demos/SOURCES.md#paired-alerts)
 
-</details>
+The evidence above is a **test alert between two separate emulator installations**, delivered through the real public relay and shown in the receiver inbox and notification. A continuous physical-camera event → second-phone notification demonstration is still pending.
 
-<details>
-<summary><b>Models, builds and privacy</b></summary>
+Alerts use the independent free public ntfy relay, or another compatible HTTPS relay you choose. Quotas, network failures and Android battery restrictions can delay or lose alerts. A separately started receiver may run in the background; the monitoring camera still requires a visible app. This preview is not a safety alarm.
 
-Build without maintainer credentials or a server. [Models live in this repository’s Releases](https://github.com/Munable/be-your-eye/releases/tag/models-v1), with original sources, dataset disclosures and licenses in [MODELS](docs/community/MODELS.md). Download once after confirmation; verified recognition runs on the phone without a subscription or periodic catalog renewal.
+## Privacy and open-source details
 
-Ordinary camera frames stay in memory. Reference pictures and saved trigger images stay in private storage. Paired alerts carry encrypted text, never pictures. The project provides no backend, cloud AI, account or paid service. Optional public relays have their own quotas and availability.
+Ordinary camera frames stay in memory. Reference pictures and saved trigger images stay in private storage on the monitoring phone. Paired alerts carry **encrypted text, never pictures or video**. The relay can see connection metadata and ciphertext; it does not receive the group key. The project operates no backend, cloud AI, account or paid service.
 
-The app uses Kotlin and Jetpack Compose, with four modules separating UI, domain rules, storage and vision. Start with [architecture](docs/ARCHITECTURE.md) and [Community checks](tools/ci/run-community.sh).
+Models download after confirmation and are verified before use. Installed, verified models can be reused offline without periodic catalog renewal. [Model sources and licenses](docs/community/MODELS.md) · [Architecture](docs/ARCHITECTURE.md) · [Current evidence](evidence/current/05-release.json)
 
-</details>
+## Help with one concrete task
 
-## What would you point it at?
+- **Describe a real scene:** what you repeatedly check, the condition you care about, and when you can next try it. [Share a monitoring task](https://github.com/Munable/be-your-eye/issues/new?template=task.yml).
+- **Try one compatible phone:** record the build, phone model, scene, expected result and actual result. Include misses and false events. [Report a reproducible failure](https://github.com/Munable/be-your-eye/issues/new?template=bug.yml).
+- **Review one language:** check a setup screen, a condition and a notification for clarity or clipping. [Start contributing](CONTRIBUTING.md).
 
-A display you walk over to check? Something you are waiting to arrive? [Tell us the scene](https://github.com/Munable/be-your-eye/issues), the condition, and what happened when you tried it. A small, repeatable failure is especially useful. Please leave private photos and credentials out of reports.
-
-[Contributions welcome](CONTRIBUTING.md) · [Report a security issue privately](SECURITY.md)
+Please leave private photos, pairing codes and credentials out of reports. [Report a security issue privately](SECURITY.md).
 
 First-party code: [Apache-2.0](LICENSE). [Models](docs/community/MODELS.md), [demo footage](docs/community/demos/SOURCES.md) and [dependencies](THIRD_PARTY_NOTICES.md) retain their own licenses.

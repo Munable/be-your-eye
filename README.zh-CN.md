@@ -2,97 +2,73 @@
 
 # 帮你盯 · Be Your Eye
 
-### 别总回头看。让旧手机帮你盯着。
+### 别总回头看。让闲置安卓手机帮你盯着。
 
-[English](README.md) · [自己构建](docs/community/BUILD.md) · [使用说明](USER_MANUAL.md) · [参与贡献](CONTRIBUTING.md)
+**开源开发预览版 · 暂无公开 APK**
+
+[English](README.md) · [观看演示](#看一次数字越界触发) · [构建并运行](docs/community/BUILD.zh-CN.md) · [使用说明](USER_MANUAL.zh-CN.md)
 
 </div>
 
-<table>
-<tr><th>数字过线，它记下来</th><th>有人出现，它看得到</th><th>给它图片，让它找目标</th></tr>
-<tr>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4"><img width="250" src="docs/community/demos/numeric.gif" alt="Android 应用读取真实电源仪表，并记录阈值事件"></a></td>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/person.mp4"><img width="250" src="docs/community/demos/person.gif" alt="Android 应用识别街景视频中的行人"></a></td>
-<td width="33%"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/reference.mp4"><img width="250" src="docs/community/demos/reference.gif" alt="Android 应用匹配参考图案"></a></td>
-</tr>
-<tr><td>画面里的数字，变成可以判断的读数。</td><td>选一个支持的目标，就能开始盯。</td><td>三张图片，告诉它你在找什么。</td></tr>
-</table>
+固定手机，对准一块数字屏、支持的物品或门口。设好条件，帮你盯可以记录事件并提醒你。**识别就在手机上，不用账号、订阅或 API Key。**
 
-<sub>Community 版的 Android 模拟器实录。前两段把真实视频送入摄像头，第三段使用绘制的测试图案；识别和触发都由应用完成。点击动图下载清晰版视频。[素材来源、录制方法与结果](docs/community/demos/SOURCES.md)。</sub>
+当前识别模型要求监控手机具备 **Android 8+、arm64 和 8 GB 内存**。请持续供电、保持应用可见：**切换应用或锁屏会停止监控**。应用内的黑屏模式可以继续运行。
 
-| 你总在回头看什么 | 给它什么 | 让它盯什么 |
-| --- | --- | --- |
-| 仪表、设备屏幕 | 画面里的数字 | 读数是否越过你设的阈值 |
-| 门口、工作区域 | 支持的目标，比如“人” | 目标是否出现在画面中 |
-| 某个具体物品 | 3–20 张参考图片 | 有没有和参考图片匹配的目标 |
+目前适合能自行构建应用的开发者试用。[Releases 现在只有模型文件](https://github.com/Munable/be-your-eye/releases/tag/models-v1)，没有应用安装包。真机、自然场景和长时间运行验收仍未完成。
 
-**不用账号，不用订阅，不用填 API Key。识别就在手机上。**
+## 看一次数字越界触发
 
-## 从反复看一眼，到留下一条记录
+**数字读数 · 当前主路线，仍属预览。** 这段录制中，电源仪表从 `03.2` 开始变化。条件设为**高于 8、持续 1 秒**；应用在读到 `08.8` 时保存事件，并显示本机通知。
 
-固定手机，选好目标，设好条件。条件满足时，应用留下记录，也可以在这台手机上提醒你。
+<p align="center"><a href="https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4"><img width="320" src="docs/community/demos/numeric.gif" alt="模拟器回放：电源仪表读数超过 8，记录计数从 0 变成 1，并出现本机通知"></a></p>
 
-<table>
-<tr><th>① 选你要盯的东西</th><th>② 设好触发条件</th><th>③ 回看发生了什么</th></tr>
-<tr>
-<td width="33%"><img width="250" src="docs/community/images/home.png" alt="首页的三种创建入口"></td>
-<td width="33%"><img width="250" src="docs/community/demos/condition.png" alt="应用中设置读数阈值"></td>
-<td width="33%"><img width="250" src="docs/community/demos/history.png" alt="视频回放中实际产生的本机事件记录"></td>
-</tr>
-</table>
+[下载 23 秒完整片段](https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/numeric.mp4) · [查看触发条件](docs/community/demos/condition.png) · [素材来源与录制方法（英文）](docs/community/demos/SOURCES.md)
 
-## 放下另一台手机，也能收到提醒
+这是 Community 应用通过 Android 模拟器摄像头处理预录视频的实际过程，属于受控回放证据；尚不代表真实手机拍摄现场的表现，也不是准确率、速度或可靠性测量。
 
-| 监控手机 A | 随身手机 B |
-| --- | --- |
-| 创建配对组，显示二维码 | 扫码，开启收信 |
-| 盯住画面，条件满足时发出提醒 | 收到加密文字提醒，查看时间和读数 |
+## 三种方式，选你要盯的东西
 
-两台手机联网就能配对，无需账号或自建服务器。提醒通过免费的公共 ntfy 中转，也可以自行更换；公共服务有额度和可用性限制。[两台手机怎么配](docs/community/PAIRING.md)。
+- **数字读数 · 当前主路线。** 提供画面中的数字和阈值。上方回放产生了一条越界事件，仍需测试自己的屏幕和光线。
+- **目录目标 · 实验功能。** 选择支持的目标，比如“人”。[17 秒行人回放](https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/person.mp4)产生了出现记录，检测的是有人出现，不是身份或人数。
+- **参考图片 · 实验功能。** 提供同一个目标的 3–20 张图片。[12 秒参考图回放](https://github.com/Munable/be-your-eye/raw/refs/heads/main/docs/community/demos/reference.mp4)匹配了绘制的测试图案，一般真实物品的匹配效果仍待验证。
 
-<table>
-<tr><th>A 发出测试提醒</th><th>B 收到同一条提醒</th></tr>
-<tr><td align="center"><img width="250" src="docs/community/images/paired-send.png" alt="发送端应用已发出加密配对测试"></td><td align="center"><img width="250" src="docs/community/images/paired-receive.png" alt="另一台设备的收件箱中出现同一条测试提醒"></td></tr>
-</table>
+文字描述用于搜索有限的签名目录，不是任意一句话都能识别；不支持的目标会明确拒绝。[查看行人动图](docs/community/demos/person.gif)、[参考图动图](docs/community/demos/reference.gif)或[录制结果（英文）](docs/community/demos/SOURCES.md#what-was-recorded)。
 
-<sub>两个独立的 Android 模拟器安装，实际经过公共中转、手机端加密和系统通知。这里验证的是消息送达，摄像头识别演示见上方。[录制说明](docs/community/demos/SOURCES.md#paired-alerts)。</sub>
+## 构建后，先试一个场景
 
-## 试试看
+1. **确认手机条件。** 当前签名模型要求 Android 8+、arm64、8 GB 内存，不依赖 Google Play 服务。详见[设备与网络范围](docs/community/DEVICE_SUPPORT.zh-CN.md)。
+2. **构建并安装 Community 调试版。** 按[构建指南](docs/community/BUILD.zh-CN.md)操作。目前没有公开 APK；未签名的发布构建也不能直接安装。
+3. **固定手机，选择目标。** 首次下载模型前需要确认，数字读数约需 78 MB。校验后的模型可以离线复用；同一时间运行一个监控。
+4. **设好条件，确认一次真实结果。** “测试识别”是可选操作，完整配置不需要先测试成功才能保存。数字监控若仍在等待基准，需要确认基准和条件后才会产生越界事件。先检查本机记录和通知，再判断自己的场景是否适合。
 
-目前是**开源开发预览版**，还没有公开 APK。可以按[构建指南](docs/community/BUILD.md)运行 Community 版。
+[阅读使用说明](USER_MANUAL.zh-CN.md) · [查看创建入口](docs/community/images/home.png) · [查看回放事件记录](docs/community/demos/history.png)
 
-| 准备好 | 使用时记住 |
-| --- | --- |
-| Android 8+、arm64、8 GB 内存 | 固定机位、持续供电，保持应用可见 |
-| 首次下载模型时联网 | 安装并校验过的模型可以离线复用 |
-| 一个可以安全试错的场景 | 先用“测试识别”看看自己的画面是否适合 |
+应用默认跟随系统语言，也可在“关于”中手动选择并保存：英语、简体中文、繁体中文、日语、韩语、西班牙语、法语、德语和巴西葡萄牙语。
 
-<details>
-<summary><b>目前能做什么，哪些还在实验中</b></summary>
+## 让另一台手机收到提醒
 
-数字读数是当前主路线。参考图匹配和目录目标检测仍属实验功能。文字描述用于搜索有限的目标目录，不是任意一句话都能识别。“人”表示画面中有人，不是辨认人脸或确认身份。
+两台手机都安装 Community 应用后，通过二维码或复制的配对码加入同一组。监控端发送加密文字；接收端需要允许通知并主动开启收信。**只有监控端需要识别模型及其 8 GB 内存配置。** 单纯收信不运行视觉模型，接收端真机兼容范围仍待验证。跨手机提醒需要两端联网。
 
-同一时间运行一个监控。应用内的黑屏模式可以继续工作；切到其他应用或锁屏会停止。需要另一台手机提醒时，可用[扫码配对](docs/community/PAIRING.md)。消息先在手机端加密，再经免费公共中转发送；接收手机需主动开启常驻收信。
+<p align="center"><img width="320" src="docs/community/images/paired-receive.png" alt="另一个独立模拟器安装的收件箱中出现已收到的加密测试提醒"></p>
 
-上面的片段展示了应用处理指定回放输入的过程，不代表自然现场准确率、逐帧无漏检、真实手机速度或长时间运行可靠性。真机、自然场景和长时间验收仍然开放，详情见[设备范围](docs/community/DEVICE_SUPPORT.md)和[当前证据](evidence/current/05-release.json)。它是帮助日常查看的早期工具，不是安全报警设备。
+[两台手机怎么配](docs/community/PAIRING.zh-CN.md) · [查看发送端](docs/community/images/paired-send.png) · [录制说明（英文）](docs/community/demos/SOURCES.md#paired-alerts)
 
-</details>
+这里的证据是**两个独立模拟器安装之间的测试提醒**：实际经过公共中转，并出现在接收端收件箱和通知中。“真机相机事件 → 另一台手机通知”的连续演示仍待完成。
 
-<details>
-<summary><b>模型、构建与隐私细节</b></summary>
+提醒默认经过独立的免费公共 ntfy 中转，也可以自行选择兼容的 HTTPS 中转。服务额度、断网和手机省电限制可能导致延迟或丢失。主动开启的收信服务可以在后台运行；监控相机仍要求应用可见。这款预览工具不适合作为安全报警设备。
 
-构建不需要维护者凭据，也不需要部署服务器。[模型就在这个仓库的 Releases](https://github.com/Munable/be-your-eye/releases/tag/models-v1)，下载前显示大小并征求确认。下载一次，校验后在手机上运行；不需要续订或定期续签目录。原始模型、数据来源和许可见[模型说明](docs/community/MODELS.md)。
+## 隐私与开源
 
-识别在本机进行。普通相机帧只留在内存，参考图片和触发图保存在应用私有存储。跨手机提醒只发送加密文字，不传图像。项目不提供服务器、云端 AI、账号或收费服务；可选公共中转的额度与可用性由其运营者决定。
+普通相机帧只在内存处理。参考图片和触发图保存在监控手机的应用私有存储。跨手机提醒**只发送加密文字，不传图片或视频**。中转方能看到连接元数据和密文，拿不到群组密钥。项目不运营后端、云端 AI、账号或收费服务。
 
-应用使用 Kotlin 与 Jetpack Compose，四个模块分别负责界面、领域规则、存储和视觉运行时。开发可从[架构](docs/ARCHITECTURE.md)与 [Community 检查入口](tools/ci/run-community.sh)开始。
+模型下载前会请求确认，使用前会校验；已安装并通过校验的模型可离线复用，不需要定期续签目录。[模型来源与许可（英文）](docs/community/MODELS.md) · [架构（英文）](docs/ARCHITECTURE.md) · [当前证据（英文）](evidence/current/05-release.json)
 
-</details>
+## 从一件具体的小事参与
 
-## 你会把它对准什么？
+- **描述一个真实场景：** 你反复检查什么、关心什么条件、下次什么时候能试。[提交监控场景](https://github.com/Munable/be-your-eye/issues/new?template=task.zh-CN.yml)。
+- **试一台兼容手机：** 记录构建版本、机型、场景、预期和实际结果，包括漏检与误报。[报告可复现的问题](https://github.com/Munable/be-your-eye/issues/new?template=bug.zh-CN.yml)。
+- **检查一种语言：** 看一遍创建流程、条件和通知，指出难懂或显示不全的地方。[参与贡献](CONTRIBUTING.zh-CN.md)。
 
-一块总要走过去看的屏幕，还是一件一直在等它出现的东西？欢迎[告诉我们](https://github.com/Munable/be-your-eye/issues)：你的场景、想等的条件，以及试用时发生了什么。一个能复现的小失败也很有帮助，请不要上传私人照片或凭据。
+请不要在报告中附上私人照片、配对码或凭据。[私下报告安全问题](SECURITY.zh-CN.md)。
 
-[参与贡献](CONTRIBUTING.md) · [私下报告安全问题](SECURITY.md)
-
-第一方代码：[Apache-2.0](LICENSE)。[模型](docs/community/MODELS.md)、[演示素材](docs/community/demos/SOURCES.md)和[第三方依赖](THIRD_PARTY_NOTICES.md)各自遵循原有许可。
+第一方代码：[Apache-2.0](LICENSE)。[模型](docs/community/MODELS.md)、[演示素材](docs/community/demos/SOURCES.md)和[第三方依赖](THIRD_PARTY_NOTICES.md)各自遵循原有许可，详细来源说明为英文。

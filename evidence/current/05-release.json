@@ -412,6 +412,41 @@
         "shared_resources": "source path, other tasks, original footage, shared caches/dependencies, historical candidates and work/website-preview.log preserved",
         "space_note": "Logical removed bytes and observed APFS free-space change are distinct; concurrent system activity can affect the latter. An exact tested APK pair was retained separately before this measurement."
       }
+    },
+    "documentation_review": {
+      "recorded_at": "2026-09-22T10:31:26.846763+00:00",
+      "baseline_source_commit": "252527607322d653ac142bc4345f06ed5c8be723",
+      "scope": "Public entry-point documentation and issue forms only; no Android runtime, model, APK or acceptance-status change",
+      "languages": "English and Simplified Chinese documentation paths for overview, build/install, use, pairing, device scope, contribution and security; app nine-locale resources unchanged",
+      "homepage": "Preview and no-APK status, monitoring hardware/lifecycle limits, main numeric replay, explicit experimental routes, paired-test evidence boundary and concrete contribution links",
+      "validation": {
+        "github_markdown_documents_rendered": 14,
+        "local_links_checked": 120,
+        "issue_forms_parsed": 4,
+        "bilingual_build_commands_match": true,
+        "existing_public_video_and_model_links": "four HTTP 200 responses",
+        "i18n": "passed, nine locales",
+        "existing_i18n_and_repository_policy_tests": "9 passed",
+        "repository_policy": "passed including newly staged documents and forms",
+        "secret_hygiene": "passed",
+        "git_diff_check": "passed",
+        "visual_browser_check": "open; in-app browser control timed out. GitHub Markdown rendering and HTML structure/link checks are not a visual or mobile-browser acceptance test."
+      },
+      "homepage_inline_image_bytes": {
+        "before": 6393056,
+        "after": 2613897,
+        "meaning": "Sum of referenced image file sizes, not measured page transfer bytes or loading time; other existing media remain available through links"
+      },
+      "physical_natural_scene_and_monitor_to_receiver_acceptance": "open; no new device evidence collected",
+      "cleanup": {
+        "removed_task_directory": "work/github-page-review-20260922",
+        "removed_rendered_html_files": 14,
+        "removed_temporary_json_files": 2,
+        "allocated_file_bytes_removed": 122880,
+        "immediate_system_volume_free_delta_bytes": 122880,
+        "note": "Immediate free-space observation is affected by APFS and other activity; not guaranteed recovered space.",
+        "retained": "Reviewed source documentation, existing demo/provenance assets and this summary; original content recoverable from Git. Pre-existing work/website-preview.log, shared dependencies, caches and active processes untouched. No large downloads or builds."
+      }
     }
   },
   "i18n_verification": {
