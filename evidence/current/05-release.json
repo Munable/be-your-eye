@@ -305,8 +305,8 @@
       "working_copy": "original workspace now tracks public origin/main; private-history remote and pre-public branches retained locally"
     },
     "independent_community": {
-      "recorded_at": "2026-09-22T05:11:22.502783+00:00",
-      "status": "source_verified_release_candidate_pending",
+      "recorded_at": "2026-09-22T05:27:09.800856+00:00",
+      "status": "verified_source_and_unsigned_candidate",
       "scope": "local Community only, no maintainer services or cloud AI; optional encrypted paired-phone alerts",
       "previous_signed_apk": "the existing signed_apk and SBOM entries describe the prior 0.3.0 preview, not this change",
       "android_download_test": {
@@ -373,7 +373,45 @@
         "matching_sender_receipt_id": true,
         "receiver_inbox_persisted_after_test_process_exit": true
       },
-      "source_publication_authorized": true
+      "source_publication_authorized": true,
+      "source_commit": "3d056cefbf7da6eaaa5e4c296d969cd826ab976c",
+      "unsigned_candidate": {
+        "source_commit": "3d056cefbf7da6eaaa5e4c296d969cd826ab976c",
+        "application_id": "app.beyoureyes.monitor.community",
+        "version_name": "0.3.1",
+        "version_code": 27,
+        "apk_sha256": "4a6b106e0a6eb36d7eae1310e4ec40ad36bfd301064af481649161a46e9eaac8",
+        "apk_bytes": 35783505,
+        "signed": false,
+        "built_at": "2026-09-22T05:21:33.719039+00:00",
+        "release_quality_ready": false,
+        "public_release_authorized": false
+      },
+      "dependency_inventory": {
+        "android_resolved_components": 177,
+        "catalog_validator_components": 0,
+        "apk_binding": "exact optimized unsigned APK SHA-256",
+        "verification": "passed",
+        "retired_sdk_check": "no Firebase, GMS, billing, Supabase or Ktor client; ZXing present",
+        "osv": "OSV Scanner 2.5.1 completed against the final inventories with no reported known vulnerabilities; this is not a complete security audit"
+      },
+      "physical_installation": {
+        "status": "not_accepted",
+        "reason": "manual phone installation confirmation was not completed",
+        "cleanup": "exact task install session abandoned; original internal app restored; unrelated installs, data and settings preserved"
+      },
+      "cleanup": {
+        "removed_files": 79,
+        "removed_bytes_logical": 57040354,
+        "external_free_bytes_before": 843042349056,
+        "external_free_bytes_after": 843099475968,
+        "observed_free_bytes_change": 57126912,
+        "scope": "obsolete unoptimized candidate, unused camera input, duplicate screenshots, temporary provider-source inspections and one-off scripts; only task-created files removed",
+        "retained": "exact tested debug APK/test APK, final optimized unsigned candidate and SBOM/OSV output, signed model metadata/source/license records and shared model hardlinks, necessary test/failure/retirement evidence; unique recovery archive under Archives/be-your-eyes/service-retirement-2026-09-22",
+        "emulators": "task pairing fixtures removed; display overrides restored; both emulators closed gracefully",
+        "shared_resources": "source path, other tasks, original footage, shared caches/dependencies, historical candidates and work/website-preview.log preserved",
+        "space_note": "Logical removed bytes and observed APFS free-space change are distinct; concurrent system activity can affect the latter. An exact tested APK pair was retained separately before this measurement."
+      }
     }
   },
   "i18n_verification": {
