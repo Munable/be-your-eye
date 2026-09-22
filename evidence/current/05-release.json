@@ -447,7 +447,7 @@
         "note": "Immediate free-space observation is affected by APFS and other activity; not guaranteed recovered space.",
         "retained": "Reviewed source documentation, existing demo/provenance assets and this summary; original content recoverable from Git. Pre-existing work/website-preview.log, shared dependencies, caches and active processes untouched. No large downloads or builds."
       },
-      "homepage_iteration_status": "The initial homepage layout and its media reduction below are superseded by homepage_revision. Bilingual guide changes remain in place.",
+      "homepage_iteration_status": "Previous homepage iterations are superseded by homepage_marketing_revision. Bilingual guide changes remain in place.",
       "homepage_revision": {
         "recorded_at": "2026-09-22T10:39:05.104902+00:00",
         "replaces_readme_commit": "c85327c",
@@ -485,6 +485,124 @@
           "allocated_file_bytes_removed": 20480,
           "immediate_system_volume_free_delta_bytes": 16384,
           "note": "Immediate APFS observation may include concurrent activity. Existing demos, source, unrelated work and dependencies retained; source history is the recovery copy."
+        }
+      },
+      "homepage_marketing_revision": {
+        "recorded_at": "2026-09-22T11:18:41.682000+00:00",
+        "scope": "README presentation and translations, plus the public repository description. No app, model or acceptance-gate change.",
+        "reference_readmes": [
+          "https://github.com/dyad-sh/dyad",
+          "https://github.com/browser-use/browser-use",
+          "https://github.com/upstash/context7",
+          "https://github.com/anomalyco/opencode"
+        ],
+        "presentation": "English default; nine native-language links on every README; numeric replay as the main demonstration with its actual threshold and event; secondary scenarios, setup screenshots, paired test alerts and source-build entry point. Original copy and existing project media.",
+        "locales": [
+          "en",
+          "zh-Hans",
+          "zh-Hant",
+          "ja",
+          "ko",
+          "es",
+          "fr",
+          "de",
+          "pt-BR"
+        ],
+        "translation_scope": "All nine overview pages have matching content and localized image descriptions. English and Simplified Chinese detailed guides remain available; other overviews explicitly identify linked guides as English.",
+        "media": {
+          "gifs": 3,
+          "screenshots": 5,
+          "files_modified": false
+        },
+        "validation": {
+          "github_markdown_documents_rendered": 9,
+          "language_links_checked": 72,
+          "local_links_and_image_references_checked": 324,
+          "in_page_links_checked": 27,
+          "badges_and_videos": "six HTTP 200 responses",
+          "existing_i18n_contract_tests": "4 passed; nine-locale policy passed",
+          "existing_repository_policy_tests": "4 passed; repository policy passed",
+          "secret_hygiene": "passed",
+          "git_diff_check": "passed",
+          "public_page": "HTTP 200 from the live repository page; English headline and all eight language destinations present",
+          "visual_browser": "open: IAB inventory and Chrome tab creation timed out. API rendering and live HTML checks do not establish screenshot, narrow-screen or playback acceptance."
+        },
+        "publication": {
+          "readme_commit": "2b3c00a92331942f929fcf743db8dede21ca8174",
+          "default_readme": "README.md",
+          "default_branch": "main",
+          "description": "Turn a spare Android phone into a visual monitor. On-device recognition, local event history, and optional encrypted text alerts. No account or subscription.",
+          "published_pages": [
+            {
+              "file": "README.de.md",
+              "blob_sha": "2f9b37ced440967a6e61800163d67880547dcc9b",
+              "matches_local": true
+            },
+            {
+              "file": "README.es.md",
+              "blob_sha": "f86c5e2961aad7ae6cc7d2887f01001481aabdfb",
+              "matches_local": true
+            },
+            {
+              "file": "README.fr.md",
+              "blob_sha": "37af832d75d49c1585fbe1906197096d68ee28bc",
+              "matches_local": true
+            },
+            {
+              "file": "README.ja.md",
+              "blob_sha": "b19802426683a29666ac2ffb150f2bf1af7d6aaf",
+              "matches_local": true
+            },
+            {
+              "file": "README.ko.md",
+              "blob_sha": "321773924ea4d48dd34d7d84180023acb863b060",
+              "matches_local": true
+            },
+            {
+              "file": "README.md",
+              "blob_sha": "de3856eee7ff6385b06a03b9e0182aff7a4831f1",
+              "matches_local": true
+            },
+            {
+              "file": "README.pt-BR.md",
+              "blob_sha": "74ede63e1685763fcd57fb8f76d579ce7e7bc83a",
+              "matches_local": true
+            },
+            {
+              "file": "README.zh-CN.md",
+              "blob_sha": "58efe68a3f23b4330e165ca769302c7b481f548f",
+              "matches_local": true
+            },
+            {
+              "file": "README.zh-Hant.md",
+              "blob_sha": "32ccdf71a85bc4459b6c592b3edb6071864db6c9",
+              "matches_local": true
+            }
+          ],
+          "public_readme_html": "English headline, eight language links and all eight app media references present"
+        },
+        "product_gates": "Unchanged: no public APK; physical-device accuracy, natural-scene recognition, sustained reliability and monitor-to-physical-receiver acceptance remain open.",
+        "cleanup": {
+          "removed_task_directory": "work/github-homepage-20260922",
+          "removed_files": [
+            "README.de.md.html",
+            "README.es.md.html",
+            "README.fr.md.html",
+            "README.ja.md.html",
+            "README.ko.md.html",
+            "README.md.html",
+            "README.pt-BR.md.html",
+            "README.zh-CN.md.html",
+            "README.zh-Hant.md.html",
+            "build_readmes.py",
+            "publication.json",
+            "published-readme.html",
+            "validation.json"
+          ],
+          "logical_file_bytes_removed": 145626,
+          "allocated_file_bytes_removed": 184320,
+          "immediate_system_volume_free_delta_bytes": 180224,
+          "note": "Immediate APFS free-space delta may include concurrent activity. No large download, installation or build was created. Source history is the recovery copy. Existing media, provenance, dependencies, processes and work/website-preview.log retained."
         }
       }
     }
