@@ -14,6 +14,12 @@ Kamera ausrichten. Bedingung festlegen. Bei Erfüllung eine Meldung erhalten.
 
 </div>
 
+## Die Kamera stellt die Verbindung her
+
+Gib Alltagsgeräten die Möglichkeit, dich zu benachrichtigen. Richte ein kompatibles, ungenutztes Smartphone auf eine Anzeige, lege eine Bedingung für den Messwert fest und mache eine sichtbare Änderung zum Ereignis – ohne das beobachtete Gerät umzubauen. Erkennung und Verlauf bleiben auf dem Smartphone.
+
+[Die Produktidee und ihre Gestaltungsentscheidungen (Englisch und vereinfachtes Chinesisch)](docs/PRODUCT_POSITIONING.md).
+
 Die verlinkten ausführlichen Anleitungen sind auf Englisch.
 
 <a name="demo"></a>

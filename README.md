@@ -14,6 +14,12 @@ Point the camera. Set a condition. Get an alert when it happens.
 
 </div>
 
+## The camera is the connection
+
+Give ordinary objects a way to notify you. Put a compatible spare phone in front of a display, set a reading condition, and turn a visible change into an event—without modifying the device being watched. Recognition and history stay on the phone.
+
+[The product idea and the choices behind it](docs/PRODUCT_POSITIONING.md#english).
+
 <a name="demo"></a>
 
 ## Stop checking the display. Let your phone watch it.

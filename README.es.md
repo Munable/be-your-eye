@@ -14,6 +14,12 @@ Apunta la cámara. Define una condición. Recibe un aviso cuando se cumpla.
 
 </div>
 
+## La cámara es la conexión
+
+Dale a un objeto cotidiano una forma de avisarte. Coloca un teléfono compatible que ya no uses frente a una pantalla, define una condición de lectura y convierte un cambio visible en un evento, sin modificar el dispositivo observado. El reconocimiento y el historial se quedan en el teléfono.
+
+[La idea del producto y sus decisiones de diseño (inglés y chino simplificado)](docs/PRODUCT_POSITIONING.md).
+
 Las guías detalladas enlazadas están en inglés.
 
 <a name="demo"></a>

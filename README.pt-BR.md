@@ -14,6 +14,12 @@ Aponte a câmera. Defina uma condição. Receba um alerta quando ela acontecer.
 
 </div>
 
+## A câmera faz a conexão
+
+Dê aos objetos do dia a dia uma forma de avisar você. Coloque um celular compatível que não esteja em uso diante de um visor, defina uma condição para a leitura e transforme uma mudança visível em um evento, sem modificar o aparelho observado. O reconhecimento e o histórico ficam no celular.
+
+[A ideia do produto e suas escolhas de projeto (inglês e chinês simplificado)](docs/PRODUCT_POSITIONING.md).
+
 Os guias detalhados nos links estão em inglês.
 
 <a name="demo"></a>

@@ -14,6 +14,12 @@ Orientez la caméra. Définissez une condition. Recevez une alerte quand elle es
 
 </div>
 
+## La caméra fait le lien
+
+Donnez aux objets du quotidien un moyen de vous prévenir. Placez un téléphone compatible inutilisé devant un afficheur, définissez une condition sur la valeur lue et transformez un changement visible en événement, sans modifier l'appareil observé. La reconnaissance et l'historique restent sur le téléphone.
+
+[L'idée du produit et ses choix de conception (anglais et chinois simplifié)](docs/PRODUCT_POSITIONING.md).
+
 Les guides détaillés accessibles par les liens sont en anglais.
 
 <a name="demo"></a>
