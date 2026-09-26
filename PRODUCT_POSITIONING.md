@@ -1,8 +1,8 @@
 # Be Your Eye — product positioning
 
 Reviewed against the Community source and public README at `f32b538` on
-2026-09-24. This is a product and writing reference. [Product scope](PRODUCT.md),
-[architecture](ARCHITECTURE.md) and [release evidence](../evidence/current/05-release.json)
+2026-09-24. This is a product and writing reference. [Product scope](docs/PRODUCT.md),
+[architecture](docs/ARCHITECTURE.md) and [release evidence](evidence/current/05-release.json)
 remain the authorities for behavior and readiness.
 
 ## English
@@ -62,17 +62,17 @@ available.
   power-supply display, trigger above `8` for one second, record `08.8` and show
   a local notification. Camera input is controlled replay on an emulator. It
   demonstrates the loop; it does not measure physical-device accuracy.
-  See [demo sources and results](community/demos/SOURCES.md).
+  See [demo sources and results](docs/community/demos/SOURCES.md).
 - The camera → observation → rule → event path exists in
-  [`MonitoringSession`](../android/app/src/main/java/app/beyoureyes/monitor/service/monitoring/MonitoringSession.kt)
-  and [`GenericObservationRuleEngine`](../android/core/domain/src/main/java/app/beyoureyes/core/domain/GenericObservationRuleEngine.kt).
+  [`MonitoringSession`](android/app/src/main/java/app/beyoureyes/monitor/service/monitoring/MonitoringSession.kt)
+  and [`GenericObservationRuleEngine`](android/core/domain/src/main/java/app/beyoureyes/core/domain/GenericObservationRuleEngine.kt).
   Optional text delivery is implemented in
-  [`PeerAlertSender`](../android/app/src/main/java/app/beyoureyes/monitor/feature/peers/PeerAlertSender.kt).
-- [Product scope](PRODUCT.md) and [architecture](ARCHITECTURE.md) define local
+  [`PeerAlertSender`](android/app/src/main/java/app/beyoureyes/monitor/feature/peers/PeerAlertSender.kt).
+- [Product scope](docs/PRODUCT.md) and [architecture](docs/ARCHITECTURE.md) define local
   recognition, private images, no project-operated backend and offline reuse
   after model download. Paired alerts are optional network traffic, so do not
   describe the entire app as never using the internet.
-- [Device support](community/DEVICE_SUPPORT.md) currently requires Android 8+,
+- [Device support](docs/community/DEVICE_SUPPORT.md) currently requires Android 8+,
   arm64 and 8 GB RAM for recognition. Say “compatible spare phone”; do not claim
   every old phone can run it or promise lower power use without measurements.
 - The public entry point is a developer source preview. Numeric reading is the
